@@ -1,13 +1,10 @@
 package project.persistence.product;
 
-import project.exceptions.UserNotFoundException;
-import project.models.UserModel;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Objects;
 
-public interface UserDAO {
-    UserModel getByUsername(String username) throws UserNotFoundException;
-
-    void delete(String username);
-
-    void update(UserModel user);
+public abstract class UserDAO {
+    public abstract ArrayList<Object> getByMail(String mail);
 
 }
