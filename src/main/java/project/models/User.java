@@ -1,31 +1,32 @@
 
 package project.models;
 
-public class UserModel {
-    private String username;
+public class User {
+
+    private Integer id;
     private String password;
     private String email;
     private String name;
-    private String surname;
+    private String firstname;
     private String address;
     private String phone;
 
-    public UserModel(String username, String password, String email, String name, String surname, String address, String phone) {
-        this.username = username;
+    public User(Integer id, String password, String email, String name, String firstname, String address, String phone) {
+        this.id = id;
         this.password = password;
         this.email = email;
         this.name = name;
-        this.surname = surname;
+        this.firstname = firstname;
         this.address = address;
         this.phone = phone;
     }
 
-    public String getUsername() {
-        return username;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(Integer id) {
+        this.id = id;
     }
 
     public String getPassword() {
@@ -52,12 +53,12 @@ public class UserModel {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getAddress() {

@@ -9,8 +9,8 @@ class PostGresUserDAOTest {
 
     @Test
     void getByMail() {
-        PostGresDAOFactory postGresDAOFactory = PostGresDAOFactory.getInstance();
-        UserDAO postGresUserDAO = postGresDAOFactory.createUserDAO();
+        /*PostGresDAOFactory postGresDAOFactory = PostGresDAOFactory.getInstance();
+        UserDAO postGresUserDAO = postGresDAOFactory.getUserDAO();
 
         ArrayList<Object> userToCompare = new ArrayList<>();
         userToCompare.add(1);
@@ -21,7 +21,7 @@ class PostGresUserDAOTest {
         userToCompare.add("Dans la jungle");
         userToCompare.add("momo");
         ArrayList<Object> user = postGresUserDAO.getByMail("momo@gmail.com");
-        System.out.println(user);
+        System.out.println(user);*/
 
     }
 }

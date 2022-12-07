@@ -9,10 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
-import project.business.facade.SessionFacade;
-import project.presentation.Action;
+import project.business.facade.UserFacade;
+import project.models.User;
 
-public class LoginController implements Action {
+public class LoginController {
 
     @FXML
     private TextField emailIdField;
@@ -40,8 +40,13 @@ public class LoginController implements Action {
         String emailId = emailIdField.getText();
         String password = passwordField.getText();
 
-        SessionFacade sessionFacade = new SessionFacade(this);
-        sessionFacade.login(emailId, password);
+        UserFacade userFacade = UserFacade.getInstance();
+        User user = userFacade.login(emailId, password);
+        if (user != null) {
+            infoBox("Login Successful!", null, "Success");
+        } else {
+            infoBox("Login Failed!", null, "Failed");
+        }
     }
 
     public static void infoBox(String infoMessage, String headerText, String title) {
@@ -59,15 +64,6 @@ public class LoginController implements Action {
         alert.setContentText(message);
         alert.initOwner(owner);
         alert.show();
-    }
-
-    @Override
-    public void display(String message) {
-        if (message.equals("Success")) {
-            infoBox("Login Successful!", null, "Success");
-        } else {
-            infoBox("Login Failed!", null, "Failed");
-        }
     }
 
 }

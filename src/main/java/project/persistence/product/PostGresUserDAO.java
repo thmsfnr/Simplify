@@ -2,18 +2,43 @@
 package project.persistence.product;
 
 import java.sql.*;
-import java.util.ArrayList;
+import project.models.User;
+import project.persistence.factory.PostGresDAOFactory;
 
 public class PostGresUserDAO extends UserDAO{
     @Override
-    public ArrayList<Object> getByMail(String mail) {
-        Connection connection = null;
-        ArrayList<Object> resultatRequete = new ArrayList<>();
-        String query = "SELECT * FROM \"public\".\"User\" WHERE \"mail\" = ?;";
-        try {
-            connection = DriverManager.getConnection("jdbc:postgresql://postgresql-simplify.alwaysdata.net/simplify_bd","simplify","*mogsu52fA*");
-            connection.isValid(2);
+    public User getByEmail(String email) {
+        Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
+        if(connection != null) {
+            try {
+                String query = "SELECT * FROM \"public\".\"User\" WHERE \"email\" = ?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, email);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if(resultSet.next()) {
+                    User user = new User(
+                            resultSet.getInt("id"),
+                            resultSet.getString("password"),
+                            resultSet.getString("email"),
+                            resultSet.getString("name"),
+                            resultSet.getString("firstname"),
+                            resultSet.getString("address"),
+                            resultSet.getString("phone")
+                    );
+                    resultSet.close();
+                    preparedStatement.close();
+                    return user;
+                }
 
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+
+
+        /*
+        try {
             //------------------PreparedStatement-------------------
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1,mail);
@@ -44,6 +69,8 @@ public class PostGresUserDAO extends UserDAO{
                 System.out.println(e.getMessage());
                 throw new RuntimeException(e);
             }
-        }
+        }*/
+
+
     }
 }
