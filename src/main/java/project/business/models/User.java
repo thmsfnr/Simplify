@@ -1,5 +1,5 @@
 
-package project.models;
+package project.business.models;
 
 public class User {
 

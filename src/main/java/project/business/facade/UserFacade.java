@@ -1,7 +1,7 @@
 package project.business.facade;
 
 
-import project.models.User;
+import project.business.models.User;
 import project.persistence.factory.AbstractDAOFactory;
 import project.persistence.product.UserDAO;
 import project.utilities.PasswordCrypt;

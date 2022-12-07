@@ -10,7 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
 import project.business.facade.UserFacade;
-import project.models.User;
+import project.business.models.User;
 
 public class LoginController {
 

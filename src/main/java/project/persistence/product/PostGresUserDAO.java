@@ -2,7 +2,7 @@
 package project.persistence.product;
 
 import java.sql.*;
-import project.models.User;
+import project.business.models.User;
 import project.persistence.factory.PostGresDAOFactory;
 
 public class PostGresUserDAO extends UserDAO{
