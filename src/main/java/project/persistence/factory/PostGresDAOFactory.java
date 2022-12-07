@@ -3,18 +3,17 @@ package project.persistence.factory;
 
 import project.persistence.product.PostGresUserDAO;
 import project.persistence.product.UserDAO;
+import project.utilities.ConnectionPostgres;
 
-public class PostGresDAOFactory implements AbstractFactory {
-    private PostGresDAOFactory() {}
-    private static class LazyHolder {
-        static final PostGresDAOFactory INSTANCE = new PostGresDAOFactory();
-    }
-    public static PostGresDAOFactory getInstance() {
-        return LazyHolder.INSTANCE;
-    }
+public class PostGresDAOFactory extends AbstractDAOFactory {
+
+    public static ConnectionPostgres connectionPostgres = new ConnectionPostgres();
+
+    public PostGresDAOFactory() { }
+
 
     @Override
-    public UserDAO createUserDAO() {
+    public UserDAO getUserDAO() {
         return new PostGresUserDAO();
     }
 

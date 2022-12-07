@@ -1,8 +1,10 @@
 
 package project.persistence.product;
 
+import project.models.User;
+
 import java.util.ArrayList;
 public abstract class UserDAO {
-    public abstract ArrayList<Object> getByMail(String mail);
+    public abstract User getByEmail(String email);
 
 }
