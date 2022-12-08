@@ -34,7 +34,7 @@ public class LoginController {
      */
     @FXML
     public void login(ActionEvent event) {
-
+        // Get the window of the submit button
         Window owner = submitButton.getScene().getWindow();
 
         // if the email field is empty show an alert
