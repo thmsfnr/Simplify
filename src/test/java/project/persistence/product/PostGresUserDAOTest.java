@@ -1,8 +1,10 @@
 package project.persistence.product;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import project.business.models.User;
+import project.exceptions.UserNotFoundException;
 import project.persistence.factory.AbstractDAOFactory;
 import project.persistence.factory.PostGresDAOFactory;
 
@@ -27,7 +29,12 @@ class PostGresUserDAOTest {
     void getByEmail_User_Found(){
         AbstractDAOFactory factory = PostGresDAOFactory.getInstance();
         UserDAO userDAO = factory.getUserDAO();
-        User user = userDAO.getByEmail("momo@gmail.com");
+        User user = null;
+        try {
+            user = userDAO.getByEmail("momo@gmail.com");
+        } catch (UserNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         assertNotNull(user);
         assertEquals(user.getId(),1);
         assertEquals(user.getEmail(),"momo@gmail.com");
@@ -37,7 +44,10 @@ class PostGresUserDAOTest {
     void getByEmail_User_No_Found(){
         AbstractDAOFactory factory = PostGresDAOFactory.getInstance();
         UserDAO userDAO = factory.getUserDAO();
-        User user = userDAO.getByEmail("toto@gmail.com");
-        assertNull(user);
+
+        UserNotFoundException userNotFoundException = assertThrows(UserNotFoundException.class,() -> {
+            userDAO.getByEmail("toto");
+        });
+        assertEquals("User not found", userNotFoundException.getMessage());
     }
 }
