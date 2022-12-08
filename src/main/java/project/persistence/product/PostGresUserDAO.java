@@ -55,42 +55,5 @@ public class PostGresUserDAO extends UserDAO{
             }
         }
         return null;
-
-
-        /*
-        try {
-            //------------------PreparedStatement-------------------
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1,mail);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
-                // lecture du type de notre colonne
-                resultatRequete.add(resultSet.getInt(1)); // id
-                resultatRequete.add(resultSet.getString(2)); // name
-                resultatRequete.add(resultSet.getString(3)); // first_name
-                resultatRequete.add(resultSet.getString(4)); // mail
-                resultatRequete.add(resultSet.getString(5)); // phone_number
-                resultatRequete.add(resultSet.getString(6)); // address
-                resultatRequete.add(resultSet.getString(7)); // login
-            }
-            resultSet.close();
-            preparedStatement.close();
-            return resultatRequete;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e);
-        }
-        finally {
-            try {
-                if(connection!=null){
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-                throw new RuntimeException(e);
-            }
-        }*/
-
-
     }
 }

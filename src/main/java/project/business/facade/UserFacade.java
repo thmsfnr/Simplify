@@ -3,6 +3,7 @@ package project.business.facade;
 // Import the classes from the project.business.models package
 import project.business.models.User;
 import project.persistence.factory.AbstractDAOFactory;
+import project.persistence.factory.PostGresDAOFactory;
 import project.persistence.product.UserDAO;
 import project.utilities.PasswordCrypt;
 
@@ -26,7 +27,7 @@ public class UserFacade {
      */
     private UserFacade() {
         // Get the DAO
-        AbstractDAOFactory factory = AbstractDAOFactory.getInstance();
+        AbstractDAOFactory factory = PostGresDAOFactory.getInstance();
         // Get the UserDAO
         this.userDAO = factory.getUserDAO();
         // Get the PasswordCrypt

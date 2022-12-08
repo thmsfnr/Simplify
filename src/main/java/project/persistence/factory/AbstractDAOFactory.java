@@ -2,6 +2,7 @@ package project.persistence.factory;
 
 import project.persistence.product.UserDAO;
 
+
 /**
  * Created by Simplify members on 07/12/22.
  * This class is the abstract factory of the DAO
@@ -31,6 +32,7 @@ public abstract class AbstractDAOFactory {
      * To create an instance of the class only when it is needed
      */
     private static class LazyHolder {
+
         static final PostGresDAOFactory INSTANCE = new PostGresDAOFactory();
     }
 }
