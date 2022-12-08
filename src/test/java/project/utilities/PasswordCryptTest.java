@@ -1,6 +1,9 @@
 package project.utilities;
 
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 /**
  * Created by Simplify members on 07/12/22.
  * This is the test class of the crypt of the password
@@ -14,7 +17,7 @@ public class PasswordCryptTest {
      * This method is used to test the crypt of the password of the user
      * Using the BCrypt library
      */
-/*
+
     @Test
     void CryptPassword() {
         PasswordCrypt passwordCrypt = new PasswordCrypt();
@@ -22,12 +25,12 @@ public class PasswordCryptTest {
         String hash = passwordCrypt.cryptPassword(password);
         Assertions.assertFalse(password.equals(hash));
     }
-*/
+
     /**
      * This method is used to test the compare of the password of the user
      * Using the BCrypt library
      */
-    /*
+
     @Test
     void Compare() {
         PasswordCrypt passwordCrypt = new PasswordCrypt();
@@ -36,5 +39,5 @@ public class PasswordCryptTest {
         Assertions.assertTrue(passwordCrypt.compare(password, hash));
         Assertions.assertFalse(passwordCrypt.compare("wrongPassword", hash));
     }
-    */
+
 }
