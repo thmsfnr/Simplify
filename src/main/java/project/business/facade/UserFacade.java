@@ -2,6 +2,7 @@ package project.business.facade;
 
 // Import the classes from the project.business.models package
 import project.business.models.User;
+import project.exceptions.UserNotFoundException;
 import project.persistence.factory.AbstractDAOFactory;
 import project.persistence.product.UserDAO;
 import project.utilities.PasswordCrypt;
@@ -41,16 +42,19 @@ public class UserFacade {
      * @return the user if the login is successful, null otherwise
      */
     public User login(String email, String password) {
-        // Get the user from the database
-        User user = this.userDAO.getByEmail(email);
-        // If the object user returned is not null ( user do not existe in the database)
-        // and the password is correct return the user
-        if(user != null) {
+        try {
+            // Get the user from the database
+            User user = this.userDAO.getByEmail(email);
+            // If the object user returned is not null ( user does not exist in the database)
+            // and the password is correct return the user
             if (this.encoder.compare(password, user.getPassword())) {
                 return user;
             }
+            return null;
         }
-        return null;
+        catch(UserNotFoundException e) {
+            return null;
+        }
     }
 
     /**
@@ -59,7 +63,13 @@ public class UserFacade {
      * @return the informations of the user if the user exists, null otherwise
      */
     public User getInformationsByEmail(String email) {
-        return this.userDAO.getByEmail(email);
+        try {
+            // Get the user from the database
+            return this.userDAO.getByEmail(email);
+        }
+        catch(UserNotFoundException e) {
+            return null;
+        }
     }
 
     /**
