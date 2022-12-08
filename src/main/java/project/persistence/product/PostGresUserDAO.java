@@ -56,6 +56,5 @@ public class PostGresUserDAO extends UserDAO{
             }
         }
         throw new UserNotFoundException();
-
     }
 }
