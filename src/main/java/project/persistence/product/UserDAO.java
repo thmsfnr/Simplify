@@ -2,6 +2,7 @@
 package project.persistence.product;
 
 import project.business.models.User;
+import project.exceptions.UserNotFoundException;
 
 /**
  * Created by Simplify members on 07/12/22.
@@ -15,6 +16,6 @@ public abstract class UserDAO {
      * @param email the email of the user
      * @return the user
      */
-    public abstract User getByEmail(String email);
+    public abstract User getByEmail(String email) throws UserNotFoundException;
 
 }

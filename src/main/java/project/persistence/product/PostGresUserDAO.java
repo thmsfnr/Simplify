@@ -3,6 +3,7 @@ package project.persistence.product;
 
 import java.sql.*;
 import project.business.models.User;
+import project.exceptions.UserNotFoundException;
 import project.persistence.factory.PostGresDAOFactory;
 
 /**
@@ -20,7 +21,7 @@ public class PostGresUserDAO extends UserDAO{
      * @return the user if he is found in the database, null otherwise
      */
     @Override
-    public User getByEmail(String email) {
+    public User getByEmail(String email) throws UserNotFoundException {
         // Get the connection to the database
         Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
 
@@ -54,6 +55,6 @@ public class PostGresUserDAO extends UserDAO{
                 e.printStackTrace();
             }
         }
-        return null;
+        throw new UserNotFoundException();
     }
 }
