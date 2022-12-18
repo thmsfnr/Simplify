@@ -1,0 +1,37 @@
+@startuml
+MealFrame -> MealFrame : launch()
+activate MealFrame
+
+MealFrame -> MealController: pressed(event)
+activate MealController
+
+MealController -> MealFacade: getById(int idMeal)
+activate MealFacade
+
+MealFacade -> PostGresMealDAO : getById(int idMeal)
+activate PostGresMealDAO
+
+PostGresMealDAO -> ConnectionPostGres : getConnection()
+activate ConnectionPostGres
+ConnectionPostGres --> PostGresMealDAO : return Connection
+deactivate ConnectionPostGres
+PostGresMealDAO --> MealFacade : return Meal
+
+
+alt #LightBlue meal != null
+
+    MealFacade --> MealController: return Meal
+
+else #Pink Else
+
+    MealFacade --> MealController: return null
+end
+
+
+deactivate PostGresMealDAO
+deactivate MealFacade
+deactivate MealController
+deactivate MealFrame
+
+
+@enduml

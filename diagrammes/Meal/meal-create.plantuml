@@ -1,0 +1,27 @@
+@startuml
+MealFrame -> MealFrame : launch()
+activate MealFrame
+
+MealFrame -> MealController: pressed(event)
+activate MealController
+
+MealController -> MealFacade: create(Meal meal)
+activate MealFacade
+
+MealFacade -> PostGresMealDAO : create(Meal meal)
+activate PostGresMealDAO
+
+PostGresMealDAO -> ConnectionPostGres : getConnection()
+activate ConnectionPostGres
+ConnectionPostGres --> PostGresMealDAO : return Connection
+deactivate ConnectionPostGres
+PostGresMealDAO --> MealFacade : return Boolean
+deactivate PostGresMealDAO
+deactivate MealFacade
+
+MealFacade --> MealController : return Boolean
+deactivate MealController
+deactivate MealFrame
+
+
+@enduml
