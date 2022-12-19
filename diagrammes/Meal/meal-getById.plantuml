@@ -2,7 +2,7 @@
 MealFrame -> MealFrame : launch()
 activate MealFrame
 
-MealFrame -> MealController: pressed(event)
+MealFrame -> MealController: getById(ActionEvent event)
 activate MealController
 
 MealController -> MealFacade: getById(int idMeal)

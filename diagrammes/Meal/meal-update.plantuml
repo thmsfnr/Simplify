@@ -2,13 +2,13 @@
 MealFrame -> MealFrame : launch()
 activate MealFrame
 
-MealFrame -> MealController: pressed(event)
+MealFrame -> MealController: update(ActionEvent event)
 activate MealController
 
-MealController -> MealFacade: update(int idMeal)
+MealController -> MealFacade: update(Meal meal)
 activate MealFacade
 
-MealFacade -> PostGresMealDAO : update(int idMeal)
+MealFacade -> PostGresMealDAO : update(Meal meal)
 activate PostGresMealDAO
 
 PostGresMealDAO -> ConnectionPostGres : getConnection()
