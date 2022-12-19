@@ -1,0 +1,28 @@
+
+@startuml signin
+
+SigninFrame -> SigninFrame : launch()
+activate SigninFrame
+
+SigninFrame -> SigninController: pressed(event)
+activate SigninController
+
+SigninController -> UserFacade: create(User user)
+activate UserFacade
+
+UserFacade -> PostGresUserDAO : create(User user)
+activate PostGresUserDAO
+
+PostGresUserDAO -> ConnectionPostGres : getConnection()
+activate ConnectionPostGres
+ConnectionPostGres --> PostGresUserDAO : return Connection
+deactivate ConnectionPostGres
+PostGresUserDAO --> UserFacade : return Boolean
+deactivate PostGresUserDAO
+deactivate UserFacade
+
+UserFacade --> SigninController : return Boolean
+deactivate SigninController
+deactivate SigninFrame
+
+@enduml

@@ -1,0 +1,28 @@
+
+@startuml create
+
+UserFrame -> UserFrame : launch()
+activate UserFrame
+
+UserFrame -> UserController: create(event)
+activate UserController
+
+UserController -> UserFacade: create(User user)
+activate UserFacade
+
+UserFacade -> PostGresUserDAO : create(User user)
+activate PostGresUserDAO
+
+PostGresUserDAO -> ConnectionPostGres : getConnection()
+activate ConnectionPostGres
+ConnectionPostGres --> PostGresUserDAO : return Connection
+deactivate ConnectionPostGres
+PostGresUserDAO --> UserFacade : return Boolean
+deactivate PostGresUserDAO
+deactivate UserFacade
+
+UserFacade --> UserController : return Boolean
+deactivate UserController
+deactivate UserFrame
+
+@enduml

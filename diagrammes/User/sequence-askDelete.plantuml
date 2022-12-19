@@ -1,0 +1,28 @@
+
+@startuml askDelete
+
+UserFrame -> UserFrame : launch()
+activate UserFrame
+
+UserFrame -> UserController: askDelete(event)
+activate UserController
+
+UserController -> UserFacade: update(User user)
+activate UserFacade
+
+UserFacade -> PostGresUserDAO : update(User user)
+activate PostGresUserDAO
+
+PostGresUserDAO -> ConnectionPostGres : getConnection()
+activate ConnectionPostGres
+ConnectionPostGres --> PostGresUserDAO : return Connection
+deactivate ConnectionPostGres
+PostGresUserDAO --> UserFacade : return Boolean
+deactivate PostGresUserDAO
+deactivate UserFacade
+
+UserFacade --> UserController : return Boolean
+deactivate UserController
+deactivate UserFrame
+
+@enduml
