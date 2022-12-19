@@ -1,0 +1,28 @@
+
+@startuml consultAll
+
+UserFrame -> UserFrame : launch()
+activate UserFrame
+
+UserFrame -> UserController: consultAll(event)
+activate UserController
+
+UserController -> UserFacade: getAllUser()
+activate UserFacade
+
+UserFacade -> PostGresUserDAO : getAll()
+activate PostGresUserDAO
+
+PostGresUserDAO -> ConnectionPostGres : getConnection()
+activate ConnectionPostGres
+ConnectionPostGres --> PostGresUserDAO : return Connection
+deactivate ConnectionPostGres
+PostGresUserDAO --> UserFacade : return List<User>
+deactivate PostGresUserDAO
+deactivate UserFacade
+
+UserFacade --> UserController : return List<User>
+deactivate UserController
+deactivate UserFrame
+
+@enduml
