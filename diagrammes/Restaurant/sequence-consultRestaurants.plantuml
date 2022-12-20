@@ -1,0 +1,30 @@
+@startuml consulter-restaurants
+
+RestaurantListFrame -> RestaurantListFrame : launch()
+activate RestaurantListFrame
+
+RestaurantListFrame -> RestaurantListController : askListOfRestaurants(event)
+activate RestaurantListController
+
+RestaurantListController -> RestaurantFacade : getAllRestaurants()
+activate RestaurantFacade
+
+RestaurantFacade -> PostGresRestaurantDAO : getAllRestaurants()
+activate PostGresRestaurantDAO
+
+PostGresRestaurantDAO -> ConnectionPostGres : getConnection()
+activate ConnectionPostGres
+
+ConnectionPostGres --> PostGresRestaurantDAO : Connection
+deactivate ConnectionPostGres
+
+PostGresRestaurantDAO --> RestaurantFacade : return List<Restaurants>
+deactivate PostGresRestaurantDAO
+
+
+RestaurantFacade --> RestaurantListController : return List<Restaurants>
+deactivate RestaurantFacade
+
+deactivate RestaurantListController
+deactivate RestaurantListFrame
+@enduml
