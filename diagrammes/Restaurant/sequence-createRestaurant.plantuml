@@ -1,0 +1,30 @@
+@startuml createRestaurant
+
+RestaurantFormFrame -> RestaurantFormFrame : launch()
+activate RestaurantFormFrame
+
+RestaurantFormFrame -> RestaurantFormController : askCreateRestaurant(event)
+activate RestaurantFormController
+
+RestaurantFormController -> RestaurantFacade : createRestaurant(restaurant)
+activate RestaurantFacade
+
+RestaurantFacade -> PostGresRestaurantDAO : createRestaurant(restaurant)
+activate PostGresRestaurantDAO
+
+PostGresRestaurantDAO -> ConnectionPostgres : getConnection()
+activate ConnectionPostgres
+
+ConnectionPostgres --> PostGresRestaurantDAO : return Connection
+deactivate ConnectionPostgres
+
+PostGresRestaurantDAO --> RestaurantFacade : return restaurant
+deactivate PostGresRestaurantDAO
+
+RestaurantFacade --> RestaurantFormController : return restaurant
+deactivate RestaurantFacade
+
+deactivate RestaurantFormController
+deactivate  RestaurantFormFrame
+
+@enduml
