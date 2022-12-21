@@ -6,26 +6,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class AllAccounts extends Application {
+public class Menu extends Application {
 
-    /**
-     * This method is Override from the class Application
-     * It is used to set the root of the application
-     * @param stage the stage of the application
-     * @exception Exception if the fxml file is not found
-     */
     @Override
     public void start(Stage stage) throws Exception {
         // Load the fxml file and create a new stage for the root
-        Parent root = FXMLLoader.load(getClass().getResource("AllAccountsFrame.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("MenuFrame.fxml"));
 
         // Create the scene with the root and set the title of the stage
-        stage.setTitle("Personal Account");
+        stage.setTitle("User Menu");
         stage.setScene(new Scene(root, 1000, 1000));
-
-        // open the controller
-        /*PersonalAccountController controller = new PersonalAccountController();
-        controller.consultOne();*/
 
         // Show the GUI
         stage.show();
@@ -40,4 +30,5 @@ public class AllAccounts extends Application {
         // Launch the application
         Application.launch(args);
     }
+
 }

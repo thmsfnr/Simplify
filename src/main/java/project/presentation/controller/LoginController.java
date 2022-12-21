@@ -12,7 +12,12 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.business.facade.UserFacade;
 import project.business.models.User;
+import project.presentation.frame.Menu;
 import project.presentation.frame.Signin;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 
 /**
  * Created by Simplify members on 07/12/22.
@@ -66,7 +71,29 @@ public class LoginController {
         User user = userFacade.login(emailId, password);
 
         if (user != null) {
-            infoBox("Login Successful - Welcome " + user.getName(), null, "Success");
+            //infoBox("Login Successful - Welcome " + user.getName(), null, "Success");
+            // save the user informations in the file localstorage.txt
+            // open the file
+            File file = new File("localstorage.txt");
+            // if the file doesn't exist create it
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            // write the user informations in the file
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            // write the user in the file
+            bw.write(user.getId().toString());
+
+            // close the file
+            bw.close();
+
+            // open the menu frame
+            Menu menu = new Menu();
+            Stage stage = (Stage) submitButton.getScene().getWindow();
+            menu.start(stage);
+
         } else {
             infoBox("Login Failed!", null, "Failed");
         }

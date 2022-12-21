@@ -2,6 +2,9 @@ package project.presentation.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import project.business.facade.UserFacade;
 import project.business.models.User;
 
@@ -18,18 +21,52 @@ consultAskDelete(ActionEvent event) : void
      */
 
     // Instance variables
-    @FXML
     private List<User> users;
+    @FXML
+    private ListView list;
+    @FXML
+    private TextField firstNameField;
+    @FXML
+    private TextField lastNameField;
+    @FXML
+    private TextField addressField;
+    @FXML
+    private TextField phoneNumberField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private TextField passwordField;
+    @FXML
+    private TextField banField;
+    @FXML
+    private Button deleteButton;
+    @FXML
+    private Button updateButton;
 
     /**
      * This method is used to load datas of users
      * @param event the event of loading the frame
      */
-    public void consultAll(ActionEvent event) {
+    public void initialize() {
 
         UserFacade userFacade = UserFacade.getInstance();
 
-        users = userFacade.getAllUser();
+        list.getItems().clear();
+        List<User> users = userFacade.getAllUser();
+
+        this.users = users;
+
+        for (User user : users) {
+            list.getItems().add(user.getEmail() + " - " + user.getFirstname() + " " + user.getName());
+        }
+    }
+
+    public void display(ActionEvent event) {
+
+        System.out.println("clicked on " + list.getSelectionModel().getSelectedItem());
+
+
+
     }
 
     /**
