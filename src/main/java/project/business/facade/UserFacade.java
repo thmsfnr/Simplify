@@ -8,6 +8,8 @@ import project.persistence.factory.PostGresDAOFactory;
 import project.persistence.product.UserDAO;
 import project.utilities.PasswordCrypt;
 
+import java.util.List;
+
 /**
  * Created by Simplify members on 07/12/22.
  * This class is the facade of the user
@@ -89,6 +91,71 @@ public class UserFacade {
         catch(UserNotFoundException e) {
             return null;
         }
+    }
+
+    /**
+     * This method is used to get the informations of a user from the database
+     * @param id the id of the user
+     * @return the informations of the user if the user exists, null otherwise
+     */
+    public User getById(int id) {
+        try {
+            // Get the user from the database
+            return this.userDAO.getById(id);
+        }
+        catch(UserNotFoundException e) {
+            return null;
+        }
+    }
+
+    /**
+     * This method is used to update the informations of a user in the database
+     * @param user the user to update
+     * @return True if the update is successful, false otherwise
+     */
+    public Boolean update(User user) {
+        // Get the user from the database
+        try {
+            User userFromDB = this.userDAO.getByEmail(user.getEmail());
+            // If the user exists in the database, update it
+            return this.userDAO.update(user);
+        }
+        catch (UserNotFoundException e) {
+            return false;
+        }
+    }
+
+    /**
+     * This method is used to delete a user from the database
+     * @param id the id of the user
+     * @return True if the user is deleted, false otherwise
+     */
+    public Boolean delete(int id) {
+        // Get the user from the database
+        try {
+            User userFromDB = this.userDAO.getById(id);
+            // If the user exists in the database, delete it
+            return this.userDAO.delete(id);
+        }
+        catch (UserNotFoundException e) {
+            return false;
+        }
+    }
+
+    /**
+     * This method is used to get all the users from the database
+     * @return the list of all the users
+     */
+    public List<User> getAllUser() {
+        return this.userDAO.getAll();
+    }
+
+    /**
+     * This method is use to retrieve all users that have asked to delete their account
+     * @return the list of all the users
+     */
+    public List<User> getAskDelete() {
+        return this.userDAO.getAskDelete();
     }
 
     /**
