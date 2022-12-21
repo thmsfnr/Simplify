@@ -12,14 +12,6 @@ import java.util.List;
 
 public class AllAccountsController {
 
-    /*
-    consultAll(ActionEvent event) : void
-update(ActionEvent event) : void
-delete(ActionEvent event) : void
-create(ActionEvent event) : void
-consultAskDelete(ActionEvent event) : void
-     */
-
     // Instance variables
     private List<User> users;
     @FXML
@@ -48,7 +40,11 @@ consultAskDelete(ActionEvent event) : void
      * @param event the event of loading the frame
      */
     public void initialize() {
+        consultAll();
+        consultAskDelete();
+    }
 
+    private void consultAll() {
         UserFacade userFacade = UserFacade.getInstance();
 
         list.getItems().clear();
@@ -82,6 +78,18 @@ consultAskDelete(ActionEvent event) : void
      * @param event the event of the delete button
      */
     public void delete(ActionEvent event) {
+
+    }
+
+    /**
+     * This method is used to manage the event of the create button
+     * @param event the event of the create button
+     */
+    public void create(ActionEvent event) {
+
+    }
+
+    public void consultAskDelete() {
 
     }
 

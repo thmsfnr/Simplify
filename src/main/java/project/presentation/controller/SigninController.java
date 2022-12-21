@@ -14,6 +14,8 @@ import project.presentation.frame.Login;
 
 import java.io.IOException;
 
+import static project.presentation.controller.Display.showAlert;
+
 /**
  * Created by Simplify members on 21/12/22.
  * This class is the controller of the signin frame
@@ -134,26 +136,6 @@ public class SigninController {
 
         // close the actual frame
         owner.hide();
-    }
-
-    /**
-     * This method is used before the login button is clicked and it shows an alert
-     * it is used to show if the fields are empty
-     * @param alertType the type of the alert
-     * @param owner the owner of the alert
-     * @param title the title of the alert
-     * @param message the message of the alert
-     */
-    private static void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
-        // Create the alert
-        Alert alert = new Alert(alertType);
-
-        // Set the parameters of the alert
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.initOwner(owner);
-        alert.show();
     }
 
 }

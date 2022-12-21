@@ -4,7 +4,6 @@ package project.presentation.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -15,9 +14,8 @@ import project.business.models.User;
 import project.presentation.frame.Menu;
 import project.presentation.frame.Signin;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+import static project.presentation.controller.Display.infoBox;
+import static project.presentation.controller.Display.showAlert;
 
 /**
  * Created by Simplify members on 07/12/22.
@@ -71,50 +69,13 @@ public class LoginController {
         User user = userFacade.login(emailId, password);
 
         if (user != null) {
-            //infoBox("Login Successful - Welcome " + user.getName(), null, "Success");
-            // save the user informations in the file localstorage.txt
-            // open the file
-            File file = new File("localstorage.txt");
-            // if the file doesn't exist create it
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            // write the user informations in the file
-            FileWriter fw = new FileWriter(file.getAbsoluteFile());
-            BufferedWriter bw = new BufferedWriter(fw);
 
-            // write the user in the file
-            bw.write(user.getId().toString());
-
-            // close the file
-            bw.close();
-
-            // open the menu frame
-            Menu menu = new Menu();
-            Stage stage = (Stage) submitButton.getScene().getWindow();
-            menu.start(stage);
+            Localstorage.write(user);
+            switchToMenu((Stage) submitButton.getScene().getWindow());
 
         } else {
             infoBox("Login Failed!", null, "Failed");
         }
-    }
-
-    /**
-     * This method is after the login button is clicked and it shows an alert
-     * it is used to show the result of the login
-     * @param infoMessage the message of the alert
-     * @param headerText the header of the alert
-     * @param title the title of the alert
-     */
-    public static void infoBox(String infoMessage, String headerText, String title) {
-        // Create the alert
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-
-        // Set the parameters of the alert
-        alert.setContentText(infoMessage);
-        alert.setTitle(title);
-        alert.setHeaderText(headerText);
-        alert.showAndWait();
     }
 
     @FXML
@@ -131,24 +92,10 @@ public class LoginController {
         owner.hide();
     }
 
-    /**
-     * This method is used before the login button is clicked and it shows an alert
-     * it is used to show if the fields are empty
-     * @param alertType the type of the alert
-     * @param owner the owner of the alert
-     * @param title the title of the alert
-     * @param message the message of the alert
-     */
-    private static void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
-        // Create the alert
-        Alert alert = new Alert(alertType);
-
-        // Set the parameters of the alert
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.initOwner(owner);
-        alert.show();
+    private void switchToMenu(Stage stage) throws Exception {
+        // open the menu frame
+        Menu menu = new Menu();
+        menu.start(stage);
     }
 
 }
