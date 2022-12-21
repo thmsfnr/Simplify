@@ -1,5 +1,6 @@
 package project.persistence.factory;
 
+import project.persistence.product.TableDAO;
 import project.persistence.product.UserDAO;
 
 
@@ -18,6 +19,8 @@ public abstract class AbstractDAOFactory {
      * @return the UserDAO
      */
     public abstract UserDAO getUserDAO();
+
+    public abstract TableDAO getTableDAO();
 
     /**
      * This method is used to get the instance of the class
