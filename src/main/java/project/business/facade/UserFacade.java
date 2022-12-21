@@ -59,6 +59,24 @@ public class UserFacade {
     }
 
     /**
+     * This method is used to create a user in the database
+     * @param user the user to create
+     * @return True if the user is created, false otherwise
+     */
+    public Boolean create(User user) {
+            // Get the user from the database
+            try {
+                User userFromDB = this.userDAO.getByEmail(user.getEmail());
+                return false;
+            }
+            catch (UserNotFoundException e) {
+                // If the user does not exist in the database, create it
+                user.setPassword(this.encoder.cryptPassword(user.getPassword()));
+                return this.userDAO.create(user);
+            }
+    }
+
+    /**
      * This method is used to get the informations of a user from the database
      * @param email the email of the user
      * @return the informations of the user if the user exists, null otherwise

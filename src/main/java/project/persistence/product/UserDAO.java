@@ -18,4 +18,10 @@ public abstract class UserDAO {
      */
     public abstract User getByEmail(String email) throws UserNotFoundException;
 
+    /**
+     * This method is used to save the user in the database
+     * @param user the user to save
+     */
+    public abstract Boolean create(User user);
+
 }

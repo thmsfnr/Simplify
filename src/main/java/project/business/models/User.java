@@ -16,6 +16,9 @@ public class User {
     private String firstname;
     private String address;
     private String phone;
+    private Boolean ban;
+    private Boolean askDelete;
+    private int role;
 
     /**
      * Constructor of the class User
@@ -26,8 +29,11 @@ public class User {
      * @param firstname the firstname of the user
      * @param address the address of the user
      * @param phone the phone number of the user
+     * @param ban the ban of the user
+     * @param askDelete the askDelete of the user
+     * @param role the role of the user
      */
-     public User(Integer id, String password, String email, String name, String firstname, String address, String phone) {
+     public User(Integer id, String password, String email, String name, String firstname, String address, String phone, Boolean ban, Boolean askDelete, int role) {
         this.id = id;
         this.password = password;
         this.email = email;
@@ -35,6 +41,21 @@ public class User {
         this.firstname = firstname;
         this.address = address;
         this.phone = phone;
+        this.ban = ban;
+        this.askDelete = askDelete;
+        this.role = role;
+    }
+
+    public User(String password, String email, String name, String firstname, String address, String phone, Boolean ban, Boolean askDelete, int role) {
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.firstname = firstname;
+        this.address = address;
+        this.phone = phone;
+        this.ban = ban;
+        this.askDelete = askDelete;
+        this.role = role;
     }
 
     /**
@@ -149,4 +170,51 @@ public class User {
         this.phone = phone;
     }
 
+    /**
+     * This method is used to get the ban of the user
+     * @return the ban of the user
+     */
+    public Boolean getBan() {
+        return ban;
+    }
+
+    /**
+     * This method is used to set the ban of the user
+     * @param ban the ban of the user
+     */
+    public void setBan(Boolean ban) {
+        this.ban = ban;
+    }
+
+    /**
+     * This method is used to get the askDelete of the user
+     * @return the askDelete of the user
+     */
+    public Boolean getAskDelete() {
+        return askDelete;
+    }
+
+    /**
+     * This method is used to set the askDelete of the user
+     * @param askDelete the askDelete of the user
+     */
+    public void setAskDelete(Boolean askDelete) {
+        this.askDelete = askDelete;
+    }
+
+    /**
+     * This method is used to get the role of the user
+     * @return the role of the user
+     */
+    public int getRole() {
+        return role;
+    }
+
+    /**
+     * This method is used to set the role of the user
+     * @param role the role of the user
+     */
+    public void setRole(int role) {
+        this.role = role;
+    }
 }

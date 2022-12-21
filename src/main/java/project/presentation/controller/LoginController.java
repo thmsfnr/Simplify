@@ -8,9 +8,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.business.facade.UserFacade;
 import project.business.models.User;
+import project.presentation.frame.Signin;
 
 /**
  * Created by Simplify members on 07/12/22.
@@ -27,13 +29,15 @@ public class LoginController {
     private PasswordField passwordField;
     @FXML
     private Button submitButton;
+    @FXML
+    private Button switchButton;
 
     /**
      * This method is used to manage the event of the login button
      * @param event the event of the submit button
      */
     @FXML
-    public void login(ActionEvent event) {
+    public void login(ActionEvent event) throws Exception {
         // Get the window of the submit button
         Window owner = submitButton.getScene().getWindow();
 
@@ -62,7 +66,7 @@ public class LoginController {
         User user = userFacade.login(emailId, password);
 
         if (user != null) {
-            infoBox("Login Successful!", null, "Success");
+            infoBox("Login Successful - Welcome " + user.getName(), null, "Success");
         } else {
             infoBox("Login Failed!", null, "Failed");
         }
@@ -84,6 +88,20 @@ public class LoginController {
         alert.setTitle(title);
         alert.setHeaderText(headerText);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void switchToSignin(ActionEvent event) throws Exception {
+
+        // Get the window of the submit button
+        Window owner = switchButton.getScene().getWindow();
+
+        // Load the login frame
+        Signin login = new Signin();
+        login.start(new Stage());
+
+        // close the actual frame
+        owner.hide();
     }
 
     /**
