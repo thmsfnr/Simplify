@@ -1,16 +1,16 @@
 
 @startuml consultOne
 
-UserFrame -> UserFrame : launch()
-activate UserFrame
+PersonalAccountFrame -> PersonalAccountFrame : launch()
+activate PersonalAccountFrame
 
-UserFrame -> UserController: consultOne(event)
-activate UserController
+PersonalAccountFrame -> PersonalAccountController: consultOne(event)
+activate PersonalAccountController
 
-UserController -> UserFacade: getInformationsByEmail(String email)
+PersonalAccountController -> UserFacade: getById(Int id)
 activate UserFacade
 
-UserFacade -> PostGresUserDAO : getByEmail(String email)
+UserFacade -> PostGresUserDAO : getById(Int id)
 activate PostGresUserDAO
 
 PostGresUserDAO -> ConnectionPostGres : getConnection()
@@ -21,8 +21,8 @@ PostGresUserDAO --> UserFacade : return User
 deactivate PostGresUserDAO
 deactivate UserFacade
 
-UserFacade --> UserController : return User
-deactivate UserController
-deactivate UserFrame
+UserFacade --> PersonalAccountController : return User
+deactivate PersonalAccountController
+deactivate PersonalAccountFrame
 
 @enduml

@@ -1,27 +1,27 @@
 
-@startuml create
+@startuml consulAskDelete
 
 AllAccountsFrame -> AllAccountsFrame : launch()
 activate AllAccountsFrame
 
-AllAccountsFrame -> AllAccountsController: create(event)
+AllAccountsFrame -> AllAccountsController: consultAskDelete(event)
 activate AllAccountsController
 
-AllAccountsController -> UserFacade: create(User user)
+AllAccountsController -> UserFacade: getAskDelete()
 activate UserFacade
 
-UserFacade -> PostGresUserDAO : create(User user)
+UserFacade -> PostGresUserDAO : getAskDelete()
 activate PostGresUserDAO
 
 PostGresUserDAO -> ConnectionPostGres : getConnection()
 activate ConnectionPostGres
 ConnectionPostGres --> PostGresUserDAO : return Connection
 deactivate ConnectionPostGres
-PostGresUserDAO --> UserFacade : return Boolean
+PostGresUserDAO --> UserFacade : return List<User>
 deactivate PostGresUserDAO
 deactivate UserFacade
 
-UserFacade --> AllAccountsController : return Boolean
+UserFacade --> AllAccountsController : return List<User>
 deactivate AllAccountsController
 deactivate AllAccountsFrame
 

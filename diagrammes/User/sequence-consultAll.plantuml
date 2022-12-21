@@ -1,13 +1,14 @@
 
+
 @startuml consultAll
 
-UserFrame -> UserFrame : launch()
-activate UserFrame
+AllAccountsFrame -> AllAccountsFrame : launch()
+activate AllAccountsFrame
 
-UserFrame -> UserController: consultAll(event)
-activate UserController
+AllAccountsFrame -> AllAccountsController: consultAll(event)
+activate AllAccountsController
 
-UserController -> UserFacade: getAllUser()
+AllAccountsController -> UserFacade: getAllUser()
 activate UserFacade
 
 UserFacade -> PostGresUserDAO : getAll()
@@ -21,8 +22,8 @@ PostGresUserDAO --> UserFacade : return List<User>
 deactivate PostGresUserDAO
 deactivate UserFacade
 
-UserFacade --> UserController : return List<User>
-deactivate UserController
-deactivate UserFrame
+UserFacade --> AllAccountsController : return List<User>
+deactivate AllAccountsController
+deactivate AllAccountsFrame
 
 @enduml

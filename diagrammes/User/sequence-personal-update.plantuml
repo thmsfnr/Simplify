@@ -1,13 +1,13 @@
 
 @startuml update
 
-UserFrame -> UserFrame : launch()
-activate UserFrame
+PersonalAccountFrame -> PersonalAccountFrame : launch()
+activate PersonalAccountFrame
 
-UserFrame -> UserController: ban(event)
-activate UserController
+PersonalAccountFrame -> PersonalAccountController: update(event)
+activate PersonalAccountController
 
-UserController -> UserFacade: update(User user)
+PersonalAccountController -> UserFacade: update(User user)
 activate UserFacade
 
 UserFacade -> PostGresUserDAO : update(User user)
@@ -21,8 +21,8 @@ PostGresUserDAO --> UserFacade : return Boolean
 deactivate PostGresUserDAO
 deactivate UserFacade
 
-UserFacade --> UserController : return Boolean
-deactivate UserController
-deactivate UserFrame
+UserFacade --> PersonalAccountController : return Boolean
+deactivate PersonalAccountController
+deactivate PersonalAccountFrame
 
 @enduml
