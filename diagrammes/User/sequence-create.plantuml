@@ -1,13 +1,13 @@
 
 @startuml create
 
-UserFrame -> UserFrame : launch()
-activate UserFrame
+AllAccountsFrame -> AllAccountsFrame : launch()
+activate AllAccountsFrame
 
-UserFrame -> UserController: create(event)
-activate UserController
+AllAccountsFrame -> AllAccountsController: create(event)
+activate AllAccountsController
 
-UserController -> UserFacade: create(User user)
+AllAccountsController -> UserFacade: create(User user)
 activate UserFacade
 
 UserFacade -> PostGresUserDAO : create(User user)
@@ -21,8 +21,8 @@ PostGresUserDAO --> UserFacade : return Boolean
 deactivate PostGresUserDAO
 deactivate UserFacade
 
-UserFacade --> UserController : return Boolean
-deactivate UserController
-deactivate UserFrame
+UserFacade --> AllAccountsController : return Boolean
+deactivate AllAccountsController
+deactivate AllAccountsFrame
 
 @enduml

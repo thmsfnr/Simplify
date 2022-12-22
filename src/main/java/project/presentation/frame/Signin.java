@@ -1,4 +1,3 @@
-
 package project.presentation.frame;
 
 import javafx.application.Application;
@@ -8,12 +7,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * Created by Simplify members on 07/12/22.
+ * Created by Simplify members on 21/12/22.
  * This class is the main class of the application
  * It is used to launch the application
  * @author Simplify members
  */
-public class Login extends Application {
+public class Signin extends Application {
 
     /**
      * This method is Override from the class Application
@@ -24,10 +23,10 @@ public class Login extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         // Load the fxml file and create a new stage for the root
-        Parent root = FXMLLoader.load(getClass().getResource("LoginFrame.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("SigninFrame.fxml"));
 
         // Create the scene with the root and set the title of the stage
-        stage.setTitle("User Login");
+        stage.setTitle("User Signin");
         stage.setScene(new Scene(root, 700, 500));
 
         // Show the GUI

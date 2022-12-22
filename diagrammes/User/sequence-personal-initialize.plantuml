@@ -1,27 +1,27 @@
 
-@startuml askDelete
+@startuml initialize-personal
 
 PersonalAccountFrame -> PersonalAccountFrame : launch()
 activate PersonalAccountFrame
 
-PersonalAccountFrame -> PersonalAccountController: askDelete(event)
+PersonalAccountFrame -> PersonalAccountController: initialize()
 activate PersonalAccountController
 
-PersonalAccountController -> UserFacade: update(User user)
+PersonalAccountController -> UserFacade: getById(Int id)
 activate UserFacade
 
-UserFacade -> PostGresUserDAO : update(User user)
+UserFacade -> PostGresUserDAO : getById(Int id)
 activate PostGresUserDAO
 
 PostGresUserDAO -> ConnectionPostGres : getConnection()
 activate ConnectionPostGres
 ConnectionPostGres --> PostGresUserDAO : return Connection
 deactivate ConnectionPostGres
-PostGresUserDAO --> UserFacade : return Boolean
+PostGresUserDAO --> UserFacade : return User
 deactivate PostGresUserDAO
 deactivate UserFacade
 
-UserFacade --> PersonalAccountController : return Boolean
+UserFacade --> PersonalAccountController : return User
 deactivate PersonalAccountController
 deactivate PersonalAccountFrame
 

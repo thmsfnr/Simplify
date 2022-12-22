@@ -4,7 +4,7 @@
 SigninFrame -> SigninFrame : launch()
 activate SigninFrame
 
-SigninFrame -> SigninController: pressed(event)
+SigninFrame -> SigninController: signin(event)
 activate SigninController
 
 SigninController -> UserFacade: create(User user)

@@ -4,13 +4,17 @@ package project.presentation.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.business.facade.UserFacade;
 import project.business.models.User;
+import project.presentation.frame.Menu;
+import project.presentation.frame.Signin;
+import static project.presentation.controller.Display.infoBox;
+import static project.presentation.controller.Display.showAlert;
 
 /**
  * Created by Simplify members on 07/12/22.
@@ -27,13 +31,15 @@ public class LoginController {
     private PasswordField passwordField;
     @FXML
     private Button submitButton;
+    @FXML
+    private Button switchButton;
 
     /**
      * This method is used to manage the event of the login button
      * @param event the event of the submit button
      */
     @FXML
-    public void login(ActionEvent event) {
+    public void login(ActionEvent event) throws Exception {
         // Get the window of the submit button
         Window owner = submitButton.getScene().getWindow();
 
@@ -62,48 +68,40 @@ public class LoginController {
         User user = userFacade.login(emailId, password);
 
         if (user != null) {
-            infoBox("Login Successful!", null, "Success");
+
+            Localstorage.write(user);
+            switchToMenu((Stage) submitButton.getScene().getWindow());
+
         } else {
             infoBox("Login Failed!", null, "Failed");
         }
     }
 
     /**
-     * This method is after the login button is clicked and it shows an alert
-     * it is used to show the result of the login
-     * @param infoMessage the message of the alert
-     * @param headerText the header of the alert
-     * @param title the title of the alert
+     * This method is used to switch to the signin frame
+     * @param event the event of the switch button
      */
-    public static void infoBox(String infoMessage, String headerText, String title) {
-        // Create the alert
-        Alert alert = new Alert(AlertType.CONFIRMATION);
+    @FXML
+    private void switchToSignin(ActionEvent event) throws Exception {
+        // Get the window of the submit button
+        Window owner = switchButton.getScene().getWindow();
 
-        // Set the parameters of the alert
-        alert.setContentText(infoMessage);
-        alert.setTitle(title);
-        alert.setHeaderText(headerText);
-        alert.showAndWait();
+        // Load the login frame
+        Signin login = new Signin();
+        login.start(new Stage());
+
+        // close the actual frame
+        owner.hide();
     }
 
     /**
-     * This method is used before the login button is clicked and it shows an alert
-     * it is used to show if the fields are empty
-     * @param alertType the type of the alert
-     * @param owner the owner of the alert
-     * @param title the title of the alert
-     * @param message the message of the alert
+     * This method is used to switch to the menu frame
+     * @param stage the stage of the frame
      */
-    private static void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
-        // Create the alert
-        Alert alert = new Alert(alertType);
-
-        // Set the parameters of the alert
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.initOwner(owner);
-        alert.show();
+    private void switchToMenu(Stage stage) throws Exception {
+        // open the menu frame
+        Menu menu = new Menu();
+        menu.start(stage);
     }
 
 }
