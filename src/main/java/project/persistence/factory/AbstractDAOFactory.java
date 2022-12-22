@@ -1,5 +1,7 @@
 package project.persistence.factory;
 
+import project.persistence.product.MealDAO;
+import project.persistence.product.OpinionDAO;
 import project.persistence.product.UserDAO;
 
 
@@ -18,6 +20,14 @@ public abstract class AbstractDAOFactory {
      * @return the UserDAO
      */
     public abstract UserDAO getUserDAO();
+
+    /**
+     * abstract method to get the MealDAO
+     * @return the MealDAO
+     */
+    public abstract MealDAO getMealDAO();
+
+    public abstract OpinionDAO getOpinionDAO();
 
     /**
      * This method is used to get the instance of the class

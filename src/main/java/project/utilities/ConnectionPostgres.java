@@ -47,6 +47,7 @@ public class ConnectionPostgres {
                 return null;
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
     }

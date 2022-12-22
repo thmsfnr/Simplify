@@ -50,9 +50,14 @@ public class PostGresUserDAO extends UserDAO{
                     preparedStatement.close();
                     return user;
                 }
-
             } catch (SQLException e) {
                 e.printStackTrace();
+            }finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
         throw new UserNotFoundException();
