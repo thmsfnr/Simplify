@@ -1,10 +1,10 @@
 
-@startuml consultOne
+@startuml initialize-personal
 
 PersonalAccountFrame -> PersonalAccountFrame : launch()
 activate PersonalAccountFrame
 
-PersonalAccountFrame -> PersonalAccountController: consultOne(event)
+PersonalAccountFrame -> PersonalAccountController: initialize()
 activate PersonalAccountController
 
 PersonalAccountController -> UserFacade: getById(Int id)
