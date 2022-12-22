@@ -1,3 +1,4 @@
+
 package project.presentation.controller;
 
 import javafx.event.ActionEvent;
@@ -7,11 +8,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import project.business.facade.UserFacade;
 import project.business.models.User;
-
 import java.io.*;
-
 import static project.presentation.controller.Display.showAlert;
 
+/**
+ * Created by Simplify members on 22/12/22.
+ * This class is the controller of the personal account frame
+ * It is used to call the facade and to manage the events of the frame
+ * @author Simplify members
+ */
 public class PersonalAccountController {
 
     // Instance variables
@@ -29,13 +34,14 @@ public class PersonalAccountController {
     @FXML
     private Button updateButton;
 
+    /**
+     * This method is used to manage the event at the initialization of the frame
+     * @throws IOException
+     */
     public void initialize() throws IOException {
         UserFacade userFacade = UserFacade.getInstance();
-
         int id = Localstorage.load();
-
         User user = userFacade.getById(id);
-
         this.user = user;
 
         lastNameField.setText(user.getName());
@@ -49,7 +55,6 @@ public class PersonalAccountController {
      * @param event the event of the update button
      */
     public void update(ActionEvent event) {
-
         UserFacade userFacade = UserFacade.getInstance();
 
         this.user.setFirstname(firstNameField.getText());
@@ -65,13 +70,11 @@ public class PersonalAccountController {
     }
 
     /**
-     * This method is used to manage the event of the delete button
-     * @param event the event of the delete button
+     * This method is used to manage the event of the askDelete button
+     * @param event the event of the askDelete button
      */
     public void askDelete(ActionEvent event) {
-
         UserFacade userFacade = UserFacade.getInstance();
-
         this.user.setAskDelete(true);
 
         if (userFacade.update(user)) {

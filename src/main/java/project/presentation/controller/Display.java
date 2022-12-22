@@ -1,8 +1,14 @@
+
 package project.presentation.controller;
 
 import javafx.scene.control.Alert;
 import javafx.stage.Window;
 
+/**
+ * Created by Simplify members on 22/12/22.
+ * This class is used to display alerts and information boxes
+ * @author Simplify members
+ */
 public class Display {
 
     /**

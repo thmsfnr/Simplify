@@ -1,3 +1,4 @@
+
 package project.presentation.frame;
 
 import javafx.application.Application;
@@ -5,8 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import project.presentation.controller.PersonalAccountController;
 
+/**
+ * Created by Simplify members on 22/12/22.
+ * This class is the main class of the application
+ * It is used to launch the application
+ * @author Simplify members
+ */
 public class PersonalAccount extends Application {
 
     /**
@@ -23,10 +29,6 @@ public class PersonalAccount extends Application {
         // Create the scene with the root and set the title of the stage
         stage.setTitle("Personal Account");
         stage.setScene(new Scene(root, 1000, 1000));
-
-        // open the controller
-        /*PersonalAccountController controller = new PersonalAccountController();
-        controller.consultOne();*/
 
         // Show the GUI
         stage.show();

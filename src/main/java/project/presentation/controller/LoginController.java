@@ -13,7 +13,6 @@ import project.business.facade.UserFacade;
 import project.business.models.User;
 import project.presentation.frame.Menu;
 import project.presentation.frame.Signin;
-
 import static project.presentation.controller.Display.infoBox;
 import static project.presentation.controller.Display.showAlert;
 
@@ -78,9 +77,12 @@ public class LoginController {
         }
     }
 
+    /**
+     * This method is used to switch to the signin frame
+     * @param event the event of the switch button
+     */
     @FXML
     private void switchToSignin(ActionEvent event) throws Exception {
-
         // Get the window of the submit button
         Window owner = switchButton.getScene().getWindow();
 
@@ -92,6 +94,10 @@ public class LoginController {
         owner.hide();
     }
 
+    /**
+     * This method is used to switch to the menu frame
+     * @param stage the stage of the frame
+     */
     private void switchToMenu(Stage stage) throws Exception {
         // open the menu frame
         Menu menu = new Menu();

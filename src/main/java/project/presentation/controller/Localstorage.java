@@ -1,13 +1,25 @@
+
 package project.presentation.controller;
 
 import project.business.models.User;
-
 import java.io.*;
 
+/**
+ * Created by Simplify members on 22/12/22.
+ * This class is the controller of the local storage
+ * It is used to save the user in a file
+ * @author Simplify members
+ */
 public class Localstorage {
 
+    // Class variable
     private static String filename = "localstorage.txt";
 
+    /**
+     * This method is used to save the user in the local storage
+     * @param user the user to save
+     * @throws IOException if the file is not found
+     */
     public static void write(User user) throws IOException {
 
         // open the file
@@ -27,6 +39,11 @@ public class Localstorage {
         bw.close();
     }
 
+    /**
+     * This method is used to get the user in the local storage
+     * @return the user
+     * @throws IOException if the file is not found
+     */
     public static int load() throws IOException {
         // open the file localstorage.txt
         File file = new File(filename);
@@ -52,4 +69,5 @@ public class Localstorage {
         }
         return id;
     }
+
 }

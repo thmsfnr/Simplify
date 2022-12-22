@@ -1,3 +1,4 @@
+
 package project.presentation.controller;
 
 import javafx.event.ActionEvent;
@@ -11,9 +12,6 @@ import javafx.stage.Window;
 import project.business.facade.UserFacade;
 import project.business.models.User;
 import project.presentation.frame.Login;
-
-import java.io.IOException;
-
 import static project.presentation.controller.Display.showAlert;
 
 /**
@@ -47,7 +45,6 @@ public class SigninController {
      * @param event the event of the submit button
      */
     public void signin(ActionEvent event) throws Exception {
-
         // Get the window of the submit button
         Window owner = submitButton.getScene().getWindow();
 
@@ -120,13 +117,14 @@ public class SigninController {
             showAlert(Alert.AlertType.ERROR, owner, "Registration Failed!",
                     "Please try again!");
         }
-
-
     }
 
+    /**
+     * This method is used to manage the event of the switch button
+     * @param event the event of the switch button
+     */
     @FXML
     private void switchToLogin(ActionEvent event) throws Exception {
-
         // Get the window of the submit button
         Window owner = switchButton.getScene().getWindow();
 

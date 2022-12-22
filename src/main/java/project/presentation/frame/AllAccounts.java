@@ -6,6 +6,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Created by Simplify members on 22/12/22.
+ * This class is the main class of the application
+ * It is used to launch the application
+ * @author Simplify members
+ */
 public class AllAccounts extends Application {
 
     /**
@@ -23,10 +29,6 @@ public class AllAccounts extends Application {
         stage.setTitle("All Accounts");
         stage.setScene(new Scene(root, 1000, 1000));
 
-        // open the controller
-        /*PersonalAccountController controller = new PersonalAccountController();
-        controller.consultOne();*/
-
         // Show the GUI
         stage.show();
     }
@@ -40,4 +42,5 @@ public class AllAccounts extends Application {
         // Launch the application
         Application.launch(args);
     }
+
 }

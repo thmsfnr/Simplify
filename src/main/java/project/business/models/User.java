@@ -1,3 +1,4 @@
+
 package project.business.models;
 
 /**
@@ -21,7 +22,7 @@ public class User {
     private int role;
 
     /**
-     * Constructor of the class User
+     * Constructor of the class User with id
      * @param id the id of the user
      * @param password the password of the user
      * @param email the email of the user
@@ -46,6 +47,18 @@ public class User {
         this.role = role;
     }
 
+    /**
+     * Constructor of the class User without id
+     * @param password the password of the user
+     * @param email the email of the user
+     * @param name the name of the user
+     * @param firstname the firstname of the user
+     * @param address the address of the user
+     * @param phone the phone number of the user
+     * @param ban the ban of the user
+     * @param askDelete the askDelete of the user
+     * @param role the role of the user
+     */
     public User(String password, String email, String name, String firstname, String address, String phone, Boolean ban, Boolean askDelete, int role) {
         this.password = password;
         this.email = email;
@@ -150,9 +163,7 @@ public class User {
      * This method is used to set the address of the user
      * @param address the address of the user
      */
-    public void setAddress(String address) {
-        this.address = address;
-    }
+    public void setAddress(String address) { this.address = address; }
 
     /**
      * This method is used to get the phone number of the user
@@ -222,7 +233,6 @@ public class User {
      * This method is used to get the string of the user
      * @return the string of the user
      */
-    public String toString() {
-        return id + " - " + email + " - " + name + " " + firstname;
-    }
+    public String toString() { return id + " - " + email + " - " + name + " " + firstname; }
+
 }

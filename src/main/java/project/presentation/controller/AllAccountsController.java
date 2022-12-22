@@ -1,3 +1,4 @@
+
 package project.presentation.controller;
 
 import javafx.event.ActionEvent;
@@ -9,12 +10,16 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import org.w3c.dom.Text;
 import project.business.facade.UserFacade;
 import project.business.models.User;
-
 import java.util.List;
 
+/**
+ * Created by Simplify members on 22/12/22.
+ * This class is the controller of the all accounts frame
+ * It is used to call the facade and to manage the events of the frame
+ * @author Simplify members
+ */
 public class AllAccountsController {
 
     // Instance variables
@@ -57,13 +62,16 @@ public class AllAccountsController {
     private Button createButton;
 
     /**
-     * This method is used to load datas of users
+     * This method is used to load datas of users at the beginning of the frame
      */
     public void initialize() {
         consultAll();
         consultAskDelete();
     }
 
+    /**
+     * This method is used to retrieve all users
+     */
     private void consultAll() {
         UserFacade userFacade = UserFacade.getInstance();
 
@@ -77,14 +85,14 @@ public class AllAccountsController {
         }
     }
 
+    /**
+     * This method is used to display all users in the list
+     */
     public void display() {
-
         Object clicked = list.getSelectionModel().getSelectedItem();
-
         String[] elements = clicked.toString().split(" ");
 
         for (User user : users) {
-
             if (user.getId() == Integer.parseInt(elements[0])) {
                 this.selectedUser = user;
                 lastNameField.setText(user.getName());
@@ -95,7 +103,6 @@ public class AllAccountsController {
                 banField.setText(String.valueOf(user.getBan()));
             }
         }
-
     }
 
     /**
@@ -103,13 +110,10 @@ public class AllAccountsController {
      * @param event the event of the update button
      */
     public void update(ActionEvent event) {
-
-
         Window w = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         // if each field is not empty
         if (!firstNameField.getText().isEmpty() && !lastNameField.getText().isEmpty() && !addressField.getText().isEmpty() && !phoneNumberField.getText().isEmpty() && !emailField.getText().isEmpty() && !banField.getText().isEmpty()) {
-
             UserFacade userFacade = UserFacade.getInstance();
 
             this.selectedUser.setFirstname(firstNameField.getText());
@@ -139,16 +143,13 @@ public class AllAccountsController {
         } else {
             Display.showAlert(Alert.AlertType.ERROR, w, "Update failed", "Please fill all the fields");
         }
-
     }
 
     /**
      * This method is used to manage the event of the delete button
      */
     public void delete() {
-
         Window w = deleteButton.getScene().getWindow();
-
         UserFacade userFacade = UserFacade.getInstance();
 
         if (userFacade.delete(this.selectedUser.getId())) {
@@ -165,7 +166,6 @@ public class AllAccountsController {
         } else {
             Display.showAlert(Alert.AlertType.ERROR, w, "Delete failed","The user has not been deleted");
         }
-
     }
 
     /**
@@ -173,14 +173,10 @@ public class AllAccountsController {
      * @param event the event of the create button
      */
     public void create(ActionEvent event) {
-
         // if all fields are not empty
         if (!firstNameField1.getText().isEmpty() && !lastNameField1.getText().isEmpty() && !addressField1.getText().isEmpty() && !phoneNumberField1.getText().isEmpty() && !emailField1.getText().isEmpty() && !passwordField.getText().isEmpty()) {
-
             Window w = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
             UserFacade userFacade = UserFacade.getInstance();
-
             User user = new User(firstNameField1.getText(), lastNameField1.getText(), addressField1.getText(), phoneNumberField1.getText(), emailField1.getText(), passwordField.getText(), false, false,2);
 
             if (userFacade.create(user)) {
@@ -200,42 +196,33 @@ public class AllAccountsController {
         }
     }
 
+    /**
+     * This method is used to retrieve delete a user in the list of users that have asked to be deleted
+     */
     public void askDelete() {
-
         Object clicked = askedList.getSelectionModel().getSelectedItem();
-
         String[] elements = clicked.toString().split(" ");
 
         for (User user : askedUsers) {
-
             if (user.getId() == Integer.parseInt(elements[0])) {
                 this.selectedUser = user;
-
                 delete();
             }
         }
-
-
     }
 
     /**
      * This method is used to select all user with askDelete = true
      */
     public void consultAskDelete() {
-
         UserFacade userFacade = UserFacade.getInstance();
-
         askedList.getItems().clear();
         List<User> askedUsers = userFacade.getAskDelete();
-
         this.askedUsers = askedUsers;
 
         for (User user : askedUsers) {
             askedList.getItems().add(user.toString());
         }
-
-
-
     }
 
 }

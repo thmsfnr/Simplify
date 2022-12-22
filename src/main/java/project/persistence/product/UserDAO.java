@@ -3,7 +3,6 @@ package project.persistence.product;
 
 import project.business.models.User;
 import project.exceptions.UserNotFoundException;
-
 import java.util.List;
 
 /**

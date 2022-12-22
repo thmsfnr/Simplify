@@ -4,7 +4,6 @@ package project.persistence.product;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import project.business.models.User;
 import project.exceptions.UserNotFoundException;
 import project.persistence.factory.PostGresDAOFactory;
@@ -59,6 +58,12 @@ public class PostGresUserDAO extends UserDAO{
 
             } catch (SQLException e) {
                 e.printStackTrace();
+            } finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
         throw new UserNotFoundException();
@@ -92,6 +97,12 @@ public class PostGresUserDAO extends UserDAO{
                 return true;
             } catch (SQLException e) {
                 e.printStackTrace();
+            } finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return false;
@@ -134,6 +145,12 @@ public class PostGresUserDAO extends UserDAO{
                 return users;
             } catch (SQLException e) {
                 e.printStackTrace();
+            } finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return null;
@@ -168,6 +185,12 @@ public class PostGresUserDAO extends UserDAO{
                 return true;
             } catch (SQLException e) {
                 e.printStackTrace();
+            } finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return false;
@@ -193,6 +216,12 @@ public class PostGresUserDAO extends UserDAO{
                 return true;
             } catch (SQLException e) {
                 e.printStackTrace();
+            } finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return false;
@@ -237,6 +266,12 @@ public class PostGresUserDAO extends UserDAO{
 
             } catch (SQLException e) {
                 e.printStackTrace();
+            } finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
         throw new UserNotFoundException();
@@ -278,6 +313,12 @@ public class PostGresUserDAO extends UserDAO{
                 return users;
             } catch (SQLException e) {
                 e.printStackTrace();
+            } finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return null;

@@ -1,13 +1,12 @@
+
 package project.business.facade;
 
-// Import the classes from the project.business.models package
 import project.business.models.User;
 import project.exceptions.UserNotFoundException;
 import project.persistence.factory.AbstractDAOFactory;
 import project.persistence.factory.PostGresDAOFactory;
 import project.persistence.product.UserDAO;
 import project.utilities.PasswordCrypt;
-
 import java.util.List;
 
 /**
@@ -24,7 +23,6 @@ public class UserFacade {
     private UserDAO userDAO;
     private PasswordCrypt encoder;
 
-
     /**
      * Constructor of the class UserFacade
      */
@@ -37,7 +35,6 @@ public class UserFacade {
         this.encoder = new PasswordCrypt();
     }
 
-
     /**
      * This method is used to login a user in the application
      * @param email the email of the user
@@ -48,9 +45,8 @@ public class UserFacade {
         try {
             // Get the user from the database
             User user = this.userDAO.getByEmail(email);
-            // If the object user returned is not null ( user does not exist in the database)
-            // and the password is correct return the user
-            if (this.encoder.compare(password, user.getPassword())) {
+            //  Return the user if the object user returned is not null (user does not exist in the database), the password is correct and the user is not banned
+            if (this.encoder.compare(password, user.getPassword()) && !user.getBan()) {
                 return user;
             }
             return null;
@@ -171,7 +167,7 @@ public class UserFacade {
      *  for thread safety reasons (double checked locking)
      */
     private static class FacadeHolder {
-        // Instance of the class UserFacade
-        static final UserFacade INSTANCE = new UserFacade();
+        static final UserFacade INSTANCE = new UserFacade(); // Instance of the class UserFacade
     }
+
 }
