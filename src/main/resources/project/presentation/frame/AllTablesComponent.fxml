@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.AllTablesController">
+   <children>
+      <Button layoutX="274.0" layoutY="187.0" mnemonicParsing="false" text="Bibo" />
+      <TableView  fx:id="TableTab" layoutX="138.0" layoutY="87.0" prefHeight="200.0" prefWidth="325.0">
+        <columns>
+          <TableColumn fx:id="idTable" prefWidth="75.0" text="Id_Table" />
+            <TableColumn fx:id="name" prefWidth="65.5999755859375" text="Name" />
+            <TableColumn fx:id="description" prefWidth="129.20001220703125" text="Description" />
+            <TableColumn fx:id="booked" prefWidth="55.199981689453125" text="Booked" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

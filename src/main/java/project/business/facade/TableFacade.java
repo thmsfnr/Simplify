@@ -1,10 +1,11 @@
 package project.business.facade;
 
+import javafx.collections.ObservableList;
+import project.business.models.Table;
 import project.persistence.factory.AbstractDAOFactory;
 import project.persistence.factory.PostGresDAOFactory;
 import project.persistence.product.TableDAO;
-import project.persistence.product.UserDAO;
-import project.utilities.PasswordCrypt;
+
 
 
 public class TableFacade {
@@ -28,6 +29,9 @@ public class TableFacade {
         return this.tableDAO.insertTable(name, description);
     }
 
+    public ObservableList<Table> getAllTables() {
+        return this.tableDAO.getAllTables();
+    }
 
     public static TableFacade getInstance() {
         return TableFacade.FacadeHolder.INSTANCE;

@@ -1,22 +1,24 @@
 package project.business.models;
 
 public class Table {
-    private Integer id;
+    private Integer idTable;
     private String name;
     private String description;
+    private Boolean booked;
 
-    public Table(Integer id, String name, String description) {
-        this.id = id;
+    public Table(Integer idTable, String name, String description, Boolean booked) {
+        this.idTable = idTable;
         this.name = name;
         this.description = description;
+        this.booked = booked;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIdTable() {
+        return idTable;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdTable(Integer idTable) {
+        this.idTable = idTable;
     }
 
     public String getName() {
@@ -33,5 +35,23 @@ public class Table {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Boolean getBooked() {
+        return booked;
+    }
+
+    public void setBooked(Boolean booked) {
+        this.booked = booked;
+    }
+
+    @Override
+    public String toString() {
+        return "Table{" +
+                "idTable=" + idTable +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", booked=" + booked +
+                '}';
     }
 }

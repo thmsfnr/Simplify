@@ -94,7 +94,7 @@ public class LoginController {
      * @param title the title of the alert
      * @param message the message of the alert
      */
-    static void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
+    public static void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
         // Create the alert
         Alert alert = new Alert(alertType);
 
