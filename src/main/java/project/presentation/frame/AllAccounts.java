@@ -20,7 +20,7 @@ public class AllAccounts extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("AllAccountsFrame.fxml"));
 
         // Create the scene with the root and set the title of the stage
-        stage.setTitle("Personal Account");
+        stage.setTitle("All Accounts");
         stage.setScene(new Scene(root, 1000, 1000));
 
         // open the controller

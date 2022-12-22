@@ -217,4 +217,12 @@ public class User {
     public void setRole(int role) {
         this.role = role;
     }
+
+    /**
+     * This method is used to get the string of the user
+     * @return the string of the user
+     */
+    public String toString() {
+        return id + " - " + email + " - " + name + " " + firstname;
+    }
 }

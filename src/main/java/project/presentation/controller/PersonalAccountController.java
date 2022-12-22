@@ -48,7 +48,7 @@ public class PersonalAccountController {
      * This method is used to manage the event of the update button
      * @param event the event of the update button
      */
-    public void askDelete(ActionEvent event) {
+    public void update(ActionEvent event) {
 
         UserFacade userFacade = UserFacade.getInstance();
 
@@ -68,7 +68,7 @@ public class PersonalAccountController {
      * This method is used to manage the event of the delete button
      * @param event the event of the delete button
      */
-    public void update(ActionEvent event) {
+    public void askDelete(ActionEvent event) {
 
         UserFacade userFacade = UserFacade.getInstance();
 
