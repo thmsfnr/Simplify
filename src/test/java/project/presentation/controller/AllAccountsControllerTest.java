@@ -5,17 +5,17 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * This class is used to test the methods of the login controller
+ * This class is used to test the methods of the all accounts controller
  * @author Simplify members
  */
-public class LoginControllerTest {
+public class AllAccountsControllerTest {
 
     @Test
-    void login() {
-        LoginController controller = new LoginController();
+    void allAccounts() {
+        AllAccountsController controller = new AllAccountsController();
 
         Assertions.assertThrows(NullPointerException.class, () -> {
-            controller.login(null);
+            controller.initialize();
         });
     }
 

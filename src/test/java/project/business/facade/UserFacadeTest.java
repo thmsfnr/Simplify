@@ -1,3 +1,4 @@
+
 package project.business.facade;
 
 import org.junit.jupiter.api.Assertions;
@@ -26,7 +27,6 @@ public class UserFacadeTest {
         Assertions.assertFalse(user.getEmail().equals("momo"));
 
     }
-
 
     @Test
     public void loginFail() {
@@ -66,4 +66,63 @@ public class UserFacadeTest {
         Assertions.assertTrue(user != null);
         Assertions.assertTrue(user.getEmail().equals(email));
     }
+
+    @Test
+    public void getInformationsByEmailFail(){
+        String email = "nexistepas";
+        UserFacade userFacade = UserFacade.getInstance();
+        User user = userFacade.getInformationsByEmail(email);
+
+        Assertions.assertTrue(user == null);
+    }
+
+    @Test
+    public void getById(){
+        int id = 100000000;
+        UserFacade userFacade = UserFacade.getInstance();
+        User user = userFacade.getById(id);
+
+        Assertions.assertTrue(user == null);
+    }
+
+    @Test
+    public void getById2(){
+        int id = 3;
+        UserFacade userFacade = UserFacade.getInstance();
+        User user = userFacade.getById(id);
+
+        Assertions.assertTrue(user != null);
+        Assertions.assertTrue(user.getId() == id);
+    }
+
+    @Test
+    public void create() {
+        // create random string
+        String email = "test" + Math.random() + "@gmail.com";
+        User user = new User("test", email, "test", "test", "test", "test", false, false, 1);
+        UserFacade userFacade = UserFacade.getInstance();
+        Boolean creation = userFacade.create(user);
+
+        Assertions.assertTrue(creation);
+    }
+
+    @Test
+    public void update() {
+        UserFacade userFacade = UserFacade.getInstance();
+        User user = userFacade.getById(3);
+        user.setName("test");
+        Boolean update = userFacade.update(user);
+
+        Assertions.assertTrue(update);
+    }
+
+    @Test
+    public void delete() {
+        UserFacade userFacade = UserFacade.getInstance();
+        User user = userFacade.getById(6);
+        Boolean delete = userFacade.delete(user.getId());
+
+        Assertions.assertTrue(delete);
+    }
+
 }
