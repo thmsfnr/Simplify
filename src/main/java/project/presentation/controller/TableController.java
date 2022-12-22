@@ -9,7 +9,6 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 public class TableController implements Initializable {
-
     @FXML
     private AnchorPane contentArea;
 

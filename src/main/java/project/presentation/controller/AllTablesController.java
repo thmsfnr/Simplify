@@ -10,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.business.facade.TableFacade;
@@ -102,26 +101,10 @@ public class AllTablesController implements Initializable {
 
     public void updateTable(ActionEvent event, Table data)
     {
-        /*
-        Label secondLabel = new Label("Hello World");
-        StackPane secondaryLayout = new StackPane();
-        secondaryLayout.getChildren().add(secondLabel);
-
-        Scene secondScene = new Scene(secondaryLayout, 230, 100);
-
-        // New window (Stage)
-        Stage newWindow = new Stage();
-        newWindow.setTitle("Second Stage");
-        newWindow.setScene(secondScene);
-
-        // Set position of second window, related to primary window.
-        newWindow.show();
-
-         */
         try{
-            FXMLLoader loader = new FXMLLoader(project.presentation.frame.Table.class.getResource("TableDetails.fxml"));
+            FXMLLoader loader = new FXMLLoader(project.presentation.frame.Table.class.getResource("TableDetailsUpdate.fxml"));
             Parent root = loader.load();
-            DetailsTableController controller = loader.getController();
+            DetailsTableUpdateController controller = loader.getController();
             controller.setTextFields(data);
             Stage stage = new Stage();
             stage.setTitle("Update Table");
@@ -216,6 +199,84 @@ public class AllTablesController implements Initializable {
         TableTab.setItems(tables);
     }
 
+
+    private void addDetailsButtonToTable() {
+
+        TableColumn<Table, Void> colBtn = new TableColumn("Details");
+        Callback<TableColumn<Table, Void>, TableCell<Table, Void>> cellFactory = new Callback<TableColumn<Table, Void>, TableCell<Table, Void>>() {
+            @Override
+            public TableCell<Table, Void> call(final TableColumn<Table, Void> param) {
+                final TableCell<Table, Void> cell = new TableCell<Table, Void>() {
+
+                    private final Button btn = new Button();
+                    {
+                        btn.setOnAction((ActionEvent event) -> {
+                            Table data = getTableView().getItems().get(getIndex());
+                            System.out.println("selectedData: " + data);
+                        });
+                    }
+
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            Image image = new Image("file:src/main/resources/project/presentation/frame/details.png");
+                            ImageView imageview = new ImageView(image);
+                            imageview.setFitHeight(20);
+                            imageview.setPreserveRatio(true);
+
+                            btn.setPrefSize(50, 50);
+                            //Setting a graphic to the button
+                            btn.setGraphic(imageview);
+                            btn.setStyle("-fx-background-color: transparent; -fx-cursor: hand; -fx-alignment: center; -fx-border-color: skyblue; -fx-border-width: 1px; -fx-border-radius: 5px;");
+                            btn.setId("detailsbtn");
+                            btn.setOnAction((ActionEvent event) -> {
+                                Table data = getTableView().getItems().get(getIndex());
+                                detailsTable(event, data);
+                            });
+
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        colBtn.setCellFactory(cellFactory);
+
+        TableTab.getColumns().add(colBtn);
+
+    }
+
+    public void detailsTable(ActionEvent event, Table table)
+    {
+        try{
+            FXMLLoader loader = new FXMLLoader(project.presentation.frame.Table.class.getResource("TableDetails.fxml"));
+            Parent root = loader.load();
+            DetailsTableController controller = loader.getController();
+
+            TableFacade tableFacade = TableFacade.getInstance();
+            Table data = tableFacade.getTableById(table.getIdTable());
+            controller.setFields(data);
+            Stage stage = new Stage();
+            stage.setTitle("Update Table");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            // Si on ferme la fenetre on recharge la table
+            stage.setOnCloseRequest(e -> {
+                refreshTable();
+            });
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+    }
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
         TableFacade tableFacade = TableFacade.getInstance();
@@ -231,6 +292,7 @@ public class AllTablesController implements Initializable {
 
         addUpdateButtonToTable();
         addDeleteButtonToTable();
+        addDetailsButtonToTable();
     }
 
 

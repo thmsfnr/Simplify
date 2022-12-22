@@ -1,57 +1,36 @@
 package project.presentation.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import project.business.facade.TableFacade;
 import project.business.models.Table;
 
-public class DetailsTableController {
+public class DetailsTableController{
 
-    private Table table;
-
-    @FXML
-    private TextField tableName;
 
     @FXML
-    private TextField tableDescription;
+    private Label tableName;
 
     @FXML
-    private TextField reservation;
+    private Label tableDescription;
 
     @FXML
-    private Button cancelButton;
-    @FXML
-    private Button updateButton;
+    private Label booked;
 
     @FXML
-    public void setTextFields(Table table) {
-        this.table = table;
+    private Label idTable;
+
+
+
+    @FXML
+    public void setFields(Table table) {
         tableName.setText(table.getName());
         tableDescription.setText(table.getDescription());
-        reservation.setText(table.getBooked().toString());
+        booked.setText(table.getBooked() ? "Réservé" : "Non réservé");
+        idTable.setText(String.valueOf(table.getIdTable()));
     }
 
-    @FXML
-    public void updateTable(ActionEvent event) {
-        System.out.println("Update Table button pressed!");
-        TableFacade tableFacade = TableFacade.getInstance();
-        Table updatedTable = new Table(table.getIdTable(), tableName.getText(), tableDescription.getText(), reservation.getText().equals("true"));
-        Boolean updated = tableFacade.updateTable(updatedTable);
-        if (updated) {
-            Display.infoBox("Table updated Successfully!", null, "Success");
-        } else {
-            Display.infoBox("Update Failed!", null, "Failed");
-        }
-        Table newTable = tableFacade.getTableById(table.getIdTable());
-        setTextFields(newTable);
-    }
-
-    @FXML
-    public void closeUpdateTable(ActionEvent event) {
-        System.out.println("Cancel button pressed!");
-        cancelButton.getScene().getWindow().hide();
-    }
 
 }

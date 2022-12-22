@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="378.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.DetailsTableController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="369.0" prefWidth="378.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.DetailsTableController">
    <children>
       <HBox alignment="CENTER" prefHeight="75.0" prefWidth="378.0" style="-fx-background-color: #c8ded0;">
          <children>
@@ -26,11 +24,14 @@
                   <Font name="System Bold Italic" size="18.0" />
                </font>
             </Text>
-             <TextField fx:id="tableName" prefHeight="31.0" prefWidth="244.0" promptText="Nom de la table" style="-fx-background-color: white; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
-                 <font>
-                     <Font size="13.0" />
-                 </font>
-             </TextField>
+            <Label fx:id="tableName" prefHeight="30.0" prefWidth="237.0" style="-fx-background-color: white; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;" text="   Nom de la table" textFill="#000000d7">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
          </children>
          <padding>
             <Insets left="15.0" top="20.0" />
@@ -43,46 +44,63 @@
                   <Font name="System Bold Italic" size="18.0" />
                </font>
             </Text>
-            <TextField fx:id="tableDescription" prefHeight="105.0" prefWidth="246.0" promptText="Description de la table " style="-fx-background-color: white; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
+            <Label fx:id="tableDescription" prefHeight="109.0" prefWidth="237.0" style="-fx-background-color: white; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;" text="  Description de la table" textFill="#000000d5">
                <font>
                   <Font size="13.0" />
                </font>
-            </TextField>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
          </children>
          <padding>
             <Insets left="15.0" />
          </padding>
       </HBox>
-      <HBox layoutX="10.0" layoutY="85.0" prefHeight="84.0" prefWidth="378.0">
+      <HBox layoutX="10.0" layoutY="85.0" prefHeight="43.0" prefWidth="378.0">
          <children>
             <Text fill="#7a897f" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Réservation" wrappingWidth="110.1142578125">
                <font>
                   <Font name="System Bold Italic" size="18.0" />
                </font>
             </Text>
-            <TextField fx:id="reservation" prefHeight="31.0" prefWidth="242.0" promptText="Non réservé" style="-fx-background-color: white; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
+            <Label fx:id="booked" prefHeight="30.0" prefWidth="237.0" style="-fx-background-color: white; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;" text=" Réservé" textFill="#000000d5">
                <font>
                   <Font size="13.0" />
                </font>
-            </TextField>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
          </children>
          <padding>
             <Insets left="15.0" />
          </padding>
       </HBox>
-      <AnchorPane prefHeight="79.0" prefWidth="378.0">
+      <HBox prefHeight="43.0" prefWidth="378.0">
          <children>
-             <Button fx:id="updateButton" onAction="#updateTable" layoutX="45.0" layoutY="6.0" lineSpacing="3.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Modifier" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
-                 <font>
-                     <Font name="System Bold" size="20.0" />
-                 </font>
-             </Button>
-             <Button fx:id="cancelButton" onAction="#closeUpdateTable" layoutX="218.0" layoutY="6.0" lineSpacing="3.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: #FFD700; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Annuler" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
-                 <font>
-                     <Font name="System Bold" size="20.0" />
-                 </font>
-             </Button>
+            <Text fill="#7a897f" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IdTable" wrappingWidth="110.1142578125">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Text>
+            <Label fx:id="idTable" prefHeight="30.0" prefWidth="237.0" style="-fx-background-color: white; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;" text="Identifiant de la table" textFill="#000000d5">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
          </children>
-      </AnchorPane>
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </HBox>
+      <HBox prefHeight="43.0" prefWidth="378.0">
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </HBox>
    </children>
 </VBox>
