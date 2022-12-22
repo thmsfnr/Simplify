@@ -2,11 +2,16 @@ package project.presentation.controller;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.business.facade.TableFacade;
 import project.business.models.Table;
@@ -73,6 +78,14 @@ public class AllTablesController implements Initializable {
                             //Setting a graphic to the button
                             btn.setGraphic(imageview);
                             btn.setStyle("-fx-background-color: transparent; -fx-cursor: hand; -fx-alignment: center; -fx-border-color: #c8ded0; -fx-border-width: 1px; -fx-border-radius: 5px;");
+                            btn.setId("updateBtn");
+
+                            // on action ouvre la fenetre detailsTable
+                            btn.setOnAction((ActionEvent event) -> {
+                                Table data = getTableView().getItems().get(getIndex());
+                                updateTable(event, data);
+                            });
+
                             setGraphic(btn);
                         }
                     }
@@ -86,6 +99,45 @@ public class AllTablesController implements Initializable {
         TableTab.getColumns().add(colBtn);
 
     }
+
+    public void updateTable(ActionEvent event, Table data)
+    {
+        /*
+        Label secondLabel = new Label("Hello World");
+        StackPane secondaryLayout = new StackPane();
+        secondaryLayout.getChildren().add(secondLabel);
+
+        Scene secondScene = new Scene(secondaryLayout, 230, 100);
+
+        // New window (Stage)
+        Stage newWindow = new Stage();
+        newWindow.setTitle("Second Stage");
+        newWindow.setScene(secondScene);
+
+        // Set position of second window, related to primary window.
+        newWindow.show();
+
+         */
+        try{
+            FXMLLoader loader = new FXMLLoader(project.presentation.frame.Table.class.getResource("TableDetails.fxml"));
+            Parent root = loader.load();
+            DetailsTableController controller = loader.getController();
+            controller.setTextFields(data);
+            Stage stage = new Stage();
+            stage.setTitle("Update Table");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            // Si on ferme la fenetre on recharge la table
+            stage.setOnCloseRequest(e -> {
+                refreshTable();
+            });
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void addDeleteButtonToTable() {
 

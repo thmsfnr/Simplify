@@ -43,7 +43,7 @@
                   <Font name="System Bold Italic" size="18.0" />
                </font>
             </Text>
-            <TextField fx:id="description" prefHeight="105.0" prefWidth="246.0" promptText="Description de la table " style="-fx-background-color: white; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
+            <TextField fx:id="tableDescription" prefHeight="105.0" prefWidth="246.0" promptText="Description de la table " style="-fx-background-color: white; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
                <font>
                   <Font size="13.0" />
                </font>
@@ -60,7 +60,7 @@
                   <Font name="System Bold Italic" size="18.0" />
                </font>
             </Text>
-            <TextField fx:id="Reservation" prefHeight="31.0" prefWidth="242.0" promptText="Non réservé" style="-fx-background-color: white; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
+            <TextField fx:id="reservation" prefHeight="31.0" prefWidth="242.0" promptText="Non réservé" style="-fx-background-color: white; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
                <font>
                   <Font size="13.0" />
                </font>
@@ -72,12 +72,12 @@
       </HBox>
       <AnchorPane prefHeight="79.0" prefWidth="378.0">
          <children>
-             <Button fx:id="submitButton" layoutX="45.0" layoutY="6.0" lineSpacing="3.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Modifier" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+             <Button fx:id="updateButton" onAction="#updateTable" layoutX="45.0" layoutY="6.0" lineSpacing="3.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Modifier" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                  <font>
                      <Font name="System Bold" size="20.0" />
                  </font>
              </Button>
-             <Button fx:id="cancelButton" layoutX="218.0" layoutY="6.0" lineSpacing="3.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: #FFD700; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Annuler" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+             <Button fx:id="cancelButton" onAction="#closeUpdateTable" layoutX="218.0" layoutY="6.0" lineSpacing="3.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: #FFD700; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Annuler" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                  <font>
                      <Font name="System Bold" size="20.0" />
                  </font>

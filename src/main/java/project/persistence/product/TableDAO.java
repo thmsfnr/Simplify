@@ -12,4 +12,8 @@ public abstract class TableDAO {
     public abstract ObservableList<Table> getAllTables();
 
     public abstract Boolean deleteTable(int id);
+
+    public abstract Boolean updateTable(Table table);
+
+    public abstract Table getTableById(int id);
 }

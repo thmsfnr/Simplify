@@ -36,6 +36,14 @@ public class TableFacade {
     public Boolean deleteTable(int id) {
         return this.tableDAO.deleteTable(id);
     }
+
+    public Boolean updateTable(Table table) {
+        return this.tableDAO.updateTable(table);
+    }
+
+    public Table getTableById(int id) {
+        return this.tableDAO.getTableById(id);
+    }
     public static TableFacade getInstance() {
         return TableFacade.FacadeHolder.INSTANCE;
     }
