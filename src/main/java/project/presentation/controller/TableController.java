@@ -15,7 +15,13 @@ public class TableController implements Initializable {
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(project.presentation.frame.Table.class.getResource("CreateTableComponent.fxml"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        contentArea.getChildren().setAll(root);
     }
 
     @FXML
