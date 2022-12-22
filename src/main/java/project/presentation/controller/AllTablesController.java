@@ -3,11 +3,21 @@ package project.presentation.controller;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Window;
 import project.business.facade.TableFacade;
 import project.business.models.Table;
+
+import javafx.event.ActionEvent;
+
+import javafx.util.Callback;
+
+
+import static project.presentation.controller.Display.infoBox;
+import static project.presentation.controller.Display.showAlert;
 
 public class AllTablesController implements Initializable {
 
@@ -27,7 +37,133 @@ public class AllTablesController implements Initializable {
     @FXML
     private TableColumn<Table, String> booked;
 
-    @Override
+
+
+
+
+    private void addUpdateButtonToTable() {
+        TableColumn<Table, Void> colBtn = new TableColumn("Update");
+
+        Callback<TableColumn<Table, Void>, TableCell<Table, Void>> cellFactory = new Callback<TableColumn<Table, Void>, TableCell<Table, Void>>() {
+            @Override
+            public TableCell<Table, Void> call(final TableColumn<Table, Void> param) {
+                final TableCell<Table, Void> cell = new TableCell<Table, Void>() {
+
+                    private final Button btn = new Button();
+                    {
+                        btn.setOnAction((ActionEvent event) -> {
+                            Table data = getTableView().getItems().get(getIndex());
+                            System.out.println("selectedData: " + data);
+                        });
+                    }
+
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            Image image = new Image("file:src/main/resources/project/presentation/frame/update.png");
+                            ImageView imageview = new ImageView(image);
+                            imageview.setFitHeight(20);
+                            imageview.setPreserveRatio(true);
+
+                            btn.setPrefSize(50, 50);
+                            //Setting a graphic to the button
+                            btn.setGraphic(imageview);
+                            btn.setStyle("-fx-background-color: transparent; -fx-cursor: hand; -fx-alignment: center; -fx-border-color: #c8ded0; -fx-border-width: 1px; -fx-border-radius: 5px;");
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        colBtn.setCellFactory(cellFactory);
+
+        TableTab.getColumns().add(colBtn);
+
+    }
+
+    private void addDeleteButtonToTable() {
+
+        TableColumn<Table, Void> colBtn = new TableColumn("Delete");
+        Callback<TableColumn<Table, Void>, TableCell<Table, Void>> cellFactory = new Callback<TableColumn<Table, Void>, TableCell<Table, Void>>() {
+            @Override
+            public TableCell<Table, Void> call(final TableColumn<Table, Void> param) {
+                final TableCell<Table, Void> cell = new TableCell<Table, Void>() {
+
+                    private final Button btn = new Button();
+                    {
+                        btn.setOnAction((ActionEvent event) -> {
+                            Table data = getTableView().getItems().get(getIndex());
+                            System.out.println("selectedData: " + data);
+                        });
+                    }
+
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            Image image = new Image("file:src/main/resources/project/presentation/frame/delete.png");
+                            ImageView imageview = new ImageView(image);
+                            imageview.setFitHeight(20);
+                            imageview.setPreserveRatio(true);
+
+                            btn.setPrefSize(50, 50);
+                            //Setting a graphic to the button
+                            btn.setGraphic(imageview);
+                            btn.setStyle("-fx-background-color: transparent; -fx-cursor: hand; -fx-alignment: center; -fx-border-color: red; -fx-border-width: 1px; -fx-border-radius: 5px;");
+                            btn.setId("deletebtn");
+                            btn.setOnAction((ActionEvent event) -> {
+                                Table data = getTableView().getItems().get(getIndex());
+                                deleteTable(event, data);
+                            });
+
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        colBtn.setCellFactory(cellFactory);
+
+        TableTab.getColumns().add(colBtn);
+
+    }
+
+    public void deleteTable(ActionEvent event, Table data) {
+
+        Window owner = TableTab.getScene().getWindow();
+        // Call the facade to get
+        TableFacade tableFacade = TableFacade.getInstance();
+        Boolean result = tableFacade.deleteTable(data.getIdTable());
+        if (result) {
+            infoBox("Table deleted successfully!", null, "Success");
+        } else {
+            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+                    "Please enter your name");
+            return;
+        }
+        // Refresh the table
+        refreshTable();
+    }
+
+    public void refreshTable() {
+        // Call the facade to get
+        TableFacade tableFacade = TableFacade.getInstance();
+        ObservableList<Table> tables = tableFacade.getAllTables();
+        // Set the table
+        TableTab.setItems(tables);
+    }
+
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
 
         TableFacade tableFacade = TableFacade.getInstance();
@@ -35,11 +171,16 @@ public class AllTablesController implements Initializable {
         // Create an array list of all the tables
         ObservableList<Table> tables = tableFacade.getAllTables();
 
-        idTable.setCellValueFactory(new PropertyValueFactory<Table,Integer>("idTable"));
-        name.setCellValueFactory(new PropertyValueFactory<Table,String>("name"));
-        description.setCellValueFactory(new PropertyValueFactory<Table,String>("description"));
-        booked.setCellValueFactory(new PropertyValueFactory<Table,String>("booked"));
-
+        idTable.setCellValueFactory(new PropertyValueFactory<Table, Integer>("idTable"));
+        name.setCellValueFactory(new PropertyValueFactory<Table, String>("name"));
+        description.setCellValueFactory(new PropertyValueFactory<Table, String>("description"));
+        booked.setCellValueFactory(new PropertyValueFactory<Table, String>("booked"));
         TableTab.setItems(tables);
+
+        addUpdateButtonToTable();
+        addDeleteButtonToTable();
     }
+
+
+
 }

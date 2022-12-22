@@ -10,4 +10,6 @@ public abstract class TableDAO {
     public abstract Boolean insertTable(String name, String description);
 
     public abstract ObservableList<Table> getAllTables();
+
+    public abstract Boolean deleteTable(int id);
 }

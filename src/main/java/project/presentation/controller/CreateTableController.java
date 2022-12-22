@@ -9,8 +9,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Window;
 import project.business.facade.TableFacade;
 
-import static project.presentation.controller.LoginController.infoBox;
-import static project.presentation.controller.LoginController.showAlert;
+import static project.presentation.controller.Display.infoBox;
+import static project.presentation.controller.Display.showAlert;
+
 
 public class CreateTableController {
 

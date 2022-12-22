@@ -33,9 +33,13 @@ public class TableFacade {
         return this.tableDAO.getAllTables();
     }
 
+    public Boolean deleteTable(int id) {
+        return this.tableDAO.deleteTable(id);
+    }
     public static TableFacade getInstance() {
         return TableFacade.FacadeHolder.INSTANCE;
     }
+
 
 
     private static class FacadeHolder {

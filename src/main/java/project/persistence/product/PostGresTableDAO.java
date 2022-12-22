@@ -77,4 +77,34 @@ public class PostGresTableDAO extends TableDAO {
         }
         return result;
     }
+
+    @Override
+    public Boolean deleteTable(int id) {
+        Boolean result = false;
+
+        // Get the connection to the database
+        Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
+
+        // If the connection works
+        if (connection != null) {
+            // Create the query
+            try {
+                String query = "DELETE FROM \"public\".\"Table\" WHERE \"idTable\" = ?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, id);
+                preparedStatement.executeUpdate();
+                preparedStatement.close();
+                result = true;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        return result;
+    }
 }

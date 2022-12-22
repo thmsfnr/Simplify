@@ -12,6 +12,9 @@ import javafx.stage.Window;
 import project.business.facade.UserFacade;
 import project.business.models.User;
 
+import static project.presentation.controller.Display.infoBox;
+import static project.presentation.controller.Display.showAlert;
+
 /**
  * Created by Simplify members on 07/12/22.
  * This class is the controller of the login frame
@@ -67,43 +70,4 @@ public class LoginController {
             infoBox("Login Failed!", null, "Failed");
         }
     }
-
-    /**
-     * This method is after the login button is clicked and it shows an alert
-     * it is used to show the result of the login
-     * @param infoMessage the message of the alert
-     * @param headerText the header of the alert
-     * @param title the title of the alert
-     */
-    public static void infoBox(String infoMessage, String headerText, String title) {
-        // Create the alert
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-
-        // Set the parameters of the alert
-        alert.setContentText(infoMessage);
-        alert.setTitle(title);
-        alert.setHeaderText(headerText);
-        alert.showAndWait();
-    }
-
-    /**
-     * This method is used before the login button is clicked and it shows an alert
-     * it is used to show if the fields are empty
-     * @param alertType the type of the alert
-     * @param owner the owner of the alert
-     * @param title the title of the alert
-     * @param message the message of the alert
-     */
-    public static void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
-        // Create the alert
-        Alert alert = new Alert(alertType);
-
-        // Set the parameters of the alert
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.initOwner(owner);
-        alert.show();
-    }
-
 }

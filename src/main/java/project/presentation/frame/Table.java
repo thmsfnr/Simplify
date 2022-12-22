@@ -14,7 +14,7 @@ public class Table extends Application{
 
             // Create the scene with the root and set the title of the stage
             stage.setTitle("Table");
-            stage.setScene(new Scene(root, 700, 500));
+            stage.setScene(new Scene(root, 800, 500));
 
             // Show the GUI
             stage.show();
