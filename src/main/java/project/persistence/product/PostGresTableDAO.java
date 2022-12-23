@@ -3,15 +3,26 @@ package project.persistence.product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import project.persistence.factory.PostGresDAOFactory;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import project.business.models.Table;
+
+/**
+ * Created by Simplify members on 22/12/22.
+ * This class is the DAO of the table
+ * It is used to communicate with the database
+ * It's a singleton
+ *
+ * @author Simplify members
+ */
 public class PostGresTableDAO extends TableDAO {
 
+    /**
+     * This method is used to create a table
+     * @return a boolean, true if the table is created, false otherwise
+     */
     @Override
     public Boolean insertTable(String name, String description) {
         Boolean result = false;
@@ -43,6 +54,10 @@ public class PostGresTableDAO extends TableDAO {
         return result;
     }
 
+    /**
+     * This method is used to get all the tables
+     * @return a list of tables
+     */
     @Override
     public ObservableList<Table> getAllTables() {
         ObservableList<Table> result = FXCollections.observableArrayList();
@@ -78,6 +93,11 @@ public class PostGresTableDAO extends TableDAO {
         return result;
     }
 
+    /**
+     * This method is used to delete a table by its id
+     * @param id the id of the table
+     * @return the table
+     */
     @Override
     public Boolean deleteTable(int id) {
         Boolean result = false;
@@ -108,6 +128,11 @@ public class PostGresTableDAO extends TableDAO {
         return result;
     }
 
+    /**
+     * This method is used to update a table
+     * @param Table the table to update
+     * @return a boolean, true if the table is updated, false otherwise
+     */
     @Override
     public Boolean updateTable(Table table) {
         Boolean result = false;
@@ -140,6 +165,12 @@ public class PostGresTableDAO extends TableDAO {
         }
         return result;
     }
+
+    /**
+     * This method is used to get a table by its id
+     * @param id the id of the table
+     * @return the table
+     */
 
     @Override
     public Table getTableById(int id) {

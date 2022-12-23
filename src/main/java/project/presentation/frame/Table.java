@@ -5,6 +5,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Created by Simplify members on 22/12/22.
+ * This class is the main class of the table part of the application
+ * @author Simplify members
+ */
 public class Table extends Application{
 
         @Override

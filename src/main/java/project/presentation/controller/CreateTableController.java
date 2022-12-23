@@ -12,10 +12,17 @@ import project.business.facade.TableFacade;
 import static project.presentation.controller.Display.infoBox;
 import static project.presentation.controller.Display.showAlert;
 
+/**
+ * Created by Simplify members on 22/12/22.
+ * This class is the controller of the create table component
+ * It is used to create a table
+ * @author Simplify members
+ */
 
 public class CreateTableController {
 
 
+    // Instance variables
     @FXML
     private Button submitButton;
     @FXML
@@ -24,6 +31,10 @@ public class CreateTableController {
     private TextArea tableDescription;
 
 
+    /**
+     * This method is used to create a table
+     * @param event the event of the button validation of creation
+     */
     @FXML
     public void CreateTable(ActionEvent event) {
         System.out.println("Valider La création de la table button pressed!");
@@ -54,6 +65,7 @@ public class CreateTableController {
         // try to login the user
         Boolean created = tableFacade.createTable(name, description);
 
+        // if the user is not created show an alert
         if (created) {
             infoBox("Table created Successfully!", null, "Success");
         } else {

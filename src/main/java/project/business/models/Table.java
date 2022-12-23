@@ -1,11 +1,21 @@
 package project.business.models;
 
+/**
+ * Created by Simplify members on 22/12/22.
+ * This class is the model of the table
+ * It is used to create a table
+ *
+ * @author Simplify members
+ */
 public class Table {
+
+    // Instance variables
     private Integer idTable;
     private String name;
     private String description;
     private Boolean booked;
 
+    // Constructor
     public Table(Integer idTable, String name, String description, Boolean booked) {
         this.idTable = idTable;
         this.name = name;
@@ -13,6 +23,7 @@ public class Table {
         this.booked = booked;
     }
 
+    // Getters and setters
     public Integer getIdTable() {
         return idTable;
     }
