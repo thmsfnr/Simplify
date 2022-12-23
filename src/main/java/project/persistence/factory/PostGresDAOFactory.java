@@ -25,7 +25,7 @@ public class PostGresDAOFactory extends AbstractDAOFactory {
     /**
      * the constructor of the class PostGresDAOFactory
      */
-    public PostGresDAOFactory() { }
+    protected PostGresDAOFactory() { }
 
 
     /**

@@ -4,14 +4,15 @@ package project.presentation.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.business.facade.UserFacade;
 import project.business.models.User;
-
+import project.presentation.frame.Menu;
+import project.presentation.frame.Signin;
 import static project.presentation.controller.Display.infoBox;
 import static project.presentation.controller.Display.showAlert;
 
@@ -30,13 +31,15 @@ public class LoginController {
     private PasswordField passwordField;
     @FXML
     private Button submitButton;
+    @FXML
+    private Button switchButton;
 
     /**
      * This method is used to manage the event of the login button
      * @param event the event of the submit button
      */
     @FXML
-    public void login(ActionEvent event) {
+    public void login(ActionEvent event) throws Exception {
         // Get the window of the submit button
         Window owner = submitButton.getScene().getWindow();
 
@@ -65,9 +68,40 @@ public class LoginController {
         User user = userFacade.login(emailId, password);
 
         if (user != null) {
-            infoBox("Login Successful!", null, "Success");
+
+            Localstorage.write(user);
+            switchToMenu((Stage) submitButton.getScene().getWindow());
+
         } else {
             infoBox("Login Failed!", null, "Failed");
         }
     }
+
+    /**
+     * This method is used to switch to the signin frame
+     * @param event the event of the switch button
+     */
+    @FXML
+    private void switchToSignin(ActionEvent event) throws Exception {
+        // Get the window of the submit button
+        Window owner = switchButton.getScene().getWindow();
+
+        // Load the login frame
+        Signin login = new Signin();
+        login.start(new Stage());
+
+        // close the actual frame
+        owner.hide();
+    }
+
+    /**
+     * This method is used to switch to the menu frame
+     * @param stage the stage of the frame
+     */
+    private void switchToMenu(Stage stage) throws Exception {
+        // open the menu frame
+        Menu menu = new Menu();
+        menu.start(stage);
+    }
+
 }

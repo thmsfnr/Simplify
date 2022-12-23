@@ -1,0 +1,70 @@
+@startuml askDetailsRestaurant
+
+RestaurantFormFrame -> RestaurantFormFrame : launch()
+activate RestaurantFormFrame
+
+RestaurantFormFrame -> RestaurantFormController : askDetailsRestaurant(event)
+activate RestaurantFormController
+
+RestaurantFormController -> RestaurantFacade : getRestaurantById(id)
+activate RestaurantFacade
+
+RestaurantFacade -> PostGresRestaurantDAO : getById(id)
+activate PostGresRestaurantDAO
+
+PostGresRestaurantDAO -> ConnectionPostgres : getConnection()
+activate ConnectionPostgres
+ConnectionPostgres --> PostGresRestaurantDAO : return Connection
+deactivate ConnectionPostgres
+PostGresRestaurantDAO --> RestaurantFacade : return restaurant
+deactivate PostGresRestaurantDAO
+RestaurantFacade --> RestaurantFormController : return restaurant
+
+RestaurantFormController -> RestaurantFacade : getMealsOfRestaurant(restaurant)
+RestaurantFacade -> MealDAO : getMealsOfRestaurant(id)
+activate MealDAO
+MealDAO -> ConnectionPostgres : getConnection()
+activate ConnectionPostgres
+ConnectionPostgres --> MealDAO : return Connection
+deactivate ConnectionPostgres
+MealDAO --> RestaurantFacade : return List<Meal>
+RestaurantFacade --> RestaurantFormController : return List<Meal>
+
+RestaurantFormController -> RestaurantFacade : getTablesOfRestaurant(id)
+RestaurantFacade -> TableDAO : getTablesOfRestaurant(id)
+activate TableDAO
+TableDAO -> ConnectionPostgres : getConnection()
+activate ConnectionPostgres
+ConnectionPostgres --> TableDAO : return Connection
+deactivate ConnectionPostgres
+TableDAO --> RestaurantFacade : return List<Table>
+RestaurantFacade --> RestaurantFormController : return List<Table>
+
+RestaurantFormController -> RestaurantFacade : getOpinionsOfRestaurant(id)
+RestaurantFacade -> OpinionDAO : getOpinionsOfRestaurant(id)
+activate OpinionDAO
+OpinionDAO -> ConnectionPostgres : getConnection()
+activate ConnectionPostgres
+ConnectionPostgres --> OpinionDAO : return Connection
+deactivate ConnectionPostgres
+OpinionDAO --> RestaurantFacade : return List<Opinion>
+RestaurantFacade --> RestaurantFormController : return List<Opinion>
+
+RestaurantFormController -> RestaurantFacade : getRestaurantResponsable(idRespo)
+RestaurantFacade -> UserDAO : getRestaurantResponsable(idRespo)
+activate UserDAO
+UserDAO -> ConnectionPostgres : getConnection()
+activate ConnectionPostgres
+ConnectionPostgres --> UserDAO : return Connection
+deactivate ConnectionPostgres
+UserDAO --> RestaurantFacade : return User
+RestaurantFacade --> RestaurantFormController : return User
+
+
+
+deactivate RestaurantFacade
+
+deactivate RestaurantFormController
+deactivate  RestaurantFormFrame
+
+@enduml

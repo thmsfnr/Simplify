@@ -4,11 +4,12 @@ package project.presentation.controller;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+/**
+ * This class is used to test the methods of the login controller
+ * @author Simplify members
+ */
 public class LoginControllerTest {
 
-    /**
-     * This method is used to test the login method of the controller
-     */
     @Test
     void login() {
         LoginController controller = new LoginController();

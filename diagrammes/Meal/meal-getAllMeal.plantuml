@@ -2,7 +2,7 @@
 MealFrame -> MealFrame : launch()
 activate MealFrame
 
-MealFrame -> MealController: pressed(event)
+MealFrame -> MealController: getAllMeal(ActionEvent event)
 activate MealController
 
 MealController -> MealFacade: getAllMeal()
