@@ -30,6 +30,11 @@ public class MealFormController implements Initializable {
 
     private Boolean isUpdate;
 
+    /**
+     * This method is used to initialize the frame with the information of the meal if it is an update
+     * @param url the url
+     * @param resourceBundle the resource bundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -52,6 +57,10 @@ public class MealFormController implements Initializable {
         }
     }
 
+    /**
+     * This method is used to submit the form
+     * @param event the event of the button
+     */
     @FXML
     public void submit_modification(ActionEvent event){
         if(title.getText().isEmpty() || price.getText().isEmpty()) {
@@ -73,13 +82,16 @@ public class MealFormController implements Initializable {
         }
     }
 
+    /**
+     * This method is used to create a meal
+     * @throws IOException
+     */
     public void create() throws IOException {
         MealFacade mealFacade = MealFacade.getInstance();
         Window w = button_submit.getScene().getWindow();
         //generate an id
         Meal meal = new Meal((Integer) LocalStorage.load("restaurant_id") ,description.getText(),title.getText(), Double.parseDouble(price.getText()));
         if(mealFacade.create(meal)){
-            System.out.println("CREEEEEE");
             Display.showAlert(Alert.AlertType.INFORMATION, w, "create successful","Meal created successfully");
             try {
             switchToMealFrame();
@@ -92,6 +104,10 @@ public class MealFormController implements Initializable {
 
     }
 
+    /**
+     * This method is used to update a meal
+     * @throws IOException
+     */
     public void update() throws IOException {
         MealFacade mealFacade = MealFacade.getInstance();
         Window w = button_submit.getScene().getWindow();
@@ -108,6 +124,10 @@ public class MealFormController implements Initializable {
         }
     }
 
+    /**
+     * This method is used to switch to the meal frame
+     * @throws Exception if the frame is not found
+     */
     @FXML
     private void switchToMealFrame() throws Exception {
         // Get the window of the create button

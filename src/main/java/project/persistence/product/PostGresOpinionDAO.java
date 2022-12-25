@@ -12,9 +12,13 @@ import java.util.List;
 
 public class PostGresOpinionDAO extends OpinionDAO {
 
+    /**
+     * This method is used to get the list of opinions of a meal by the id of meal
+     * @param idMeal the id of the meal
+     * @return the list of opinions or null if the meal is not found and throw an exception
+     */
     @Override
     public List<Opinion> getAllOpinionOfMeal(int idMeal) {
-        System.out.println(idMeal);
         ArrayList<Opinion> opinions = new ArrayList<>();
         // Get the connection to the database
         Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();

@@ -7,6 +7,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MealInfoFrame extends Application {
+
+    /**
+     * This method is used to start the frame
+     * @param stage the stage
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -17,7 +23,7 @@ public class MealInfoFrame extends Application {
 
         // Create the scene with the root and set the title of the stage
         stage.setTitle("Meal info");
-        stage.setScene(new Scene(root, 700, 500));
+        stage.setScene(new Scene(root, 943, 592));
 
         // Show the GUI
         stage.show();

@@ -7,6 +7,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MealFrame extends Application {
+
+    /**
+     * This method is used to start the frame
+     * @param stage the stage
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
 

@@ -19,14 +19,17 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MealController implements Initializable {
-
     @FXML
     private ListView liste_meal;
-
     @FXML
     private Button button_create;
-
     private String[] elementsSelected;
+
+    /**
+     * This method is used to initialize the frame with the list of the meals of the restaurant
+     * @param url the url
+     * @param resourceBundle the resource bundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         MealFacade mealFacade = MealFacade.getInstance();
@@ -46,6 +49,9 @@ public class MealController implements Initializable {
         }
     }
 
+    /**
+     * This method is used to detect the selected meal in the list view
+     */
     @FXML
     private void selection(){
         Object clicked = liste_meal.getSelectionModel().getSelectedItem();
@@ -57,6 +63,12 @@ public class MealController implements Initializable {
         }
     }
 
+
+    /**
+     * This method is used to switch to the meal create frame
+     * @param event the event of the button
+     * @throws Exception the exception
+     */
     @FXML
     private void switchToCreateFrame(ActionEvent event) throws Exception {
         elementsSelected = null;
@@ -71,6 +83,12 @@ public class MealController implements Initializable {
         listeMealWindow.hide();
     }
 
+
+    /**
+     * This method is used to switch to the meal info frame
+     * @param idMeal the id of the meal selected
+     * @throws Exception the exception
+     */
     @FXML
     private void switchToInfoFrame(int idMeal) throws Exception {
         elementsSelected = null;
@@ -83,7 +101,5 @@ public class MealController implements Initializable {
 
         // close the actual frame
         listeMealWindow.hide();
-
     }
-
 }

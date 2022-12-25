@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.business.facade.MealFacade;
@@ -27,7 +28,7 @@ import java.util.ResourceBundle;
 public class MealInfoController implements Initializable {
 
     @FXML
-    private Label title;
+    private Text title_meal;
 
     @FXML
     private TextArea description;
@@ -44,17 +45,22 @@ public class MealInfoController implements Initializable {
     @FXML
     private Button button_update;
 
+    /**
+     * This method is used to initialize the frame with the information of the selected meal
+     * @param url the url
+     * @param resourceBundle the resource bundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         MealFacade mealFacade = MealFacade.getInstance();
-        Meal meal = null;
+        Meal meal;
         try {
             meal = mealFacade.getById((Integer)LocalStorage.load("meal_id"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         if (meal != null) {
-            title.setText(meal.getTitle());
+            title_meal.setText(meal.getTitle());
             description.setText(meal.getDescription());
             price.setText(String.valueOf(meal.getPrice()));
             description.setEditable(false);
@@ -67,19 +73,17 @@ public class MealInfoController implements Initializable {
                 throw new RuntimeException(e);
             }
             if(opinions != null) {
-                //create the container
-                VBox layout = new VBox(opinions.size());
-                for (Opinion opinion : opinions) {
-                        Label userLabel = new Label(String.valueOf(opinion.getIdUser()));
-                        TextArea description = new TextArea(opinion.getComment());
-                        description.setEditable(false);
-                        layout.getChildren().addAll(userLabel, description);
-                }
-                anchor_opinion.getChildren().add(layout);
+                ListView<Opinion> listView = new ListView<>();
+                listView.getItems().addAll(opinions);
+                anchor_opinion.getChildren().add(listView);
             }
         }
     }
 
+    /**
+     * This method is used to delete a meal
+     * @param event the event of the button
+     */
     @FXML
     public void delete(ActionEvent event) {
         MealFacade mealFacade = MealFacade.getInstance();
@@ -96,6 +100,11 @@ public class MealInfoController implements Initializable {
         }
     }
 
+    /**
+     * This method is used to switch to the update meal frame
+     * @param event the event of the button
+     * @throws Exception the exception
+     */
     @FXML
     private void switchToUpdateFrame(ActionEvent event) throws Exception {
         // Get the window of the create button
@@ -109,6 +118,11 @@ public class MealInfoController implements Initializable {
         listeMealWindow.hide();
     }
 
+    /**
+     * This method is used to back to the meal list frame
+     * @param event the event of the button
+     * @throws Exception the exception
+     */
     @FXML
     private void go_back(ActionEvent event) throws Exception {
         // Get the window of the create button

@@ -19,14 +19,9 @@ public class Opinion {
         return idUser;
     }
 
-
     @Override
     public String toString() {
-        return "Opinion{" +
-                "idOpinion=" + idOpinion +
-                ", idUser=" + idUser +
-                ", description='" + comment + '\'' +
-                '}';
+        return idOpinion + " - " + idUser + " - " + comment;
     }
 
     public String getComment() {

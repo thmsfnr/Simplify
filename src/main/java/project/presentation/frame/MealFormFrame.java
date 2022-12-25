@@ -8,6 +8,11 @@ import javafx.stage.Stage;
 
 public class MealFormFrame extends Application {
 
+    /**
+     * This method is used to start the frame
+     * @param stage the stage
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
         stage.setResizable(false); //pour pas maximiser une fenetre

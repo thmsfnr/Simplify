@@ -1,15 +1,17 @@
 package project.utilities;
 
-import project.business.models.Meal;
-import project.business.models.Restaurant;
-import project.business.models.User;
 
+import project.business.models.User;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class LocalStorage {
+
+    /**
+     * This method is used to save a variable in a file
+     * @param key the string which indicates the variable
+     * @param value the value of the variable
+     * @throws IOException the exception
+     */
     public static void write(String key,Object value) throws IOException {
         File file;
         // write the user in the file
@@ -63,8 +65,8 @@ public class LocalStorage {
         }
     }
     /**
-     * This method is used to get the user in the local storage
-     * @return the user
+     * This method is used to get the variable stored in the file with the key
+     * @return the value of the variable
      * @throws IOException if the file is not found
      */
     public static Object load(String key) throws IOException {
@@ -82,7 +84,6 @@ public class LocalStorage {
         BufferedReader reader = new BufferedReader(filereader);
         String line =  reader.readLine();
         if(line != null) {
-            System.out.println(line);
             if (line.contains("user_id")){
                return Integer.parseInt(line.substring(8));
             }
