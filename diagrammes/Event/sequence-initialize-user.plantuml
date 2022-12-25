@@ -1,0 +1,28 @@
+
+@startuml initialize-user
+
+EventUserFrame -> EventUserFrame : launch()
+activate EventUserFrame
+
+EventUserFrame -> EventUserController: initialize()
+activate EventUserController
+
+EventUserController -> EventFacade: getAllEvent()
+activate EventFacade
+
+EventFacade -> PostGresEventDAO : getAll()
+activate PostGresEventDAO
+
+PostGresEventDAO -> ConnectionPostGres : getConnection()
+activate ConnectionPostGres
+ConnectionPostGres --> PostGresEventDAO : return Connection
+deactivate ConnectionPostGres
+PostGresEventDAO --> EventFacade : return List<Event>
+deactivate PostGresEventDAO
+deactivate EventFacade
+
+EventFacade --> EventUserController : return List<Event>
+deactivate EventUserController
+deactivate EventUserFrame
+
+@enduml

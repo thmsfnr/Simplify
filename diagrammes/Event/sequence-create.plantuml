@@ -1,0 +1,28 @@
+
+@startuml create
+
+EventManagerFrame -> EventManagerFrame : launch()
+activate EventManagerFrame
+
+EventManagerFrame -> EventManagerController: create(event)
+activate EventManagerController
+
+EventManagerController -> EventFacade: create(Event event)
+activate EventFacade
+
+EventFacade -> PostGresEventDAO : create(Event event)
+activate PostGresEventDAO
+
+PostGresEventDAO -> ConnectionPostGres : getConnection()
+activate ConnectionPostGres
+ConnectionPostGres --> PostGresEventDAO : return Connection
+deactivate ConnectionPostGres
+PostGresEventDAO --> EventFacade : return Boolean
+deactivate PostGresEventDAO
+deactivate EventFacade
+
+EventFacade --> EventManagerController : return Boolean
+deactivate EventManagerController
+deactivate EventManagerFrame
+
+@enduml
