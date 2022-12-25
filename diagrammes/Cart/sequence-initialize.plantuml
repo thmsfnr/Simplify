@@ -1,0 +1,24 @@
+
+@startuml initialize
+
+CartFrame -> CartFrame : launch()
+activate CartFrame
+
+CartFrame -> CartController: initialize()
+activate CartController
+
+CartController -> CartFacade: load()
+activate CartFacade
+
+CartFacade -> CartStorage : load()
+activate CartStorage
+
+CartStorage --> CartFacade : return Object
+deactivate CartStorage
+
+CartFacade --> CartController : return Cart
+deactivate CartFacade
+deactivate CartController
+deactivate CartFrame
+
+@enduml
