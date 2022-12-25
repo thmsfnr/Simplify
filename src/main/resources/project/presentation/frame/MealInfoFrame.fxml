@@ -57,7 +57,7 @@
             <Label layoutX="207.0" layoutY="283.0" text="\$" />
             <TextField fx:id="price" layoutX="114.0" layoutY="279.0" prefHeight="24.0" prefWidth="86.0" />
             <Button fx:id="button_delete" layoutX="459.0" layoutY="249.0" mnemonicParsing="false" onAction="#delete" text="delete" />
-            <Button fx:id="button_update" layoutX="459.0" layoutY="291.0" mnemonicParsing="false" onAction="#update" text="update" />
+            <Button fx:id="button_update" layoutX="459.0" layoutY="291.0" mnemonicParsing="false" onAction="#switchToUpdateFrame" text="update" />
          </children>
       </AnchorPane>
    </right>

@@ -8,11 +8,16 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import project.business.facade.MealFacade;
 import project.business.models.Meal;
 import project.business.models.Opinion;
+import project.presentation.frame.MealFormFrame;
+import project.utilities.LocalStorage;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -34,12 +39,18 @@ public class MealInfoController implements Initializable {
     @FXML
     private AnchorPane anchor_opinion;
 
-    private static int numMealSelec = 2;
+    @FXML
+    private Button button_update;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         MealFacade mealFacade = MealFacade.getInstance();
-        Meal meal = mealFacade.getById(numMealSelec);
+        Meal meal = null;
+        try {
+            meal = mealFacade.getById((Integer)LocalStorage.load("meal_id"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         if (meal != null) {
             title.setText(meal.getTitle());
             description.setText(meal.getDescription());
@@ -47,13 +58,18 @@ public class MealInfoController implements Initializable {
             description.setEditable(false);
             price.setEditable(false);
             //image.setImage(meal.getImage());
-            ArrayList<Opinion> opinions = (ArrayList<Opinion>) mealFacade.getAllOpinionOfMeal(numMealSelec);
+            ArrayList<Opinion> opinions = null;
+            try {
+                opinions = (ArrayList<Opinion>) mealFacade.getAllOpinionOfMeal((Integer)LocalStorage.load("meal_id"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             if(opinions != null) {
                 //create the container
                 VBox layout = new VBox(opinions.size());
                 for (Opinion opinion : opinions) {
                         Label userLabel = new Label(String.valueOf(opinion.getIdUser()));
-                        TextArea description = new TextArea(opinion.getDescription());
+                        TextArea description = new TextArea(opinion.getComment());
                         description.setEditable(false);
                         layout.getChildren().addAll(userLabel, description);
                 }
@@ -61,18 +77,30 @@ public class MealInfoController implements Initializable {
             }
         }
     }
-    public void update(ActionEvent event) {
-       //change scene to updateFrame
-        System.out.println("update");
-    }
 
     public void delete(ActionEvent event) {
         MealFacade mealFacade = MealFacade.getInstance();
-        if(mealFacade.delete(numMealSelec)){
-            System.out.println("Meal deleted");
+        try {
+            if(mealFacade.delete((Integer)LocalStorage.load("meal_id"))) {
+                System.out.println("Meal deleted");
+            }
+            else {
+                System.out.println("Meal not deleted");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        else {
-            System.out.println("Meal not deleted");
-        }
+    }
+    @FXML
+    private void switchToUpdateFrame(ActionEvent event) throws Exception {
+        // Get the window of the create button
+        Window listeMealWindow = button_update.getScene().getWindow();
+
+        MealFormFrame formUpdate = new MealFormFrame();
+        LocalStorage.write("isUpdate", true);
+        formUpdate.start(new Stage());
+
+        // close the actual frame
+        listeMealWindow.hide();
     }
 }

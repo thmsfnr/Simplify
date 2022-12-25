@@ -58,16 +58,11 @@ public class Meal {
         return image;
     }
 
+
+
     @Override
     public String toString() {
-        return "Meal{" +
-                "idMeal=" + idMeal +
-                ", idRestaurant=" + idRestaurant +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", image='" + image + '\'' +
-                '}';
+        return idMeal + " - " + title + " - " + description + " " + price;
     }
 
     public void setImage(String image) {

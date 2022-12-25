@@ -32,7 +32,7 @@ public class PostGresOpinionDAO extends OpinionDAO {
                     Opinion opinion = new Opinion(
                             resultSet.getInt("idOpinion"),
                             resultSet.getInt("idUser"),
-                            resultSet.getString("description")
+                            resultSet.getString("comment")
                     );
                     opinions.add(opinion);
                 }

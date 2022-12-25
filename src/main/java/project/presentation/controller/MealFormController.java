@@ -9,6 +9,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import project.business.facade.MealFacade;
 import project.business.models.Meal;
+import project.utilities.LocalStorage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,18 +29,28 @@ public class MealFormController implements Initializable {
     @FXML
     private Button button_create;
 
-    private boolean isUpdate = true;
+    private Boolean isUpdate;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (isUpdate){
-            MealFacade mealFacade = MealFacade.getInstance();
-            Meal meal = mealFacade.getById(1);
-            if (meal != null) {
-                title.setText(meal.getTitle());
-                description.setText(meal.getDescription());
-                price.setText(String.valueOf(meal.getPrice()));
+
+        try {
+            //load variable to configure the form
+
+            isUpdate = (Boolean) LocalStorage.load("isUpdate");
+            if (isUpdate) {
+                if(LocalStorage.load("meal_id") != null) {
+                    MealFacade mealFacade = MealFacade.getInstance();
+                    Meal meal = mealFacade.getById((Integer)LocalStorage.load("meal_id"));
+                    if (meal != null) {
+                        title.setText(meal.getTitle());
+                        description.setText(meal.getDescription());
+                        price.setText(String.valueOf(meal.getPrice()));
+                    }
+                }
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -67,7 +78,7 @@ public class MealFormController implements Initializable {
     public void create() throws IOException {
         MealFacade mealFacade = MealFacade.getInstance();
         //generate an id
-        Meal meal = new Meal(1 ,description.getText(),title.getText(), Double.parseDouble(price.getText()));
+        Meal meal = new Meal((Integer) LocalStorage.load("restaurant_id") ,description.getText(),title.getText(), Double.parseDouble(price.getText()));
         if(mealFacade.create(meal)){
             label_success.setText("Meal created successfully");
             label_failure.setText("");
@@ -83,7 +94,7 @@ public class MealFormController implements Initializable {
 
     public void update() throws IOException {
         MealFacade mealFacade = MealFacade.getInstance();
-        Meal meal = new Meal(1,1, description.getText(),title.getText(), Double.parseDouble(price.getText()));
+        Meal meal = new Meal((Integer)LocalStorage.load("meal_id"),(Integer)LocalStorage.load("restaurant_id"), description.getText(),title.getText(), Double.parseDouble(price.getText()));
         System.out.println(meal);
         if(mealFacade.update(meal)){
             label_success.setText("Meal updated successfully");

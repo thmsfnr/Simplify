@@ -3,12 +3,12 @@ package project.business.models;
 public class Opinion {
     private int idOpinion;
     private int idUser;
-    private String description;
+    private String comment;
 
-    public Opinion(int idOpinion, int idUser, String description) {
+    public Opinion(int idOpinion, int idUser, String comment) {
         this.idOpinion = idOpinion;
         this.idUser = idUser;
-        this.description = description;
+        this.comment = comment;
     }
 
     public int getIdOpinion() {
@@ -25,15 +25,15 @@ public class Opinion {
         return "Opinion{" +
                 "idOpinion=" + idOpinion +
                 ", idUser=" + idUser +
-                ", description='" + description + '\'' +
+                ", description='" + comment + '\'' +
                 '}';
     }
 
-    public String getDescription() {
-        return description;
+    public String getComment() {
+        return comment;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }
