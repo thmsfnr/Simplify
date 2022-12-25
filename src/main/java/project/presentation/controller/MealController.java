@@ -26,7 +26,7 @@ public class MealController implements Initializable {
     @FXML
     private Button button_create;
 
-
+    private String[] elementsSelected;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         MealFacade mealFacade = MealFacade.getInstance();
@@ -47,11 +47,11 @@ public class MealController implements Initializable {
     }
 
     @FXML
-    public void selection(){
+    private void selection(){
         Object clicked = liste_meal.getSelectionModel().getSelectedItem();
-        String[] elements = clicked.toString().split(" ");
+        elementsSelected = clicked.toString().split(" ");
         try {
-            switchToInfoFrame(Integer.parseInt(elements[0]));
+            switchToInfoFrame(Integer.parseInt(elementsSelected[0]));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -59,6 +59,7 @@ public class MealController implements Initializable {
 
     @FXML
     private void switchToCreateFrame(ActionEvent event) throws Exception {
+        elementsSelected = null;
         // Get the window of the create button
         Window listeMealWindow = button_create.getScene().getWindow();
 
@@ -72,6 +73,7 @@ public class MealController implements Initializable {
 
     @FXML
     private void switchToInfoFrame(int idMeal) throws Exception {
+        elementsSelected = null;
         // Get the window of the create button
         Window listeMealWindow = button_create.getScene().getWindow();
 
@@ -81,6 +83,7 @@ public class MealController implements Initializable {
 
         // close the actual frame
         listeMealWindow.hide();
+
     }
 
 }

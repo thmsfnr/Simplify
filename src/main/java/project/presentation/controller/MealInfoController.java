@@ -14,6 +14,8 @@ import project.business.facade.MealFacade;
 import project.business.models.Meal;
 import project.business.models.Opinion;
 import project.presentation.frame.MealFormFrame;
+import project.presentation.frame.MealInfoFrame;
+import project.utilities.Display;
 import project.utilities.LocalStorage;
 
 
@@ -78,19 +80,22 @@ public class MealInfoController implements Initializable {
         }
     }
 
+    @FXML
     public void delete(ActionEvent event) {
         MealFacade mealFacade = MealFacade.getInstance();
+        Window w = button_update.getScene().getWindow();
         try {
             if(mealFacade.delete((Integer)LocalStorage.load("meal_id"))) {
-                System.out.println("Meal deleted");
+                Display.showAlert(Alert.AlertType.INFORMATION, w, "meal delete successful","Meal deleted successfully");
             }
             else {
-                System.out.println("Meal not deleted");
+                Display.showAlert(Alert.AlertType.ERROR, w, "meal delete failed","Meal delete failed");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
     @FXML
     private void switchToUpdateFrame(ActionEvent event) throws Exception {
         // Get the window of the create button
@@ -102,5 +107,16 @@ public class MealInfoController implements Initializable {
 
         // close the actual frame
         listeMealWindow.hide();
+    }
+
+    @FXML
+    private void go_back(ActionEvent event) throws Exception {
+        // Get the window of the create button
+        Window mealWindow = button_update.getScene().getWindow();
+        MealInfoFrame mealInfoFrame = new MealInfoFrame();
+        mealInfoFrame.start(new Stage());
+
+        // close the actual frame
+        mealWindow.hide();
     }
 }

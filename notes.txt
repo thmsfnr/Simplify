@@ -1,0 +1,2 @@
+-améliorer localstorage
+-problème pour revenir en arrière (page infoFrame)
