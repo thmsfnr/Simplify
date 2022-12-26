@@ -1,0 +1,174 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+' Persistence Layer
+
+abstract class AbstractDAOFactory {
+    + abstract getPaiementDAO() : PaiementDAO
+    + abstract getCommandeDAO() : CommandeDAO
+    + abstract getLivraisonDAO() : LivraisonDAO
+    + abstract getUserDAO() : UserDAO
+}
+
+
+class PostGresDAOFactory extends AbstractDAOFactory {
+    - connectionPostgres : ConnectionPostgres
+    + getPaiementDAO() : PaiementDAO
+}
+
+abstract class PaiementDAO {
+    + abstract create(Paiement paiement) : Paiement
+    + abstract update(Paiement paiement) : Paiement
+    + abstract delete(Paiement paiement) : void
+    + abstract getById(Paiement paiement) : Paiement
+    + abstract getAllPaiements() : List<Paiement>
+    + abstract getAllPaiementsOfUser(User user) : List<Paiement>
+}
+
+abstract class UserDAO{
+    + abstract getById(int id) : User
+}
+
+abstract class LivraisonDAO{
+    + abstract getById(int id) : Livraison
+}
+
+abstract class ReservationDAO{
+    + abstract getById(int id) : Reservation
+}
+
+class PostGresPaiementDAO extends PaiementDAO {
+    + create(Paiement paiement) : Paiement
+    + update(Paiement paiement) : Paiement
+    + delete(Paiement paiement) : void
+    + getById(Paiement paiement) : Paiement
+    + getAllPaiements() : List<Paiement>
+    + getAllPaiementsOfUser(User user) : List<Paiement>
+}
+
+
+class ConnectionPostgres {
+    - url : String
+    - user : String
+    - password : String
+    + getConnection() : Connection
+}
+
+
+' Business Layer
+
+class PaiementFacade {
+    - paiementDAO : PaiementDAO
+    - userDAO : UserDAO
+    - livraisonDAO : LivraisonDAO
+    - reservationDAO : ReservationDAO
+    - verifyPaiement : VerifyInformationsPaiement
+    + makePaiement(String numberCard, Date expirationDate, String puk, String nameOnCard, Paiement paiement) : Paiement
+    + updatePaiement(Paiement paiement) : Paiement
+    + deletePaiement(int id) : void
+    + getPaiementById(int id) : Paiement
+    + getUser(int id) : User
+    + getLivraison(int id) : Livraison
+    + getReservation(int id) : Reservation
+    + getAllPaiements() : List<Paiement>
+    + getAllPaiementsOfUser(int id) : List<Paiement>
+    + getInstance() : PaiementFacade
+}
+
+
+class VerifyInformationsPaiement {
+    + verifyPaiement(String numberCard, Date expirationDate, String puk, String nameOnCard) : boolean
+}
+
+
+class Paiement {
+    - idPaiement : int
+    - idUser : int
+    - idCommande : int
+    - amount : float
+    - date : Date
+    - status : String
+    - paiementMethod : String
+    - numberCard : String
+}
+
+
+' Presentation Layer
+
+abstract class Application{
+    + abstract start(Stage) : void
+    + launch(String[]) : void
+}
+
+class PaiementListFrame extends Application{
+    +start(Stage) : void
+}
+
+class PaiementListController{
+
+}
+
+class PaiementFrame extends Application{
+    +start(Stage) : void
+}
+
+class PaiementController{
+
+}
+
+class PaiementResumeFrame extends Application{
+    +start(Stage) : void
+}
+
+class PaiementResumeController{
+
+}
+
+class PaiementDetailsFrame extends Application{
+    +start(Stage) : void
+}
+
+class PaiementDetailsController{
+
+}
+
+
+
+' Associations
+PostGresDAOFactory --> ConnectionPostgres
+PostGresDAOFactory --> PostGresPaiementDAO
+AbstractDAOFactory --> PaiementDAO
+
+AbstractDAOFactory --> UserDAO
+AbstractDAOFactory --> LivraisonDAO
+AbstractDAOFactory --> ReservationDAO
+
+PaiementFacade --> PaiementDAO
+PaiementFacade --> UserDAO
+PaiementFacade --> LivraisonDAO
+PaiementFacade --> ReservationDAO
+
+
+
+PaiementListFrame -- PaiementListController
+PaiementFrame -- PaiementController
+
+PaiementListController --> PaiementFacade
+PaiementController --> PaiementFacade
+
+PaiementResumeFrame -- PaiementResumeController
+PaiementResumeController --> PaiementFacade
+
+PaiementDetailsFrame -- PaiementDetailsController
+
+
+PaiementFacade --> VerifyInformationsPaiement
+
+PaiementFacade --> Paiement
+PaiementDAO --> Paiement
+PaiementController --> Paiement
+PaiementListController --> Paiement
+PaiementResumeController --> Paiement
+PaiementDetailsController --> Paiement
+
+@enduml

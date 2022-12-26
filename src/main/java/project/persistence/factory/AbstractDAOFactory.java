@@ -52,7 +52,6 @@ public abstract class AbstractDAOFactory {
      */
     public abstract MealDAO getMealDAO();
 
-    public abstract OpinionDAO getOpinionDAO();
 
     /**
      * This method is used to get the instance of the class

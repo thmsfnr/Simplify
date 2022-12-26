@@ -1,0 +1,33 @@
+@startuml getHistoriquePaiements
+'https://plantuml.com/sequence-diagram
+
+PaiementListFrame -> PaiementListFrame : launch()
+activate PaiementListFrame
+
+PaiementListFrame -> PaiementListController : initialize()
+activate PaiementListController
+
+PaiementListController -> PaiementFacade : getAllPaiementsOfUser(id)
+activate PaiementFacade
+
+PaiementFacade -> PostGresPaiementDAO : getAllPaiementsOfUser(id)
+activate PostGresPaiementDAO
+
+PostGresPaiementDAO -> ConnectionPostgres : getConnection()
+activate ConnectionPostgres
+
+ConnectionPostgres --> PostGresPaiementDAO : return connection
+deactivate ConnectionPostgres
+
+PostGresPaiementDAO --> PaiementFacade : return List<Paiement>
+deactivate PostGresPaiementDAO
+
+PaiementFacade --> PaiementListController : return List<Paiement>
+deactivate PaiementFacade
+
+deactivate PaiementListController
+deactivate PaiementListFrame
+
+
+
+@enduml
