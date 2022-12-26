@@ -1,0 +1,28 @@
+
+@startuml delete
+
+EventManagerFrame -> EventManagerFrame : launch()
+activate EventManagerFrame
+
+EventManagerFrame -> EventManagerController: delete(event)
+activate EventManagerController
+
+EventManagerController -> EventFacade: delete(Int id)
+activate EventFacade
+
+EventFacade -> PostGresEventDAO : delete(Int id)
+activate PostGresEventDAO
+
+PostGresEventDAO -> ConnectionPostGres : getConnection()
+activate ConnectionPostGres
+ConnectionPostGres --> PostGresEventDAO : return Connection
+deactivate ConnectionPostGres
+PostGresEventDAO --> EventFacade : return Boolean
+deactivate PostGresEventDAO
+deactivate EventFacade
+
+EventFacade --> EventManagerController : return Boolean
+deactivate EventManagerController
+deactivate EventManagerFrame
+
+@enduml

@@ -2,6 +2,7 @@ package project.business.models;
 
 public class Restaurant {
 
+
     private int idRestaurant;
     private String name;
     private String address;
@@ -98,5 +99,12 @@ public class Restaurant {
 
     public void setIdManager(int idManager) {
         this.idManager = idManager;
+
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "id=" + id +
+                '}';
     }
 }

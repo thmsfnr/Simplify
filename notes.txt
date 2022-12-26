@@ -1,0 +1,8 @@
+-améliorer localstorage
+-problème pour revenir en arrière (page infoFrame)
+-problème popup qui se ferme avant de passer à la page suivante ( solution : Confirmation popup ?)
+- changer les graphismes (c'est super clair et des fois dur à lire)
+- trouver une taille de page fixe pour les pages
+- rendre responsive l'application ou bloquer la redimention de la taille des fenetres
+-probleme tailles opinions (pas de taille fixe)
+-mettre possibilité de mettre image d'un meal

@@ -56,7 +56,6 @@ public class PostGresUserDAO extends UserDAO{
                     preparedStatement.close();
                     return user;
                 }
-
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
