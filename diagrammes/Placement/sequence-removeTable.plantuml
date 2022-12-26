@@ -1,0 +1,25 @@
+@startuml
+activate PlacementFrame
+PlacementFrame -> PlacementFrame : launch()
+PlacementFrame -> PlacementController : initialize()
+activate PlacementController
+PlacementFrame -> PlacementController : removeTable()
+
+PlacementController -> PlacementFacade : deletePlacement(idTable)
+activate PlacementFacade
+PlacementFacade -> PostGresPlacementDAO : deletePlacement(idTable)
+activate PostGresPlacementDAO
+PostGresPlacementDAO -> ConnectionPostGres : getConnection()
+activate ConnectionPostGres
+ConnectionPostGres --> PostGresPlacementDAO : return Connection
+deactivate ConnectionPostGres
+PostGresPlacementDAO --> PlacementFacade : return Boolean
+deactivate PostGresPlacementDAO
+
+PlacementFacade --> PlacementController: return Boolean
+
+deactivate PlacementFacade
+deactivate PlacementController
+deactivate PlacementFrame
+
+@enduml

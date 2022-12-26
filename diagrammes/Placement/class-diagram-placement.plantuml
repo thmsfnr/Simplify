@@ -1,0 +1,84 @@
+@startuml
+
+class PlacementFrame {
+  + start(Stage stage) : void
+}
+
+class Application {
+  + start(Stage stage) : void
+  + launch(String[] tab) : void
+}
+
+class PlacementController {
+  + initialize(URL url, ResourceBundle resourceBundle) : void
+  - place() : void
+  - selection() : void
+  - addTable(ActionEvent event) : void
+  - removeTable(ActionEvent event) : void
+  - switchToTable(ActionEvent event) : void
+}
+
+
+class PlacementFacade{
+  - PlacementDAO placementDAO
+  - TableDAO tableDAO
+  + deletePlacement(int idTable) : Boolean
+  + updatePlacement(Table table) : Boolean
+  + getAllTableOfRestaurant(int idRestaurant) : List<Table>
+  + getTableById(int idTable) : Table
+  + getInstance() : PlacementFacade
+}
+
+
+abstract class AbstractDAOFactory{
+  + getPlacementDAO() : PlacementDAO
+  + getInstance() : AbstractDAOFactory
+}
+
+class PostGresDAOFactory{
+  -ConnectionPostgres : ConnectionPostgres
+}
+
+class PostGresPlacementDAO{}
+
+
+abstract class PlacementDAO{
+  + deletePlacement(int idTable) : Boolean
+  + updatePlacement(Table table) : Boolean
+  + getAllTableOfRestaurant(int idRestaurant) : List<Table>
+  + getTableById(int idTable) : Table
+  + getInstance() : PlacementFacade
+}
+
+class ConnectionPostgres{
+  - url : String
+  - user : String
+  - password : String
+  + getConnection() : Connection
+}
+
+class LocalStorage{
+ + write(String key,Object value) : void
+ + load(String key) : Object
+}
+
+Application <|-- PlacementFrame
+
+PlacementController -> PlacementFacade
+
+PlacementController --> LocalStorage
+
+PlacementFrame -- PlacementController
+
+
+PlacementFacade -> PlacementDAO
+PlacementFacade -> AbstractDAOFactory
+
+AbstractDAOFactory <|-- PostGresDAOFactory
+PlacementDAO <|-- PostGresPlacementDAO
+PostGresDAOFactory --> ConnectionPostgres
+PostGresDAOFactory -> PostGresPlacementDAO
+AbstractDAOFactory -> PlacementDAO
+
+@enduml
+
