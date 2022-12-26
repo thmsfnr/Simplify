@@ -16,23 +16,33 @@ class Application {
 }
 
 class MealController {
-  + getAllMeal(ActionEvent event) : void
-  + create(ActionEvent event) : void
+  + initialize(URL url, ResourceBundle resourceBundle) : void
+  - selection() : void
+  - switchToCreateFrame(ActionEvent event) : void
+  - switchToInfoFrame(ActionEvent event) : void
 }
 class MealInfoController {
-  + getById(ActionEvent event) : void
+  + initialize(URL url, ResourceBundle resourceBundle) : void
   + delete(ActionEvent event) : void
+  - switchToUpdateFrame(ActionEvent event) : void
+  - go_back(ActionEvent event) : void
 }
 class MealFormController {
-  + update(ActionEvent event) : void
+  + initialize(URL url, ResourceBundle resourceBundle) : void
+  + submit_modification(ActionEvent event) : void
+  + update() : void
+  + create() : void
+  + switchToMealFrame() : void
 }
 
 class MealFacade{
   - MealDAO mealDAO
+  - OpinionDAO opinionDAO
   + update(Meal meal) : Boolean
   + delete(int idMeal) : Boolean
   + create(Meal meal) : Boolean
   + getAllMeal() : List<Meal>
+  + getAllOpinionOfMeal(int idMeal) : List<Opinion>
   + getById(int idMeal) : Meal
   + getInstance() : MealFacade
 }
@@ -48,6 +58,7 @@ class Meal{
 
 abstract class AbstractDAOFactory{
   + getMealDAO() : MealDAO
+  + getOpinionDAO() : OpinionDAO
   + getInstance() : AbstractDAOFactory
 }
 
@@ -73,6 +84,10 @@ class ConnectionPostgres{
   + getConnection() : Connection
 }
 
+class LocalStorage{
+ + write(String key,Object value) : void
+ + load(String key) : Object
+}
 
 Application <|-- MealFrame
 Application <|-- MealFormFrame
@@ -84,6 +99,11 @@ MealInfoController -> MealFacade
 MealInfoController -> Meal
 MealFormController -> MealFacade
 MealFormController -> Meal
+
+MealController --> LocalStorage
+MealInfoController --> LocalStorage
+MealFormController --> LocalStorage
+
 
 MealFormFrame -- MealFormController
 MealInfoFrame -- MealInfoController
