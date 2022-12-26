@@ -6,3 +6,4 @@
 - rendre responsive l'application ou bloquer la redimention de la taille des fenetres
 -probleme tailles opinions (pas de taille fixe)
 -mettre possibilité de mettre image d'un meal
+-nommer les classes frame -> TableFrame au lieu de Table (pour le diagramme de sequence faut préciser la différence entre le model Table et le <tableFrame
