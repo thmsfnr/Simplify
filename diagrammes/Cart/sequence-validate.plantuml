@@ -1,0 +1,17 @@
+
+@startuml validate
+
+CartFrame -> CartFrame : launch()
+activate CartFrame
+
+CartFrame -> CartController: validate(event)
+activate CartController
+
+CartController -> PaymentFrame: start(stage)
+activate PaymentFrame
+deactivate CartFrame
+deactivate CartController
+
+deactivate PaymentFrame
+
+@enduml

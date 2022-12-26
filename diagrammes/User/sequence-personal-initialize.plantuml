@@ -1,0 +1,28 @@
+
+@startuml initialize-personal
+
+PersonalAccountFrame -> PersonalAccountFrame : launch()
+activate PersonalAccountFrame
+
+PersonalAccountFrame -> PersonalAccountController: initialize()
+activate PersonalAccountController
+
+PersonalAccountController -> UserFacade: getById(Int id)
+activate UserFacade
+
+UserFacade -> PostGresUserDAO : getById(Int id)
+activate PostGresUserDAO
+
+PostGresUserDAO -> ConnectionPostGres : getConnection()
+activate ConnectionPostGres
+ConnectionPostGres --> PostGresUserDAO : return Connection
+deactivate ConnectionPostGres
+PostGresUserDAO --> UserFacade : return User
+deactivate PostGresUserDAO
+deactivate UserFacade
+
+UserFacade --> PersonalAccountController : return User
+deactivate PersonalAccountController
+deactivate PersonalAccountFrame
+
+@enduml

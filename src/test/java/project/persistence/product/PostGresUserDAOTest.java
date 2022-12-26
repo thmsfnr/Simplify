@@ -1,15 +1,12 @@
+
 package project.persistence.product;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import project.business.models.User;
 import project.exceptions.UserNotFoundException;
 import project.persistence.factory.AbstractDAOFactory;
 import project.persistence.factory.PostGresDAOFactory;
-
 import java.sql.Connection;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -25,8 +22,9 @@ class PostGresUserDAOTest {
         Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
         assertNotNull(connection);
     }
+
     @Test
-    void getByEmail_User_Found(){
+    void getByEmail_User_Found() {
         AbstractDAOFactory factory = PostGresDAOFactory.getInstance();
         UserDAO userDAO = factory.getUserDAO();
         User user = null;
@@ -36,18 +34,82 @@ class PostGresUserDAOTest {
             throw new RuntimeException(e);
         }
         assertNotNull(user);
-        assertEquals(user.getId(),1);
-        assertEquals(user.getEmail(),"momo@gmail.com");
-        assertEquals(user.getName(),"momo");
+        assertEquals(user.getId(), 1);
+        assertEquals(user.getEmail(), "momo@gmail.com");
+        assertEquals(user.getName(), "momo");
     }
+
     @Test
-    void getByEmail_User_No_Found(){
+    void getByEmail_User_No_Found() {
         AbstractDAOFactory factory = PostGresDAOFactory.getInstance();
         UserDAO userDAO = factory.getUserDAO();
 
-        UserNotFoundException userNotFoundException = assertThrows(UserNotFoundException.class,() -> {
+        UserNotFoundException userNotFoundException = assertThrows(UserNotFoundException.class, () -> {
             userDAO.getByEmail("toto");
         });
         assertEquals("User not found", userNotFoundException.getMessage());
     }
+
+    @Test
+    void getById() throws UserNotFoundException {
+        AbstractDAOFactory factory = PostGresDAOFactory.getInstance();
+        UserDAO userDAO = factory.getUserDAO();
+        User user = userDAO.getById(3);
+
+        assertNotNull(user);
+    }
+
+    @Test
+    void getById_User_No_Found() {
+        AbstractDAOFactory factory = PostGresDAOFactory.getInstance();
+        UserDAO userDAO = factory.getUserDAO();
+
+        UserNotFoundException userNotFoundException = assertThrows(UserNotFoundException.class, () -> {
+            userDAO.getById(100);
+        });
+        assertEquals("User not found", userNotFoundException.getMessage());
+    }
+
+    @Test
+    void create() {
+        AbstractDAOFactory factory = PostGresDAOFactory.getInstance();
+        UserDAO userDAO = factory.getUserDAO();
+        String email = "test" + Math.random() + "@gmail.com";
+        User user = new User("test", email, "test", "test", "test", "test", false, false, 1);
+        Boolean ok = userDAO.create(user);
+
+        assertTrue(ok);
+    }
+
+    @Test
+    void update() {
+        AbstractDAOFactory factory = PostGresDAOFactory.getInstance();
+        UserDAO userDAO = factory.getUserDAO();
+        User user = null;
+        try {
+            user = userDAO.getByEmail("test");
+        } catch (UserNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        user.setName("test2");
+        Boolean ok = userDAO.update(user);
+
+        assertTrue(ok);
+    }
+
+    @Test
+    void delete() {
+        AbstractDAOFactory factory = PostGresDAOFactory.getInstance();
+        UserDAO userDAO = factory.getUserDAO();
+        User user = null;
+        try {
+            user = userDAO.getByEmail("test");
+        } catch (UserNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        Boolean ok = userDAO.delete(user.getId());
+
+        assertTrue(ok);
+    }
+
 }

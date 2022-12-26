@@ -16,4 +16,5 @@ module project.presentation {
     exports project.presentation.frame;
     opens project.presentation.frame to javafx.fxml;
 
+    opens project.business.models to javafx.base;
 }

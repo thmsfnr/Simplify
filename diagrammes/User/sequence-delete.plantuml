@@ -1,13 +1,13 @@
 
 @startuml delete
 
-UserFrame -> UserFrame : launch()
-activate UserFrame
+AllAccountsFrame -> AllAccountsFrame : launch()
+activate AllAccountsFrame
 
-UserFrame -> UserController: delete(event)
-activate UserController
+AllAccountsFrame -> AllAccountsController: delete(event)
+activate AllAccountsController
 
-UserController -> UserFacade: delete(Int id)
+AllAccountsController -> UserFacade: delete(Int id)
 activate UserFacade
 
 UserFacade -> PostGresUserDAO : delete(Int id)
@@ -21,8 +21,8 @@ PostGresUserDAO --> UserFacade : return Boolean
 deactivate PostGresUserDAO
 deactivate UserFacade
 
-UserFacade --> UserController : return Boolean
-deactivate UserController
-deactivate UserFrame
+UserFacade --> AllAccountsController : return Boolean
+deactivate AllAccountsController
+deactivate AllAccountsFrame
 
 @enduml
