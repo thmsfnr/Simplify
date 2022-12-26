@@ -3,7 +3,7 @@
 RestaurantListFrame -> RestaurantListFrame : launch()
 activate RestaurantListFrame
 
-RestaurantListFrame -> RestaurantListController : askListOfRestaurants(event)
+RestaurantListFrame -> RestaurantListController : initialize()
 activate RestaurantListController
 
 RestaurantListController -> RestaurantFacade : getAllRestaurants()
@@ -24,6 +24,10 @@ deactivate PostGresRestaurantDAO
 
 RestaurantFacade --> RestaurantListController : return List<Restaurants>
 deactivate RestaurantFacade
+
+RestaurantListController -> RestaurantListController : addDeleteButton()
+RestaurantListController -> RestaurantListController : addUpdateButton()
+RestaurantListController -> RestaurantListController : addDetailsButton()
 
 deactivate RestaurantListController
 deactivate RestaurantListFrame

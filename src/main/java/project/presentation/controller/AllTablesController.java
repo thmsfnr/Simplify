@@ -198,12 +198,9 @@ public class AllTablesController implements Initializable {
                 return cell;
             }
         };
-
         // Add the column to the table
         colBtn.setCellFactory(cellFactory);
-
         TableTab.getColumns().add(colBtn);
-
     }
 
     /**

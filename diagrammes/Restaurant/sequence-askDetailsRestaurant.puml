@@ -20,25 +20,17 @@ PostGresRestaurantDAO --> RestaurantFacade : return restaurant
 deactivate PostGresRestaurantDAO
 RestaurantFacade --> RestaurantFormController : return restaurant
 
-RestaurantFormController -> RestaurantFacade : getMealsOfRestaurant(restaurant)
-RestaurantFacade -> MealDAO : getMealsOfRestaurant(id)
-activate MealDAO
-MealDAO -> ConnectionPostgres : getConnection()
-activate ConnectionPostgres
-ConnectionPostgres --> MealDAO : return Connection
-deactivate ConnectionPostgres
-MealDAO --> RestaurantFacade : return List<Meal>
-RestaurantFacade --> RestaurantFormController : return List<Meal>
 
-RestaurantFormController -> RestaurantFacade : getTablesOfRestaurant(id)
-RestaurantFacade -> TableDAO : getTablesOfRestaurant(id)
+
+RestaurantFormController -> RestaurantFacade : countTablesOfRestaurant(id)
+RestaurantFacade -> TableDAO : countTablesOfRestaurant(id)
 activate TableDAO
 TableDAO -> ConnectionPostgres : getConnection()
 activate ConnectionPostgres
 ConnectionPostgres --> TableDAO : return Connection
 deactivate ConnectionPostgres
-TableDAO --> RestaurantFacade : return List<Table>
-RestaurantFacade --> RestaurantFormController : return List<Table>
+TableDAO --> RestaurantFacade : return Integer
+RestaurantFacade --> RestaurantFormController : return Integer
 
 RestaurantFormController -> RestaurantFacade : getOpinionsOfRestaurant(id)
 RestaurantFacade -> OpinionDAO : getOpinionsOfRestaurant(id)

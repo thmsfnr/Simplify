@@ -2,7 +2,10 @@
 package project.persistence.product;
 
 import project.business.models.User;
+import project.exceptions.AccessDatabaseException;
 import project.exceptions.UserNotFoundException;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,5 +62,12 @@ public abstract class UserDAO {
      * @return the list of the users
      */
     public abstract List<User> getAskDelete();
+
+
+    /**
+     * This method is used to get the list of managers that exists
+     * @return the list of the users
+     */
+    public abstract ArrayList<User> getAllManagers() throws AccessDatabaseException;
 
 }

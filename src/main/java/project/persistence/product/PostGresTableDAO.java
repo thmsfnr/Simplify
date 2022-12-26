@@ -2,6 +2,7 @@ package project.persistence.product;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import project.exceptions.AccessDatabaseException;
 import project.persistence.factory.PostGresDAOFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -130,7 +131,7 @@ public class PostGresTableDAO extends TableDAO {
 
     /**
      * This method is used to update a table
-     * @param Table the table to update
+     * @param table the table to update
      * @return a boolean, true if the table is updated, false otherwise
      */
     @Override
@@ -206,5 +207,36 @@ public class PostGresTableDAO extends TableDAO {
             }
         }
         return result;
+    }
+
+
+    /**
+     * This method is used to get the number of tables in a restaurant
+     * @param idRestaurant the id of the restaurant
+     * @return the table
+     */
+    @Override
+    public int countOfTablesOfRestaurant(int idRestaurant) throws AccessDatabaseException {
+        Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
+
+        if(connection != null){
+            try{
+                String query = "SELECT COUNT(*) FROM \"public\".\"Table\" WHERE \"idRestaurant\" = ?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, idRestaurant);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while(resultSet.next()){
+                    return resultSet.getInt(1);
+                }
+                return 0;
+
+            }
+            catch(SQLException e){
+                throw new AccessDatabaseException(e);
+            }
+        }
+        else{
+            throw new AccessDatabaseException();
+        }
     }
 }
