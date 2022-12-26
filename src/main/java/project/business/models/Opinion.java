@@ -1,9 +1,14 @@
 package project.business.models;
 
 public class Opinion {
-    private int idOpinion;
-    private int idUser;
-    private String comment;
+
+
+    public int idOpinion;
+    public int idUser;
+    public String comment;
+
+    public Opinion(){ }
+
 
     public Opinion(int idOpinion, int idUser, String comment) {
         this.idOpinion = idOpinion;
@@ -15,13 +20,24 @@ public class Opinion {
         return idOpinion;
     }
 
+
+    public void setIdOpinion(int idOpinion) {
+        this.idOpinion = idOpinion;
+    }
+
+
     public int getIdUser() {
         return idUser;
     }
 
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+
     @Override
     public String toString() {
         return idOpinion + " - " + idUser + " - " + comment;
+
     }
 
     public String getComment() {

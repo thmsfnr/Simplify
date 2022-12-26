@@ -2,6 +2,7 @@ package project.persistence.product;
 
 import javafx.collections.ObservableList;
 import project.business.models.Table;
+import project.exceptions.AccessDatabaseException;
 
 import java.util.ArrayList;
 
@@ -48,4 +49,12 @@ public abstract class TableDAO {
      * @return the table
      */
     public abstract Table getTableById(int id);
+
+
+    /**
+     * This method is used to get the number of the tables in a restaurant
+     * @param idRestaurant the id of the restaurant
+     * @return the table
+     */
+    public abstract int countOfTablesOfRestaurant(int idRestaurant) throws AccessDatabaseException;
 }
