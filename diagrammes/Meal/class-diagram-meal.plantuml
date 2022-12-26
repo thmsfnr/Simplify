@@ -1,0 +1,104 @@
+@startuml
+
+class MealFrame {
+  + start(Stage stage) : void
+}
+class MealFormFrame {
+  + start(Stage stage) : void
+}
+class MealInfoFrame {
+  + start(Stage stage) : void
+}
+
+class Application {
+  + start(Stage stage) : void
+  + launch(String[] tab) : void
+}
+
+class MealController {
+  + getAllMeal(ActionEvent event) : void
+  + create(ActionEvent event) : void
+}
+class MealInfoController {
+  + getById(ActionEvent event) : void
+  + delete(ActionEvent event) : void
+}
+class MealFormController {
+  + update(ActionEvent event) : void
+}
+
+class MealFacade{
+  - MealDAO mealDAO
+  + update(Meal meal) : Boolean
+  + delete(int idMeal) : Boolean
+  + create(Meal meal) : Boolean
+  + getAllMeal() : List<Meal>
+  + getById(int idMeal) : Meal
+  + getInstance() : MealFacade
+}
+
+class Meal{
+  - idMeal : Int
+  - idRestaurant : Int
+  - title : String
+  - description : String
+  - price : Float
+}
+
+
+abstract class AbstractDAOFactory{
+  + getMealDAO() : MealDAO
+  + getInstance() : AbstractDAOFactory
+}
+
+class PostGresDAOFactory{
+  -ConnectionPostgres : ConnectionPostgres
+}
+
+class PostGresMealDAO{}
+
+
+abstract class MealDAO{
+  + update(Meal meal) : Boolean
+  + delete(int idMeal) : Boolean
+  + create(Meal meal) : Boolean
+  + getAllMeal() : List<Meal>
+  + getById(int idMeal) : Meal
+}
+
+class ConnectionPostgres{
+  - url : String
+  - user : String
+  - password : String
+  + getConnection() : Connection
+}
+
+
+Application <|-- MealFrame
+Application <|-- MealFormFrame
+Application <|-- MealInfoFrame
+
+MealController -> MealFacade
+MealController -> Meal
+MealInfoController -> MealFacade
+MealInfoController -> Meal
+MealFormController -> MealFacade
+MealFormController -> Meal
+
+MealFormFrame -- MealFormController
+MealInfoFrame -- MealInfoController
+MealFrame -- MealController
+
+
+MealFacade --> Meal
+MealFacade -> MealDAO
+MealFacade -> AbstractDAOFactory
+
+AbstractDAOFactory <|-- PostGresDAOFactory
+MealDAO <|-- PostGresMealDAO
+PostGresDAOFactory --> ConnectionPostgres
+PostGresDAOFactory -> PostGresMealDAO
+AbstractDAOFactory -> MealDAO
+MealDAO -> Meal
+@enduml
+
