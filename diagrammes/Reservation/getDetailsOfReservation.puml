@@ -1,0 +1,63 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+ReservationDetailsFrame -> ReservationDetailsFrame : launch()
+activate ReservationDetailsFrame
+
+ReservationDetailsFrame -> ReservationDetailsController : initialize()
+activate ReservationDetailsController
+
+ReservationDetailsController -> ReservationFacade : getReservationById(id)
+activate ReservationFacade
+
+ReservationFacade -> ReservationDAO : getById(id)
+activate ReservationDAO
+
+ReservationDAO -> ConnectionPostgres : getConnection()
+activate ConnectionPostgres
+
+ConnectionPostgres --> ReservationDAO : return connection
+deactivate ConnectionPostgres
+
+ReservationDAO --> ReservationFacade : return reservation
+deactivate ReservationDAO
+
+ReservationFacade --> ReservationDetailsController : return reservation
+
+ReservationDetailsController -> ReservationFacade : getMealsOfReservation(idReservation)
+
+ReservationFacade -> MealDAO : getMealsOfReservation(idReservation)
+activate MealDAO
+
+MealDAO -> ConnectionPostgres : getConnection()
+activate ConnectionPostgres
+
+ConnectionPostgres --> MealDAO : return connection
+deactivate ConnectionPostgres
+
+MealDAO --> ReservationFacade : return meals
+deactivate MealDAO
+
+ReservationFacade --> ReservationDetailsController : return meals
+
+ReservationDetailsController -> ReservationFacade : getTablesOfReservation(idReservation)
+
+ReservationFacade -> TableDAO : getTablesOfReservation(idReservation)
+activate TableDAO
+
+TableDAO -> ConnectionPostgres : getConnection()
+activate ConnectionPostgres
+
+ConnectionPostgres --> TableDAO : return connection
+deactivate ConnectionPostgres
+
+TableDAO --> ReservationFacade : return tables
+deactivate TableDAO
+
+ReservationFacade --> ReservationDetailsController : return tables
+deactivate ReservationFacade
+
+
+
+
+@enduml

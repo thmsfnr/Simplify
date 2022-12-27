@@ -1,0 +1,59 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+ReservationUpdateFrame -> ReservationUpdateFrame : launch()
+activate ReservationUpdateFrame
+
+ReservationUpdateFrame -> ReservationUpdateController : submitForm()
+activate ReservationUpdateController
+
+ReservationUpdateController -> ReservationFacade : updateReservation(Reservation)
+activate ReservationFacade
+
+ReservationFacade -> ReservationDAO : updateReservation(Reservation)
+activate ReservationDAO
+
+ReservationDAO -> ConnectionPostgres : getConnection()
+activate ConnectionPostgres
+
+ConnectionPostgres --> ReservationDAO : return connection
+deactivate ConnectionPostgres
+
+ReservationDAO --> ReservationFacade : return (Reservation)
+deactivate ReservationDAO
+
+ReservationFacade -> RestaurantDAO : getRestaurant(int id)
+activate RestaurantDAO
+
+RestaurantDAO -> ConnectionPostgres : getConnection()
+activate ConnectionPostgres
+
+ConnectionPostgres --> RestaurantDAO : return connection
+deactivate ConnectionPostgres
+
+RestaurantDAO --> ReservationFacade : return (Restaurant)
+deactivate RestaurantDAO
+
+
+ReservationFacade --> NotificationDAO : createNotification(Notification)
+activate NotificationDAO
+
+NotificationDAO -> ConnectionPostgres : getConnection()
+activate ConnectionPostgres
+
+ConnectionPostgres --> NotificationDAO : return connection
+deactivate ConnectionPostgres
+
+NotificationDAO --> ReservationFacade : return (Notification)
+deactivate NotificationDAO
+
+ReservationFacade --> ReservationUpdateController : return (Reservation)
+deactivate ReservationFacade
+
+ReservationUpdateController --> ReservationUpdateController : switchToListReservation()
+
+deactivate ReservationUpdateController
+deactivate ReservationUpdateFrame
+
+
+@enduml

@@ -5,7 +5,7 @@
 
 abstract class AbstractDAOFactory {
     + abstract getPaiementDAO() : PaiementDAO
-    + abstract getCommandeDAO() : CommandeDAO
+    + abstract getReservationDAO() : ReservationDAO
     + abstract getLivraisonDAO() : LivraisonDAO
     + abstract getUserDAO() : UserDAO
 }

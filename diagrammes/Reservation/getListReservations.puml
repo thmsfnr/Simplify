@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+ReservationManagementFrame -> ReservationManagementFrame : launch()
+activate ReservationManagementFrame
+
+ReservationManagementFrame -> ReservationManagementController : initialize()
+activate ReservationManagementController
+
+ReservationManagementController -> ReservationFacade : getAllReservationsOfUser(id)
+activate ReservationFacade
+
+ReservationFacade -> ReservationDAO : getAllReservationsOfUser(id)
+activate ReservationDAO
+
+ReservationDAO -> ConnectionPostgres : getConnection()
+activate ConnectionPostgres
+
+ConnectionPostgres --> ReservationDAO : connection
+deactivate ConnectionPostgres
+
+ReservationDAO --> ReservationFacade : return List<Reservation>
+deactivate ReservationDAO
+
+ReservationFacade --> ReservationManagementController : return List<Reservation>
+deactivate ReservationFacade
+
+@enduml
