@@ -1,0 +1,18 @@
+Il faut voir si on développe deux frames différentes, une pour le client qui lui permet de voir ses réservations acceptées,
+ses réservations passées, et ses réservations en attente. Il peut supprimer une reservation en attente mais également une réservation acceptée à venir.
+Si il supprime une réservation acceptée par le manager à venir, alors le manager est notifié.
+
+Et voir si developper une frame pour le manager qui lui permet de voir les reservations en attente, et soit il les acceptes
+
+Si le manager accepte ou refuse une reservation, alors le client est notifié.
+
+Pense à ajouter une méthode qui permet de créer une reservation a partir du controller de ReservationDetailsFrame, car apres un paiement on affiche le resume de la reservation et c'est a partit de la qu'on crée une reservation
+
+la méthode `CancelReservation` permet d'échanger l'état de la réservation et le mettre sur CANCELLED.
+Pense à créer dans la base de donnée une Table pour l'enumeration, et mettre un attribut state dans la table reservation qui contient l'id de la valeur de l'enumeration.
+
+
+J'ai laissé les méthodes des Frames vides car je ne sais pas comment tu vas gérer ca, soit tu les ajoutes a la fin, soit tu me dis je les ajoute.
+Je t'ai laissé le plantuml pour que tu puisse modifier.
+
+Hesite pas pour toutes quesions

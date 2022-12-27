@@ -1,0 +1,180 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+' Persistence Layer
+
+abstract class AbstractDAOFactory {
+    + abstract getReservationDAO : ReservationDAO
+    + abstract getMealDAO : MealDAO
+    + abstract getTableDAO : TableDAO
+    + abstract getNotificationDAO : NotificationDAO
+    + abstract getRestaurantDAO : RestaurantDAO
+}
+
+
+class PostGresDAOFactory extends AbstractDAOFactory {
+    - connectionPostgres : ConnectionPostgres
+    + getReservationDAO() : ReservationDAO
+    + getMealDAO() : MealDAO
+    + getTableDAO() : TableDAO
+    + getNotificationDAO() : NotificationDAO
+    + getRestaurantDAO() : RestaurantDAO
+}
+
+abstract class ReservationDAO {
+    + abstract create(Reservation) : Reservation
+    + abstract update(Reservation) : Reservation
+    + abstract delete(Reservation) : void
+    + abstract getById(Reservation) : Reservation
+    + abstract getAllReservations() : List<Reservation>
+    + abstract getAllReservationsOfUser(User) : List<Reservation>
+    + abstract cancelReservation(Reservation) : void
+    + abstract acceptReservation(Reservation) : void
+    + abstract rejectReservation(Reservation) : void
+}
+
+
+class PostGresReservationDAO extends ReservationDAO{
+    + create(Reservation) : Reservation
+    + update(Reservation) : Reservation
+    + delete(Reservation) : void
+    + getById(Reservation) : Reservation
+    + getAllReservations() : List<Reservation>
+    + getAllReservationsOfUser(User) : List<Reservation>
+    + cancelReservation(Reservation) : void
+}
+
+class ConnectionPostgres {
+    - url : String
+    - user : String
+    - password : String
+    + getConnection() : Connection
+}
+
+abstract class MealDAO {
+    + abstract getMealsOfReservation(int id) : List<Meal>
+}
+
+abstract class NotificationDAO {
+    + abstract create(Notification) : Notification
+}
+
+abstract class TableDAO {
+ + abstract getTablesOfReservation(int id) : List<Table>
+}
+
+abstract class RestaurantDAO {
+    + abstract getRestaurant(int id) : Restaurant
+}
+
+' Business Layer
+
+class Reservation{
+    - idOrder : int
+    - idRestaurant : int
+    - idUser : int
+    - nbOfPersons : int
+    - date : Date
+    - tablesId : List<int>
+    - mealsId : List<int>
+    - accepted : State
+}
+
+enum State {
+    CANCELLED
+    ACCEPTED
+    REFUSED
+    WAITING
+}
+
+
+class ReservationFacade{
+    + getAllReservations() : List<Reservation>
+    + getAllReservationsOfUser(User) : List<Reservation>
+    + createReservation(Reservation) : Reservation
+    + updateReservation(Reservation) : Reservation
+    + deleteReservation(Reservation) : void
+    + cancelReservation(Reservation) : void
+    + acceptReservation(Reservation) : void
+    + rejectReservation(Reservation) : void
+    + getReservationById(int id) : Reservation
+    + getMealsOfReservation(int id) : List<Meal>
+    + getTablesOfReservation(int id) : List<Table>
+}
+
+
+' Presentation Layer
+
+abstract class Application {
+    + abstract start() : void
+    + launch(String[] args) : void
+}
+
+
+class ReservationManagementFrame extends Application {
+    + start() : void
+    + main(String[] args) : void
+
+}
+
+class ReservationManagementController {
+    - initialize() : void
+    + refresh() : void
+}
+
+class ReservationUpdateFrame extends Application {
+    + start() : void
+    + main(String[] args) : void
+}
+
+class ReservationUpdateController {
+    - initialize() : void
+    + submitForm() : void
+    + switchToListReservation() : void
+}
+
+
+class ReservationDetailsFrame extends Application {
+    + start() : void
+    + main(String[] args) : void
+}
+
+class ReservationDetailsController {
+    - initialize() : void
+    - createReservation() : void
+}
+
+
+
+
+
+' Association
+
+PostGresDAOFactory --> ConnectionPostgres
+AbstractDAOFactory --> ReservationDAO
+AbstractDAOFactory --> MealDAO
+AbstractDAOFactory --> TableDAO
+AbstractDAOFactory --> NotificationDAO
+PostGresDAOFactory --> PostGresReservationDAO
+AbstractDAOFactory --> RestaurantDAO
+
+
+ReservationManagementController -- ReservationManagementFrame
+ReservationUpdateController -- ReservationUpdateFrame
+ReservationDetailsController -- ReservationDetailsFrame
+
+ReservationManagementController --> ReservationFacade
+ReservationUpdateController --> ReservationFacade
+ReservationDetailsController --> ReservationFacade
+
+
+ReservationFacade --> ReservationDAO
+ReservationFacade --> MealDAO
+ReservationFacade --> TableDAO
+ReservationFacade --> NotificationDAO
+ReservationFacade --> RestaurantDAO
+
+
+Reservation --> State
+
+@enduml
