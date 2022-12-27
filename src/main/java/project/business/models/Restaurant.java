@@ -99,12 +99,12 @@ public class Restaurant {
 
     public void setIdManager(int idManager) {
         this.idManager = idManager;
-
+    }
 
     @Override
     public String toString() {
         return "Restaurant{" +
-                "id=" + id +
+                "id=" + this.idRestaurant +
                 '}';
     }
 }
