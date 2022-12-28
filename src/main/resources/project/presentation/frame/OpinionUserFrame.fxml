@@ -25,6 +25,6 @@
             <Font name="Arial" size="28.0" />
          </font>
       </Text>
-      <TextArea layoutX="606.0" layoutY="201.0" prefHeight="224.0" prefWidth="200.0" promptText="Content" />
+      <TextArea fx:id="content" layoutX="606.0" layoutY="201.0" prefHeight="224.0" prefWidth="200.0" promptText="Content" />
    </children>
 </AnchorPane>
