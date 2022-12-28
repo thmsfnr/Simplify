@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import project.business.facade.RestaurantFacade;
+//import project.business.facade.RestaurantFacade;
 import project.business.models.Opinion;
 import project.business.models.Restaurant;
 import project.business.models.User;
@@ -20,6 +20,7 @@ import java.util.List;
 
 public class RestaurantInfosController {
 
+    /*
     private Restaurant restaurant;
     private User manager;
 
@@ -114,4 +115,6 @@ public class RestaurantInfosController {
             e.printStackTrace();
         }
     }
+
+     */
 }

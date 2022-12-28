@@ -17,6 +17,7 @@ public class PostGresOpinionDAO extends OpinionDAO {
 
     /**
      * This method returns all the opinions of a restaurant
+     *
      * @param id
      * @return
      */
@@ -24,15 +25,15 @@ public class PostGresOpinionDAO extends OpinionDAO {
     public ArrayList<Opinion> getOpinionsOfRestaurant(int id) throws AccessDatabaseException {
         Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
 
-        if(connection != null){
-            try{
+        if (connection != null) {
+            try {
                 String query = "SELECT * FROM \"public\".\"Opinion\" AS O INNER JOIN \"public\".\"Opinion_restaurant\" AS R ON O.\"idOpinion\" = R.\"idOpinion\" WHERE R.\"idRestaurant\" = ?";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setInt(1, id);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 ArrayList<Opinion> opinions = new ArrayList<>();
 
-                while(resultSet.next()){
+                while (resultSet.next()) {
                     Opinion opinion = new Opinion();
                     opinion.setIdOpinion(resultSet.getInt("idOpinion"));
                     opinion.setComment(resultSet.getString("comment"));
@@ -43,64 +44,59 @@ public class PostGresOpinionDAO extends OpinionDAO {
                 preparedStatement.close();
                 connection.close();
                 return opinions;
-            }
-            catch(SQLException e){
+            } catch (SQLException e) {
                 e.printStackTrace();
                 throw new AccessDatabaseException();
             }
-        }
-        else{
+        } else {
             throw new AccessDatabaseException();
         }
-
     }
 
 
-
-public class PostGresOpinionDAO extends OpinionDAO {
-
-    /**
-     * This method is used to get the list of opinions of a meal by the id of meal
-     * @param idMeal the id of the meal
-     * @return the list of opinions or null if the meal is not found and throw an exception
-     */
-    @Override
-    public List<Opinion> getAllOpinionOfMeal(int idMeal) {
-        ArrayList<Opinion> opinions = new ArrayList<>();
-        // Get the connection to the database
-        Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
-        // If the connection works
-        if(connection != null) {
-            // Create the query
-            try {
-                String query = "SELECT * FROM \"public\".\"Opinion\" WHERE \"idOpinion\" IN (SELECT \"idOpinion\" FROM \"public\".\"Opinion_meal\" WHERE \"idMeal\" = ?)";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setInt(1, idMeal);
-                ResultSet resultSet = preparedStatement.executeQuery();
-
-                // If the meal is found in the database
-                while(resultSet.next()) {
-                    Opinion opinion = new Opinion(
-                            resultSet.getInt("idOpinion"),
-                            resultSet.getInt("idUser"),
-                            resultSet.getString("comment")
-                    );
-
-                    opinions.add(opinion);
-                }
-                resultSet.close();
-                preparedStatement.close();
-                return opinions;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }finally {
+        /**
+         * This method is used to get the list of opinions of a meal by the id of meal
+         *
+         * @param idMeal the id of the meal
+         * @return the list of opinions or null if the meal is not found and throw an exception
+         */
+        @Override
+        public List<Opinion> getAllOpinionOfMeal(int idMeal) {
+            ArrayList<Opinion> opinions = new ArrayList<>();
+            // Get the connection to the database
+            Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
+            // If the connection works
+            if (connection != null) {
+                // Create the query
                 try {
-                    connection.close();
+                    String query = "SELECT * FROM \"public\".\"Opinion\" WHERE \"idOpinion\" IN (SELECT \"idOpinion\" FROM \"public\".\"Opinion_meal\" WHERE \"idMeal\" = ?)";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.setInt(1, idMeal);
+                    ResultSet resultSet = preparedStatement.executeQuery();
+
+                    // If the meal is found in the database
+                    while (resultSet.next()) {
+                        Opinion opinion = new Opinion(
+                                resultSet.getInt("idOpinion"),
+                                resultSet.getInt("idUser"),
+                                resultSet.getString("comment")
+                        );
+
+                        opinions.add(opinion);
+                    }
+                    resultSet.close();
+                    preparedStatement.close();
+                    return opinions;
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
+            return opinions;
         }
-        return opinions;
     }
-}
