@@ -26,7 +26,7 @@ public class PaymentAdmin extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("PaymentAdminFrame.fxml"));
 
         // Create the scene with the root and set the title of the stage
-        stage.setTitle("Payment User");
+        stage.setTitle("Payment Admin");
         stage.setScene(new Scene(root, 1920, 1080));
 
         // Show the GUI

@@ -7,7 +7,7 @@ import project.persistence.factory.PostGresDAOFactory;
 import project.persistence.product.PaymentDAO;
 import project.utilities.VerifyPayment;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -53,7 +53,15 @@ public class PaymentFacade {
      */
     public boolean verify(String numberCard, Date expirationDate, String puk, String nameOnCard) throws InterruptedException {
         String amount = "10$";
-        return VerifyPayment.verifyPayment(numberCard, expirationDate, puk, nameOnCard, amount);
+        if (VerifyPayment.verifyPayment(numberCard, expirationDate, puk, nameOnCard, amount)) {
+
+            // Create the payment (to complete later with the use of the local storage)
+            Payment payment = new Payment(7,numberCard,amount,new Date(System.currentTimeMillis()));
+            if (createPayment(payment)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -61,7 +69,7 @@ public class PaymentFacade {
      * @param payment the payment to create
      * @return true if the payment is created, false otherwise
      */
-    public boolean createPayment(Payment payment) {
+    private boolean createPayment(Payment payment) {
         return paymentDAO.create(payment);
     }
 

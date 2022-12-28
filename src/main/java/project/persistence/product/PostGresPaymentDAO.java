@@ -2,10 +2,13 @@
 package project.persistence.product;
 
 import project.business.models.Payment;
+import project.business.models.User;
 import project.persistence.factory.PostGresDAOFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -98,9 +101,20 @@ public class PostGresPaymentDAO extends PaymentDAO {
             try {
                 String query = "SELECT * FROM \"public\".\"Payment\";";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.executeQuery();
+                ResultSet resultSet = preparedStatement.executeQuery();
+                List<Payment> payments = new ArrayList<Payment>();
+                while(resultSet.next()) {
+                    Payment payment = new Payment(resultSet.getInt("idPayment"),
+                            resultSet.getInt("idUser"),
+                            resultSet.getString("numberCard"),
+                            resultSet.getInt("idOrder"),
+                            resultSet.getString("amount"),
+                            resultSet.getDate("date"));
+                    payments.add(payment);
+                }
+                resultSet.close();
                 preparedStatement.close();
-                return null;
+                return payments;
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
@@ -130,9 +144,23 @@ public class PostGresPaymentDAO extends PaymentDAO {
                 String query = "SELECT * FROM \"public\".\"Payment\" WHERE \"idUser\" = ?;";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setInt(1, id);
-                preparedStatement.executeQuery();
+                ResultSet resultSet = preparedStatement.executeQuery();
+                List<Payment> payments = new ArrayList<Payment>();
+                // If the user is found in the database
+                while(resultSet.next()) {
+                    Payment payment = new Payment(
+                            resultSet.getInt("idPayment"),
+                            resultSet.getInt("idUser"),
+                            resultSet.getString("numberCard"),
+                            resultSet.getInt("idOrder"),
+                            resultSet.getString("amount"),
+                            resultSet.getDate("date")
+                    );
+                    payments.add(payment);
+                }
+                resultSet.close();
                 preparedStatement.close();
-                return null;
+                return payments;
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {

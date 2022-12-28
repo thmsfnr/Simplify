@@ -144,4 +144,12 @@ public class Payment {
         this.date = date;
     }
 
+    /**
+     * Method to convert the payment to a string
+     * @return the payment converted to a string
+     */
+    public String toString() {
+        return idPayment + " - idUser=" + idUser + ", cardNumber=" + cardNumber + ", idOrder=" + idOrder + ", amount=" + amount + ", date=" + date;
+    }
+
 }

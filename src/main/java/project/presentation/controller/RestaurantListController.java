@@ -12,7 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import project.business.facade.RestaurantFacade;
+//import project.business.facade.RestaurantFacade;
 import project.business.models.Restaurant;
 
 import javafx.util.Callback;
@@ -23,7 +23,7 @@ import project.presentation.frame.RestaurantForm;
 import java.io.IOException;
 
 public class RestaurantListController {
-
+/*
     private boolean manage = false;
     private int idManager;
 
@@ -273,5 +273,5 @@ public class RestaurantListController {
         addButtonDelete();
         addDetailsButton();
     }
-
+*/
 }
