@@ -6,7 +6,6 @@ import project.persistence.factory.AbstractDAOFactory;
 import project.persistence.factory.PostGresDAOFactory;
 import project.persistence.product.PaymentDAO;
 import project.utilities.VerifyPayment;
-
 import java.sql.Date;
 import java.util.List;
 
