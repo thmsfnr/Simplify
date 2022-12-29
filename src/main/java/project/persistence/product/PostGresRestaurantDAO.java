@@ -23,10 +23,11 @@ public class PostGresRestaurantDAO extends RestaurantDAO{
 
         if(connection != null){
             try{
-                String query = "SELECT * FROM \"public\".\"Restaurant\" AS R1 INNER JOIN \"public\".\"Respo_restaurant\" AS R2 ON R1.\"idRestaurant\" = R2.\"idRestaurant\" WHERE R1.\"idRestaurant\" = ?";
+                String query = "SELECT * FROM \"public\".\"Restaurant\" AS R1 LEFT JOIN \"public\".\"Respo_restaurant\" AS R2 ON R1.\"idRestaurant\" = R2.\"idRestaurant\" WHERE R1.\"idRestaurant\" = ?;";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setInt(1, id);
                 ResultSet resultSet = preparedStatement.executeQuery();
+
 
                 if(resultSet.next()){
                     Restaurant restaurant = new Restaurant();
@@ -74,7 +75,7 @@ public class PostGresRestaurantDAO extends RestaurantDAO{
 
         if(connection != null){
             try{
-                String query = "SELECT * FROM \"public\".\"Restaurant\" INNER JOIN \"public\".\"Respo_restaurant\" ON \"public\".\"Restaurant\".\"idRestaurant\" = \"public\".\"Respo_restaurant\".\"idRestaurant\"";
+                String query = "SELECT * FROM \"public\".\"Restaurant\" LEFT JOIN \"public\".\"Respo_restaurant\" ON \"public\".\"Restaurant\".\"idRestaurant\" = \"public\".\"Respo_restaurant\".\"idRestaurant\"";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 ResultSet resultSet = preparedStatement.executeQuery();
 

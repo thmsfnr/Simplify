@@ -136,12 +136,6 @@ public class PlacementController {
             }
         }
 
-        positions.forEach((position, idTable) -> {
-            if(idTable != -1) {
-                System.out.println("Position : " + position.getX() + " " + position.getY() + " idTable : " + idTable);
-            }
-        });
-
         for(Position key : positions.keySet()){
             if(positions.get(key) != -1){
                 LabelHashable label = new LabelHashable("Table " + positions.get(key));
