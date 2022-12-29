@@ -33,6 +33,7 @@ public class Opinion {
 
     public void setIdUser(int idUser) {
         this.idUser = idUser;
+    }
 
     @Override
     public String toString() {

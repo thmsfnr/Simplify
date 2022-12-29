@@ -57,8 +57,6 @@ public class PostGresOpinionDAO extends OpinionDAO {
 
 
 
-public class PostGresOpinionDAO extends OpinionDAO {
-
     /**
      * This method is used to get the list of opinions of a meal by the id of meal
      * @param idMeal the id of the meal
