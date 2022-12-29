@@ -25,6 +25,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static project.presentation.controller.Display.infoBox;
+
 public class MealInfoController implements Initializable {
 
     @FXML
@@ -35,9 +37,6 @@ public class MealInfoController implements Initializable {
 
     @FXML
     private TextField price;
-
-    @FXML
-    private ImageView image;
 
     @FXML
     private AnchorPane anchor_opinion;
@@ -65,7 +64,6 @@ public class MealInfoController implements Initializable {
             price.setText(String.valueOf(meal.getPrice()));
             description.setEditable(false);
             price.setEditable(false);
-            //image.setImage(meal.getImage());
             ArrayList<Opinion> opinions = null;
             try {
                 opinions = (ArrayList<Opinion>) mealFacade.getAllOpinionOfMeal((Integer)LocalStorage.load("meal_id"));
@@ -90,7 +88,7 @@ public class MealInfoController implements Initializable {
         Window w = button_update.getScene().getWindow();
         try {
             if(mealFacade.delete((Integer)LocalStorage.load("meal_id"))) {
-                Display.showAlert(Alert.AlertType.INFORMATION, w, "meal delete successful","Meal deleted successfully");
+                infoBox("Meal deleted successfully", null, "Success");
             }
             else {
                 Display.showAlert(Alert.AlertType.ERROR, w, "meal delete failed","Meal delete failed");

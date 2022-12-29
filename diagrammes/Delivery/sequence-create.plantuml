@@ -1,0 +1,29 @@
+@startuml
+
+activate DeliveryFormFrame
+DeliveryFormFrame -> DeliveryFormFrame : launch()
+
+DeliveryFormFrame -> DeliveryFormController: create(ActionEvent event)
+activate DeliveryFormController
+
+DeliveryFormController -> DeliveryFacade: create(Order order)
+activate DeliveryFacade
+
+DeliveryFacade -> PostGresOrderDAO : create(Order order)
+activate PostGresOrderDAO
+
+PostGresOrderDAO -> ConnectionPostGres : getConnection()
+activate ConnectionPostGres
+ConnectionPostGres --> PostGresOrderDAO : return Connection
+deactivate ConnectionPostGres
+PostGresOrderDAO --> DeliveryFacade : return Boolean
+deactivate PostGresOrderDAO
+
+DeliveryFacade --> DeliveryFormController : return Boolean
+deactivate DeliveryFacade
+
+deactivate DeliveryFormController
+deactivate DeliveryFormFrame
+
+
+@enduml

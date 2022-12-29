@@ -6,24 +6,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class MealInfoFrame extends Application {
-
-    /**
-     * This method is used to start the frame
-     * @param stage the stage
-     * @throws Exception
-     */
+public class NotificationCenterFrame extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-       // stage.setResizable(false); //pour pas maximiser une fenetre
+        // stage.setResizable(false); //pour pas maximiser une fenetre
         // Load the fxml file and create a new stage for the root
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MealInfoFrame.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("NotificationCenterFrame.fxml"));
         Parent root = fxmlLoader.load();
 
         // Create the scene with the root and set the title of the stage
-        stage.setTitle("Meal info");
-        stage.setScene(new Scene(root, 935, 691));
+        stage.setTitle("All notifications");
+        stage.setScene(new Scene(root, 809, 409));
 
         // Show the GUI
         stage.show();

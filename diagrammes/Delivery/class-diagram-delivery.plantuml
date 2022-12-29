@@ -1,0 +1,117 @@
+@startuml
+
+class DeliveryFormFrame {
+  + start(Stage stage) : void
+}
+
+class DeliveryInfoFrame {
+  + start(Stage stage) : void
+}
+
+class DeliveryFrame {
+  + start(Stage stage) : void
+}
+
+class Application {
+  + start(Stage stage) : void
+  + launch(String[] tab) : void
+}
+
+class DeliveryController {
+  + initialize(URL url, ResourceBundle resourceBundle) : void
+  - cancel() : Boolean
+  - switchToInfoFrame() : void
+}
+
+class DeliveryFormController {
+  - create() : Boolean
+}
+
+class DeliveryInfoController {
+  + initialize(URL url, ResourceBundle resourceBundle) : void
+}
+
+class Order{
+  - idOrder : Int
+  - idTypeOrder : Int
+  - idRestaurant : Int
+  - idUser : Int
+}
+
+
+class DeliveryFacade{
+  - OrderDAO orderDAO
+  + deleteOrder(int idOrder) : Boolean
+  + getAllMealToDeliver(int idOrder) : List<Meal>
+  + getOrderById(int idOrder) : Order
+  + create(Order order) : Boolean
+  + getAllOrders(int idUser) : List<Order>
+  + getInstance() : DeliveryFacade
+}
+
+
+abstract class AbstractDAOFactory{
+  + getOrderDAO() : OrderDAO
+  + getInstance() : AbstractDAOFactory
+}
+
+class PostGresDAOFactory{
+  -ConnectionPostgres : ConnectionPostgres
+}
+
+class PostGresOrderDAO{}
+
+
+abstract class OrderDAO{
+  + deleteOrder(int idOrder) : Boolean
+  + getAllMealToDeliver(int idOrder) : List<Meal>
+  + getOrderById(int idOrder) : Order
+  + getInstance() : OrderFacade
+  + create(Order order) : Boolean
+  + getAllOrders(int idUser) : List<Order>
+}
+
+class ConnectionPostgres{
+  - url : String
+  - user : String
+  - password : String
+  + getConnection() : Connection
+}
+
+class LocalStorage{
+ + write(String key,Object value) : void
+ + load(String key) : Object
+}
+
+Application <|-- DeliveryFrame
+Application <|-- DeliveryFormFrame
+Application <|-- DeliveryInfoFrame
+
+DeliveryController -> DeliveryFacade
+DeliveryFormController -> DeliveryFacade
+DeliveryInfoController -> DeliveryFacade
+
+DeliveryController -> Order
+DeliveryInfoController -> Order
+DeliveryFormController -> Order
+
+DeliveryFacade --> Order
+
+DeliveryController --> LocalStorage
+
+DeliveryFrame -- DeliveryController
+DeliveryFormFrame -- DeliveryFormController
+DeliveryInfoFrame -- DeliveryInfoController
+
+DeliveryFacade -> OrderDAO
+DeliveryFacade -> AbstractDAOFactory
+
+AbstractDAOFactory <|-- PostGresDAOFactory
+OrderDAO <|-- PostGresOrderDAO
+PostGresDAOFactory --> ConnectionPostgres
+PostGresDAOFactory -> PostGresOrderDAO
+AbstractDAOFactory -> OrderDAO
+OrderDAO -> Order
+
+@enduml
+
