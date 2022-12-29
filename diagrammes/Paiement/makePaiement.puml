@@ -1,0 +1,51 @@
+@startuml  makePaiement
+'https://plantuml.com/sequence-diagram
+
+
+PaiementFrame -> PaiementFrame : launch()
+activate PaiementFrame
+
+PaiementFrame -> PaiementController : submitPaiement()
+activate PaiementController
+
+PaiementController -> PaiementFacade : makePaiement()
+activate PaiementFacade
+
+PaiementFacade -> VerifyInformationsPaiement : verifyPaiement()
+activate VerifyInformationsPaiement
+
+alt failureCase
+
+    VerifyInformationsPaiement --> PaiementFacade : return false
+    PaiementFacade --> PaiementController : throw Error
+
+else successCase
+
+        VerifyInformationsPaiement --> PaiementFacade : return true
+        deactivate VerifyInformationsPaiement
+
+        PaiementFacade -> PaiementDAO : createPaiement(paiement)
+        activate PaiementDAO
+
+        PaiementDAO -> ConnectionPostgres : getConnection()
+        activate ConnectionPostgres
+
+        ConnectionPostgres --> PaiementDAO : return connection
+        deactivate ConnectionPostgres
+
+        PaiementDAO --> PaiementFacade : return paiement
+        deactivate PaiementDAO
+
+        PaiementFacade --> PaiementController : return paiement
+        deactivate PaiementFacade
+        deactivate PaiementController
+        deactivate PaiementFrame
+
+
+
+
+end
+
+
+
+@enduml

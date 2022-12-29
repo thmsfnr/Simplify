@@ -1,5 +1,5 @@
-package project.utilities;
 
+package project.utilities;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,6 @@ public class PasswordCryptTest {
      * This method is used to test the crypt of the password of the user
      * Using the BCrypt library
      */
-
     @Test
     void CryptPassword() {
         PasswordCrypt passwordCrypt = new PasswordCrypt();
@@ -30,7 +29,6 @@ public class PasswordCryptTest {
      * This method is used to test the compare of the password of the user
      * Using the BCrypt library
      */
-
     @Test
     void Compare() {
         PasswordCrypt passwordCrypt = new PasswordCrypt();

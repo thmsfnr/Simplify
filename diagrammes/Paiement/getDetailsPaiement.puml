@@ -1,0 +1,64 @@
+@startuml getDetailsPaiement
+'https://plantuml.com/sequence-diagram
+
+PaiementDetailsFrame -> PaiementDetailsFrame : launch()
+activate PaiementDetailsFrame
+
+PaiementDetailsFrame -> PaiementDetailsController : initialize()
+activate PaiementDetailsController
+
+PaiementDetailsController -> PaiementFacade : getInstance()
+
+PaiementFacade --> PaiementDetailsController : return instance
+activate PaiementFacade
+
+PaiementDetailsController -> PaiementFacade : getPaiementById(id)
+
+
+PaiementFacade -> PaiementDAO : getById(id)
+activate PaiementDAO
+
+PaiementDAO -> ConnectionPostgres : getConnection()
+activate ConnectionPostgres
+
+ConnectionPostgres --> PaiementDAO : connection
+deactivate ConnectionPostgres
+
+PaiementDAO --> PaiementFacade : return paiement
+deactivate PaiementDAO
+
+PaiementFacade --> PaiementDetailsController : return paiement
+
+PaiementDetailsController -> PaiementFacade : getUser(idUser)
+
+PaiementFacade -> UserDAO : getById(idUser)
+activate UserDAO
+
+UserDAO -> ConnectionPostgres : getConnection()
+activate ConnectionPostgres
+
+ConnectionPostgres --> UserDAO : connection
+deactivate ConnectionPostgres
+
+UserDAO --> PaiementFacade : return user
+deactivate UserDAO
+
+PaiementFacade --> PaiementDetailsController : return user
+
+PaiementDetailsController -> ReservationDAO : getReservation(idReservation)
+activate ReservationDAO
+
+ReservationDAO -> ConnectionPostgres : getConnection()
+activate ConnectionPostgres
+
+ConnectionPostgres --> ReservationDAO : connection
+deactivate ConnectionPostgres
+
+ReservationDAO --> PaiementFacade : return reservation
+deactivate ReservationDAO
+
+PaiementFacade --> PaiementDetailsController : return reservation
+deactivate PaiementFacade
+
+
+@enduml

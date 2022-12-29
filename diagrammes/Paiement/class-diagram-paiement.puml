@@ -1,0 +1,129 @@
+
+@startuml
+'https://plantuml.com/class-diagram
+
+' Persistence Layer
+
+abstract class AbstractDAOFactory {
+    + abstract getPaymentDAO() : PaymentDAO
+}
+
+
+class PostGresDAOFactory extends AbstractDAOFactory {
+    - connectionPostgres : ConnectionPostgres
+    + getPaiementDAO() : PaiementDAO
+}
+
+abstract class PaymentDAO {
+    + abstract create(Payment payment) : boolean
+    + abstract delete(int id) : boolean
+    + abstract getAllPayments() : List<Payment>
+    + abstract getAllPaymentsOfUser(int id) : List<Payment>
+}
+
+
+class PostGresPaymentDAO extends PaymentDAO {
+    + create(Payment payment) : boolean
+    + delete(int id) : boolean
+    + getAllPayments() : List<Payment>
+    + getAllPaymentsOfUser(int id) : List<Payment>
+}
+
+
+class ConnectionPostgres {
+    - url : String
+    - user : String
+    - password : String
+    + getConnection() : Connection
+}
+
+
+' Business Layer
+
+class PaymentFacade {
+    - paymentDAO : PaymentDAO
+    + verify(String numberCard, Date expirationDate, String puk, String nameOnCard) : boolean
+    + createPayment(Payment payment) : boolean
+    + deletePayment(int id) : boolean
+    + getAllPayments() : List<Payment>
+    + getAllPaymentsOfUser(int id) : List<Payment>
+    + getInstance() : PaymentFacade
+}
+
+
+class VerifyPayment {
+    + verifyPayment(String numberCard, Date expirationDate, String puk, String nameOnCard, String amount) : boolean
+}
+
+
+class Payment {
+    - idPayment : int
+    - idUser : int
+    - idOrder : int
+    - amount : String
+    - date : Date
+    - numberCard : String
+}
+
+
+
+' Presentation Layer
+
+abstract class Application{
+    + abstract start(Stage) : void
+    + launch(String[]) : void
+}
+
+class PaymentCardFrame extends Application{
+    +start(Stage) : void
+}
+
+class PaymentCardController{
+    + create(ActionEvent event) : void
+}
+
+class PaymentUserFrame extends Application{
+    +start(Stage) : void
+}
+
+class PaymentUserController{
+    + initialize() : void
+}
+
+class PaymentAdminFrame extends Application{
+    +start(Stage) : void
+}
+
+class PaymentAdminController{
+    + initialize() : void
+    + delete(ActionEvent event) : void
+}
+
+
+
+' Associations
+PostGresDAOFactory --> ConnectionPostgres
+PostGresDAOFactory --> PostGresPaymentDAO
+
+AbstractDAOFactory --> PaymentDAO
+
+PaymentFacade --> PaymentDAO
+
+
+PaymentAdminFrame --> PaymentAdminController
+PaymentUserFrame --> PaymentUserController
+PaymentCardFrame --> PaymentCardController
+
+PaymentAdminController --> PaymentFacade
+PaymentUserController --> PaymentFacade
+PaymentCardController --> PaymentFacade
+
+PaymentFacade --> VerifyPayment
+
+PaymentFacade --> Payment
+PaymentDAO --> Payment
+PaymentCardController --> Payment
+PaymentUserController --> Payment
+PaymentAdminController --> Payment
+
+@enduml

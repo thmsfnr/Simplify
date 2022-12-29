@@ -2,11 +2,15 @@ package project.persistence.product;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import project.exceptions.AccessDatabaseException;
 import project.persistence.factory.PostGresDAOFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import project.business.models.Table;
 
 /**
@@ -77,7 +81,9 @@ public class PostGresTableDAO extends TableDAO {
                     String name = resultSet.getString("name");
                     String description = resultSet.getString("description");
                     Boolean booked = resultSet.getBoolean("booked");
-                    result.add(new Table(id, name, description, booked));
+                    int x = resultSet.getInt("x");
+                    int y = resultSet.getInt("y");
+                    result.add(new Table(id, name, description, booked, x, y));
                 }
                 preparedStatement.close();
             } catch (SQLException e) {
@@ -130,7 +136,7 @@ public class PostGresTableDAO extends TableDAO {
 
     /**
      * This method is used to update a table
-     * @param Table the table to update
+     * @param table the table to update
      * @return a boolean, true if the table is updated, false otherwise
      */
     @Override
@@ -192,7 +198,9 @@ public class PostGresTableDAO extends TableDAO {
                     String name = resultSet.getString("name");
                     String description = resultSet.getString("description");
                     Boolean booked = resultSet.getBoolean("booked");
-                    result = new Table(idTable, name, description, booked);
+                    int x = resultSet.getInt("x");
+                    int y = resultSet.getInt("y");
+                    result = new Table(idTable, name, description, booked, x, y);
                 }
                 preparedStatement.close();
             } catch (SQLException e) {
@@ -206,5 +214,130 @@ public class PostGresTableDAO extends TableDAO {
             }
         }
         return result;
+    }
+
+
+    /**
+     * This method is used to get the number of tables in a restaurant
+     * @param idRestaurant the id of the restaurant
+     * @return the table
+     */
+    @Override
+    public int countOfTablesOfRestaurant(int idRestaurant) throws AccessDatabaseException {
+        Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
+
+        if(connection != null){
+            try{
+                String query = "SELECT COUNT(*) FROM \"public\".\"Table\" WHERE \"idRestaurant\" = ?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, idRestaurant);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while(resultSet.next()){
+                    return resultSet.getInt(1);
+                }
+                return 0;
+
+            }
+            catch(SQLException e){
+                throw new AccessDatabaseException(e);
+            }
+        }
+        else{
+            throw new AccessDatabaseException();
+        }
+    }
+
+
+    /**
+     * This method is used to get the number of tables in a restaurant
+     * @param idRestaurant the id of the restaurant
+     * @return list of tables
+     */
+    @Override
+    public List<Table> getAllTablesOfRestaurant(int idRestaurant) throws AccessDatabaseException {
+        Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
+
+        if(connection != null){
+            try{
+                String query = "SELECT * FROM \"public\".\"Table\" WHERE \"idRestaurant\" = ?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, idRestaurant);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                List<Table> tables = new ArrayList<>();
+                while(resultSet.next()){
+                    Integer idTable = resultSet.getInt("idTable");
+                    String name = resultSet.getString("name");
+                    String description = resultSet.getString("description");
+                    Boolean booked = resultSet.getBoolean("booked");
+                    int x = resultSet.getInt("x");
+                    int y = resultSet.getInt("y");
+                    tables.add(new Table(idTable, name, description, booked, x, y));
+                }
+                return tables;
+            }
+            catch(SQLException e){
+                throw new AccessDatabaseException(e);
+            }
+        }
+        else{
+            throw new AccessDatabaseException();
+        }
+    }
+
+    /**
+     * This method is used to update the placement of a table
+     * @param idTable
+     * @param x
+     * @param y
+     * @throws AccessDatabaseException
+     */
+    @Override
+    public void updatePlacement(int idTable, int x, int y) throws AccessDatabaseException {
+        Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
+
+        if(connection != null){
+            try{
+                String query = "UPDATE \"public\".\"Table\" SET \"x\" = ?, \"y\" = ? WHERE \"idTable\" = ?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, x);
+                preparedStatement.setInt(2, y);
+                preparedStatement.setInt(3, idTable);
+                preparedStatement.executeUpdate();
+            }
+            catch(SQLException e){
+                throw new AccessDatabaseException(e);
+            }
+        }
+        else{
+            throw new AccessDatabaseException();
+        }
+    }
+
+
+    /**
+     * This method is used to delete the position stored in the database
+     * @param idTable
+     * @throws AccessDatabaseException
+     */
+    @Override
+    public void deletePlacement(int idTable) throws AccessDatabaseException {
+        Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
+
+        if(connection != null){
+            try{
+                String query = "UPDATE \"public\".\"Table\" SET \"x\" = ?, \"y\" = ? WHERE \"idTable\" = ?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, -1);
+                preparedStatement.setInt(2, -1);
+                preparedStatement.setInt(3, idTable);
+                preparedStatement.executeUpdate();
+            }
+            catch(SQLException e){
+                throw new AccessDatabaseException(e);
+            }
+        }
+        else{
+            throw new AccessDatabaseException();
+        }
     }
 }

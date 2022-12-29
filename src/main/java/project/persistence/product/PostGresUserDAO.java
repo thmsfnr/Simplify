@@ -5,6 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import project.business.models.User;
+import project.exceptions.AccessDatabaseException;
 import project.exceptions.UserNotFoundException;
 import project.persistence.factory.PostGresDAOFactory;
 
@@ -321,6 +322,52 @@ public class PostGresUserDAO extends UserDAO{
             }
         }
         return null;
+    }
+
+    /**
+     * This method is used to get the list of managers
+     * @return the list of the users
+     */
+    @Override
+    public ArrayList<User> getAllManagers() throws AccessDatabaseException {
+        Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
+
+        if(connection != null){
+            try{
+                String query = "SELECT * FROM \"public\".\"User\" WHERE \"idRole\" = 2;";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                ArrayList<User> managers = new ArrayList<User>();
+
+                while(resultSet.next()){
+                    User user = new User(
+                            resultSet.getInt("idUser"),
+                            resultSet.getString("password"),
+                            resultSet.getString("email"),
+                            resultSet.getString("name"),
+                            resultSet.getString("firstname"),
+                            resultSet.getString("address"),
+                            resultSet.getString("phone"),
+                            resultSet.getBoolean("ban"),
+                            resultSet.getBoolean("askDelete"),
+                            resultSet.getInt("idRole")
+                    );
+                    managers.add(user);
+                }
+
+                resultSet.close();
+                preparedStatement.close();
+                connection.close();
+                return managers;
+
+            }catch (SQLException e){
+                System.out.println(e.getMessage());
+                throw new AccessDatabaseException();
+            }
+        }
+        else{
+            throw new AccessDatabaseException();
+        }
     }
 
 }

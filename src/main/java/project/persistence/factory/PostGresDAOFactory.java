@@ -31,14 +31,33 @@ public class PostGresDAOFactory extends AbstractDAOFactory {
      */
     @Override
     public UserDAO getUserDAO() {return new PostGresUserDAO();}
+
+    /**
+     * This method ovveride the method getPaymentDAO from the abstract class AbstractDAOFactory
+     * Because it is a PostGresDAOFactory it returns a PostGresPaymentDAO
+     * @return the PostGresPaymentDAO
+     */
     @Override
-    public MealDAO getMealDAO() {return new PostGresMealDAO();}
+    public PaymentDAO getPaymentDAO() {
+        return new PostGresPaymentDAO();
+    }
 
     @Override
-    public OpinionDAO getOpinionDAO() {return new PostGresOpinionDAO();}
+    public MealDAO getMealDAO() {return new PostGresMealDAO();}
 
     @Override
     public TableDAO getTableDAO() {
         return new PostGresTableDAO();
     }
+
+    @Override
+    public OpinionDAO getOpinionDAO() {
+        return new PostGresOpinionDAO();
+    }
+
+    @Override
+    public RestaurantDAO getRestaurantDAO() {
+        return new PostGresRestaurantDAO();
+    }
+
 }
