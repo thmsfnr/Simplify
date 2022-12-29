@@ -31,6 +31,11 @@ public abstract class AbstractDAOFactory {
      */
     public abstract TableDAO getTableDAO();
 
+    /**
+     * abstract method to get the NotificationDAO
+     * @return the NotificationDAO
+     */
+    public abstract NotificationDAO getNotificationDAO();
 
     /**
      * abstract method to get the RestaurantDAO
