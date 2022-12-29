@@ -14,13 +14,17 @@ public class Table {
     private String name;
     private String description;
     private Boolean booked;
+    private int x;
+    private int y;
 
     // Constructor
-    public Table(Integer idTable, String name, String description, Boolean booked) {
+    public Table(Integer idTable, String name, String description, Boolean booked, int x, int y) {
         this.idTable = idTable;
         this.name = name;
         this.description = description;
         this.booked = booked;
+        this.x = x;
+        this.y = y;
     }
 
     // Getters and setters
@@ -54,6 +58,22 @@ public class Table {
 
     public void setBooked(Boolean booked) {
         this.booked = booked;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     @Override

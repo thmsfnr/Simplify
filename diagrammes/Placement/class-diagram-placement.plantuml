@@ -1,53 +1,75 @@
 @startuml
 
-class PlacementFrame {
-  + start(Stage stage) : void
-}
+
+' Presentation Layer
 
 class Application {
   + start(Stage stage) : void
   + launch(String[] tab) : void
 }
 
+class PlacementFrame extends Application {
+  + start(Stage stage) : void
+}
+
 class PlacementController {
-  + initialize(URL url, ResourceBundle resourceBundle) : void
-  - place() : void
-  - selection() : void
-  - addTable(ActionEvent event) : void
-  - removeTable(ActionEvent event) : void
-  - switchToTable(ActionEvent event) : void
+  - initialize(URL url, ResourceBundle resourceBundle) : void
+  - addTables(PlacementFacade placementFacade, int idRestaurant) : void
+  - synchronized deletePlacement(ActionEvent event) : void
+  - synchronized updatePlacement(ActionEvent event) : void
+  - switchToManagementTablePage(ActionEvent event) : void
 }
 
 
+' Business Layer
+
 class PlacementFacade{
-  - PlacementDAO placementDAO
+  - RestaurantDAO restaurantDAO
   - TableDAO tableDAO
-  + deletePlacement(int idTable) : Boolean
-  + updatePlacement(Table table) : Boolean
-  + getAllTableOfRestaurant(int idRestaurant) : List<Table>
+  + deletePlacement(int idTable) : void
+  + updatePlacement(int idTable, int x, int y) : void
+  + getRestaurantById(int id) : Restaurant
+  + getAllTablesOfRestaurant(int idRestaurant) : List<Table>
   + getTableById(int idTable) : Table
   + getInstance() : PlacementFacade
 }
+
+class LabelHashable extends Label {
+    + equals(Object o) : boolean
+    + hashCode() : int
+}
+
+class Position {
+  - x : int
+  - y : int
+  + equals(Object o) : boolean
+  + hashCode() : int
+}
+' Persistence Layer
 
 
 abstract class AbstractDAOFactory{
-  + getPlacementDAO() : PlacementDAO
+  + abstract getTableDAO() : TableDAO
+  + abstract getRestaurantDAO() : RestaurantDAO
   + getInstance() : AbstractDAOFactory
 }
 
-class PostGresDAOFactory{
+class PostGresDAOFactory extends AbstractDAOFactory{
   -ConnectionPostgres : ConnectionPostgres
+  + getTableDAO() : TableDAO
+  + getRestaurantDAO() : RestaurantDAO
 }
 
-class PostGresPlacementDAO{}
 
-
-abstract class PlacementDAO{
-  + deletePlacement(int idTable) : Boolean
-  + updatePlacement(Table table) : Boolean
+abstract class TableDAO{
+  + deletePlacement(int idTable) : void
+  + updatePlacement(int idTable, int x, int y) : void
   + getAllTableOfRestaurant(int idRestaurant) : List<Table>
   + getTableById(int idTable) : Table
-  + getInstance() : PlacementFacade
+}
+
+abstract class RestaurantDAO{
+  + getRestaurantById(int id) : Restaurant
 }
 
 class ConnectionPostgres{
@@ -62,23 +84,23 @@ class LocalStorage{
  + load(String key) : Object
 }
 
-Application <|-- PlacementFrame
+
 
 PlacementController -> PlacementFacade
-
 PlacementController --> LocalStorage
+PlacementController --> Position
+PlacementController --> LabelHashable
 
 PlacementFrame -- PlacementController
 
-
-PlacementFacade -> PlacementDAO
 PlacementFacade -> AbstractDAOFactory
+PlacementFacade -> TableDAO
+PlacementFacade -> RestaurantDAO
 
-AbstractDAOFactory <|-- PostGresDAOFactory
-PlacementDAO <|-- PostGresPlacementDAO
 PostGresDAOFactory --> ConnectionPostgres
-PostGresDAOFactory -> PostGresPlacementDAO
-AbstractDAOFactory -> PlacementDAO
+
+AbstractDAOFactory -> TableDAO
+AbstractDAOFactory -> RestaurantDAO
 
 @enduml
 

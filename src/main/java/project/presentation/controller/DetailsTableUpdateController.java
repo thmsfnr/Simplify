@@ -81,7 +81,7 @@ public class DetailsTableUpdateController {
             return;
         }
 
-        Table updatedTable = new Table(table.getIdTable(), tableName.getText(), tableDescription.getText(), bookedChoice.getValue().equals("Réservé"));
+        Table updatedTable = new Table(table.getIdTable(), tableName.getText(), tableDescription.getText(), bookedChoice.getValue().equals("Réservé"), -1, -1);
         Boolean updated = tableFacade.updateTable(updatedTable);
         if (updated) {
             Display.infoBox("Table updated Successfully!", null, "Success");

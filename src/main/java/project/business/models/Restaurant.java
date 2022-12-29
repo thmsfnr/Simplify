@@ -101,6 +101,7 @@ public class Restaurant {
         this.idManager = idManager;
     }
 
+
     @Override
     public String toString() {
         return "Restaurant{" +
