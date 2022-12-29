@@ -23,7 +23,7 @@ public class MealInfoFrame extends Application {
 
         // Create the scene with the root and set the title of the stage
         stage.setTitle("Meal info");
-        stage.setScene(new Scene(root, 943, 592));
+        stage.setScene(new Scene(root, 935, 691));
 
         // Show the GUI
         stage.show();

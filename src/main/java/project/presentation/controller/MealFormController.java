@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static project.presentation.controller.Display.infoBox;
+
 public class MealFormController implements Initializable {
     @FXML
     private Label label_failure;
@@ -92,7 +94,7 @@ public class MealFormController implements Initializable {
         //generate an id
         Meal meal = new Meal((Integer) LocalStorage.load("restaurant_id") ,description.getText(),title.getText(), Double.parseDouble(price.getText()));
         if(mealFacade.create(meal)){
-            Display.showAlert(Alert.AlertType.INFORMATION, w, "create successful","Meal created successfully");
+            infoBox("Meal created successfully", null, "Success");
             try {
             switchToMealFrame();
             } catch (Exception e) {
@@ -113,7 +115,7 @@ public class MealFormController implements Initializable {
         Window w = button_submit.getScene().getWindow();
         Meal meal = new Meal((Integer)LocalStorage.load("meal_id"),(Integer)LocalStorage.load("restaurant_id"), description.getText(),title.getText(), Double.parseDouble(price.getText()));
         if(mealFacade.update(meal)){
-            Display.showAlert(Alert.AlertType.INFORMATION, w, "Update successful","Meal updated successfully");
+            infoBox("Meal updated successfully", null, "Success");
         }else{
             Display.showAlert(Alert.AlertType.ERROR, w, "Update failed","Meal update failed");
         }

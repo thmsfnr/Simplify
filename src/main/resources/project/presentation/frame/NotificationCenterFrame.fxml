@@ -9,11 +9,11 @@
 <?import javafx.scene.text.Text?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="409.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.NotificationCenterController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="409.0" prefWidth="667.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.NotificationCenterController">
    <center>
-      <AnchorPane prefHeight="284.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="299.0" prefWidth="767.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="TableNotification" layoutY="1.0" prefHeight="296.0" prefWidth="600.0">
+            <TableView fx:id="TableNotification" layoutY="1.0" prefHeight="296.0" prefWidth="596.0">
                <columns>
                   <TableColumn fx:id="idNotification" prefWidth="121.0" text="Id_Notification" />
                   <TableColumn fx:id="title" prefWidth="151.0" text="Title" />
@@ -27,7 +27,7 @@
    <top>
       <AnchorPane prefHeight="110.0" prefWidth="600.0" style="-fx-background-color: #c8ded0;" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#7a897f" layoutX="212.0" layoutY="56.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Notifications">
+            <Text fill="#7a897f" layoutX="286.0" layoutY="63.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Notifications">
                <font>
                   <Font name="Arial" size="28.0" />
                </font>

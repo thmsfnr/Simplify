@@ -126,10 +126,10 @@ public class NotificationCenterController implements Initializable {
             return;
         }
         // Refresh the table
-       // refreshTable();
+        refreshTable();
     }
 
-    public void refreshTable() {
+    private void refreshTable() {
         // Call the facade to get
         NotificationFacade notificationFacade = NotificationFacade.getInstance();
         ObservableList<Notification> notifications = null;
@@ -141,5 +141,4 @@ public class NotificationCenterController implements Initializable {
         // Set the table
         TableNotification.setItems(notifications);
     }
-
 }

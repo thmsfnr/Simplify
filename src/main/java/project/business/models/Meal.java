@@ -6,7 +6,6 @@ public class Meal {
     private String description;
     private String title;
     private double price;
-    private String image;
 
     public Meal(int idMeal, int idRestaurant, String description, String title, double price) {
         this.title = title;
@@ -54,19 +53,9 @@ public class Meal {
         this.price = price;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-
-
     @Override
     public String toString() {
         return idMeal + " - " + title + " - " + description + " " + price;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
 }

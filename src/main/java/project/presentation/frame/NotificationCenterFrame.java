@@ -17,7 +17,7 @@ public class NotificationCenterFrame extends Application {
 
         // Create the scene with the root and set the title of the stage
         stage.setTitle("All notifications");
-        stage.setScene(new Scene(root, 600, 409));
+        stage.setScene(new Scene(root, 809, 409));
 
         // Show the GUI
         stage.show();
