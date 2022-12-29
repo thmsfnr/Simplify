@@ -3,7 +3,10 @@
 -problème popup qui se ferme avant de passer à la page suivante ( solution : Confirmation popup ?)
 - changer les graphismes (c'est super clair et des fois dur à lire)
 - trouver une taille de page fixe pour les pages
-- rendre responsive l'application ou bloquer la redimention de la taille des fenetres
+- rendre responsive l'application ou bloquer la redimention de la taille des fenetres (1920-1080)
 -probleme tailles opinions (pas de taille fixe)
--mettre possibilité de mettre image d'un meal
+-mettre possibilité de mettre image d'un meal ( pasd d'image)
 -nommer les classes frame -> TableFrame au lieu de Table (pour le diagramme de sequence faut préciser la différence entre le model Table et le <tableFrame
+-separer le local storage -> interface avec class qui implement les methodes (voir thomas)
+-ajouter DAo dans les diagrammes de classes !
+- faire les tests unitaires

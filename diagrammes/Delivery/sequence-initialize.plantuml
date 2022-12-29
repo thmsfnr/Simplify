@@ -1,0 +1,30 @@
+@startuml
+activate PlacementFrame
+PlacementFrame -> PlacementFrame : launch()
+PlacementFrame -> PlacementController : initialize()
+activate PlacementController
+PlacementController -> PlacementFacade : getAllTableOfRestaurant()
+activate PlacementFacade
+PlacementFacade -> PostGresPlacementDAO : getAllTableOfRestaurant()
+activate PostGresPlacementDAO
+PostGresPlacementDAO -> ConnectionPostGres : getConnection()
+activate ConnectionPostGres
+ConnectionPostGres --> PostGresPlacementDAO : return Connection
+deactivate ConnectionPostGres
+PostGresPlacementDAO --> PlacementFacade : return List<Table>
+deactivate PostGresPlacementDAO
+
+
+alt #LightBlue List<Table> != null
+
+    PlacementFacade --> PlacementController: return List<Table>
+
+else #Pink Else
+
+    PlacementFacade --> PlacementController: return null
+end
+deactivate PlacementFacade
+deactivate PlacementController
+deactivate PlacementFrame
+
+@enduml
