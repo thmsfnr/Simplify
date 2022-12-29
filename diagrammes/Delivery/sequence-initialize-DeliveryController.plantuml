@@ -1,0 +1,30 @@
+@startuml
+activate DeliveryFrame
+DeliveryFrame -> DeliveryFrame : launch()
+DeliveryFrame -> DeliveryController : initialize()
+activate DeliveryController
+DeliveryController -> DeliveryFacade : getAllOrders(idUser)
+activate DeliveryFacade
+DeliveryFacade -> PostGresOrderDAO : getAllOrders(idUser)
+activate PostGresOrderDAO
+PostGresOrderDAO -> ConnectionPostGres : getConnection()
+activate ConnectionPostGres
+ConnectionPostGres --> PostGresOrderDAO : return Connection
+deactivate ConnectionPostGres
+PostGresOrderDAO --> DeliveryFacade : return List<Order>
+deactivate PostGresOrderDAO
+
+
+alt #LightBlue List<Order> != null
+
+    DeliveryFacade --> DeliveryController: return List<Order>
+
+else #Pink Else
+
+    DeliveryFacade --> DeliveryController: return null
+end
+deactivate DeliveryFacade
+deactivate DeliveryController
+deactivate DeliveryFrame
+
+@enduml

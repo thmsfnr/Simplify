@@ -29,8 +29,6 @@ class DeliveryFormController {
 
 class DeliveryInfoController {
   + initialize(URL url, ResourceBundle resourceBundle) : void
-  - cancel() : Boolean
-
 }
 
 class Order{
@@ -43,10 +41,11 @@ class Order{
 
 class DeliveryFacade{
   - OrderDAO orderDAO
-  - MealDAO mealDAO
   + deleteOrder(int idOrder) : Boolean
   + getAllMealToDeliver(int idOrder) : List<Meal>
   + getOrderById(int idOrder) : Order
+  + create(Order order) : Boolean
+  + getAllOrders(int idUser) : List<Order>
   + getInstance() : DeliveryFacade
 }
 
@@ -68,6 +67,8 @@ abstract class OrderDAO{
   + getAllMealToDeliver(int idOrder) : List<Meal>
   + getOrderById(int idOrder) : Order
   + getInstance() : OrderFacade
+  + create(Order order) : Boolean
+  + getAllOrders(int idUser) : List<Order>
 }
 
 class ConnectionPostgres{

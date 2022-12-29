@@ -1,0 +1,30 @@
+@startuml
+activate DeliveryInfoFrame
+DeliveryInfoFrame -> DeliveryInfoFrame : launch()
+DeliveryInfoFrame -> DeliveryInfoController : initialize()
+activate DeliveryInfoController
+DeliveryInfoController -> DeliveryFacade : getAllMealToDeliver(idOrder)
+activate DeliveryFacade
+DeliveryFacade -> PostGresOrderDAO : getAllMealToDeliver(idOrder)
+activate PostGresOrderDAO
+PostGresOrderDAO -> ConnectionPostGres : getConnection()
+activate ConnectionPostGres
+ConnectionPostGres --> PostGresOrderDAO : return Connection
+deactivate ConnectionPostGres
+PostGresOrderDAO --> DeliveryFacade : return List<Meal>
+deactivate PostGresOrderDAO
+
+
+alt #LightBlue List<Meal> != null
+
+    DeliveryFacade --> DeliveryInfoController: return List<Meal>
+
+else #Pink Else
+
+    DeliveryFacade --> DeliveryInfoController: return null
+end
+deactivate DeliveryFacade
+deactivate DeliveryInfoController
+deactivate DeliveryInfoFrame
+
+@enduml

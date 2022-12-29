@@ -1,0 +1,29 @@
+@startuml
+
+activate DeliveryFrame
+DeliveryFrame -> DeliveryFrame : launch()
+
+DeliveryFrame -> DeliveryController: cancel(ActionEvent event)
+activate DeliveryController
+
+DeliveryController -> DeliveryFacade: deleteOrder(int idOrder)
+activate DeliveryFacade
+
+DeliveryFacade -> PostGresOrderDAO : deleteOrder(Order order)
+activate PostGresOrderDAO
+
+PostGresOrderDAO -> ConnectionPostGres : getConnection()
+activate ConnectionPostGres
+ConnectionPostGres --> PostGresOrderDAO : return Connection
+deactivate ConnectionPostGres
+PostGresOrderDAO --> DeliveryFacade : return Boolean
+deactivate PostGresOrderDAO
+
+DeliveryFacade --> DeliveryController : return Boolean
+deactivate DeliveryFacade
+
+deactivate DeliveryController
+deactivate DeliveryFrame
+
+
+@enduml
