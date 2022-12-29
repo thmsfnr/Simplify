@@ -1,12 +1,6 @@
 package project.persistence.factory;
 
-import project.persistence.product.RestaurantDAO;
-
-import project.persistence.product.MealDAO;
-import project.persistence.product.OpinionDAO;
-
-import project.persistence.product.TableDAO;
-import project.persistence.product.UserDAO;
+import project.persistence.product.*;
 
 
 /**
@@ -24,6 +18,12 @@ public abstract class AbstractDAOFactory {
      * @return the UserDAO
      */
     public abstract UserDAO getUserDAO();
+
+    /**
+     * abstract method to get the PaymentDAO
+     * @return the PaymentDAO
+     */
+    public abstract PaymentDAO getPaymentDAO();
 
     /**
      * abstract method to get the RestaurantDAO

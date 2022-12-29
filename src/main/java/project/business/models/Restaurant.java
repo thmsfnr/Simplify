@@ -105,7 +105,7 @@ public class Restaurant {
     @Override
     public String toString() {
         return "Restaurant{" +
-                "id=" + idRestaurant +
+                "id=" + this.idRestaurant +
                 '}';
     }
 }
