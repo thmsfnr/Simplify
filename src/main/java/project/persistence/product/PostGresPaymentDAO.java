@@ -2,7 +2,6 @@
 package project.persistence.product;
 
 import project.business.models.Payment;
-import project.business.models.User;
 import project.persistence.factory.PostGresDAOFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
