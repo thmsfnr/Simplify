@@ -57,51 +57,6 @@ public class PostGresOpinionDAO extends OpinionDAO {
         }
 
         /**
-         * This method is used to get the list of opinions of a meal by the id of meal
-         * @param idMeal the id of the meal
-         * @return the list of opinions or null if the meal is not found and throw an exception
-         */
-        @Override
-        public List<Opinion> getAllOpinionOfMeal(int idMeal) {
-            ArrayList<Opinion> opinions = new ArrayList<>();
-            // Get the connection to the database
-            Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
-            // If the connection works
-            if (connection != null) {
-                // Create the query
-                try {
-                    String query = "SELECT * FROM \"public\".\"Opinion\" WHERE \"idOpinion\" IN (SELECT \"idOpinion\" FROM \"public\".\"Opinion_meal\" WHERE \"idMeal\" = ?)";
-                    PreparedStatement preparedStatement = connection.prepareStatement(query);
-                    preparedStatement.setInt(1, idMeal);
-                    ResultSet resultSet = preparedStatement.executeQuery();
-
-                    // If the meal is found in the database
-                    while (resultSet.next()) {
-                        Opinion opinion = new Opinion(
-                                resultSet.getInt("idOpinion"),
-                                resultSet.getInt("idUser"),
-                                resultSet.getString("comment")
-                        );
-
-                        opinions.add(opinion);
-                    }
-                    resultSet.close();
-                    preparedStatement.close();
-                    return opinions;
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        connection.close();
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-            return opinions;
-        }
-
-        /**
          * This method is used to create an opinion
          * @param opinion the opinion model with the information of the new opinion
          * @return True if the opinion is created, false otherwise
@@ -136,7 +91,7 @@ public class PostGresOpinionDAO extends OpinionDAO {
 
         /**
          * This method is used to delete an opinion
-         * @param idOpinion the id of the opinion
+         * @param id the id of the opinion
          * @return True if the opinion is deleted, false otherwise
          */
         @Override

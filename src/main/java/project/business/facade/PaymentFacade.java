@@ -68,7 +68,7 @@ public class PaymentFacade {
      * @param payment the payment to create
      * @return true if the payment is created, false otherwise
      */
-    private boolean createPayment(Payment payment) {
+    public boolean createPayment(Payment payment) {
         return paymentDAO.create(payment);
     }
 
