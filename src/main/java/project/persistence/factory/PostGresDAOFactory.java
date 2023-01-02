@@ -51,6 +51,11 @@ public class PostGresDAOFactory extends AbstractDAOFactory {
     }
 
     @Override
+    public EventDAO getEventDAO() {
+        return new PostGresEventDAO();
+    }
+
+    @Override
     public NotificationDAO getNotificationDAO() {return new PostGresNotificationDAO();}
 
     @Override

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.EventUserController">
+<top>
+    <AnchorPane prefHeight="49.0" prefWidth="600.0" style="-fx-background-color: #D9DDDC;" BorderPane.alignment="CENTER">
+        <children>
+            <ImageView fitHeight="59.0" fitWidth="67.0" layoutX="8.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@Simplify.png" />
+                </image>
+            </ImageView>
+        </children>
+    </AnchorPane>
+</top>
+   <bottom>
+      <ScrollPane fx:id="contentArea" pannable="true" prefHeight="411.0" prefWidth="810.0" BorderPane.alignment="CENTER">
+      </ScrollPane>
+   </bottom>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+             <Text fill="#7a897f" layoutX="14.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="THE EVENTS OF THIS RESTAURANT" wrappingWidth="332.1142578125">
+                 <font>
+                     <Font name="System Bold Italic" size="18.0" />
+                 </font>
+             </Text>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
