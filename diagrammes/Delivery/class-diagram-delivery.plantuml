@@ -1,18 +1,18 @@
 @startuml
 
-class DeliveryFormFrame {
+class DeliveryFormFrame extends Application{
   + start(Stage stage) : void
 }
 
-class DeliveryInfoFrame {
+class DeliveryInfoFrame extends Application{
   + start(Stage stage) : void
 }
 
-class DeliveryFrame {
+class DeliveryFrame extends Application{
   + start(Stage stage) : void
 }
 
-class Application {
+abstract class Application {
   + start(Stage stage) : void
   + launch(String[] tab) : void
 }
@@ -31,21 +31,29 @@ class DeliveryInfoController {
   + initialize(URL url, ResourceBundle resourceBundle) : void
 }
 
-class Order{
-  - idOrder : Int
-  - idTypeOrder : Int
-  - idRestaurant : Int
+class Delivery{
+  - idDelivery : Int
   - idUser : Int
+  - idRestaurant : Int
+  - date : Date
+  - state : State
 }
 
+enum State {
+  - WAITING
+  - IN_PROGRESS
+  - DELIVERED
+}
 
 class DeliveryFacade{
   - OrderDAO orderDAO
-  + deleteOrder(int idOrder) : Boolean
-  + getAllMealToDeliver(int idOrder) : List<Meal>
-  + getOrderById(int idOrder) : Order
-  + create(Order order) : Boolean
-  + getAllOrders(int idUser) : List<Order>
+  - DeliveryDAO deliveryDAO
+  + deleteDelivery(int idDelivery) : void
+  + getAllMealOfDelivery(int idDelivery) : List<Meal>
+  + getDeliveryById(int idDelivery) : Delivery
+  + createDelivery(Delivery delivery) : Boolean
+  + getAllDeliveries() : List<Delivery>
+  + getAllDeliveriesOfUser(int idUser) : List<Delivery>
   + getInstance() : DeliveryFacade
 }
 
@@ -55,20 +63,23 @@ abstract class AbstractDAOFactory{
   + getInstance() : AbstractDAOFactory
 }
 
-class PostGresDAOFactory{
+class PostGresDAOFactory extends AbstractDAOFactory{
   -ConnectionPostgres : ConnectionPostgres
 }
 
-class PostGresOrderDAO{}
+class PostGresDeliveryDAO extends DeliveryDAO{}
 
+abstract class MealDAO{
+  + getAllMealOfDelivery(int idDelivery) : List<Meal>
+ }
 
-abstract class OrderDAO{
-  + deleteOrder(int idOrder) : Boolean
-  + getAllMealToDeliver(int idOrder) : List<Meal>
-  + getOrderById(int idOrder) : Order
-  + getInstance() : OrderFacade
-  + create(Order order) : Boolean
-  + getAllOrders(int idUser) : List<Order>
+abstract class DeliveryDAO{
+  + deleteDelivery(int idOrder) : void
+  + getDeliveryById(int idDelivery) : Delivery
+  + createDelivery(Delivery delivery) : Boolean
+  + updateDelivery(Delivery delivery) : Boolean
+  + getAllDeliveries() : List<Delivery>
+  + getAllDeliveriesOfUser(int idUser) : List<Order>
 }
 
 class ConnectionPostgres{
@@ -83,19 +94,14 @@ class LocalStorage{
  + load(String key) : Object
 }
 
-Application <|-- DeliveryFrame
-Application <|-- DeliveryFormFrame
-Application <|-- DeliveryInfoFrame
-
 DeliveryController -> DeliveryFacade
 DeliveryFormController -> DeliveryFacade
 DeliveryInfoController -> DeliveryFacade
 
-DeliveryController -> Order
-DeliveryInfoController -> Order
-DeliveryFormController -> Order
-
-DeliveryFacade --> Order
+DeliveryController -> Delivery
+DeliveryInfoController -> Delivery
+DeliveryFormController -> Delivery
+DeliveryFacade --> Delivery
 
 DeliveryController --> LocalStorage
 
@@ -103,15 +109,17 @@ DeliveryFrame -- DeliveryController
 DeliveryFormFrame -- DeliveryFormController
 DeliveryInfoFrame -- DeliveryInfoController
 
-DeliveryFacade -> OrderDAO
+DeliveryFacade -> DeliveryDAO
 DeliveryFacade -> AbstractDAOFactory
+DeliveryFacade -> MealDAO
 
-AbstractDAOFactory <|-- PostGresDAOFactory
-OrderDAO <|-- PostGresOrderDAO
+Delivery --> State
+
 PostGresDAOFactory --> ConnectionPostgres
-PostGresDAOFactory -> PostGresOrderDAO
-AbstractDAOFactory -> OrderDAO
-OrderDAO -> Order
+PostGresDAOFactory -> PostGresDeliveryDAO
+AbstractDAOFactory --> DeliveryDAO
+AbstractDAOFactory --> MealDAO
+
 
 @enduml
 

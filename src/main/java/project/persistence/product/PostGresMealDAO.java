@@ -1,6 +1,7 @@
 package project.persistence.product;
 
 import project.business.models.Meal;
+import project.exceptions.AccessDatabaseException;
 import project.exceptions.MealNotFoundException;
 import project.persistence.factory.PostGresDAOFactory;
 
@@ -180,5 +181,40 @@ public class PostGresMealDAO extends MealDAO{
             }
         }
         return meals;
+    }
+
+    @Override
+    public List<Meal> getAllMealOfDelivery(int idDelivery) throws AccessDatabaseException {
+        Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
+
+        if(connection == null) {
+            throw new AccessDatabaseException();
+        }
+        else{
+            try{
+                String query = "SELECT * FROM \"public\".\"Meal\" AS M1 LEFT JOIN \"public\".\"Meal_ordered\" AS M2 ON M1.\"idMeal\" = M2.\"idMeal\" WHERE M2.\"idDelivery\" = ?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, idDelivery);
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                ArrayList<Meal> meals = new ArrayList<>();
+                while(resultSet.next()) {
+                    Meal meal = new Meal(
+                            resultSet.getInt("idMeal"),
+                            resultSet.getInt("idRestaurant"),
+                            resultSet.getString("description"),
+                            resultSet.getString("title"),
+                            resultSet.getDouble("price"),
+                            resultSet.getInt("quantity")
+                    );
+                    meals.add(meal);
+                }
+                resultSet.close();
+                preparedStatement.close();
+                return meals;
+            } catch (SQLException e) {
+                throw new AccessDatabaseException();
+            }
+        }
     }
 }
