@@ -28,7 +28,7 @@ public class EventUpdateController {
     private DatePicker EventDate;
 
     @FXML
-    private TextField EvenTime;
+    private TextField EventTime;
 
     @FXML
     private Button updateButton;
@@ -41,9 +41,8 @@ public class EventUpdateController {
         this.event = event;
         EventTitle.setText(event.getTitle());
         EventDescription.setText(event.getDescription());
-        LocalDateTime timestamp = LocalDateTime.of(event.getDate().getYear(), event.getDate().getMonth(), event.getDate().getDay(), event.getDate().getHours(), event.getDate().getMinutes());
-        EventDate.setValue(LocalDate.from(timestamp));
-        EvenTime.setText(event.getTime());
+        EventDate.setValue(event.getDate().toLocalDateTime().toLocalDate());
+        EventTime.setText(event.getTime());
     }
 
 
@@ -53,8 +52,6 @@ public class EventUpdateController {
      */
     @FXML
     public void updateEvent(ActionEvent event) {
-        System.out.println("Update Event button pressed!");
-
         EventFacade eventFacade= EventFacade.getInstance();
 
         // Get the window of the submit button
@@ -77,7 +74,19 @@ public class EventUpdateController {
             return;
         }
 
-        String[] time = EvenTime.getText().split(":");
+        if (EventTime.getText().isEmpty()) {
+            Display.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+                    "Please enter a time for the event");
+            return;
+        }
+
+        // Verify if the time is in the correct format
+        if (!EventTime.getText().matches("([01]?[0-9]|2[0-3]):[0-5][0-9]")) {
+            Display.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+                    "Please enter a valid time");
+            return;
+        }
+        String[] time = EventTime.getText().split(":");
         int hour = Integer.parseInt(time[0]);
         int minute = Integer.parseInt(time[1]);
         if (hour < 0 || hour > 23 || minute < 0 || minute > 59) {
@@ -87,7 +96,6 @@ public class EventUpdateController {
         }
 
         // Verify if the date is not in the past
-        /*
         LocalDateTime dateNow = LocalDateTime.of(EventDate.getValue(), LocalDateTime.now().toLocalTime());
         if (dateNow.isBefore(LocalDateTime.now())) {
             Display.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
@@ -96,20 +104,16 @@ public class EventUpdateController {
         }
         LocalDateTime date = LocalDateTime.of(EventDate.getValue().getYear(), EventDate.getValue().getMonth(), EventDate.getValue().getDayOfMonth(), hour, minute);
         Timestamp timestamp = Timestamp.valueOf(date);
-        */
-        LocalDateTime date = LocalDateTime.of(EventDate.getValue().getYear(), EventDate.getValue().getMonth(), EventDate.getValue().getDayOfMonth(), hour, minute);
-        Timestamp timestamp = Timestamp.valueOf(date);
 
         Event updatedEvent = new Event(this.event.getIdEvent(), EventTitle.getText(), EventDescription.getText(), timestamp);
-
         Boolean updated = eventFacade.updateEvent(updatedEvent);
         if (updated) {
             Display.infoBox("Event updated Successfully!", null, "Success");
+            this.event = updatedEvent;
+            setTextFields(updatedEvent);
         } else {
             Display.infoBox("Update Failed!", null, "Failed");
         }
-        Event newTable = eventFacade.getEventById(this.event.getIdEvent());
-        setTextFields(newTable);
     }
 
     /**
@@ -118,7 +122,6 @@ public class EventUpdateController {
      */
     @FXML
     public void closeUpdateEvent(ActionEvent event) {
-        System.out.println("Cancel button pressed!");
-        cancelButton.getScene().getWindow().hide();
+        setTextFields(this.event);
     }
 }

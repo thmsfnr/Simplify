@@ -60,6 +60,7 @@ public class Event {
         this.time = time;
     }
 
+
     public Event(Integer idEvent, String title, String description, Timestamp date) {
         this.idEvent = idEvent;
         this.title = title;
@@ -67,6 +68,10 @@ public class Event {
         this.date = date;
 
         // Create a time string from date
-        this.time = String.valueOf(date.getHours()) + ":" + String.valueOf(date.getMinutes());
+
+        String[] time = date.toString().split(" ");
+        this.time = time[1].substring(0,5);
     }
+
+
 }

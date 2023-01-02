@@ -14,7 +14,7 @@
     <children>
         <HBox alignment="CENTER" prefHeight="75.0" prefWidth="378.0" style="-fx-background-color: #c8ded0;">
             <children>
-                <Text fill="#7a897f" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Details">
+                <Text fill="#7a897f" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Update">
                     <font>
                         <Font name="System Bold Italic" size="34.0" />
                     </font>
@@ -74,7 +74,7 @@
                         <Font name="System Bold Italic" size="18.0" />
                     </font>
                 </Text>
-                <TextField fx:id="EvenTime" prefHeight="31.0" prefWidth="244.0" promptText="Heure de l'évenemment" style="-fx-background-color: white; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
+                <TextField fx:id="EventTime" prefHeight="31.0" prefWidth="244.0" promptText="Heure de l'évenemment" style="-fx-background-color: white; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
                     <font>
                         <Font size="13.0" />
                     </font>

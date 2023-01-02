@@ -49,4 +49,19 @@ public class Display {
         alert.show();
     }
 
+    /**
+     * This method is used to show an alert for confirmation of deletion
+     * @param infoMessage the message of the alert
+     * @param headerText the header of the alert
+     * @param title the title of the alert
+     */
+    public static String confirmBox( String headerText, String title) {
+        // Create the alert
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.showAndWait();
+       return alert.getResult().getText();
+    }
 }

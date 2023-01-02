@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.business.facade.EventFacade;
 import project.business.models.Event;
@@ -66,6 +67,12 @@ public class EventCreateController {
             return;
         }
 
+        // Verify if the time is in the correct format
+        if (!EventTime.getText().matches("([01]?[0-9]|2[0-3]):[0-5][0-9]")) {
+            Display.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+                    "Please enter a valid time");
+            return;
+        }
         String[] time = EventTime.getText().split(":");
         int hour = Integer.parseInt(time[0]);
         int minute = Integer.parseInt(time[1]);
@@ -76,7 +83,6 @@ public class EventCreateController {
         }
 
         // Verify if the date is not in the past
-        /*
         LocalDateTime dateNow = LocalDateTime.of(EventDate.getValue(), LocalDateTime.now().toLocalTime());
         if (dateNow.isBefore(LocalDateTime.now())) {
             Display.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
@@ -85,24 +91,34 @@ public class EventCreateController {
         }
         LocalDateTime date = LocalDateTime.of(EventDate.getValue().getYear(), EventDate.getValue().getMonth(), EventDate.getValue().getDayOfMonth(), hour, minute);
         Timestamp timestamp = Timestamp.valueOf(date);
-        */
-        LocalDateTime date = LocalDateTime.of(EventDate.getValue().getYear(), EventDate.getValue().getMonth(), EventDate.getValue().getDayOfMonth(), hour, minute);
-        Timestamp timestamp = Timestamp.valueOf(date);
 
         Event toCreateEvent = new Event(0, EventTitle.getText(), EventDescription.getText(), timestamp);
-
         Boolean created = eventFacade.createEvent(toCreateEvent);
         if (created) {
+            // Vider les champs
+            EventTitle.setText("");
+            EventDescription.setText("");
+            EventDate.setValue(null);
+            EventTime.setText("");
             Display.infoBox("Event Created Successfully!", null, "Success");
         } else {
             Display.infoBox("Creation Failed!", null, "Failed");
         }
     }
-
     @FXML
     void closeCreateEvent(ActionEvent event) {
         System.out.println("Cancel button pressed!");
-        cancelButton.getScene().getWindow().hide();
-    }
 
+        // if the field is empty, close the window
+        if (EventTitle.getText().isEmpty() && EventDescription.getText().isEmpty() && EventDate.getValue() == null && EventTime.getText().isEmpty()) {
+            Stage stage = (Stage) cancelButton.getScene().getWindow();
+            stage.close();
+        } else {
+            //vider les champs
+            EventTitle.setText("");
+            EventDescription.setText("");
+            EventDate.setValue(null);
+            EventTime.setText("");
+        }
+    }
 }

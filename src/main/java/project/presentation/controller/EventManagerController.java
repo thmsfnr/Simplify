@@ -18,8 +18,7 @@ import project.business.facade.EventFacade;
 import project.business.models.Event;
 import java.time.LocalDate;
 
-import static project.presentation.controller.Display.infoBox;
-import static project.presentation.controller.Display.showAlert;
+import static project.presentation.controller.Display.*;
 
 public class EventManagerController implements Initializable {
 
@@ -47,15 +46,13 @@ public class EventManagerController implements Initializable {
     private void createEvent(ActionEvent event){
         try{
             // Load the fxml file and create a new stage for the popup
-            FXMLLoader loader = new FXMLLoader(project.presentation.frame.Table.class.getResource("EventCreateFrame.fxml"));
+            FXMLLoader loader = new FXMLLoader(project.presentation.frame.EventManagerFrame.class.getResource("EventCreateFrame.fxml"));
             Parent root = loader.load();
-            EventCreateController controller = loader.getController();
             Stage stage = new Stage();
-            stage.setTitle("Create Table");
+            stage.setTitle("Create Event");
             stage.setScene(new Scene(root));
             stage.show();
 
-            // Close the frame and reload the table
             stage.setOnCloseRequest(e -> {
                 refreshTable();
             });
@@ -140,7 +137,7 @@ public class EventManagerController implements Initializable {
     {
         try{
             // Load the fxml file and create a new stage for the popup
-            FXMLLoader loader = new FXMLLoader(project.presentation.frame.Table.class.getResource("EventUpdateFrame.fxml"));
+            FXMLLoader loader = new FXMLLoader(project.presentation.frame.EventManagerFrame.class.getResource("EventUpdateFrame.fxml"));
             Parent root = loader.load();
             EventUpdateController controller = loader.getController();
             controller.setTextFields(data);
@@ -148,7 +145,6 @@ public class EventManagerController implements Initializable {
             stage.setTitle("Update Table");
             stage.setScene(new Scene(root));
             stage.show();
-
             // Close the frame and reload the table
             stage.setOnCloseRequest(e -> {
                 refreshTable();
@@ -228,19 +224,30 @@ public class EventManagerController implements Initializable {
         // Create a new alert to confirm the deletion
         Window owner = EventTab.getScene().getWindow();
 
-        // Call the facade to delete the table from the database
-        EventFacade eventFacade = EventFacade.getInstance();
-        Boolean result = eventFacade.deleteEvent(data.getIdEvent());
-        if (result) {
-            infoBox("Event deleted successfully!", null, "Success");
-        } else {
-            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    "Please enter your name");
-            return;
+        // Confirmation of the deletion
+
+        String deleteEvent = Display.confirmBox("Are you sure you want to delete this event?", "Delete Event");
+
+        if (deleteEvent.equals("OK")) {
+
+            // Call the facade to delete the table from the database
+            EventFacade eventFacade = EventFacade.getInstance();
+            Boolean result = eventFacade.deleteEvent(data.getIdEvent());
+            if (result) {
+                infoBox("Event deleted successfully!", null, "Success");
+            } else {
+                showAlert(Alert.AlertType.ERROR, owner, "Deletion error!",
+                        "Event not deleted!");
+                return;
+            }
+                // Refresh the table
+                refreshTable();
+            }
+            else{
+                return;
+            }
         }
-        // Refresh the table
-        refreshTable();
-    }
+
 
     /**
      * This method is used to refresh the table
@@ -318,7 +325,7 @@ public class EventManagerController implements Initializable {
     public void detailsTable(ActionEvent event, Event eventDet)
     {
         try{
-            FXMLLoader loader = new FXMLLoader(project.presentation.frame.Table.class.getResource("EventDetailsFrame.fxml"));
+            FXMLLoader loader = new FXMLLoader(project.presentation.frame.EventManagerFrame.class.getResource("EventDetailsFrame.fxml"));
             Parent root = loader.load();
             EventDetailsController controller = loader.getController();
 
@@ -357,7 +364,6 @@ public class EventManagerController implements Initializable {
         title.setCellValueFactory(new PropertyValueFactory<Event, String>("title"));
         description.setCellValueFactory(new PropertyValueFactory<Event, String>("description"));
         date.setCellValueFactory(new PropertyValueFactory<Event, LocalDate>("date"));
-
         time.setCellValueFactory(new PropertyValueFactory<Event, String>("time"));
         EventTab.setItems(Events);
         // Add the buttons to the table
