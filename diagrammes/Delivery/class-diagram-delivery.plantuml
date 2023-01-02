@@ -8,7 +8,7 @@ class DeliveryInfoFrame extends Application{
   + start(Stage stage) : void
 }
 
-class DeliveryFrame extends Application{
+class DeliveryListFrame extends Application{
   + start(Stage stage) : void
 }
 
@@ -17,7 +17,7 @@ abstract class Application {
   + launch(String[] tab) : void
 }
 
-class DeliveryController {
+class DeliveryListController {
   + initialize(URL url, ResourceBundle resourceBundle) : void
   - cancel() : Boolean
   - switchToInfoFrame() : void
@@ -94,18 +94,18 @@ class LocalStorage{
  + load(String key) : Object
 }
 
-DeliveryController -> DeliveryFacade
+DeliveryListController -> DeliveryFacade
 DeliveryFormController -> DeliveryFacade
 DeliveryInfoController -> DeliveryFacade
 
-DeliveryController -> Delivery
+DeliveryListController -> Delivery
 DeliveryInfoController -> Delivery
 DeliveryFormController -> Delivery
 DeliveryFacade --> Delivery
 
-DeliveryController --> LocalStorage
+DeliveryListController --> LocalStorage
 
-DeliveryFrame -- DeliveryController
+DeliveryListFrame -- DeliveryListController
 DeliveryFormFrame -- DeliveryFormController
 DeliveryInfoFrame -- DeliveryInfoController
 

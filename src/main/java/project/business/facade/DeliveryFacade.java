@@ -50,6 +50,10 @@ public class DeliveryFacade {
         return this.mealDAO.getAllMealOfDelivery(idDelivery);
     }
 
+    public void changeStateOfDelivery(int idDelivery, String state) throws AccessDatabaseException {
+        this.deliveryDAO.changeStateOfDelivery(idDelivery, state);
+    }
+
 
 
 

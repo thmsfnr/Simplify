@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 //import project.business.facade.RestaurantFacade;
+import project.business.facade.RestaurantFacade;
 import project.business.models.Restaurant;
 
 import javafx.util.Callback;
@@ -23,7 +24,7 @@ import project.presentation.frame.RestaurantForm;
 import java.io.IOException;
 
 public class RestaurantListController {
-/*
+
     private boolean manage = false;
     private int idManager;
 
@@ -253,6 +254,7 @@ public class RestaurantListController {
 
 
 
+
     public void initialize(){
         RestaurantFacade restaurantFacade = RestaurantFacade.getInstance();
 
@@ -266,12 +268,12 @@ public class RestaurantListController {
         catch(AccessDatabaseException e){
             Display.showAlert(Alert.AlertType.ERROR, null, "Error", "An error occurred in the back, please retry later.");
         } catch (RestaurantNotFoundException e) {
-            throw new RuntimeException(e);
+            Display.showAlert(Alert.AlertType.ERROR, null, "Error", "An error occurred in the back, please retry later.");
         }
 
         addUpdateButton();
         addButtonDelete();
         addDetailsButton();
     }
-*/
+
 }

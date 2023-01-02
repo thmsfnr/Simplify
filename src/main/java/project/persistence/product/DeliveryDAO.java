@@ -58,4 +58,12 @@ public abstract class DeliveryDAO {
      * @return true if the delivery is deleted, false otherwise
      */
     public abstract void deleteDelivery(int id) throws AccessDatabaseException;
+
+
+    /**
+     * This method is used to change the state of a delivery
+     * @param idDelivery the id of the delivery
+     * @param state the new state of the delivery
+     */
+    public abstract void changeStateOfDelivery(int idDelivery, String state) throws AccessDatabaseException;
 }

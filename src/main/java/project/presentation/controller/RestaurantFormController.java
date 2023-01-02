@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 //import project.business.facade.RestaurantFacade;
+import project.business.facade.RestaurantFacade;
 import project.business.models.Restaurant;
 import project.business.models.User;
 import project.exceptions.AccessDatabaseException;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class RestaurantFormController {
 
-    /*
+
     private boolean isUpdate = false;
     private int idRestaurant;
     @FXML
@@ -194,5 +195,5 @@ public class RestaurantFormController {
         switchToList(owner);
     }
 
- */
+
 }
