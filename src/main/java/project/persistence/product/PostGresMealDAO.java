@@ -181,4 +181,45 @@ public class PostGresMealDAO extends MealDAO{
         }
         return meals;
     }
+
+    @Override
+    public List<Meal> getMealsOfReservation(int idReservation) {
+        ArrayList<Meal> meals = new ArrayList<>();
+        // Get the connection to the database
+        Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
+        // If the connection works
+        if(connection != null) {
+            // Create the query
+            try {
+                String query = "SELECT * FROM \"public\".\"Meal\" WHERE \"idMeal\" IN (SELECT \"idMeal\" FROM \"public\".\"Meal_ordered\" WHERE \"idOrder\" = ?);";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, idReservation);
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                // If the meal is found in the database
+                while(resultSet.next()) {
+                    Meal meal = new Meal(
+                            resultSet.getInt("idMeal"),
+                            resultSet.getInt("idRestaurant"),
+                            resultSet.getString("description"),
+                            resultSet.getString("title"),
+                            resultSet.getDouble("price")
+                    );
+                    meals.add(meal);
+                }
+                resultSet.close();
+                preparedStatement.close();
+                return meals;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        return meals;
+    }
 }

@@ -3,6 +3,8 @@ package project.business.facade;
 import project.business.models.Meal;
 import project.business.models.Reservation;
 import project.business.models.Table;
+import project.exceptions.AccessDatabaseException;
+import project.exceptions.ReservationNotFoundException;
 import project.persistence.factory.AbstractDAOFactory;
 import project.persistence.factory.PostGresDAOFactory;
 import project.persistence.product.MealDAO;
@@ -30,22 +32,20 @@ public class ReservationFacade {
     public List<Reservation> getAllReservations(int idRestaurant){return reservationDAO.getAllReservations(idRestaurant);}
     public List<Reservation> getAllReservationsOfUser(int idUser){return reservationDAO.getAllReservationsOfUser(idUser);}
 
-    public Boolean createReservation(Reservation reservation){return reservationDAO.create(reservation);}
+    public Boolean createReservation(Reservation reservation) throws AccessDatabaseException {return reservationDAO.create(reservation);}
 
-    public Boolean updateReservation(Reservation reservation){return reservationDAO.update(reservation);}
+    public Boolean updateReservation(Reservation reservation) throws AccessDatabaseException {return reservationDAO.update(reservation);}
     public Boolean deleteReservation(int idReservation){return reservationDAO.delete(idReservation);}
 
     public Boolean cancelReservation(Reservation reservation){return reservationDAO.cancelReservation(reservation);}
 
     public Boolean acceptReservation(Reservation reservation){return reservationDAO.acceptReservation(reservation);}
 
-    public Boolean rejectReservation(Reservation reservation){return reservationDAO.rejectReservation(reservation);}
-
-    public Reservation getReservationById(int idReservation){return reservationDAO.getById(idReservation);}
+    public Reservation getReservationById(int idReservation) throws ReservationNotFoundException {return reservationDAO.getById(idReservation);}
 
     public List<Meal> getMealsOfReservation(int idReservation){ return mealDAO.getMealsOfReservation(idReservation);}
 
-    public List<Table> getTablesOfReservation(int idReservation){return tableDAO.getTablesOfReservation(idReservation);}
+    public List<Table> getTablesOfReservation(int idReservation) throws AccessDatabaseException {return tableDAO.getTablesOfReservation(idReservation);}
     public static ReservationFacade getInstance() {
         return ReservationFacade.FacadeHolder.INSTANCE;
     }
