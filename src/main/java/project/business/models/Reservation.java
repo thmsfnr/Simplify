@@ -2,6 +2,8 @@ package project.business.models;
 
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,14 +19,15 @@ public class Reservation {
     private int idState;
 
 
-    public Reservation(int idOrder, int idRestaurant, int idUser, Date date, List<Integer> tables, Map<Integer, Integer> meals, int idState) {
+    public Reservation(int idOrder, int idRestaurant, int idUser, Date date, int idState) {
         this.idOrder = idOrder;
         this.idRestaurant = idRestaurant;
         this.idUser = idUser;
         this.date = date;
-        this.tables = tables;
-        this.meals = meals;
+        this.tables = new ArrayList<>();
+        this.meals = new HashMap<>();
         this.idState = idState;
+        this.idTypeOrder = 2;
     }
 
     public int getIdOrder() {
@@ -33,10 +36,6 @@ public class Reservation {
 
     public int getIdTypeOrder() {
         return idTypeOrder;
-    }
-
-    public void setIdTypeOrder(int idTypeOrder) {
-        this.idTypeOrder = idTypeOrder;
     }
 
     public void setIdOrder(int idOrder) {
@@ -57,6 +56,20 @@ public class Reservation {
 
     public Map<Integer, Integer> getMeals() {
         return meals;
+    }
+
+    public void addTable(int idTable){
+        tables.add(idTable);
+    }
+    public void addMeal(int idMeal, int quantity){
+        meals.put(idMeal,quantity);
+    }
+
+    public void removeTable(int idTable){
+        tables.remove(idTable);
+    }
+    public void removeMeal(int idMeal){
+        meals.remove(idMeal);
     }
     public Date getDate() {
         return date;
