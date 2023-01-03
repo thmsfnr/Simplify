@@ -47,10 +47,10 @@ public class NotificationCenterController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        idNotification.setCellValueFactory(new PropertyValueFactory<Notification, Integer>("idNotification"));
-        title.setCellValueFactory(new PropertyValueFactory<Notification, String>("title"));
-        description.setCellValueFactory(new PropertyValueFactory<Notification, String>("description"));
-        idUser.setCellValueFactory(new PropertyValueFactory<Notification, Integer>("idUser"));
+        idNotification.setCellValueFactory(new PropertyValueFactory<>("idNotification"));
+        title.setCellValueFactory(new PropertyValueFactory<>("title"));
+        description.setCellValueFactory(new PropertyValueFactory<>("description"));
+        idUser.setCellValueFactory(new PropertyValueFactory<>("idUser"));
         TableNotification.setItems(notifications);
         addDeleteButtonToTable();
     }
@@ -60,10 +60,10 @@ public class NotificationCenterController implements Initializable {
         TableColumn<Notification, Void> colBtn = new TableColumn("Delete");
 
         // Add the button to the column
-        Callback<TableColumn<Notification, Void>, TableCell<Notification, Void>> cellFactory = new Callback<TableColumn<Notification, Void>, TableCell<Notification, Void>>() {
+        Callback<TableColumn<Notification, Void>, TableCell<Notification, Void>> cellFactory = new Callback<>() {
             @Override
             public TableCell<Notification, Void> call(final TableColumn<Notification, Void> param) {
-                final TableCell<Notification, Void> cell = new TableCell<Notification, Void>() {
+                final TableCell<Notification, Void> cell = new TableCell<>() {
 
                     private final Button btn = new Button();
                     {

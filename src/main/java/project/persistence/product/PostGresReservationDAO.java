@@ -1,5 +1,7 @@
 package project.persistence.product;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import project.business.models.Reservation;
 import project.exceptions.AccessDatabaseException;
 import project.exceptions.ReservationNotFoundException;
@@ -332,8 +334,8 @@ public class PostGresReservationDAO extends ReservationDAO{
     }
 
     @Override
-    public List<Reservation> getAllReservationsOfUser(int idUser) {
-        ArrayList<Reservation> reservations = new ArrayList<>();
+    public ObservableList<Reservation> getAllReservationsOfUser(int idUser) {
+        ObservableList<Reservation> reservations = FXCollections.observableArrayList();
         // Get the connection to the database
         Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
         // If the connection works
@@ -438,5 +440,38 @@ public class PostGresReservationDAO extends ReservationDAO{
             }
         }
         return false;
+    }
+
+    @Override
+    public String getStateLabel(int idState) {
+        // Get the connection to the database
+        Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
+        // If the connection works
+        if(connection != null) {
+            // Create the query
+            try {
+                String query = "SELECT \"description\" FROM \"public\".\"State_order\" WHERE \"idState\" = ?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, idState);
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                // If the state is found in the database
+                if(resultSet.next()) {
+                    String label = resultSet.getString("description");
+                    resultSet.close();
+                    preparedStatement.close();
+                    return label;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        return null;
     }
 }

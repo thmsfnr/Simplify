@@ -1,5 +1,6 @@
 package project.persistence.product;
 
+import javafx.collections.ObservableList;
 import project.business.models.Reservation;
 import project.exceptions.AccessDatabaseException;
 import project.exceptions.ReservationNotFoundException;
@@ -15,10 +16,12 @@ public abstract class ReservationDAO {
     public abstract Reservation getById(int idReservation) throws ReservationNotFoundException;
 
     public abstract List<Reservation> getAllReservations(int idRestaurant) ;
-    public abstract List<Reservation> getAllReservationsOfUser(int idUser) ;
+    public abstract ObservableList<Reservation> getAllReservationsOfUser(int idUser) ;
 
     public abstract Boolean cancelReservation(Reservation reservation) ;
 
     public abstract Boolean acceptReservation(Reservation reservation) ;
+
+    public abstract String getStateLabel(int idState) ;
 
 }

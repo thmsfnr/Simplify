@@ -86,4 +86,18 @@ public class Reservation {
     public void setIdState(int idState) {
         this.idState = idState;
     }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "idOrder=" + idOrder +
+                ", idTypeOrder=" + idTypeOrder +
+                ", idRestaurant=" + idRestaurant +
+                ", idUser=" + idUser +
+                ", date=" + date +
+                ", tables=" + tables +
+                ", meals=" + meals +
+                ", idState=" + idState +
+                '}';
+    }
 }
