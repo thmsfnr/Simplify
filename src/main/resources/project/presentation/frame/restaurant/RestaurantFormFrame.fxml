@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.restaurant.RestaurantFormController">
+   <children>
+      <AnchorPane layoutX="1.0" prefHeight="400.0" prefWidth="612.0">
+         <children>
+            <GridPane hgap="4.0" layoutX="183.0" layoutY="71.0" prefHeight="301.0" prefWidth="246.0" vgap="8.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#create" prefHeight="27.0" prefWidth="100.0" style="-fx-border-radius: 0.7em; -fx-background-color: #c8ded0; -fx-cursor: handle;" text="Confirm" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                     <GridPane.margin>
+                        <Insets left="40.0" top="10.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Label text="Name of restaurant:" />
+                  <Label text="Adress:" GridPane.rowIndex="1" />
+                  <Label text="Number of stars:" GridPane.rowIndex="2" />
+                  <TextField fx:id="nameField" promptText="Le Raffiné" style="-fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent;" GridPane.columnIndex="1" />
+                  <TextArea fx:id="addressField" prefHeight="200.0" prefWidth="200.0" promptText="56 Rue de l'Espoir" style="-fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ChoiceBox fx:id="nbOfStarsChoice" maxHeight="22.0" prefHeight="20.0" prefWidth="53.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin></ChoiceBox>
+                  <Label text="Email:" GridPane.rowIndex="3" />
+                  <Label text="Phone number:" GridPane.rowIndex="4" />
+                  <Label text="Dimensions:" GridPane.rowIndex="6" />
+                  <Label text="  - Length:" GridPane.rowIndex="7" />
+                  <Label text="  - Width:" GridPane.rowIndex="8" />
+                  <Spinner fx:id="lengthSpinner" editable="true" style="-fx-background-color: transparent; -fx-border-color: #c8ded0;" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </Spinner>
+                  <Spinner fx:id="widthSpinner" editable="true" style="-fx-background-color: transparent; -fx-border-color: #c8ded0;" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </Spinner>
+                  <TextField fx:id="emailField" promptText="rest@email.com" style="-fx-background-color: transparent; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="phoneField" promptText="+33 9 88 77 66 55" style="-fx-background-color: transparent; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label text="Who is the manager ?" GridPane.rowIndex="5" />
+                  <ChoiceBox fx:id="managerChoice" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+               </children>
+            </GridPane>
+            <Button fx:id="backButton" layoutX="40.0" layoutY="26.0" mnemonicParsing="false" onAction="#switchToList">
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                          <Image url="@../assets/back-arrow.png" />
+                      </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

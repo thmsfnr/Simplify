@@ -4,8 +4,8 @@ import project.business.models.Delivery;
 import project.business.models.Meal;
 import project.exceptions.AccessDatabaseException;
 import project.persistence.factory.AbstractDAOFactory;
-import project.persistence.product.DeliveryDAO;
-import project.persistence.product.MealDAO;
+import project.persistence.product.abstr.DeliveryDAO;
+import project.persistence.product.abstr.MealDAO;
 
 import java.util.List;
 
