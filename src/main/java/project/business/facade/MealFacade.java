@@ -5,8 +5,8 @@ import project.business.models.Opinion;
 import project.exceptions.MealNotFoundException;
 import project.persistence.factory.AbstractDAOFactory;
 import project.persistence.factory.PostGresDAOFactory;
-import project.persistence.product.MealDAO;
-import project.persistence.product.OpinionDAO;
+import project.persistence.product.abstr.MealDAO;
+import project.persistence.product.abstr.OpinionDAO;
 
 import java.util.List;
 

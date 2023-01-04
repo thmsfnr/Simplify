@@ -4,7 +4,7 @@ package project.business.facade;
 import project.business.models.Opinion;
 import project.persistence.factory.AbstractDAOFactory;
 import project.persistence.factory.PostGresDAOFactory;
-import project.persistence.product.OpinionDAO;
+import project.persistence.product.abstr.OpinionDAO;
 import java.util.List;
 
 /**

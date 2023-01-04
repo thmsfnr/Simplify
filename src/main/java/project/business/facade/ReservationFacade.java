@@ -8,10 +8,10 @@ import project.exceptions.AccessDatabaseException;
 import project.exceptions.ReservationNotFoundException;
 import project.persistence.factory.AbstractDAOFactory;
 import project.persistence.factory.PostGresDAOFactory;
-import project.persistence.product.MealDAO;
-import project.persistence.product.ReservationDAO;
-import project.persistence.product.NotificationDAO;
-import project.persistence.product.TableDAO;
+import project.persistence.product.abstr.MealDAO;
+import project.persistence.product.abstr.ReservationDAO;
+import project.persistence.product.abstr.NotificationDAO;
+import project.persistence.product.abstr.TableDAO;
 
 import java.util.List;
 

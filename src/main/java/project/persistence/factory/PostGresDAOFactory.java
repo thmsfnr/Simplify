@@ -1,6 +1,7 @@
 
 package project.persistence.factory;
-import project.persistence.product.*;
+import project.persistence.product.abstr.*;
+import project.persistence.product.postgres.*;
 import project.utilities.ConnectionPostgres;
 
 /**

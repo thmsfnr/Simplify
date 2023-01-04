@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.delivery.DeliveryListController">
+   <children>
+      <ScrollPane layoutX="8.0" layoutY="7.0" prefHeight="388.0" prefWidth="589.0">
+         <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="530.0" prefWidth="574.0">
+               <children>
+                  <TableView fx:id="deliveryPassedTable" layoutX="60.0" layoutY="338.0" prefHeight="144.0" prefWidth="466.0">
+                    <columns>
+                      <TableColumn fx:id="idColumn" prefWidth="75.0" text="idDelivery" />
+                      <TableColumn fx:id="stateColumn" prefWidth="75.0" text="state" />
+                        <TableColumn fx:id="idRestaurantColumn" prefWidth="86.39996337890625" text="idRestaurant" />
+                    </columns>
+                  </TableView>
+                  <Label layoutX="217.0" layoutY="2.0" text="List of deliveries">
+                     <font>
+                        <Font name="Cambria Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="deliveryNewsTable" layoutX="60.0" layoutY="71.0" prefHeight="144.0" prefWidth="466.0">
+                     <columns>
+                        <TableColumn fx:id="idColumn2" prefWidth="75.0" text="idDelivery" />
+                        <TableColumn fx:id="stateColumn2" prefWidth="75.0" text="state" />
+                        <TableColumn fx:id="idRestaurantColumn2" prefWidth="86.39996337890625" text="idRestaurant" />
+                     </columns>
+                  </TableView>
+                  <Label layoutX="60.0" layoutY="306.0" text="Deliveries carried out">
+                     <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="59.0" layoutY="49.0" text="Deliveries in Progress">
+                     <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

@@ -4,9 +4,7 @@ import javafx.collections.ObservableList;
 import project.business.models.Notification;
 import project.persistence.factory.AbstractDAOFactory;
 import project.persistence.factory.PostGresDAOFactory;
-import project.persistence.product.NotificationDAO;
-
-import java.util.List;
+import project.persistence.product.abstr.NotificationDAO;
 
 public class NotificationFacade {
     private NotificationDAO notificationDAO;

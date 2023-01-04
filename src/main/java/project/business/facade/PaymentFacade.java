@@ -4,7 +4,7 @@ package project.business.facade;
 import project.business.models.Payment;
 import project.persistence.factory.AbstractDAOFactory;
 import project.persistence.factory.PostGresDAOFactory;
-import project.persistence.product.PaymentDAO;
+import project.persistence.product.abstr.PaymentDAO;
 import project.utilities.VerifyPayment;
 import java.sql.Date;
 import java.util.List;

@@ -5,8 +5,10 @@ import project.exceptions.AccessDatabaseException;
 import project.exceptions.RestaurantNotFoundException;
 import project.exceptions.UserNotFoundException;
 import project.persistence.factory.AbstractDAOFactory;
-import project.persistence.product.UserDAO;
-import project.persistence.product.*;
+import project.persistence.product.abstr.OpinionDAO;
+import project.persistence.product.abstr.RestaurantDAO;
+import project.persistence.product.abstr.TableDAO;
+import project.persistence.product.abstr.UserDAO;
 
 
 import java.util.ArrayList;

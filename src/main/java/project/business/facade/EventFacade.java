@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 import project.business.models.Event;
 import project.persistence.factory.AbstractDAOFactory;
 import project.persistence.factory.PostGresDAOFactory;
-import project.persistence.product.EventDAO;
+import project.persistence.product.abstr.EventDAO;
 
 public class EventFacade {
 
