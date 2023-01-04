@@ -46,8 +46,16 @@ public class PostGresDAOFactory extends AbstractDAOFactory {
     public MealDAO getMealDAO() {return new PostGresMealDAO();}
 
     @Override
+    public ReservationDAO getReservationDAO() {return new PostGresReservationDAO();}
+
+    @Override
     public TableDAO getTableDAO() {
         return new PostGresTableDAO();
+    }
+
+    @Override
+    public EventDAO getEventDAO() {
+        return new PostGresEventDAO();
     }
 
     @Override

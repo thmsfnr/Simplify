@@ -10,3 +10,8 @@
 -separer le local storage -> interface avec class qui implement les methodes (voir thomas)
 -ajouter DAo dans les diagrammes de classes !
 - faire les tests unitaires
+- unifier les exceptions
+-unifier les pages si on est en admin ou user
+-améliorer les graphismes
+-duplication acceptReservation & cancelReservation , seulement le status change
+- rapports perso

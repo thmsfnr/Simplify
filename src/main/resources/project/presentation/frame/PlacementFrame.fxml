@@ -25,14 +25,19 @@
                         <Font name="Cambria Italic" size="14.0" />
                      </font>
                   </Label>
-                  <Spinner layoutX="126.0" layoutY="473.0" prefHeight="18.0" prefWidth="54.0" fx:id="xSpinner" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" />
+                  <Spinner layoutX="126.0" layoutY="473.0" prefHeight="18.0" prefWidth="54.0" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" fx:id="xSpinner" />
                   <Label layoutX="81.0" layoutY="441.0" text="New position:" />
                   <Label layoutX="100.0" layoutY="477.0" text="- x:" />
-                  <Button fx:id="updateButton" layoutX="226.0" layoutY="521.0" mnemonicParsing="false" onAction="#updatePlacement" text="Update position" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" />
+                  <Button fx:id="updateButton" layoutX="226.0" layoutY="521.0" mnemonicParsing="false" onAction="#updatePlacement" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Update position" />
                   <Label layoutX="218.0" layoutY="477.0" text="- y:" />
-                  <Spinner fx:id="ySpinner" layoutX="244.0" layoutY="473.0" prefHeight="1.0" prefWidth="54.0" style="-fx-cursor: hand;"/>
-                  <Button fx:id="removeButton" layoutX="128.0" layoutY="521.0" mnemonicParsing="false" onAction="#deletePlacement" text="remove table" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;"/>
-                  <Button fx:id="switchButton" layoutX="223.0" layoutY="40.0" mnemonicParsing="false" onAction="#SwitchToManagementTablePage" text="Manage Tables" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" />
+                  <Spinner fx:id="ySpinner" layoutX="244.0" layoutY="473.0" prefHeight="1.0" prefWidth="54.0" style="-fx-cursor: hand;" />
+                  <Button fx:id="removeButton" layoutX="128.0" layoutY="521.0" mnemonicParsing="false" onAction="#deletePlacement" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="remove table" />
+                  <Button fx:id="switchButton" layoutX="223.0" layoutY="40.0" mnemonicParsing="false" onAction="#SwitchToManagementTablePage" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Manage Tables" />
+                  <Button fx:id="button_add_table_reservation" disable="true" layoutX="103.0" layoutY="583.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#addReservation" prefHeight="40.0" prefWidth="187.0" style="-fx-background-color: blue; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Reserve table" textFill="WHITE" textOverrun="WORD_ELLIPSIS" visible="false">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Button>
                </children></AnchorPane>
         </items>
          <padding>

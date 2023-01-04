@@ -84,4 +84,11 @@ public abstract class TableDAO {
      * @throws AccessDatabaseException
      */
     public abstract void deletePlacement(int idTable) throws AccessDatabaseException;
+
+    /**
+     * This method is used to get all the tables of a reservation
+     * @param idReservation the id of the reservation
+     * @return a list of tables
+     */
+    public abstract List<Table> getTablesOfReservation(int idReservation) throws AccessDatabaseException;
 }

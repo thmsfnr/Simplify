@@ -26,10 +26,16 @@ public abstract class AbstractDAOFactory {
     public abstract PaymentDAO getPaymentDAO();
 
     /**
-     * abstract method to get the RestaurantDAO
-     * @return the RestaurantDAO
+     * abstract method to get the TableDAO
+     * @return the TableDAO
      */
     public abstract TableDAO getTableDAO();
+
+    /**
+     * abstract method to get the EventDAO
+     * @return the EventDAO
+     */
+    public abstract EventDAO getEventDAO();
 
     /**
      * abstract method to get the NotificationDAO
@@ -63,6 +69,12 @@ public abstract class AbstractDAOFactory {
      * @return the MealDAO
      */
     public abstract MealDAO getMealDAO();
+
+    /**
+     * abstract method to get the ReservationDAO
+     * @return the ReservationDAO
+     */
+    public abstract ReservationDAO getReservationDAO();
 
 
     /**
