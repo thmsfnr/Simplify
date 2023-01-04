@@ -18,6 +18,12 @@ public class Notification {
         this.description = description;
     }
 
+    public Notification(int idUser, String title, String description) {
+        this.idUser = idUser;
+        this.title = title;
+        this.description = description;
+    }
+
     public String getTitle() {
         return title;
     }

@@ -5,7 +5,7 @@ import project.business.models.User;
 import project.exceptions.UserNotFoundException;
 import project.persistence.factory.AbstractDAOFactory;
 import project.persistence.factory.PostGresDAOFactory;
-import project.persistence.product.UserDAO;
+import project.persistence.product.abstr.UserDAO;
 import project.utilities.PasswordCrypt;
 import java.util.List;
 

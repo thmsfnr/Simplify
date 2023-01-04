@@ -1,6 +1,7 @@
 
 package project.persistence.factory;
-import project.persistence.product.*;
+import project.persistence.product.abstr.*;
+import project.persistence.product.postgres.*;
 import project.utilities.ConnectionPostgres;
 
 /**
@@ -46,6 +47,9 @@ public class PostGresDAOFactory extends AbstractDAOFactory {
     public MealDAO getMealDAO() {return new PostGresMealDAO();}
 
     @Override
+    public ReservationDAO getReservationDAO() {return new PostGresReservationDAO();}
+
+    @Override
     public TableDAO getTableDAO() {
         return new PostGresTableDAO();
     }
@@ -61,6 +65,11 @@ public class PostGresDAOFactory extends AbstractDAOFactory {
     @Override
     public OpinionDAO getOpinionDAO() {
         return new PostGresOpinionDAO();
+    }
+
+    @Override
+    public DeliveryDAO getDeliveryDAO() {
+        return new PostGresDeliveryDAO();
     }
 
     @Override

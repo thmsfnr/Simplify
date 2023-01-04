@@ -5,8 +5,8 @@ import project.business.models.Table;
 import project.exceptions.AccessDatabaseException;
 import project.exceptions.RestaurantNotFoundException;
 import project.persistence.factory.AbstractDAOFactory;
-import project.persistence.product.RestaurantDAO;
-import project.persistence.product.TableDAO;
+import project.persistence.product.abstr.RestaurantDAO;
+import project.persistence.product.abstr.TableDAO;
 
 import java.util.List;
 

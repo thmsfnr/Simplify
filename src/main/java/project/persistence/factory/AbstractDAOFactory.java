@@ -1,6 +1,6 @@
 package project.persistence.factory;
 
-import project.persistence.product.*;
+import project.persistence.product.abstr.*;
 
 
 /**
@@ -50,6 +50,13 @@ public abstract class AbstractDAOFactory {
     public abstract OpinionDAO getOpinionDAO();
 
 
+    /**
+     * abstract method to get the DeliveryDAO
+     * @return the DeliveryDAO
+     */
+    public abstract DeliveryDAO getDeliveryDAO();
+
+
 
     /**
      * abstract method to get the RestaurantDAO
@@ -62,6 +69,12 @@ public abstract class AbstractDAOFactory {
      * @return the MealDAO
      */
     public abstract MealDAO getMealDAO();
+
+    /**
+     * abstract method to get the ReservationDAO
+     * @return the ReservationDAO
+     */
+    public abstract ReservationDAO getReservationDAO();
 
 
     /**

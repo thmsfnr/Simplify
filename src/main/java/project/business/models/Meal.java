@@ -7,6 +7,8 @@ public class Meal {
     private String title;
     private double price;
 
+    private float quantity;
+
     public Meal(int idMeal, int idRestaurant, String description, String title, double price) {
         this.title = title;
         this.description = description;
@@ -20,6 +22,15 @@ public class Meal {
         this.description = description;
         this.price = price;
         this.idRestaurant = idRestaurant;
+    }
+
+    public Meal(int idMeal, int idRestaurant, String description, String title, double price, float quantity) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.idRestaurant = idRestaurant;
+        this.idMeal = idMeal;
+        this.quantity = quantity;
     }
     public int getIdMeal() {
         return idMeal;
@@ -51,6 +62,14 @@ public class Meal {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public float getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(float quantity) {
+        this.quantity = quantity;
     }
 
     @Override

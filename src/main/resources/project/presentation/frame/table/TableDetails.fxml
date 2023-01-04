@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="369.0" prefWidth="378.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.table.DetailsTableController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="75.0" prefWidth="378.0" style="-fx-background-color: #c8ded0;">
+         <children>
+             <Text fill="#7a897f" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Table Details">
+               <font>
+                  <Font name="System Bold Italic" size="34.0" />
+               </font>
+            </Text>
+         </children></HBox>
+      <HBox prefHeight="84.0" prefWidth="378.0">
+         <children>
+            <Text fill="#7a897f" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" wrappingWidth="107.1142578125">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Text>
+            <Label fx:id="tableName" prefHeight="30.0" prefWidth="237.0" style="-fx-background-color: white; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;" text="   Nom de la table" textFill="#000000d7">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="15.0" top="20.0" />
+         </padding>
+      </HBox>
+      <HBox layoutX="10.0" layoutY="85.0" prefHeight="127.0" prefWidth="378.0">
+         <children>
+            <Text fill="#7a897f" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="106.1142578125">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Text>
+            <Label fx:id="tableDescription" prefHeight="109.0" prefWidth="237.0" style="-fx-background-color: white; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;" text="  Description de la table" textFill="#000000d5">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </HBox>
+      <HBox layoutX="10.0" layoutY="85.0" prefHeight="43.0" prefWidth="378.0">
+         <children>
+            <Text fill="#7a897f" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Réservation" wrappingWidth="110.1142578125">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Text>
+            <Label fx:id="booked" prefHeight="30.0" prefWidth="237.0" style="-fx-background-color: white; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;" text=" Réservé" textFill="#000000d5">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </HBox>
+      <HBox prefHeight="43.0" prefWidth="378.0">
+         <children>
+            <Text fill="#7a897f" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IdTable" wrappingWidth="110.1142578125">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Text>
+            <Label fx:id="idTable" prefHeight="30.0" prefWidth="237.0" style="-fx-background-color: white; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;" text="Identifiant de la table" textFill="#000000d5">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </HBox>
+      <HBox prefHeight="43.0" prefWidth="378.0">
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </HBox>
+   </children>
+</VBox>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="435.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.table.AllTablesController">
+   <children>
+       <Text fill="#7a897f" layoutX="71.0" layoutY="67.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All Tables">
+           <font>
+               <Font name="Arial" size="28.0" />
+           </font>
+       </Text>
+      <TableView fx:id="TableTab" layoutX="71.0" layoutY="85.0" prefHeight="335.0" prefWidth="572.0">
+        <columns>
+          <TableColumn fx:id="idTable" prefWidth="75.0" text="Id_Table" />
+            <TableColumn fx:id="name" prefWidth="93.0" text="Name" />
+            <TableColumn fx:id="description" prefWidth="114.0" text="Description" />
+            <TableColumn fx:id="booked" minWidth="0.0" prefWidth="87.0" text="Booked" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
