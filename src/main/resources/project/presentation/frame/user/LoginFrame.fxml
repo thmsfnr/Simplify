@@ -12,7 +12,7 @@
          <children>
             <ImageView fitHeight="190.0" fitWidth="249.0" layoutX="59.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                <image>
-                  <Image url="@../assets/Simplify.png" />
+                  <Image url="@../Simplify.png" />
                </image>
             </ImageView>
             <Button fx:id="switchButton" layoutX="37.0" layoutY="423.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#switchToSignin" prefHeight="40.0" prefWidth="275.0" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="No account ?" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
