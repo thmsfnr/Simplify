@@ -1,6 +1,7 @@
 package project.persistence.product;
 
 import project.business.models.Meal;
+import project.exceptions.AccessDatabaseException;
 import project.exceptions.MealNotFoundException;
 
 import java.util.List;
@@ -40,10 +41,20 @@ public abstract class MealDAO {
      */
     public abstract List<Meal> getAllMeal(int idRestaurant);
 
+
+
+    /**
+     * This method is used to get all the meals of a delivery
+     * @param idDelivery the id of the delivery
+     * @return a list of meals
+     */
+    public abstract List<Meal> getAllMealOfDelivery(int idDelivery) throws AccessDatabaseException;
+
     /**
      * This method is used to get all the meals of a reservation
      * @param idReservation the id of the reservation
      * @return a list of meals
      */
     public abstract List<Meal> getMealsOfReservation(int idReservation);
+
 }

@@ -50,6 +50,13 @@ public abstract class AbstractDAOFactory {
     public abstract OpinionDAO getOpinionDAO();
 
 
+    /**
+     * abstract method to get the DeliveryDAO
+     * @return the DeliveryDAO
+     */
+    public abstract DeliveryDAO getDeliveryDAO();
+
+
 
     /**
      * abstract method to get the RestaurantDAO
