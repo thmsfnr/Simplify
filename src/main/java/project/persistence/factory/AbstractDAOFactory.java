@@ -63,6 +63,12 @@ public abstract class AbstractDAOFactory {
      */
     public abstract MealDAO getMealDAO();
 
+    /**
+     * abstract method to get the ReservationDAO
+     * @return the ReservationDAO
+     */
+    public abstract ReservationDAO getReservationDAO();
+
 
     /**
      * This method is used to get the instance of the class

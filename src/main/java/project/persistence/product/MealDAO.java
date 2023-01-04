@@ -39,4 +39,11 @@ public abstract class MealDAO {
      * @return a list of meals
      */
     public abstract List<Meal> getAllMeal(int idRestaurant);
+
+    /**
+     * This method is used to get all the meals of a reservation
+     * @param idReservation the id of the reservation
+     * @return a list of meals
+     */
+    public abstract List<Meal> getMealsOfReservation(int idReservation);
 }

@@ -2,6 +2,8 @@ package project.persistence.product;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Tab;
+import project.business.models.Meal;
 import project.exceptions.AccessDatabaseException;
 import project.persistence.factory.PostGresDAOFactory;
 import java.sql.Connection;
@@ -331,6 +333,44 @@ public class PostGresTableDAO extends TableDAO {
                 preparedStatement.setInt(2, -1);
                 preparedStatement.setInt(3, idTable);
                 preparedStatement.executeUpdate();
+            }
+            catch(SQLException e){
+                throw new AccessDatabaseException(e);
+            }
+        }
+        else{
+            throw new AccessDatabaseException();
+        }
+    }
+
+    /**
+     * This method is used to get the tables of a reservation
+     * @param idReservation the id of the reservation
+     * @return list of tables
+     */
+    @Override
+    public List<Table> getTablesOfReservation(int idReservation) throws AccessDatabaseException {
+        ArrayList<Table> tables = new ArrayList<>();
+        Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
+
+        if(connection != null){
+            try{
+                String query = "SELECT * FROM \"public\".\"Table\" WHERE \"idTable\" IN (SELECT \"idTable\" FROM \"public\".\"Reserve_Table\" WHERE \"idOrder\" = ?);";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, idReservation);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while(resultSet.next()){
+                    Table table = new Table(
+                            resultSet.getInt("idTable"),
+                            resultSet.getString("name"),
+                            resultSet.getString("description"),
+                            resultSet.getBoolean("booked"),
+                            resultSet.getInt("x"),
+                            resultSet.getInt("y")
+                    );
+                    tables.add(table);
+                }
+                return tables;
             }
             catch(SQLException e){
                 throw new AccessDatabaseException(e);

@@ -13,3 +13,5 @@
 - unifier les exceptions
 -unifier les pages si on est en admin ou user
 -améliorer les graphismes
+-duplication acceptReservation & cancelReservation , seulement le status change
+- rapports perso

@@ -85,6 +85,11 @@
                   <Font name="Arial" size="28.0" />
                </font>
             </Text>
+            <Button fx:id="button_add_meal_reservation" disable="true" layoutX="401.0" layoutY="331.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#addReservation" prefHeight="40.0" prefWidth="187.0" style="-fx-background-color: blue; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Reserve meal" textFill="WHITE" textOverrun="WORD_ELLIPSIS" visible="false">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </right>
