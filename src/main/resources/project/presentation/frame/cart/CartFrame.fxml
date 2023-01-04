@@ -19,14 +19,14 @@
         <children>
             <ImageView fitHeight="59.0" fitWidth="67.0" layoutX="8.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../assets/Simplify.png" />
+                    <Image url="@../Simplify.png" />
                 </image>
             </ImageView>
             <Button fx:id="cartBtn" onAction="#showCartContent" layoutX="651.0" layoutY="4.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="54.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="39.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assets/shopping-cart.png" />
+                        <Image url="@../shopping-cart.png" />
                      </image>
                   </ImageView>
                </graphic>
