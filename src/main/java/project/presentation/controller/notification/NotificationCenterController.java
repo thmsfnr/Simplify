@@ -1,3 +1,4 @@
+
 package project.presentation.controller.notification;
 
 import javafx.collections.ObservableList;
@@ -8,10 +9,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
 import project.business.facade.NotificationFacade;
 import project.business.models.Notification;
+import project.presentation.controller.user.PersonalAccountController;
+import project.presentation.frame.menu.Menu;
 import project.utilities.Display;
 import project.utilities.LocalStorage;
 
@@ -19,32 +23,36 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
 public class NotificationCenterController implements Initializable {
+
+    private static int user;
     @FXML
     private TableView<Notification> TableNotification;
     @FXML
     private TableColumn<Notification, Integer> idNotification;
     @FXML
     private TableColumn<Notification, String> title;
-
     @FXML
     private TableColumn<Notification, String> description;
-
     @FXML
     private TableColumn<Notification, Integer> idUser;
+    @FXML
+    private Button back;
 
+    /**
+     * This method is used to pass the user id to the controller
+     * @param idUser the id of the user
+     */
+    public static void setIdUser(int idUser) {
+        NotificationCenterController.user = idUser;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         NotificationFacade notificationFacade = NotificationFacade.getInstance();
         ObservableList<Notification> notifications;
-        try {
-            notifications = notificationFacade.getAllNotifications((Integer) LocalStorage.load("user_id"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        notifications = notificationFacade.getAllNotifications(user);
 
         idNotification.setCellValueFactory(new PropertyValueFactory<>("idNotification"));
         title.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -140,4 +148,16 @@ public class NotificationCenterController implements Initializable {
         // Set the table
         TableNotification.setItems(notifications);
     }
+
+    /**
+     * This method is used to manage the event of the back button
+     * @param event the event of the back button
+     */
+    public void backToMenu(ActionEvent event) throws Exception {
+        Window owner = back.getScene().getWindow();
+        project.presentation.frame.menu.Menu menu = new Menu();
+        menu.start(new Stage());
+        owner.hide();
+    }
+
 }

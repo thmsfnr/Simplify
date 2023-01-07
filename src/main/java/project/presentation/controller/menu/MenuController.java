@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.presentation.controller.cart.CartController;
+import project.presentation.controller.notification.NotificationCenterController;
 import project.presentation.controller.user.PersonalAccountController;
 import project.presentation.frame.cart.CartFrame;
 import project.presentation.frame.notification.NotificationCenterFrame;
@@ -159,6 +160,7 @@ public class MenuController {
      */
     @FXML
     private void switchToNotificationCenterFrame(ActionEvent event) throws Exception {
+        NotificationCenterController.setIdUser(this.idUser);
         Window owner = notificationCenterFrame.getScene().getWindow();
         NotificationCenterFrame notificationCenterFrame = new NotificationCenterFrame();
         notificationCenterFrame.start(new Stage());
