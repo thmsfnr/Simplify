@@ -31,6 +31,7 @@ public class RestaurantListController {
     private boolean manage = false;
     private int idManager;
     private static int idUser;
+    private static int idRole;
 
     @FXML
     private TableView<Restaurant> restaurantTable;
@@ -51,11 +52,12 @@ public class RestaurantListController {
     private Button back;
 
     /**
-     * This method is used to pass the user id to the controller
+     * This method is used to pass informations to the controller
      * @param idUser the id of the user
      */
-    public static void setIdUser(int idUser) {
+    public static void setInformations(int idUser, int idRole) {
         RestaurantListController.idUser = idUser;
+        RestaurantListController.idRole = idRole;
     }
 
     private void addUpdateButton(){

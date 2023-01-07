@@ -206,7 +206,7 @@ public class MenuController {
      */
     @FXML
     private void switchToRestaurantList(ActionEvent event) throws Exception {
-        RestaurantListController.setIdUser(this.idUser);
+        RestaurantListController.setInformations(this.idUser, this.idRole);
         Window owner = restaurantList.getScene().getWindow();
         RestaurantList restaurantList = new RestaurantList();
         restaurantList.start(new Stage());
