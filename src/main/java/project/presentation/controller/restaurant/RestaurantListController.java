@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.business.facade.RestaurantFacade;
 import project.business.models.Restaurant;
+import project.presentation.controller.user.PersonalAccountController;
+import project.presentation.frame.menu.Menu;
 import project.utilities.Display;
 
 import javafx.util.Callback;
@@ -28,6 +30,7 @@ public class RestaurantListController {
 
     private boolean manage = false;
     private int idManager;
+    private static int idUser;
 
     @FXML
     private TableView<Restaurant> restaurantTable;
@@ -44,6 +47,16 @@ public class RestaurantListController {
     @FXML
     private Button addButton;
 
+    @FXML
+    private Button back;
+
+    /**
+     * This method is used to pass the user id to the controller
+     * @param idUser the id of the user
+     */
+    public static void setIdUser(int idUser) {
+        RestaurantListController.idUser = idUser;
+    }
 
     private void addUpdateButton(){
         TableColumn<Restaurant, Void> colBtn = new TableColumn("Update");
@@ -159,7 +172,6 @@ public class RestaurantListController {
 
 
     public void addDetailsButton(){
-        System.out.println("addDetailsButton");
         TableColumn<Restaurant, Void> colBtn = new TableColumn("Details");
 
         Callback<TableColumn<Restaurant, Void>, TableCell<Restaurant, Void>> cellFactory = new Callback<TableColumn<Restaurant, Void>, TableCell<Restaurant, Void>>() {
@@ -275,6 +287,17 @@ public class RestaurantListController {
         addUpdateButton();
         addButtonDelete();
         addDetailsButton();
+    }
+
+    /**
+     * This method is used to manage the event of the back button
+     * @param event the event of the back button
+     */
+    public void backToMenu(ActionEvent event) throws Exception {
+        Window owner = back.getScene().getWindow();
+        project.presentation.frame.menu.Menu menu = new Menu();
+        menu.start(new Stage());
+        owner.hide();
     }
 
 }

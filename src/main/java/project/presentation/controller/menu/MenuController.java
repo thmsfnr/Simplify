@@ -6,13 +6,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import project.business.models.Reservation;
 import project.presentation.controller.cart.CartController;
 import project.presentation.controller.notification.NotificationCenterController;
 import project.presentation.controller.opinion.OpinionUserController;
 import project.presentation.controller.payment.PaymentUserController;
 import project.presentation.controller.reservation.ReservationController;
 import project.presentation.controller.reservation.ReservationFormController;
+import project.presentation.controller.restaurant.RestaurantListController;
 import project.presentation.controller.user.PersonalAccountController;
 import project.presentation.frame.cart.CartFrame;
 import project.presentation.frame.notification.NotificationCenterFrame;
@@ -206,6 +206,7 @@ public class MenuController {
      */
     @FXML
     private void switchToRestaurantList(ActionEvent event) throws Exception {
+        RestaurantListController.setIdUser(this.idUser);
         Window owner = restaurantList.getScene().getWindow();
         RestaurantList restaurantList = new RestaurantList();
         restaurantList.start(new Stage());
