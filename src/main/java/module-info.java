@@ -66,4 +66,7 @@ module project.presentation {
     opens project.presentation.controller.menu to javafx.fxml;
     exports project.utilities;
     opens project.utilities to javafx.fxml;
+
+    exports project;
+    opens project to javafx.fxml;
 }
