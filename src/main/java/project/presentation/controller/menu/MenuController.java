@@ -6,9 +6,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import project.business.models.Reservation;
 import project.presentation.controller.cart.CartController;
 import project.presentation.controller.notification.NotificationCenterController;
 import project.presentation.controller.opinion.OpinionUserController;
+import project.presentation.controller.payment.PaymentUserController;
+import project.presentation.controller.reservation.ReservationController;
+import project.presentation.controller.reservation.ReservationFormController;
 import project.presentation.controller.user.PersonalAccountController;
 import project.presentation.frame.cart.CartFrame;
 import project.presentation.frame.notification.NotificationCenterFrame;
@@ -75,7 +79,7 @@ public class MenuController {
                 paymentAdmin.setVisible(false);
                 allAccounts.setVisible(false);
                 opinionAdmin.setVisible(false);
-                paymentAdmin.setVisible(true);
+                paymentAdmin.setVisible(false);
             } else if (this.idRole == 2) { // Manager
                 paymentAdmin.setVisible(false);
                 cartFrame.setVisible(false);
@@ -138,6 +142,7 @@ public class MenuController {
      */
     @FXML
     private void switchToReservationFrame(ActionEvent event) throws Exception {
+        ReservationController.setIdUser(this.idUser);
         Window owner = reservationFrame.getScene().getWindow();
         ReservationFrame reservationFrame = new ReservationFrame();
         reservationFrame.start(new Stage());
@@ -150,6 +155,7 @@ public class MenuController {
      */
     @FXML
     private void switchToReservationFormFrame(ActionEvent event) throws Exception {
+        ReservationFormController.setIdUser(this.idUser);
         Window owner = reservationFormFrame.getScene().getWindow();
         ReservationFormFrame reservationFormFrame = new ReservationFormFrame();
         reservationFormFrame.start(new Stage());
@@ -187,6 +193,7 @@ public class MenuController {
      */
     @FXML
     private void switchToPaymentUser(ActionEvent event) throws Exception {
+        PaymentUserController.setIdUser(this.idUser);
         Window owner = paymentUser.getScene().getWindow();
         PaymentUser paymentUser = new PaymentUser();
         paymentUser.start(new Stage());

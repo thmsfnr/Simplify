@@ -15,6 +15,8 @@ import project.business.facade.NotificationFacade;
 import project.business.facade.ReservationFacade;
 import project.business.models.Notification;
 import project.business.models.Reservation;
+import project.presentation.controller.user.PersonalAccountController;
+import project.presentation.frame.menu.Menu;
 import project.presentation.frame.reservation.ReservationFormFrame;
 import project.utilities.Display;
 import project.utilities.LocalStorage;
@@ -26,33 +28,37 @@ import java.util.ResourceBundle;
 
 
 public class ReservationController implements Initializable {
+
+    private static int idUser;
     @FXML
     private TableView<Reservation> tabReservation;
     @FXML
     private TableColumn<Reservation, Integer> idOrder;
     @FXML
     private TableColumn<Reservation, Integer> idRestaurant;
-
     @FXML
     private TableColumn<Reservation, Date> date;
-
     @FXML
     private TableColumn<Reservation, Integer> state;
-
     @FXML
     private Button button_create;
+    @FXML
+    private Button back;
 
+    /**
+     * This method is used to pass the user id to the controller
+     * @param idUser the id of the user
+     */
+    public static void setIdUser(int idUser) {
+        ReservationController.idUser = idUser;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         ReservationFacade reservationFacade = ReservationFacade.getInstance();
         ObservableList<Reservation> reservations;
-        try {
-            reservations = reservationFacade.getAllReservationsOfUser((Integer) LocalStorage.load("user_id"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        reservations = reservationFacade.getAllReservationsOfUser(idUser);
+
         idOrder.setCellValueFactory(new PropertyValueFactory<>("idOrder"));
         idRestaurant.setCellValueFactory(new PropertyValueFactory<>("idRestaurant"));
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -164,4 +170,16 @@ public class ReservationController implements Initializable {
         // close the actual frame
         listeReservationWindow.hide();
     }
+
+    /**
+     * This method is used to manage the event of the back button
+     * @param event the event of the back button
+     */
+    public void backToMenu(ActionEvent event) throws Exception {
+        Window owner = back.getScene().getWindow();
+        project.presentation.frame.menu.Menu menu = new Menu();
+        menu.start(new Stage());
+        owner.hide();
+    }
+
 }
