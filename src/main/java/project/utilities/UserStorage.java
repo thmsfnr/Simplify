@@ -1,5 +1,5 @@
 
-package project.presentation.controller;
+package project.utilities;
 
 import project.business.models.User;
 import java.io.*;
@@ -10,7 +10,7 @@ import java.io.*;
  * It is used to save the user in a file
  * @author Simplify members
  */
-public class Localstorage {
+public class UserStorage {
 
     // Class variable
     private static String filename = "localstorage.txt";
