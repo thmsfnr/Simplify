@@ -1,4 +1,4 @@
-package project.presentation.frame.reservation;
+package project.presentation.frame.restaurant;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

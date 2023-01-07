@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="728.0" prefWidth="1039.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.reservation.ReservationController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1039.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.reservation.ReservationController">
    <top>
       <AnchorPane prefHeight="122.0" prefWidth="1039.0" style="-fx-background-color: #c8ded0;" BorderPane.alignment="CENTER">
          <children>
@@ -26,22 +27,55 @@
       </AnchorPane>
    </top>
    <center>
-      <AnchorPane prefHeight="599.0" prefWidth="1039.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="button_create" layoutX="458.0" layoutY="536.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#switchToFormFrame" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: grey; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="+" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Button>
-            <TableView fx:id="tabReservation" layoutX="100.0" layoutY="27.0" prefHeight="481.0" prefWidth="853.0">
-               <columns>
-                  <TableColumn fx:id="idOrder" prefWidth="94.0" text="Id_Order" />
-                  <TableColumn fx:id="idRestaurant" prefWidth="138.0" text="Id_Restaurant" />
-                  <TableColumn fx:id="date" prefWidth="227.0" text="Date" />
-                  <TableColumn fx:id="state" minWidth="0.0" prefWidth="223.0" text="State" />
-               </columns>
-            </TableView>
-         </children>
-      </AnchorPane>
+      <ScrollPane prefHeight="674.0" prefWidth="925.0" BorderPane.alignment="CENTER">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="931.0" prefWidth="965.0">
+               <children>
+                  <TableView fx:id="tabReservation_in_progress" layoutX="91.0" layoutY="97.0" prefHeight="180.0" prefWidth="868.0">
+                     <columns>
+                        <TableColumn fx:id="idOrder_in_progress" prefWidth="94.0" text="Id_Order" />
+                        <TableColumn fx:id="idRestaurant_in_progress" prefWidth="138.0" text="Id_Restaurant" />
+                        <TableColumn fx:id="date_in_progress" prefWidth="227.0" text="Date" />
+                        <TableColumn fx:id="state_in_progress" prefWidth="227.0" text="state" />
+                     </columns>
+                  </TableView>
+                  <Button fx:id="button_create" layoutX="462.0" layoutY="854.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#switchToFormFrame" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: grey; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="+" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Button>
+                  <Text fill="#7a897f" layoutX="352.0" layoutY="347.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservations carried out">
+                     <font>
+                        <Font name="Arial" size="28.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#7a897f" layoutX="359.0" layoutY="60.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservations in progess">
+                     <font>
+                        <Font name="Arial" size="28.0" />
+                     </font>
+                  </Text>
+                  <TableView fx:id="tabReservation_carried_out" layoutX="291.0" layoutY="368.0" prefHeight="180.0" prefWidth="472.0">
+                     <columns>
+                        <TableColumn fx:id="idOrder_carried_out" prefWidth="94.0" text="Id_Order" />
+                        <TableColumn fx:id="idRestaurant_carried_out" prefWidth="138.0" text="Id_Restaurant" />
+                        <TableColumn fx:id="date_carried_out" prefWidth="239.0" text="Date" />
+                     </columns>
+                  </TableView>
+                  <Text fill="#7a897f" layoutX="369.0" layoutY="614.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservations cancelled">
+                     <font>
+                        <Font name="Arial" size="28.0" />
+                     </font>
+                  </Text>
+                  <TableView fx:id="tabReservation_cancelled" layoutX="285.0" layoutY="642.0" prefHeight="180.0" prefWidth="480.0">
+                     <columns>
+                        <TableColumn fx:id="idOrder_cancelled" prefWidth="94.0" text="Id_Order" />
+                        <TableColumn fx:id="idRestaurant_cancelled" prefWidth="138.0" text="Id_Restaurant" />
+                        <TableColumn fx:id="date_cancelled" prefWidth="247.0" text="Date" />
+                     </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
    </center>
 </BorderPane>

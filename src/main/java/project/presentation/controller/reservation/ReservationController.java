@@ -1,5 +1,6 @@
 package project.presentation.controller.reservation;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,8 +14,10 @@ import javafx.stage.Window;
 import javafx.util.Callback;
 import project.business.facade.NotificationFacade;
 import project.business.facade.ReservationFacade;
+import project.business.models.Delivery;
 import project.business.models.Notification;
 import project.business.models.Reservation;
+import project.business.models.State;
 import project.presentation.frame.reservation.ReservationFormFrame;
 import project.utilities.Display;
 import project.utilities.LocalStorage;
@@ -22,22 +25,39 @@ import project.utilities.LocalStorage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
 public class ReservationController implements Initializable {
     @FXML
-    private TableView<Reservation> tabReservation;
+    private TableView<Reservation> tabReservation_in_progress;
     @FXML
-    private TableColumn<Reservation, Integer> idOrder;
+    private TableView<Reservation> tabReservation_carried_out;
     @FXML
-    private TableColumn<Reservation, Integer> idRestaurant;
+    private TableView<Reservation> tabReservation_cancelled;
+    @FXML
+    private TableColumn<Reservation, Integer> idOrder_in_progress;
+    @FXML
+    private TableColumn<Reservation, Integer> idRestaurant_in_progress;
+    @FXML
+    private TableColumn<Reservation, Date> date_in_progress;
+    @FXML
+    private TableColumn<Reservation, State> state_in_progress;
+    @FXML
+    private TableColumn<Reservation, Integer> idOrder_carried_out;
+    @FXML
+    private TableColumn<Reservation, Integer> idRestaurant_carried_out;
+    @FXML
+    private TableColumn<Reservation, Date> date_carried_out;
+    @FXML
+    private TableColumn<Reservation, Integer> idOrder_cancelled;
+    @FXML
+    private TableColumn<Reservation, Integer> idRestaurant_cancelled;
+    @FXML
+    private TableColumn<Reservation, Date> date_cancelled;
 
-    @FXML
-    private TableColumn<Reservation, Date> date;
-
-    @FXML
-    private TableColumn<Reservation, Integer> state;
 
     @FXML
     private Button button_create;
@@ -49,16 +69,54 @@ public class ReservationController implements Initializable {
         ReservationFacade reservationFacade = ReservationFacade.getInstance();
         ObservableList<Reservation> reservations;
         try {
-            reservations = reservationFacade.getAllReservationsOfUser((Integer) LocalStorage.load("user_id"));
+            reservations = FXCollections.observableList(reservationFacade.getAllReservationsOfUser((Integer) LocalStorage.load("user_id")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        idOrder.setCellValueFactory(new PropertyValueFactory<>("idOrder"));
-        idRestaurant.setCellValueFactory(new PropertyValueFactory<>("idRestaurant"));
-        date.setCellValueFactory(new PropertyValueFactory<>("date"));
-        state.setCellValueFactory(new PropertyValueFactory<>("idState"));
-        tabReservation.setItems(reservations);
+        setTables(reservations);
         addDeleteButtonToTable();
+    }
+
+    private void setTables(ObservableList<Reservation> reservations) {
+        // list tab
+        List<Reservation> reservations_in_progress = new ArrayList<>();
+        List<Reservation> reservations_carried_out = new ArrayList<>();
+        List<Reservation> reservations_cancelled = new ArrayList<>();
+
+        // organisation of reservations
+        for(Reservation reservation : reservations){
+            if(reservation.getState() == State.IN_PREPARATION || reservation.getState() == State.WAITING_FOR_VALIDATION || reservation.getState() == State.ON_DELIVERY){
+                reservations_in_progress.add(reservation);
+            }
+            else if (reservation.getState() == State.CANCELLED){
+                reservations_cancelled.add(reservation);
+            }
+            else{
+                reservations_carried_out.add(reservation);
+            }
+        }
+
+        // tab reservation in progress
+        idOrder_in_progress.setCellValueFactory(new PropertyValueFactory<>("idOrder"));
+        idRestaurant_in_progress.setCellValueFactory(new PropertyValueFactory<>("idRestaurant"));
+        date_in_progress.setCellValueFactory(new PropertyValueFactory<>("date"));
+        state_in_progress.setCellValueFactory(new PropertyValueFactory<>("State"));
+        tabReservation_in_progress.setItems(FXCollections.observableList(reservations_in_progress));
+
+
+
+        //tab reservation carried out
+        idOrder_carried_out.setCellValueFactory(new PropertyValueFactory<>("idOrder"));
+        idRestaurant_carried_out.setCellValueFactory(new PropertyValueFactory<>("idRestaurant"));
+        date_carried_out.setCellValueFactory(new PropertyValueFactory<>("date"));
+        tabReservation_carried_out.setItems(FXCollections.observableList(reservations_carried_out));
+
+        // tab reservation cancelled
+        idOrder_cancelled.setCellValueFactory(new PropertyValueFactory<>("idOrder"));
+        idRestaurant_cancelled.setCellValueFactory(new PropertyValueFactory<>("idRestaurant"));
+        date_cancelled.setCellValueFactory(new PropertyValueFactory<>("date"));
+        tabReservation_cancelled.setItems(FXCollections.observableList(reservations_cancelled));
+
     }
 
     private void addDeleteButtonToTable() {
@@ -113,12 +171,12 @@ public class ReservationController implements Initializable {
         };
         // Add the column to the table
         colBtn.setCellFactory(cellFactory);
-        tabReservation.getColumns().add(colBtn);
+        tabReservation_in_progress.getColumns().add(colBtn);
     }
     public void cancelReservation(ActionEvent event, Reservation reservation) {
 
         // Create a new alert to confirm the deletion
-        Window owner = tabReservation.getScene().getWindow();
+        Window owner = tabReservation_in_progress.getScene().getWindow();
 
         // Call the facade to cancel the reservation from the database
         ReservationFacade reservationFacade = ReservationFacade.getInstance();
@@ -144,14 +202,14 @@ public class ReservationController implements Initializable {
     private void refreshTable() {
         // Call the facade to get
         ReservationFacade reservationFacade = ReservationFacade.getInstance();
-        ObservableList<Reservation> Reservations = null;
+        ObservableList<Reservation> reservations = null;
         try {
-            Reservations = reservationFacade.getAllReservationsOfUser((Integer) LocalStorage.load("user_id"));
+            reservations = FXCollections.observableList(reservationFacade.getAllReservationsOfUser((Integer) LocalStorage.load("user_id")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         // Set the table
-        tabReservation.setItems(Reservations);
+        setTables(reservations);
     }
     @FXML
     private void switchToFormFrame(ActionEvent event) throws Exception {

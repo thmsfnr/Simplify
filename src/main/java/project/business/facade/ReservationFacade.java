@@ -30,8 +30,8 @@ public class ReservationFacade {
         this.notificationDAO = factory.getNotificationDAO();
     }
 
-    public List<Reservation> getAllReservations(int idRestaurant){return reservationDAO.getAllReservations(idRestaurant);}
-    public ObservableList<Reservation> getAllReservationsOfUser(int idUser){return reservationDAO.getAllReservationsOfUser(idUser);}
+    public List<Reservation> getAllReservations(){return reservationDAO.getAllReservations();}
+    public List<Reservation> getAllReservationsOfUser(int idUser){return reservationDAO.getAllReservationsOfUser(idUser);}
 
     public Boolean createReservation(Reservation reservation) throws AccessDatabaseException {return reservationDAO.create(reservation);}
 

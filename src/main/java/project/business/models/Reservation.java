@@ -16,9 +16,20 @@ public class Reservation {
     private Date date;
     private List<Integer> tables;
     private Map<Integer,Integer> meals;
+    private State state;
     private int idState;
 
 
+    public Reservation(int idOrder, int idRestaurant, int idUser, Date date, State state) {
+        this.idOrder = idOrder;
+        this.idRestaurant = idRestaurant;
+        this.idUser = idUser;
+        this.date = date;
+        this.tables = new ArrayList<>();
+        this.meals = new HashMap<>();
+        this.state = state;
+        this.idTypeOrder = 2;
+    }
     public Reservation(int idOrder, int idRestaurant, int idUser, Date date, int idState) {
         this.idOrder = idOrder;
         this.idRestaurant = idRestaurant;
@@ -29,6 +40,7 @@ public class Reservation {
         this.idState = idState;
         this.idTypeOrder = 2;
     }
+
 
     public int getIdOrder() {
         return idOrder;
@@ -79,25 +91,19 @@ public class Reservation {
         this.date = date;
     }
 
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
     public int getIdState() {
         return idState;
     }
 
     public void setIdState(int idState) {
         this.idState = idState;
-    }
-
-    @Override
-    public String toString() {
-        return "Reservation{" +
-                "idOrder=" + idOrder +
-                ", idTypeOrder=" + idTypeOrder +
-                ", idRestaurant=" + idRestaurant +
-                ", idUser=" + idUser +
-                ", date=" + date +
-                ", tables=" + tables +
-                ", meals=" + meals +
-                ", idState=" + idState +
-                '}';
     }
 }
