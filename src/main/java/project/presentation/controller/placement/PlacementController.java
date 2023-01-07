@@ -56,11 +56,27 @@ public class PlacementController {
     @FXML
     private GridPane gridPane;
 
+    @FXML
+    private Label label_position;
+
+    @FXML
+    private Label label_xSpinner;
+
+    @FXML
+    private Label label_ySpinner;
+
+    @FXML
+    private AnchorPane anchorPlacement;
 
 
     @FXML
     private void initialize(){
         try{
+            //if the frame is opened from the reservation frame
+            Boolean isReservation = (Boolean) LocalStorage.load("isReservation");
+            if(isReservation){
+                configurationForReservation();
+            }
             //Recuperation of the restaurant
             PlacementFacade placementFacade = PlacementFacade.getInstance();
             int idRestaurant = (int) LocalStorage.load("restaurant_id");
@@ -231,7 +247,27 @@ public class PlacementController {
     }
 
 
-
+    public void configurationForReservation(){
+        leftPane.setMaxWidth(885);
+        leftPane.setMaxHeight(352);
+        rightPane.setMaxHeight(352);
+        rightPane.setMaxWidth(885);
+        anchorPlacement.setMinWidth(885);
+        anchorPlacement.setMinHeight(352);
+        label_position.setVisible(false);
+        label_xSpinner.setVisible(false);
+        label_ySpinner.setVisible(false);
+        xSpinner.setVisible(false);
+        xSpinner.setDisable(true);
+        ySpinner.setDisable(true);
+        ySpinner.setVisible(false);
+        updateButton.setDisable(true);
+        removeButton.setDisable(true);
+        removeButton.setVisible(false);
+        updateButton.setVisible(false);
+        switchButton.setDisable(true);
+        switchButton.setVisible(false);
+    }
 
 
     private class Position {

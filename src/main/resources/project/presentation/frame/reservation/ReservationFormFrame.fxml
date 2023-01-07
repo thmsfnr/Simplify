@@ -32,7 +32,7 @@
    <left>
       <AnchorPane prefHeight="742.0" prefWidth="990.0" style="-fx-background-color: #c8ded0;" BorderPane.alignment="CENTER">
          <children>
-            <DatePicker fx:id="date" layoutX="379.0" layoutY="83.0" />
+            <DatePicker fx:id="datePicker" layoutX="379.0" layoutY="83.0" />
             <Text fill="#7a897f" layoutX="343.0" layoutY="63.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of reservation" wrappingWidth="279.46875">
                <font>
                   <Font name="Arial" size="28.0" />
@@ -57,7 +57,7 @@
                </font>
             </Text>
             <ListView fx:id="listView_reservations" layoutX="40.0" layoutY="620.0" prefHeight="200.0" prefWidth="885.0" />
-            <Button fx:id="button_confirm_reservation" layoutX="299.0" layoutY="849.0" lineSpacing="3.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="330.0" style="-fx-background-color: grey; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Confirm reservation" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+            <Button fx:id="button_confirm_reservation" layoutX="299.0" layoutY="849.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#confirm_reservation" prefHeight="59.0" prefWidth="330.0" style="-fx-background-color: grey; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Confirm reservation" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -83,7 +83,7 @@
                   <Font name="Arial" size="28.0" />
                </font>
             </Text>
-            <Button fx:id="button_reserve_meal" layoutX="345.0" layoutY="338.0" lineSpacing="3.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="244.0" style="-fx-background-color: grey; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Reserve meal" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+            <Button fx:id="button_reserve_meal" layoutX="345.0" layoutY="338.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#selection_meal" prefHeight="59.0" prefWidth="244.0" style="-fx-background-color: grey; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Reserve meal" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -93,12 +93,13 @@
                   <Font name="Arial" size="28.0" />
                </font>
             </Text>
-            <Button fx:id="button_reserve_table" layoutX="346.0" layoutY="814.0" lineSpacing="3.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="244.0" style="-fx-background-color: grey; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Reserve table" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+            <Button fx:id="button_reserve_table" layoutX="349.0" layoutY="868.0" lineSpacing="3.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="244.0" style="-fx-background-color: grey; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Reserve table" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Button>
             <Line endX="779.0" endY="10.0" layoutX="135.0" layoutY="421.0" startX="-108.0" startY="10.0" />
+            <AnchorPane fx:id="anchorTable" layoutX="46.0" layoutY="503.0" prefHeight="352.0" prefWidth="863.0" />
          </children>
       </AnchorPane>
    </right>

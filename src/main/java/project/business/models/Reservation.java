@@ -1,6 +1,8 @@
 package project.business.models;
 
 
+import javafx.scene.control.Tab;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +42,17 @@ public class Reservation {
         this.idState = idState;
         this.idTypeOrder = 2;
     }
+
+    public Reservation(int idRestaurant, int idUser, Date date) {
+        this.idRestaurant = idRestaurant;
+        this.idUser = idUser;
+        this.date = date;
+        this.tables = new ArrayList<>();
+        this.meals = new HashMap<>();
+        this.idState = 1; // 1 = waiting for validation
+        this.idTypeOrder = 2;
+    }
+
 
 
     public int getIdOrder() {

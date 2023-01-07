@@ -17,7 +17,7 @@ public class ReservationFormFrame extends Application {
 
         // Create the scene with the root and set the title of the stage
         stage.setTitle("New reservation");
-        stage.setScene(new Scene(root, 970, 871));
+        stage.setScene(new Scene(root, 1920, 1080));
 
         // Show the GUI
         stage.show();
