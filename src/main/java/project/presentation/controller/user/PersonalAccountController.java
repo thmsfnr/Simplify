@@ -43,7 +43,9 @@ public class PersonalAccountController {
      */
     public void initialize() throws IOException {
         UserFacade userFacade = UserFacade.getInstance();
-        int id = UserStorage.load();
+        String res = UserStorage.load();
+        String[] userArray = res.split(";");
+        int id = Integer.parseInt(userArray[0]);
         User user = userFacade.getById(id);
         this.user = user;
 
