@@ -6,11 +6,21 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import project.presentation.controller.cart.CartController;
+import project.presentation.controller.notification.NotificationCenterController;
+import project.presentation.controller.user.PersonalAccountController;
+import project.presentation.frame.cart.CartFrame;
+import project.presentation.frame.notification.NotificationCenterFrame;
 import project.presentation.frame.opinion.OpinionAdmin;
 import project.presentation.frame.opinion.OpinionUser;
+import project.presentation.frame.payment.PaymentAdmin;
+import project.presentation.frame.payment.PaymentUser;
+import project.presentation.frame.reservation.ReservationFormFrame;
 import project.presentation.frame.reservation.ReservationFrame;
+import project.presentation.frame.restaurant.RestaurantList;
 import project.presentation.frame.user.AllAccounts;
 import project.presentation.frame.user.Login;
+import project.presentation.frame.user.PersonalAccount;
 import project.utilities.UserStorage;
 
 /**
@@ -21,6 +31,7 @@ import project.utilities.UserStorage;
 public class MenuController {
 
     private int idUser;
+    private int idRole;
 
     @FXML
     private Button restaurantList;
@@ -54,12 +65,34 @@ public class MenuController {
      */
     public void initialize() throws Exception {
         try {
-            int id = UserStorage.load();
-            this.idUser = id;
+            String user = UserStorage.load();
+            String[] userArray = user.split(",");
+            this.idUser = Integer.parseInt(userArray[0]);
+            this.idRole = Integer.parseInt(userArray[1]);
+
+            if (this.idRole == 1) { // User
+                paymentAdmin.setVisible(false);
+                allAccounts.setVisible(false);
+                opinionAdmin.setVisible(false);
+                paymentAdmin.setVisible(true);
+            } else if (this.idRole == 2) { // Manager
+                paymentAdmin.setVisible(false);
+                cartFrame.setVisible(false);
+                allAccounts.setVisible(false);
+                opinionAdmin.setVisible(false);
+                paymentUser.setVisible(false);
+                paymentAdmin.setVisible(false);
+            } else if (this.idRole == 3) { // Admin
+                cartFrame.setVisible(false);
+                paymentUser.setVisible(false);
+            }
+
         } catch (Exception e) {
             return;
         }
     }
+
+
 
     /**
      * This method is used to switch the allAccounts frame
@@ -116,8 +149,8 @@ public class MenuController {
     @FXML
     private void switchToReservationFormFrame(ActionEvent event) throws Exception {
         Window owner = reservationFormFrame.getScene().getWindow();
-        ReservationFrame reservationFrame = new ReservationFrame();
-        reservationFrame.start(new Stage());
+        ReservationFormFrame reservationFormFrame = new ReservationFormFrame();
+        reservationFormFrame.start(new Stage());
         owner.hide();
     }
 
@@ -127,9 +160,10 @@ public class MenuController {
      */
     @FXML
     private void switchToNotificationCenterFrame(ActionEvent event) throws Exception {
+        NotificationCenterController.setIdUser(this.idUser);
         Window owner = notificationCenterFrame.getScene().getWindow();
-        ReservationFrame reservationFrame = new ReservationFrame();
-        reservationFrame.start(new Stage());
+        NotificationCenterFrame notificationCenterFrame = new NotificationCenterFrame();
+        notificationCenterFrame.start(new Stage());
         owner.hide();
     }
 
@@ -140,8 +174,8 @@ public class MenuController {
     @FXML
     private void switchToPaymentAdmin(ActionEvent event) throws Exception {
         Window owner = paymentAdmin.getScene().getWindow();
-        ReservationFrame reservationFrame = new ReservationFrame();
-        reservationFrame.start(new Stage());
+        PaymentAdmin paymentAdmin = new PaymentAdmin();
+        paymentAdmin.start(new Stage());
         owner.hide();
     }
 
@@ -152,8 +186,8 @@ public class MenuController {
     @FXML
     private void switchToPaymentUser(ActionEvent event) throws Exception {
         Window owner = paymentUser.getScene().getWindow();
-        ReservationFrame reservationFrame = new ReservationFrame();
-        reservationFrame.start(new Stage());
+        PaymentUser paymentUser = new PaymentUser();
+        paymentUser.start(new Stage());
         owner.hide();
     }
 
@@ -164,8 +198,8 @@ public class MenuController {
     @FXML
     private void switchToRestaurantList(ActionEvent event) throws Exception {
         Window owner = restaurantList.getScene().getWindow();
-        ReservationFrame reservationFrame = new ReservationFrame();
-        reservationFrame.start(new Stage());
+        RestaurantList restaurantList = new RestaurantList();
+        restaurantList.start(new Stage());
         owner.hide();
     }
 
@@ -175,9 +209,10 @@ public class MenuController {
      */
     @FXML
     private void switchToPersonalAccount(ActionEvent event) throws Exception {
+        PersonalAccountController.setIdUser(this.idUser);
         Window owner = personalAccount.getScene().getWindow();
-        ReservationFrame reservationFrame = new ReservationFrame();
-        reservationFrame.start(new Stage());
+        PersonalAccount personalAccount = new PersonalAccount();
+        personalAccount.start(new Stage());
         owner.hide();
     }
 
@@ -187,9 +222,10 @@ public class MenuController {
      */
     @FXML
     private void switchToCartFrame(ActionEvent event) throws Exception {
+        CartController.setIdUser(this.idUser);
         Window owner = cartFrame.getScene().getWindow();
-        ReservationFrame reservationFrame = new ReservationFrame();
-        reservationFrame.start(new Stage());
+        CartFrame cartFrame = new CartFrame();
+        cartFrame.start(new Stage());
         owner.hide();
     }
 

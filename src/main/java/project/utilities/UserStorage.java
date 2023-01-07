@@ -33,7 +33,7 @@ public class UserStorage {
         BufferedWriter bw = new BufferedWriter(fw);
 
         // write the user in the file
-        bw.write(user.getId().toString());
+        bw.write(user.userStorage());
 
         // close the file
         bw.close();
@@ -44,7 +44,7 @@ public class UserStorage {
      * @return the user
      * @throws IOException if the file is not found
      */
-    public static int load() throws IOException {
+    public static String load() throws IOException {
         // open the file localstorage.txt
         File file = new File(filename);
 
@@ -60,14 +60,14 @@ public class UserStorage {
         String line = reader.readLine();
         reader.close();
 
-        int id;
+        String result = "";
         // get the user
         if (line != null) {
-            id = Integer.parseInt(line);
+            result = line;
         } else {
             throw new IOException("The file is empty");
         }
-        return id;
+        return result;
     }
 
     /**
