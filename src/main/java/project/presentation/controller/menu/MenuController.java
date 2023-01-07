@@ -1,13 +1,13 @@
 
 package project.presentation.controller.menu;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import project.presentation.controller.cart.CartController;
+import project.presentation.controller.user.PersonalAccountController;
 import project.presentation.frame.cart.CartFrame;
 import project.presentation.frame.notification.NotificationCenterFrame;
 import project.presentation.frame.opinion.OpinionAdmin;
@@ -207,6 +207,7 @@ public class MenuController {
      */
     @FXML
     private void switchToPersonalAccount(ActionEvent event) throws Exception {
+        PersonalAccountController.setIdUser(this.idUser);
         Window owner = personalAccount.getScene().getWindow();
         PersonalAccount personalAccount = new PersonalAccount();
         personalAccount.start(new Stage());
@@ -219,6 +220,7 @@ public class MenuController {
      */
     @FXML
     private void switchToCartFrame(ActionEvent event) throws Exception {
+        CartController.setIdUser(this.idUser);
         Window owner = cartFrame.getScene().getWindow();
         CartFrame cartFrame = new CartFrame();
         cartFrame.start(new Stage());

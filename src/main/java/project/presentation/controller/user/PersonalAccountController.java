@@ -6,13 +6,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import project.business.facade.UserFacade;
 import project.business.models.User;
-import project.utilities.UserStorage;
+import project.presentation.frame.menu.Menu;
 import project.utilities.Display;
-
 import java.io.*;
-
 
 /**
  * Created by Simplify members on 22/12/22.
@@ -24,6 +24,7 @@ public class PersonalAccountController {
 
     // Instance variables
     private User user;
+    private static int idUser;
     @FXML
     private TextField firstNameField;
     @FXML
@@ -36,6 +37,16 @@ public class PersonalAccountController {
     private Button deleteButton;
     @FXML
     private Button updateButton;
+    @FXML
+    private Button back;
+
+    /**
+     * This method is used to pass the user id to the controller
+     * @param idUser the id of the user
+     */
+    public static void setIdUser(int idUser) {
+        PersonalAccountController.idUser = idUser;
+    }
 
     /**
      * This method is used to manage the event at the initialization of the frame
@@ -43,10 +54,7 @@ public class PersonalAccountController {
      */
     public void initialize() throws IOException {
         UserFacade userFacade = UserFacade.getInstance();
-        String res = UserStorage.load();
-        String[] userArray = res.split(";");
-        int id = Integer.parseInt(userArray[0]);
-        User user = userFacade.getById(id);
+        User user = userFacade.getById(this.idUser);
         this.user = user;
 
         lastNameField.setText(user.getName());
@@ -87,6 +95,17 @@ public class PersonalAccountController {
         } else {
             Display.showAlert(Alert.AlertType.ERROR, deleteButton.getScene().getWindow(), "Error", "Your request has not been sent");
         }
+    }
+
+    /**
+     * This method is used to manage the event of the back button
+     * @param event the event of the back button
+     */
+    public void backToMenu(ActionEvent event) throws Exception {
+        Window owner = back.getScene().getWindow();
+        Menu menu = new Menu();
+        menu.start(new Stage());
+        owner.hide();
     }
 
 }
