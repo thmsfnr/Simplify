@@ -11,8 +11,8 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.business.facade.UserFacade;
 import project.business.models.User;
-import project.presentation.controller.Localstorage;
-import project.presentation.frame.Menu;
+import project.utilities.UserStorage;
+import project.presentation.frame.menu.Menu;
 import project.presentation.frame.user.Signin;
 import project.utilities.Display;
 
@@ -70,7 +70,7 @@ public class LoginController {
 
         if (user != null) {
 
-            Localstorage.write(user);
+            UserStorage.write(user);
             switchToMenu((Stage) submitButton.getScene().getWindow());
 
         } else {

@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import project.business.facade.UserFacade;
 import project.business.models.User;
-import project.presentation.controller.Localstorage;
+import project.utilities.UserStorage;
 import project.utilities.Display;
 
 import java.io.*;
@@ -43,7 +43,7 @@ public class PersonalAccountController {
      */
     public void initialize() throws IOException {
         UserFacade userFacade = UserFacade.getInstance();
-        int id = Localstorage.load();
+        int id = UserStorage.load();
         User user = userFacade.getById(id);
         this.user = user;
 

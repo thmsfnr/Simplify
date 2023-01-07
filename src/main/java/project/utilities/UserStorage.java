@@ -1,5 +1,5 @@
 
-package project.presentation.controller;
+package project.utilities;
 
 import project.business.models.User;
 import java.io.*;
@@ -10,7 +10,7 @@ import java.io.*;
  * It is used to save the user in a file
  * @author Simplify members
  */
-public class Localstorage {
+public class UserStorage {
 
     // Class variable
     private static String filename = "localstorage.txt";
@@ -68,6 +68,26 @@ public class Localstorage {
             throw new IOException("The file is empty");
         }
         return id;
+    }
+
+    /**
+     * This method is used to delete the user in the local storage
+     * @throws IOException if the file is not found
+     */
+    public static void delete() throws IOException {
+        // open the file localstorage.txt
+        File file = new File(filename);
+
+        // if the file doesn't exist
+        if (!file.exists()) {
+            throw new IOException("The file doesn't exist");
+        }
+
+        // delete the content of the file
+        FileWriter fw = new FileWriter(file.getAbsoluteFile());
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write("");
+        bw.close();
     }
 
 }
