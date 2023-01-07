@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.business.facade.OpinionFacade;
 import project.business.models.Opinion;
+import project.presentation.controller.notification.NotificationCenterController;
+import project.presentation.frame.menu.Menu;
 import project.utilities.Display;
 
 import java.util.List;
@@ -21,6 +23,7 @@ import java.util.List;
 public class OpinionUserController {
 
     // Instance variables
+    private static int idUser;
     private List<Opinion> opinions;
     private Opinion selectedOpinion;
     @FXML
@@ -31,6 +34,16 @@ public class OpinionUserController {
     private Button deleteButton;
     @FXML
     private Button updateButton;
+    @FXML
+    private Button back;
+
+    /**
+     * This method is used to pass the user id to the controller
+     * @param idUser the id of the user
+     */
+    public static void setIdUser(int idUser) {
+        OpinionUserController.idUser = idUser;
+    }
 
     /**
      * This method is used to load opinions
@@ -39,7 +52,7 @@ public class OpinionUserController {
         OpinionFacade opinionFacade = OpinionFacade.getInstance();
 
         list.getItems().clear();
-        List<Opinion> opinions = opinionFacade.getAllOpinions();
+        List<Opinion> opinions = opinionFacade.getAllOpinionsOfUser(idUser);
 
         this.opinions = opinions;
 
@@ -104,6 +117,17 @@ public class OpinionUserController {
         } else {
             Display.showAlert(Alert.AlertType.ERROR, w, "Delete failed","The opinion has not been deleted");
         }
+    }
+
+    /**
+     * This method is used to manage the event of the back button
+     * @param event the event of the back button
+     */
+    public void backToMenu(ActionEvent event) throws Exception {
+        Window owner = back.getScene().getWindow();
+        project.presentation.frame.menu.Menu menu = new Menu();
+        menu.start(new Stage());
+        owner.hide();
     }
 
 }

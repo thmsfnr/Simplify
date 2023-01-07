@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.presentation.controller.cart.CartController;
 import project.presentation.controller.notification.NotificationCenterController;
+import project.presentation.controller.opinion.OpinionUserController;
 import project.presentation.controller.user.PersonalAccountController;
 import project.presentation.frame.cart.CartFrame;
 import project.presentation.frame.notification.NotificationCenterFrame;
@@ -124,6 +125,7 @@ public class MenuController {
      */
     @FXML
     private void switchToOpinionUser(ActionEvent event) throws Exception {
+        OpinionUserController.setIdUser(this.idUser);
         Window owner = opinionUser.getScene().getWindow();
         OpinionUser opinionUser = new OpinionUser();
         opinionUser.start(new Stage());
