@@ -44,8 +44,9 @@ public class DeliveryInfoController {
 
 
     @FXML
-    public void initialize(Delivery delivery) {
+    public void initialize(Delivery delivery, boolean isManager) {
         this.delivery = delivery;
+        this.isManager = isManager;
         idDeliveryLabel.setText(String.valueOf(delivery.getIdDelivery()));
         dateLabel.setText(String.valueOf(delivery.getDate()));
         idRestaurantLabel.setText(String.valueOf(delivery.getIdRestaurant()));
@@ -53,7 +54,7 @@ public class DeliveryInfoController {
         stateChoiceBox.setValue(delivery.getState());
         stateChoiceBox.getItems().addAll(State.values());
 
-        if(isManager){
+        if(this.isManager){
             stateChoiceBox.setDisable(false);
             changeStateButton.setDisable(false);
         }
