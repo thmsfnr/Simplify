@@ -10,12 +10,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import project.business.facade.MealFacade;
+import project.business.facade.NotificationFacade;
 import project.business.facade.ReservationFacade;
 import project.business.facade.RestaurantFacade;
-import project.business.models.Meal;
-import project.business.models.Reservation;
-import project.business.models.Restaurant;
-import project.business.models.Table;
+import project.business.models.*;
 import project.exceptions.AccessDatabaseException;
 import project.exceptions.MealNotFoundException;
 import project.exceptions.RestaurantNotFoundException;
@@ -61,15 +59,6 @@ public class ReservationFormController implements Initializable {
 
     @FXML
     private TableColumn<Meal, Double> price;
-
-    @FXML
-    private Button button_reserve_meal;
-
-    @FXML
-    private Button button_reserve_table;
-
-    @FXML
-    private Button button_confirm_reservation;
 
     @FXML
     private DatePicker datePicker;
@@ -198,6 +187,14 @@ public class ReservationFormController implements Initializable {
     }
 
     @FXML
+    public void delete_selected_object(){
+        Object objectSelected = listView_reservations.getSelectionModel().getSelectedItem();
+        if(objectSelected != null){
+            listView_reservations.getItems().remove(objectSelected);
+        }
+    }
+
+    @FXML
     public void confirm_reservation() {
         //get value of date picker
         LocalDate dateReservation = datePicker.getValue();
@@ -239,6 +236,10 @@ public class ReservationFormController implements Initializable {
             try {
                 if(reservationFacade.createReservation(reservation)){
                     infoBox("Order created successfully", null, "Success");
+                    NotificationFacade notificationFacade = NotificationFacade.getInstance();
+                    Notification notification = null;
+                    notification = new Notification(reservation.getIdUser(), "A new reservation is created", "Your reservation at " + reservation.getIdRestaurant() + " has been created");
+                    notificationFacade.createNotification(notification);
                 }else{
                     infoBox("Order not created", null, "Failed");
                 }

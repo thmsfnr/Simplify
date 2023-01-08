@@ -56,7 +56,7 @@
                   <Font name="Arial" size="28.0" />
                </font>
             </Text>
-            <ListView fx:id="listView_reservations" layoutX="40.0" layoutY="620.0" prefHeight="200.0" prefWidth="885.0" />
+            <ListView fx:id="listView_reservations" layoutX="40.0" layoutY="620.0" prefHeight="200.0" prefWidth="763.0" />
             <Button fx:id="button_confirm_reservation" layoutX="299.0" layoutY="849.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#confirm_reservation" prefHeight="59.0" prefWidth="330.0" style="-fx-background-color: grey; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Confirm reservation" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                <font>
                   <Font name="System Bold" size="20.0" />
@@ -64,6 +64,11 @@
             </Button>
             <Line endX="752.0" layoutX="169.0" layoutY="543.0" startX="-134.0" />
             <Line endX="101.0" endY="857.0" layoutX="889.0" layoutY="95.0" startX="101.0" startY="-102.5" />
+            <Button fx:id="button_delete_object_reservation" layoutX="648.0" layoutY="557.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#delete_selected_object" prefHeight="53.0" prefWidth="64.0" style="-fx-background-color: grey; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="-" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </left>

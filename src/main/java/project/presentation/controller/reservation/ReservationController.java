@@ -212,7 +212,7 @@ public class ReservationController implements Initializable {
         setTables(reservations);
     }
     @FXML
-    private void switchToFormFrame(ActionEvent event) throws Exception {
+    public void switchToFormFrame(ActionEvent event) throws Exception {
         // Get the window of the create button
         Window listeReservationWindow = button_create.getScene().getWindow();
 
@@ -221,5 +221,17 @@ public class ReservationController implements Initializable {
 
         // close the actual frame
         listeReservationWindow.hide();
+    }
+
+    @FXML
+    public void switchToInfoFrame(ActionEvent event) throws Exception {
+        /*// Get the window of the create button
+        Window listeReservationWindow = button_create.getScene().getWindow();
+
+        ReservationInfoFrame reservationInfoFrame = new ReservationInfoFrame();
+        reservationInfoFrame.start(new Stage());
+
+        // close the actual frame
+        listeReservationWindow.hide();*/
     }
 }

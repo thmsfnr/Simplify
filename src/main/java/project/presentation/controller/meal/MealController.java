@@ -47,6 +47,10 @@ public class MealController implements Initializable {
         else {
             liste_meal.getItems().add("No meal found");
         }
+        //listener to get the selected meal
+        liste_meal.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+           selection();
+        });
     }
 
     /**
