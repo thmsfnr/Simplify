@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="901.0" prefWidth="1380.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.reservation.ReservationInfoController">
+   <top>
+      <AnchorPane prefHeight="171.0" prefWidth="731.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="#7a897f" layoutX="447.0" layoutY="111.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Informations about your reservation">
+               <font>
+                  <Font name="Arial" size="28.0" />
+               </font>
+            </Text>
+            <Button fx:id="button_back" layoutX="30.0" layoutY="23.0" lineSpacing="3.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: grey; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Back" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #c8ded0;" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="#7a897f" layoutX="548.0" layoutY="62.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N°" wrappingWidth="64.03515625">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Text>
+            <Text fx:id="idOrderT" fill="#7a897f" layoutX="623.0" layoutY="62.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="179.03515625">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Text>
+            <DatePicker fx:id="date" layoutX="623.0" layoutY="103.0" />
+            <Text fill="#7a897f" layoutX="438.0" layoutY="183.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Restaurant :" wrappingWidth="175.03515625">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text fill="#7a897f" layoutX="444.0" layoutY="244.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="State :" wrappingWidth="151.03515625">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text fx:id="state" fill="#7a897f" layoutX="554.0" layoutY="243.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="626.03515625">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <TableView fx:id="tabMeals" layoutX="14.0" layoutY="383.0" prefHeight="284.0" prefWidth="728.0">
+               <columns>
+                  <TableColumn fx:id="idMeal" prefWidth="117.0" text="Id_Meal" />
+                  <TableColumn fx:id="title" prefWidth="190.0" text="title" />
+                  <TableColumn fx:id="description" prefWidth="281.0" text="description" />
+                  <TableColumn fx:id="price" minWidth="0.0" prefWidth="139.0" text="price" />
+               </columns>
+            </TableView>
+            <Text fill="#7a897f" layoutX="164.0" layoutY="360.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="List of reserved meals" wrappingWidth="319.03515625">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text fill="#7a897f" layoutX="903.0" layoutY="346.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="List of reserved tables" wrappingWidth="319.03515625">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text fx:id="restaurant" fill="#7a897f" layoutX="645.0" layoutY="182.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="250.03515625">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <TableView fx:id="tabTables" layoutX="756.0" layoutY="383.0" prefHeight="284.0" prefWidth="613.0">
+               <columns>
+                  <TableColumn fx:id="idTable" prefWidth="117.0" text="Id_Table" />
+                  <TableColumn fx:id="name" minWidth="0.0" prefWidth="229.0" text="name" />
+                  <TableColumn fx:id="tableDescription" prefWidth="267.0" text="description" />
+               </columns>
+            </TableView>
+            <Text fill="#7a897f" layoutX="256.0" layoutY="125.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of the reservation :" wrappingWidth="338.03515625">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Button fx:id="button_edit_reservation" layoutX="275.0" layoutY="676.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#switchToFormFrame" prefHeight="40.0" prefWidth="348.0" style="-fx-background-color: grey; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Edit reservation" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+            <Line endX="1123.0" endY="80.0" layoutX="241.0" layoutY="220.0" startX="-220.0" startY="80.0" />
+            <Button fx:id="button_cancel_reservation" layoutX="821.0" layoutY="676.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#cancel" prefHeight="40.0" prefWidth="348.0" style="-fx-background-color: grey; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Cancel reservation" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

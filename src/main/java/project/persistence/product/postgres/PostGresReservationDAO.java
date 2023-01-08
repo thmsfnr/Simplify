@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import project.business.models.Reservation;
 import project.business.models.State;
+import project.business.models.Table;
 import project.exceptions.AccessDatabaseException;
 import project.exceptions.ReservationNotFoundException;
 import project.persistence.factory.PostGresDAOFactory;

@@ -14,11 +14,10 @@ import javafx.stage.Window;
 import javafx.util.Callback;
 import project.business.facade.NotificationFacade;
 import project.business.facade.ReservationFacade;
-import project.business.models.Delivery;
-import project.business.models.Notification;
-import project.business.models.Reservation;
-import project.business.models.State;
+import project.business.models.*;
+import project.exceptions.AccessDatabaseException;
 import project.presentation.frame.reservation.ReservationFormFrame;
+import project.presentation.frame.reservation.ReservationInfoFrame;
 import project.utilities.Display;
 import project.utilities.LocalStorage;
 
@@ -75,6 +74,46 @@ public class ReservationController implements Initializable {
         }
         setTables(reservations);
         addDeleteButtonToTable();
+        // add a listener to the tabReservation_in_progress to get the selected reservation
+        tabReservation_in_progress.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                // Get the selected reservation
+                Reservation reservation = null;
+                reservation = tabReservation_in_progress.getSelectionModel().getSelectedItem();
+                try {
+                    switchToInfoFrame(reservation);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        // add a listener to the tabReservation_carried_out to get the selected reservation
+        tabReservation_carried_out.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                // Get the selected reservation
+                Reservation reservation = null;
+                reservation = tabReservation_carried_out.getSelectionModel().getSelectedItem();
+                try {
+                    switchToInfoFrame(reservation);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        // add a listener to the tabReservation_in_progress to get the selected reservation
+        tabReservation_cancelled.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                // Get the selected reservation
+                Reservation reservation = null;
+                reservation = tabReservation_cancelled.getSelectionModel().getSelectedItem();
+                try {
+                    switchToInfoFrame(reservation);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
     }
 
     private void setTables(ObservableList<Reservation> reservations) {
@@ -174,7 +213,6 @@ public class ReservationController implements Initializable {
         tabReservation_in_progress.getColumns().add(colBtn);
     }
     public void cancelReservation(ActionEvent event, Reservation reservation) {
-
         // Create a new alert to confirm the deletion
         Window owner = tabReservation_in_progress.getScene().getWindow();
 
@@ -182,6 +220,15 @@ public class ReservationController implements Initializable {
         ReservationFacade reservationFacade = ReservationFacade.getInstance();
         Boolean result = reservationFacade.cancelReservation(reservation);
         if (result) {
+            //get table of reservations
+            try {
+                ArrayList<Table> tables = (ArrayList<Table>) reservationFacade.getTablesOfReservation(reservation.getIdOrder());
+                for (Table table : tables) {
+                    table.setBooked(false);
+                }
+            } catch (AccessDatabaseException e) {
+                throw new RuntimeException(e);
+            }
             Display.infoBox("Reservation canceled successfully!", null, "Success");
             NotificationFacade notificationFacade = NotificationFacade.getInstance();
             try {
@@ -223,15 +270,17 @@ public class ReservationController implements Initializable {
         listeReservationWindow.hide();
     }
 
+
     @FXML
-    public void switchToInfoFrame(ActionEvent event) throws Exception {
-        /*// Get the window of the create button
+    public void switchToInfoFrame(Reservation reservation) throws Exception {
+        // Get the window of the create button
         Window listeReservationWindow = button_create.getScene().getWindow();
 
         ReservationInfoFrame reservationInfoFrame = new ReservationInfoFrame();
+        ReservationInfoController.reservationSelected = reservation;
         reservationInfoFrame.start(new Stage());
 
         // close the actual frame
-        listeReservationWindow.hide();*/
+        listeReservationWindow.hide();
     }
 }

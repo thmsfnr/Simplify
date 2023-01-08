@@ -32,6 +32,8 @@ import static project.utilities.Display.infoBox;
 
 public class ReservationFormController implements Initializable {
     private int idRestaurantAttribut;
+
+    public static Boolean isUpdate;
     @FXML
     private TableView<Restaurant> tabRestaurant;
     @FXML
@@ -227,6 +229,7 @@ public class ReservationFormController implements Initializable {
                         Table table = (Table) object;
                         reservation.setIdRestaurant(table.getIdRestaurant());
                         if (!reservation.getTables().contains(table.getIdTable())) {
+                            table.setBooked(true);
                             reservation.addTable(table.getIdTable());
                         }
                     }
