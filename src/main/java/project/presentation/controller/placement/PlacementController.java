@@ -11,10 +11,12 @@ import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.business.facade.PlacementFacade;
+import project.business.models.Meal;
 import project.business.models.Restaurant;
 import project.business.models.Table;
 import project.exceptions.AccessDatabaseException;
 import project.exceptions.RestaurantNotFoundException;
+import project.presentation.controller.reservation.ReservationFormController;
 import project.utilities.Display;
 import project.utilities.LocalStorage;
 import java.io.IOException;
@@ -23,6 +25,12 @@ import java.util.List;
 import java.util.Objects;
 
 public class PlacementController {
+
+    public static Boolean isReservation;
+
+    public static int idRestaurant;
+
+    private ReservationFormController reservationFormController;
 
     private HashMap<Position, Integer> positions = new HashMap<>();
 
@@ -68,18 +76,19 @@ public class PlacementController {
     @FXML
     private AnchorPane anchorPlacement;
 
+    @FXML
+    private Button button_reserve_table;
+
 
     @FXML
     private void initialize(){
         try{
             //if the frame is opened from the reservation frame
-            Boolean isReservation = (Boolean) LocalStorage.load("isReservation");
             if(isReservation){
                 configurationForReservation();
             }
             //Recuperation of the restaurant
             PlacementFacade placementFacade = PlacementFacade.getInstance();
-            int idRestaurant = (int) LocalStorage.load("restaurant_id");
             Restaurant restaurant = placementFacade.getRestaurantById(idRestaurant);
 
             //Creation of the grid
@@ -134,9 +143,10 @@ public class PlacementController {
         catch(RestaurantNotFoundException e){
             Display.showAlert(Alert.AlertType.ERROR, null, "Error", "Restaurant not found");
         }
-        catch(IOException e){
-            Display.showAlert(Alert.AlertType.ERROR, null, "Error", "Error during the loading, retry later please");
-        }
+        // add a listener to the buttuon reserve_table in placementController to get the table selected
+        getButton_reserve_table().setOnAction(actionEvent -> {
+           selection_table();
+        });
     }
 
 
@@ -267,6 +277,21 @@ public class PlacementController {
         updateButton.setVisible(false);
         switchButton.setDisable(true);
         switchButton.setVisible(false);
+    }
+
+    public Button getButton_reserve_table() {
+        return button_reserve_table;
+    }
+    public ListView<Table> getListView() {
+        return listView;
+    }
+    private void selection_table() {
+        Table tableSelected = listView.getSelectionModel().getSelectedItem();
+        //send tableSelected to the ReservationFormController
+        reservationFormController.selection_table(tableSelected);
+    }
+    public void setReservationFormController(ReservationFormController reservationFormController) {
+        this.reservationFormController = reservationFormController;
     }
 
 

@@ -116,6 +116,10 @@ public class Reservation {
         return idState;
     }
 
+    public void setIdRestaurant(int idRestaurant) {
+        this.idRestaurant = idRestaurant;
+    }
+
     public void setIdState(int idState) {
         this.idState = idState;
     }

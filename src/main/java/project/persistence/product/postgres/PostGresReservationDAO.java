@@ -61,10 +61,10 @@ public class PostGresReservationDAO extends ReservationDAO {
                             preparedStatement.executeUpdate();
                         }
                     }
-
                     //creation order_table
                     if(reservation.getTables() != null){
                         for(Integer idTable : reservation.getTables()){
+                            System.out.println(idTable);
                             query = "INSERT INTO \"public\".\"Reserve_Table\" (\"idOrder\", \"idTable\") VALUES (?,?);";
                             preparedStatement = connection.prepareStatement(query);
                             preparedStatement.setInt(1,reservation.getIdOrder());

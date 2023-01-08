@@ -15,20 +15,25 @@ import project.business.facade.RestaurantFacade;
 import project.business.models.Meal;
 import project.business.models.Reservation;
 import project.business.models.Restaurant;
+import project.business.models.Table;
 import project.exceptions.AccessDatabaseException;
 import project.exceptions.MealNotFoundException;
 import project.exceptions.RestaurantNotFoundException;
+import project.presentation.controller.placement.PlacementController;
 import project.presentation.frame.placement.Placement;
-import project.presentation.frame.table.Table;
 import project.utilities.LocalStorage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ResourceBundle;
 
+import static project.utilities.Display.infoBox;
+
 public class ReservationFormController implements Initializable {
+    private int idRestaurantAttribut;
     @FXML
     private TableView<Restaurant> tabRestaurant;
     @FXML
@@ -75,7 +80,6 @@ public class ReservationFormController implements Initializable {
     @FXML
     private AnchorPane anchorTable;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -101,8 +105,9 @@ public class ReservationFormController implements Initializable {
         tabRestaurant.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 Restaurant restaurant = tabRestaurant.getSelectionModel().getSelectedItem();
+                idRestaurantAttribut = restaurant.getIdRestaurant();
                 ObservableList<Meal> meals;
-                meals = FXCollections.observableList(mealFacade.getAllMeal(restaurant.getIdRestaurant()));
+                meals = FXCollections.observableList(mealFacade.getAllMeal(idRestaurantAttribut));
                 idMeal.setCellValueFactory(new PropertyValueFactory<>("idMeal"));
                 title.setCellValueFactory(new PropertyValueFactory<>("title"));
                 description.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -110,76 +115,136 @@ public class ReservationFormController implements Initializable {
                 tabMeals.setItems(meals);
 
                 //initialize the table
-                initializeAnchorTable(restaurant.getIdRestaurant());
+                initializeAnchorTable();
             }
         });
     }
 
-    private void initializeAnchorTable(int idRestaurant) {
+    //fonction to return the actual instance of the controller if it exists
+    private void initializeAnchorTable() {
         Parent root = null;
         try {
-            LocalStorage.write("restaurant_id",idRestaurant);
-            LocalStorage.write("isReservation",true);
-            root = FXMLLoader.load(Placement.class.getResource("PlacementFrame.fxml"));
+            PlacementController.isReservation = true;
+            PlacementController.idRestaurant = idRestaurantAttribut;
+            FXMLLoader fxmlLoader = new FXMLLoader(Placement.class.getResource("PlacementFrame.fxml"));
+            root = fxmlLoader.load();
+            PlacementController placementController = fxmlLoader.getController();
+            placementController.setReservationFormController(this);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         anchorTable.getChildren().setAll(root);
     }
+
     @FXML
     private void selection_meal() {
         Meal mealSelected = tabMeals.getSelectionModel().getSelectedItem();
         //add meal to listView_reservation
         //verification if the id of restaurant for the selected meal is the same as the id of restaurant of meals in listView_reservation
-        if (listView_reservations.getItems().size() > 0) {
-            if (mealSelected.getIdRestaurant() != ((Meal) listView_reservations.getItems().get(0)).getIdRestaurant()) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setHeaderText("You can't reserve a meal from another restaurant");
-                alert.showAndWait();
+        if(mealSelected != null){
+            if (listView_reservations.getItems().size() > 0) {
+                boolean mealFounded = false;
+                //research firt meal in listView_reservation
+                int i = 0;
+                while (i < listView_reservations.getItems().size()-1 && !mealFounded) {
+                    if(listView_reservations.getItems().get(i) instanceof Meal){
+                        mealFounded = true;
+                    }else{
+                        i++;
+                    }
+                }
+                if (mealFounded && mealSelected.getIdRestaurant() != ((Meal) listView_reservations.getItems().get(i)).getIdRestaurant()) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning");
+                    alert.setHeaderText("You can't reserve a meal from another restaurant");
+                    alert.showAndWait();
+                } else {
+                    listView_reservations.getItems().add(mealSelected);
+                }
             } else {
                 listView_reservations.getItems().add(mealSelected);
             }
         }
     }
-    /*
+
     @FXML
-    private void selection_table(){
-        Table tableSelected = tabTables.getSelectionModel().getSelectedItem();
+    public void selection_table(Table tableSelected) {
         //add table to listView_reservation
-        listView_reservations.getItems().add(tableSelected);
-    }*/
+        //verification if the id of restaurant for the selected meal is the same as the id of restaurant of meals in listView_reservation
+        if(tableSelected !=null){
+            if (listView_reservations.getItems().size() > 0) {
+                boolean tableFounded = false;
+                //research firt table in listView_reservation
+                int i = 0;
+                while (i < listView_reservations.getItems().size()-1 && !tableFounded) {
+                    if(listView_reservations.getItems().get(i) instanceof Table){
+                        tableFounded = true;
+                    }else{
+                        i++;
+                    }
+                }
+                if (tableFounded && tableSelected.getIdRestaurant() != (((Table) listView_reservations.getItems().get(i)).getIdRestaurant())) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning");
+                    alert.setHeaderText("You can't reserve a table from another restaurant");
+                    alert.showAndWait();
+                } else {
+                    listView_reservations.getItems().add(tableSelected);
+                }
+            }else {
+                listView_reservations.getItems().add(tableSelected);
+            }
+        }
+    }
 
     @FXML
     public void confirm_reservation() {
-        /*
         //get value of date picker
         LocalDate dateReservation = datePicker.getValue();
-        //get value of list view
-        ObservableList<Object> reservationsObject = listView_reservations.getItems();
-        //if it's a meal
-        for (Object reservationObject : reservationsObject) {
-            if (reservationObject instanceof Meal) {
-                Meal meal = (Meal) reservationObject;
-                //Reservation(int idRestaurant, int idUser, Date date, List<Integer>tables, Map<Integer,Integer> meals)
-                Reservation reservation = null;
-                try {
-                    reservation = new Reservation(meal.getIdRestaurant(),(Integer) LocalStorage.load("user_id"),dateReservation);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                reservation.setIdMeal(meal.getIdMeal());
-                reservation.setIdUser(LocalStorage.getInstance().getUser().getIdUser());
-                reservation.setDateReservation(Date.valueOf(dateReservation));
-                ReservationFacade reservationFacade = ReservationFacade.getInstance();
-                try {
-                    reservationFacade.addReservation(reservation);
-                } catch (AccessDatabaseException e) {
-                    throw new RuntimeException(e);
+        if(dateReservation == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Please fill the fields date");
+            alert.showAndWait();
+        }else {
+            Date date = Date.valueOf(dateReservation);
+            //get value of list view
+            ObservableList<Object> reservationsObject = listView_reservations.getItems();
+            Reservation reservation = null;
+            try {
+                reservation = new Reservation(idRestaurantAttribut, (Integer) LocalStorage.load("user_id"), date);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            if (reservationsObject.size() > 0) {
+                for (Object object : reservationsObject) {
+                    if (object instanceof Meal) {
+                        Meal meal = (Meal) object;
+                        reservation.setIdRestaurant(meal.getIdRestaurant());
+                        if (reservation.getMeals().containsKey(meal.getIdMeal())) {
+                            reservation.getMeals().put(meal.getIdMeal(), reservation.getMeals().get(meal.getIdMeal()) + 1);
+                        } else {
+                            reservation.addMeal(meal.getIdMeal(), 1);
+                        }
+                    } else if (object instanceof Table) {
+                        Table table = (Table) object;
+                        reservation.setIdRestaurant(table.getIdRestaurant());
+                        if (!reservation.getTables().contains(table.getIdTable())) {
+                            reservation.addTable(table.getIdTable());
+                        }
+                    }
                 }
             }
+            ReservationFacade reservationFacade = ReservationFacade.getInstance();
+            try {
+                if(reservationFacade.createReservation(reservation)){
+                    infoBox("Order created successfully", null, "Success");
+                }else{
+                    infoBox("Order not created", null, "Failed");
+                }
+            } catch (AccessDatabaseException e) {
+                throw new RuntimeException(e);
+            }
         }
-
-    }*/
     }
 }

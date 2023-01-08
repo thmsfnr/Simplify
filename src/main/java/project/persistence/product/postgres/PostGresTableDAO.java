@@ -267,12 +267,13 @@ public class PostGresTableDAO extends TableDAO {
                 List<Table> tables = new ArrayList<>();
                 while(resultSet.next()){
                     Integer idTable = resultSet.getInt("idTable");
+                    int idRestaurantT = resultSet.getInt("idRestaurant");
                     String name = resultSet.getString("name");
                     String description = resultSet.getString("description");
                     Boolean booked = resultSet.getBoolean("booked");
                     int x = resultSet.getInt("x");
                     int y = resultSet.getInt("y");
-                    tables.add(new Table(idTable, name, description, booked, x, y));
+                    tables.add(new Table(idTable,idRestaurantT, name, description, booked, x, y));
                 }
                 return tables;
             }
