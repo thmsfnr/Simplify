@@ -30,6 +30,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static project.utilities.Display.infoBox;
+
 public class ReservationInfoController implements Initializable {
     public static Reservation reservationSelected;
 
@@ -75,8 +77,41 @@ public class ReservationInfoController implements Initializable {
     @FXML
     private Button button_edit_reservation;
 
+    @FXML
+    private Button button_cancel_reservation;
+
+    @FXML
+    private Button button_delete_reservation;
+
+    @FXML
+    private Button button_accept_reservation;
+
+    public static Boolean isManager = true;
+
+    public static Boolean isAdmin = true;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(isAdmin || isManager){
+            button_edit_reservation.setVisible(false);
+            button_edit_reservation.setDisable(true);
+            button_cancel_reservation.setDisable(true);
+            button_cancel_reservation.setVisible(false);
+            button_delete_reservation.setVisible(true);
+            button_delete_reservation.setDisable(false);
+            button_accept_reservation.setVisible(true);
+            button_accept_reservation.setDisable(false);
+        }else{
+            button_edit_reservation.setVisible(true);
+            button_edit_reservation.setDisable(false);
+            button_cancel_reservation.setDisable(false);
+            button_cancel_reservation.setVisible(true);
+            button_delete_reservation.setVisible(false);
+            button_delete_reservation.setDisable(true);
+            button_accept_reservation.setVisible(false);
+            button_accept_reservation.setDisable(true);
+        }
         ReservationFacade reservationFacade = ReservationFacade.getInstance();
         //set idOrder
         idOrderT.setText(String.valueOf(reservationSelected.getIdOrder()));
@@ -158,6 +193,38 @@ public class ReservationInfoController implements Initializable {
 
         // close the actual frame
         reservationInfoWindow.hide();
+    }
+
+    @FXML
+    public void accept_reservation(ActionEvent event){
+        if(isAdmin || isManager){
+            ReservationFacade reservationFacade = ReservationFacade.getInstance();
+            if(reservationFacade.acceptReservation(reservationSelected)){
+                infoBox("Order validate successfully", null, "Success");
+                NotificationFacade notificationFacade = NotificationFacade.getInstance();
+                Notification notification = null;
+                notification = new Notification(reservationSelected.getIdUser(), "Your reservation n°" + reservationSelected.getIdOrder()+" is accepted", "Your reservation at " + reservationSelected.getIdRestaurant() + " has been accepted");
+                notificationFacade.createNotification(notification);
+            }else{
+                infoBox("Order not validated", null, "Failed");
+            }
+        }
+    }
+
+    @FXML
+    public void delete_reservation(ActionEvent event){
+        if(isAdmin || isManager){
+            ReservationFacade reservationFacade = ReservationFacade.getInstance();
+            if(reservationFacade.deleteReservation(reservationSelected.getIdOrder())){
+                infoBox("Order delete successfully", null, "Success");
+                NotificationFacade notificationFacade = NotificationFacade.getInstance();
+                Notification notification = null;
+                notification = new Notification(reservationSelected.getIdUser(), "Your reservation n°" + reservationSelected.getIdOrder()+" is deleted", "Your reservation at " + reservationSelected.getIdRestaurant() + " has been deleted");
+                notificationFacade.createNotification(notification);
+            }else{
+                infoBox("Order not deleted", null, "Failed");
+            }
+        }
     }
 
     @FXML

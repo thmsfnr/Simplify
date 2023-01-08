@@ -61,14 +61,22 @@ public class ReservationController implements Initializable {
     @FXML
     private Button button_create;
 
+    public static Boolean isManager = true;
+
+    public static Boolean isAdmin = true;
+
+    public static int idRestaurant = 1;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         ReservationFacade reservationFacade = ReservationFacade.getInstance();
         ObservableList<Reservation> reservations;
         try {
-            reservations = FXCollections.observableList(reservationFacade.getAllReservationsOfUser((Integer) LocalStorage.load("user_id")));
+            if(isManager || isAdmin){
+                reservations = FXCollections.observableArrayList(reservationFacade.getAllReservations(idRestaurant));
+            }else{
+                reservations = FXCollections.observableList(reservationFacade.getAllReservationsOfUser((Integer) LocalStorage.load("user_id")));
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

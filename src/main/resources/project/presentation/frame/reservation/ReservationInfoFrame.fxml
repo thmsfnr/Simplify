@@ -102,6 +102,16 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Button>
+            <Button fx:id="button_accept_reservation" layoutX="282.0" layoutY="676.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#accept_reservation" prefHeight="40.0" prefWidth="348.0" style="-fx-background-color: grey; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Accept reservation" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_delete_reservation" layoutX="821.0" layoutY="676.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#delete_reservation" prefHeight="40.0" prefWidth="348.0" style="-fx-background-color: grey; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Delete reservation" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </center>

@@ -300,7 +300,7 @@ public class PostGresReservationDAO extends ReservationDAO {
     }
 
     @Override
-    public List<Reservation> getAllReservations() {
+    public List<Reservation> getAllReservations(int idRestaurant) {
         ArrayList<Reservation> reservations = new ArrayList<>();
         // Get the connection to the database
         Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
@@ -308,18 +308,22 @@ public class PostGresReservationDAO extends ReservationDAO {
         if(connection != null) {
             // Create the query
             try {
-                String query = "SELECT * FROM \"public\".\"Order\" WHERE \"idTypeOrder\" = 2;";
+                String query = "SELECT * FROM \"public\".\"Order\" AS O LEFT JOIN \"public\".\"State_order\" AS S ON O.\"idState\" = S.\"idState\" WHERE \"idTypeOrder\" = 2 AND \"idRestaurant\" = ?;";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, idRestaurant);
                 ResultSet resultSet = preparedStatement.executeQuery();
 
                 // If the reservation is found in the database
                 while(resultSet.next()) {
+                    String state_string = resultSet.getString("description").toUpperCase().replace(" ", "_");
+                    State state = State.valueOf(state_string);
                     Reservation reservation = new Reservation(
                             resultSet.getInt("idOrder"),
                             resultSet.getInt("idRestaurant"),
                             resultSet.getInt("idUser"),
                             resultSet.getDate("date"),
-                            resultSet.getInt("idState")
+                            resultSet.getInt("idState"),
+                            state
                     );
                     reservations.add(reservation);
                 }

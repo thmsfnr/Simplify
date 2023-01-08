@@ -15,7 +15,7 @@ public abstract class ReservationDAO {
     public abstract Boolean delete(int idReservation) ;
     public abstract Reservation getById(int idReservation) throws ReservationNotFoundException;
 
-    public abstract List<Reservation> getAllReservations() ;
+    public abstract List<Reservation> getAllReservations(int idRestaurant) ;
     public abstract List<Reservation> getAllReservationsOfUser(int idUser) ;
 
     public abstract Boolean cancelReservation(Reservation reservation) ;
