@@ -79,7 +79,7 @@
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                       <image>
-                          <Image url="@../assets/back-arrow.png" />
+                          <Image url="@../back-arrow.png" />
                       </image>
                   </ImageView>
                </graphic>

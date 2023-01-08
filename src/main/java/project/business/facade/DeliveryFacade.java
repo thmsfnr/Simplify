@@ -20,6 +20,7 @@ public class DeliveryFacade {
     }
 
 
+
     /**  Methods  **/
 
     public boolean createDelivery(Delivery delivery) throws AccessDatabaseException {
@@ -52,6 +53,10 @@ public class DeliveryFacade {
 
     public void changeStateOfDelivery(int idDelivery, String state) throws AccessDatabaseException {
         this.deliveryDAO.changeStateOfDelivery(idDelivery, state);
+    }
+
+    public List<Delivery> getAllDeliveriesOfRestaurant(int idRestaurant) throws AccessDatabaseException {
+        return this.deliveryDAO.getAllDeliveriesOfRestaurant(idRestaurant);
     }
 
 

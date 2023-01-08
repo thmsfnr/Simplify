@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.presentation.controller.cart.CartController;
+import project.presentation.controller.delivery.DeliveryListController;
 import project.presentation.controller.notification.NotificationCenterController;
 import project.presentation.controller.opinion.OpinionUserController;
 import project.presentation.controller.payment.PaymentUserController;
@@ -15,6 +16,7 @@ import project.presentation.controller.reservation.ReservationFormController;
 import project.presentation.controller.restaurant.RestaurantListController;
 import project.presentation.controller.user.PersonalAccountController;
 import project.presentation.frame.cart.CartFrame;
+import project.presentation.frame.delivery.DeliveryList;
 import project.presentation.frame.notification.NotificationCenterFrame;
 import project.presentation.frame.opinion.OpinionAdmin;
 import project.presentation.frame.opinion.OpinionUser;
@@ -62,6 +64,9 @@ public class MenuController {
     private Button cartFrame;
     @FXML
     private Button logout;
+
+    @FXML
+    private Button deliveriesUser;
 
 
     /**
@@ -146,6 +151,19 @@ public class MenuController {
         Window owner = reservationFrame.getScene().getWindow();
         ReservationFrame reservationFrame = new ReservationFrame();
         reservationFrame.start(new Stage());
+        owner.hide();
+    }
+
+    /**
+     * This method is used to switch to the deliveries List frame
+     * @param event the event of the switch button
+     */
+    @FXML
+    private void switchToDeliveriesUser(ActionEvent event) throws Exception {
+        DeliveryListController.setUserId(this.idUser);
+        Window owner = deliveriesUser.getScene().getWindow();
+        DeliveryList deliveryList = new DeliveryList();
+        deliveryList.start(new Stage());
         owner.hide();
     }
 

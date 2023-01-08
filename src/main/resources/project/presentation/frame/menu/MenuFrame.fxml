@@ -20,7 +20,7 @@
                 </ImageView>
             <AnchorPane layoutX="784.0" layoutY="11.0" prefHeight="91.0" prefWidth="285.0">
                <children>
-                  <Button fx:id="personalAccount" onAction="#switchToPersonalAccount" layoutX="202.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="53.0" style="-fx-background-color: transparent;">
+                  <Button fx:id="personalAccount" layoutX="202.0" mnemonicParsing="false" onAction="#switchToPersonalAccount" prefHeight="43.0" prefWidth="53.0" style="-fx-background-color: transparent;">
                      <graphic>
                         <ImageView fitHeight="61.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -33,7 +33,7 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Text>
-                  <Button fx:id="cartFrame" onAction="#switchToCartFrame" layoutX="115.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="53.0" style="-fx-background-color: transparent;">
+                  <Button fx:id="cartFrame" layoutX="115.0" mnemonicParsing="false" onAction="#switchToCartFrame" prefHeight="43.0" prefWidth="53.0" style="-fx-background-color: transparent;">
                      <graphic>
                         <ImageView fitHeight="61.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -64,7 +64,7 @@
                      </font>
                   </Text>
                   <Line endX="2.0" endY="-141.0" layoutX="382.0" layoutY="270.0" startX="2.0" startY="258.0" stroke="WHITE" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="6.0" />
-                  <Button fx:id="restaurantList" onAction="#switchToRestaurantList" layoutX="130.0" layoutY="126.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: white;" text="Consult Restaurants" textFill="#c8ded0">
+                  <Button fx:id="restaurantList" layoutX="130.0" layoutY="126.0" mnemonicParsing="false" onAction="#switchToRestaurantList" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: white;" text="Consult Restaurants" textFill="#c8ded0">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -74,12 +74,12 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="notificationCenterFrame" onAction="#switchToNotificationCenterFrame" layoutX="130.0" layoutY="269.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: white;" text="Notification Center" textFill="#c8ded0">
+                  <Button fx:id="notificationCenterFrame" layoutX="130.0" layoutY="269.0" mnemonicParsing="false" onAction="#switchToNotificationCenterFrame" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: white;" text="Notification Center" textFill="#c8ded0">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="opinionUser" onAction="#switchToOpinionUser" layoutX="130.0" layoutY="343.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="168.0" style="-fx-border-radius: 2em; -fx-background-color: white;" text="Consult Personal Opinions" textFill="#c8ded0">
+                  <Button fx:id="opinionUser" layoutX="130.0" layoutY="343.0" mnemonicParsing="false" onAction="#switchToOpinionUser" prefHeight="52.0" prefWidth="168.0" style="-fx-border-radius: 2em; -fx-background-color: white;" text="Consult Personal Opinions" textFill="#c8ded0">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -89,22 +89,27 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="paymentUser" onAction="#switchToPaymentUser" layoutX="450.0" layoutY="197.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: white;" text="Consult Personal Payments" textFill="#c8ded0">
+                  <Button fx:id="paymentUser" layoutX="450.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToPaymentUser" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: white;" text="Consult Personal Payments" textFill="#c8ded0">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="paymentAdmin" onAction="#switchToPaymentAdmin" layoutX="450.0" layoutY="269.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: white;" text="Consult All Payments" textFill="#c8ded0">
+                  <Button fx:id="paymentAdmin" layoutX="450.0" layoutY="269.0" mnemonicParsing="false" onAction="#switchToPaymentAdmin" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: white;" text="Consult All Payments" textFill="#c8ded0">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="allAccounts" onAction="#switchToAllAccounts" layoutX="450.0" layoutY="343.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: white;" text="Consult All Accounts" textFill="#c8ded0">
+                  <Button fx:id="allAccounts" layoutX="450.0" layoutY="343.0" mnemonicParsing="false" onAction="#switchToAllAccounts" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: white;" text="Consult All Accounts" textFill="#c8ded0">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="opinionAdmin" onAction="#switchToOpinionAdmin" layoutX="450.0" layoutY="411.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: white;" text="Consult All Opinions" textFill="#c8ded0">
+                  <Button fx:id="opinionAdmin" layoutX="450.0" layoutY="411.0" mnemonicParsing="false" onAction="#switchToOpinionAdmin" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: white;" text="Consult All Opinions" textFill="#c8ded0">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="deliveriesUser" layoutX="130.0" layoutY="411.0" mnemonicParsing="false" onAction="#switchToDeliveriesUser" prefHeight="52.0" prefWidth="168.0" style="-fx-border-radius: 2em; -fx-background-color: white;" text="Consult Deliveries" textFill="#c8ded0">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>

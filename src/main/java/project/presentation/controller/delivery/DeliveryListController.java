@@ -15,7 +15,10 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
 import project.business.facade.DeliveryFacade;
+import project.business.facade.RestaurantFacade;
+import project.business.facade.UserFacade;
 import project.business.models.Delivery;
+import project.business.models.Restaurant;
 import project.business.models.State;
 import project.business.models.User;
 import project.exceptions.AccessDatabaseException;
@@ -26,8 +29,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by Simplify members on 07/01/23.
+ * This class is the controller of the delivery list frame
+ * @author Simplify members
+ */
 public class DeliveryListController {
-    private User user;
+    private static Integer idUser;
 
     private boolean isManager = false;
 
@@ -57,56 +65,53 @@ public class DeliveryListController {
     private TableColumn<Delivery, State> stateColumn;
 
 
-    //TODO: change the idUser that we use here
+    /**
+     * This method allows to set the id of the user which will see the frame
+     * @param idUser the id of the user
+     */
+    public static void setUserId(Integer idUser) {
+        idUser = idUser;
+    }
+
+    public static Integer getUserId() {
+        return idUser;
+    }
+
     @FXML
-    private void initialize() {
-        DeliveryFacade deliveryFacade = DeliveryFacade.getInstance();
+    public void initialize() {
+        UserFacade userFacade = UserFacade.getInstance();
+        User user = userFacade.getById(idUser);
+        isManager = (user.getRole() == 2);
 
-        try{
-            List<Delivery> list_deliveries =
-                    (isManager) ? deliveryFacade.getAllDeliveries() :
-                            deliveryFacade.getAllDeliveriesOfUser(7);
+        idColumn.setCellValueFactory(new PropertyValueFactory<Delivery, Integer>("idDelivery"));
+        idRestaurantColumn.setCellValueFactory(new PropertyValueFactory<Delivery, Integer>("idRestaurant"));
+        stateColumn.setCellValueFactory(new PropertyValueFactory<Delivery, State>("state"));
+        idColumn2.setCellValueFactory(new PropertyValueFactory<Delivery, Integer>("idDelivery"));
+        idRestaurantColumn2.setCellValueFactory(new PropertyValueFactory<Delivery, Integer>("idRestaurant"));
+        stateColumn2.setCellValueFactory(new PropertyValueFactory<Delivery, State>("state"));
 
-            List<Delivery> old_deliveries = new ArrayList<>();
-            List<Delivery> new_deliveries = new ArrayList<>();
+        refreshPassedTable();
 
-            for(Delivery delivery : list_deliveries){
-                if(delivery.getState() == State.DELIVERED){
-                    old_deliveries.add(delivery);
-                }else{
-                    new_deliveries.add(delivery);
-                }
-            }
-
-            ObservableList<Delivery> old_deliveries_obs = FXCollections.observableArrayList(old_deliveries);
-            ObservableList<Delivery> new_deliveries_obs = FXCollections.observableArrayList(new_deliveries);
-
-            idColumn.setCellValueFactory(new PropertyValueFactory<Delivery, Integer>("idDelivery"));
-            idRestaurantColumn.setCellValueFactory(new PropertyValueFactory<Delivery, Integer>("idRestaurant"));
-            stateColumn.setCellValueFactory(new PropertyValueFactory<Delivery, State>("state"));
-            idColumn2.setCellValueFactory(new PropertyValueFactory<Delivery, Integer>("idDelivery"));
-            idRestaurantColumn2.setCellValueFactory(new PropertyValueFactory<Delivery, Integer>("idRestaurant"));
-            stateColumn2.setCellValueFactory(new PropertyValueFactory<Delivery, State>("state"));
-
-            deliveryNewsTable.setItems(new_deliveries_obs);
-            deliveryPassedTable.setItems(old_deliveries_obs);
-
-            addDeleteButton();
-            addDetailsButton();
-        }
-        catch (AccessDatabaseException e) {
-            Display.showAlert(Alert.AlertType.ERROR, null, "Error", "Error while loading deliveries");
-        }
+        addDeleteButton();
+        addDetailsButton();
     }
 
 
+    /**
+     * This method allows to refresh the tables
+     */
     public void refreshPassedTable(){
         DeliveryFacade deliveryFacade = DeliveryFacade.getInstance();
 
         try{
-            List<Delivery> list_deliveries =
-                    (isManager) ? deliveryFacade.getAllDeliveries() :
-                            deliveryFacade.getAllDeliveriesOfUser(7);
+            List<Delivery> list_deliveries = new ArrayList<>();
+            if(isManager){
+                RestaurantFacade restaurantFacade = RestaurantFacade.getInstance();
+                List<Restaurant> restaurants = restaurantFacade.getRestaurantsOfUser(idUser);
+                list_deliveries = deliveryFacade.getAllDeliveriesOfRestaurant(restaurants.get(0).getIdRestaurant());
+            }else{
+                list_deliveries = deliveryFacade.getAllDeliveriesOfUser(idUser);
+            }
 
             List<Delivery> old_deliveries = new ArrayList<>();
             List<Delivery> new_deliveries = new ArrayList<>();
@@ -131,8 +136,10 @@ public class DeliveryListController {
 
 
 
-
-    public void addDeleteButton(){
+    /**
+     * This method allows to add a button to delete a delivery
+     */
+    private void addDeleteButton(){
         TableColumn<Delivery, Void> colBtn = new TableColumn("Delete");
 
         Callback<TableColumn<Delivery, Void>, TableCell<Delivery, Void>> cellFactory = new Callback<TableColumn<Delivery, Void>, TableCell<Delivery, Void>>() {
@@ -182,7 +189,10 @@ public class DeliveryListController {
     }
 
 
-    public void addDetailsButton(){
+    /**
+     * This method allows to add a button to see the details of a delivery and open DeliveryInfoFrame
+     */
+    private void addDetailsButton(){
         TableColumn<Delivery, Void> colBtn = new TableColumn("Details");
 
         Callback<TableColumn<Delivery, Void>, TableCell<Delivery, Void>> cellFactory = new Callback<TableColumn<Delivery, Void>, TableCell<Delivery, Void>>() {
@@ -200,7 +210,7 @@ public class DeliveryListController {
                                 FXMLLoader loader = new FXMLLoader(DeliveryInfo.class.getResource("DeliveryInfoFrame.fxml"));
                                 Parent root = loader.load();
                                 DeliveryInfoController controller = loader.getController();
-                                controller.initialize(data);
+                                controller.initialize(data, isManager);
                                 Stage stage = new Stage();
                                 stage.setTitle("Delivery Info");
                                 stage.setScene(new Scene(root));

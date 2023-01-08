@@ -256,6 +256,13 @@ public class PostGresDeliveryDAO extends DeliveryDAO {
         }
     }
 
+
+    /**
+     * This method is used to get all the orders of a user
+     * @param idDelivery the id of the delivery
+     * @param state the new state of the delivery
+     * @return void
+     */
     @Override
     public void changeStateOfDelivery(int idDelivery, String state) throws AccessDatabaseException {
         Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
@@ -288,6 +295,51 @@ public class PostGresDeliveryDAO extends DeliveryDAO {
                 else{
                     connection.close();
                 }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                throw new AccessDatabaseException();
+            }
+        }
+    }
+
+
+    /**
+     * This method is used to get all the deliveries of a restaurant
+     * @param idRestaurant the id of the restaurant
+     * @return the list of the deliveries of the restaurant
+     * @throws AccessDatabaseException
+     */
+    @Override
+    public List<Delivery> getAllDeliveriesOfRestaurant(int idRestaurant) throws AccessDatabaseException {
+        Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
+
+        if(connection == null){
+            throw new AccessDatabaseException();
+        }
+        else{
+            try{
+                String query = "SELECT * FROM \"public\".\"Order\" LEFT JOIN \"public\".\"State_order\" WHERE \"idTypeOrder\" = 1 AND \"idRestaurant\" = ?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, idRestaurant);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                List<Delivery> deliveries = new ArrayList<>();
+                while(resultSet.next()){
+                    String state_string = resultSet.getString("description").toUpperCase().replace(" ", "_");
+                    State state = State.valueOf(state_string);
+                    Delivery delivery = new Delivery(
+                            resultSet.getInt("idOrder"),
+                            resultSet.getInt("idRestaurant"),
+                            resultSet.getInt("idUser"),
+                            resultSet.getDate("date"),
+                            state
+                    );
+                    deliveries.add(delivery);
+                }
+                resultSet.close();
+                preparedStatement.close();
+                connection.close();
+                return deliveries;
             }
             catch (Exception e){
                 e.printStackTrace();
