@@ -22,6 +22,7 @@ public class Reservation {
     private int idState;
 
 
+
     public Reservation(int idOrder, int idRestaurant, int idUser, Date date, State state) {
         this.idOrder = idOrder;
         this.idRestaurant = idRestaurant;
@@ -32,6 +33,7 @@ public class Reservation {
         this.state = state;
         this.idTypeOrder = 2;
     }
+
     public Reservation(int idOrder, int idRestaurant, int idUser, Date date, int idState) {
         this.idOrder = idOrder;
         this.idRestaurant = idRestaurant;
@@ -41,6 +43,17 @@ public class Reservation {
         this.meals = new HashMap<>();
         this.idState = idState;
         this.idTypeOrder = 2;
+    }
+    public Reservation(int idOrder, int idRestaurant, int idUser, Date date, int idState, State state) {
+        this.idOrder = idOrder;
+        this.idRestaurant = idRestaurant;
+        this.idUser = idUser;
+        this.date = date;
+        this.tables = new ArrayList<>();
+        this.meals = new HashMap<>();
+        this.idState = idState;
+        this.idTypeOrder = 2;
+        this.state = state;
     }
 
     public Reservation(int idRestaurant, int idUser, Date date) {
@@ -122,5 +135,20 @@ public class Reservation {
 
     public void setIdState(int idState) {
         this.idState = idState;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "idOrder=" + idOrder +
+                ", idTypeOrder=" + idTypeOrder +
+                ", idRestaurant=" + idRestaurant +
+                ", idUser=" + idUser +
+                ", date=" + date +
+                ", tables=" + tables +
+                ", meals=" + meals +
+                ", state=" + state +
+                ", idState=" + idState +
+                '}';
     }
 }

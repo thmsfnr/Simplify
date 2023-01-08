@@ -26,12 +26,16 @@ import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import static project.utilities.Display.infoBox;
 
 public class ReservationFormController implements Initializable {
     private int idRestaurantAttribut;
+
+    public static Reservation reservationSelected;
 
     public static Boolean isUpdate;
     @FXML
@@ -73,7 +77,24 @@ public class ReservationFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        if(isUpdate){
+            datePicker.setValue(reservationSelected.getDate().toLocalDate());
+            //initialize listView_reservations with meals and tables of the reservation
+            //gets tables
+            ReservationFacade reservationFacade = ReservationFacade.getInstance();
+            try {
+                ArrayList<Table> tables = (ArrayList<Table>) reservationFacade.getTablesOfReservation(reservationSelected.getIdOrder());
+                ArrayList<Meal> meals = (ArrayList<Meal>) reservationFacade.getMealsOfReservation(reservationSelected.getIdOrder());
+                for (Table table : tables) {
+                    listView_reservations.getItems().add(table);
+                }
+                for (Meal meal : meals) {
+                    listView_reservations.getItems().add(meal);
+                }
+            } catch (AccessDatabaseException e) {
+                throw new RuntimeException(e);
+            }
+        }
         RestaurantFacade restaurantFacade = RestaurantFacade.getInstance();
         ObservableList<Restaurant> restaurants;
 
@@ -209,11 +230,15 @@ public class ReservationFormController implements Initializable {
             Date date = Date.valueOf(dateReservation);
             //get value of list view
             ObservableList<Object> reservationsObject = listView_reservations.getItems();
-            Reservation reservation = null;
-            try {
-                reservation = new Reservation(idRestaurantAttribut, (Integer) LocalStorage.load("user_id"), date);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            Reservation reservation= null;
+            if(isUpdate){
+                reservation = reservationSelected;
+            }else{
+                try {
+                    reservation = new Reservation(idRestaurantAttribut, (Integer) LocalStorage.load("user_id"), date);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
             if (reservationsObject.size() > 0) {
                 for (Object object : reservationsObject) {
@@ -223,7 +248,7 @@ public class ReservationFormController implements Initializable {
                         if (reservation.getMeals().containsKey(meal.getIdMeal())) {
                             reservation.getMeals().put(meal.getIdMeal(), reservation.getMeals().get(meal.getIdMeal()) + 1);
                         } else {
-                            reservation.addMeal(meal.getIdMeal(), 1);
+                            reservation.getMeals().put(meal.getIdMeal(), 1);
                         }
                     } else if (object instanceof Table) {
                         Table table = (Table) object;
@@ -237,14 +262,26 @@ public class ReservationFormController implements Initializable {
             }
             ReservationFacade reservationFacade = ReservationFacade.getInstance();
             try {
-                if(reservationFacade.createReservation(reservation)){
-                    infoBox("Order created successfully", null, "Success");
-                    NotificationFacade notificationFacade = NotificationFacade.getInstance();
-                    Notification notification = null;
-                    notification = new Notification(reservation.getIdUser(), "A new reservation is created", "Your reservation at " + reservation.getIdRestaurant() + " has been created");
-                    notificationFacade.createNotification(notification);
+                if(isUpdate){
+                    if(reservationFacade.updateReservation(reservation)){
+                        infoBox("Order updated successfully", null, "Success");
+                        NotificationFacade notificationFacade = NotificationFacade.getInstance();
+                        Notification notification = null;
+                        notification = new Notification(reservation.getIdUser(), "Your reservation n°" + reservation.getIdOrder()+" is updated", "Your reservation at " + reservation.getIdRestaurant() + " has been updated");
+                        notificationFacade.createNotification(notification);
+                    }else {
+                        infoBox("Order not updated", null, "Failed");
+                    }
                 }else{
-                    infoBox("Order not created", null, "Failed");
+                    if(reservationFacade.createReservation(reservation)){
+                        infoBox("Order created successfully", null, "Success");
+                        NotificationFacade notificationFacade = NotificationFacade.getInstance();
+                        Notification notification = null;
+                        notification = new Notification(reservation.getIdUser(), "A new reservation is created", "Your reservation at " + reservation.getIdRestaurant() + " has been created");
+                        notificationFacade.createNotification(notification);
+                    }else{
+                        infoBox("Order not created", null, "Failed");
+                    }
                 }
             } catch (AccessDatabaseException e) {
                 throw new RuntimeException(e);

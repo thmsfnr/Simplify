@@ -264,6 +264,7 @@ public class ReservationController implements Initializable {
         Window listeReservationWindow = button_create.getScene().getWindow();
 
         ReservationFormFrame formCreate = new ReservationFormFrame();
+        ReservationFormController.isUpdate = false;
         formCreate.start(new Stage());
 
         // close the actual frame

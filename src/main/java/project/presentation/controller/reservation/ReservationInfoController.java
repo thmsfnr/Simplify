@@ -142,6 +142,7 @@ public class ReservationInfoController implements Initializable {
 
         ReservationFormFrame reservationFormFrame = new ReservationFormFrame();
         ReservationFormController.isUpdate = true;
+        ReservationFormController.reservationSelected = reservationSelected;
         reservationFormFrame.start(new Stage());
 
         // close the actual frame
