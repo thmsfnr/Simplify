@@ -1,12 +1,17 @@
 package project.presentation.controller.cart;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+import project.presentation.controller.user.PersonalAccountController;
 import project.presentation.frame.cart.CartFrame;
+import project.presentation.frame.menu.Menu;
 
 import java.io.IOException;
 
@@ -17,7 +22,10 @@ import java.io.IOException;
  */
 public class CartController implements Initializable {
 
+
     // Instance variables
+    private static int idUser;
+
     @FXML
     private Button cartBtn;
 
@@ -33,7 +41,19 @@ public class CartController implements Initializable {
     @FXML
     private Button deliveryCartBtn;
 
+    @FXML
+    private Button back;
+
     private Boolean isVisible = false;
+
+    /**
+     * This method is used to pass the user id to the controller
+     * @param idUser the id of the user
+     */
+    public static void setIdUser(int idUser) {
+        CartController.idUser = idUser;
+    }
+
 
     /**
      * This method is used to initialize the cart frame
@@ -91,4 +111,16 @@ public class CartController implements Initializable {
             isVisible = true;
         }
     }
+
+    /**
+     * This method is used to manage the event of the back button
+     * @param event the event of the back button
+     */
+    public void backToMenu(ActionEvent event) throws Exception {
+        Window owner = back.getScene().getWindow();
+        Menu menu = new Menu();
+        menu.start(new Stage());
+        owner.hide();
+    }
+
 }

@@ -235,4 +235,10 @@ public class User {
      */
     public String toString() { return id + " - " + email + " - " + name + " " + firstname; }
 
+    /**
+     * This method is used to get the string of the user
+     * @return the string of the user
+     */
+    public String userStorage() { return id + "," + role;}
+
 }

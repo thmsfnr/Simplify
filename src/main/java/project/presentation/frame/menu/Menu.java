@@ -1,5 +1,5 @@
 
-package project.presentation.frame;
+package project.presentation.frame.menu;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

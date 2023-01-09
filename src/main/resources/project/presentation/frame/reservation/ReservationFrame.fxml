@@ -18,7 +18,7 @@
                   <Font name="Arial" size="28.0" />
                </font>
             </Text>
-            <Button fx:id="button_back" layoutX="38.0" layoutY="21.0" lineSpacing="3.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: grey; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Back" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+            <Button fx:id="back" onAction="#backToMenu" layoutX="38.0" layoutY="21.0" lineSpacing="3.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: grey; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Back" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>

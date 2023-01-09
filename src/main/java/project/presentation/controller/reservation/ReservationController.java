@@ -16,11 +16,14 @@ import project.business.facade.NotificationFacade;
 import project.business.facade.ReservationFacade;
 import project.business.models.*;
 import project.exceptions.AccessDatabaseException;
+import project.business.models.Notification;
+import project.business.models.Reservation;
+import project.presentation.controller.user.PersonalAccountController;
+import project.presentation.frame.menu.Menu;
 import project.presentation.frame.reservation.ReservationFormFrame;
 import project.presentation.frame.reservation.ReservationInfoFrame;
 import project.utilities.Display;
 import project.utilities.LocalStorage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -30,6 +33,8 @@ import java.util.ResourceBundle;
 
 
 public class ReservationController implements Initializable {
+
+    private static int idUser;
     @FXML
     private TableView<Reservation> tabReservation_in_progress;
     @FXML
@@ -57,9 +62,16 @@ public class ReservationController implements Initializable {
     @FXML
     private TableColumn<Reservation, Date> date_cancelled;
 
+    private TableColumn<Reservation, Integer> idRestaurantT;
+    @FXML
+    private TableColumn<Reservation, Date> date;
+    @FXML
+    private TableColumn<Reservation, Integer> state;
 
     @FXML
     private Button button_create;
+    @FXML
+    private Button back;
 
     public static Boolean isManager = true;
 
@@ -67,19 +79,25 @@ public class ReservationController implements Initializable {
 
     public static int idRestaurant = 1;
 
+    /**
+     * This method is used to pass the user id to the controller
+     * @param idUser the id of the user
+     */
+    public static void setIdUser(int idUser) {
+        ReservationController.idUser = idUser;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ReservationFacade reservationFacade = ReservationFacade.getInstance();
         ObservableList<Reservation> reservations;
-        try {
-            if(isManager || isAdmin){
-                reservations = FXCollections.observableArrayList(reservationFacade.getAllReservations(idRestaurant));
-            }else{
-                reservations = FXCollections.observableList(reservationFacade.getAllReservationsOfUser((Integer) LocalStorage.load("user_id")));
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
+        if(isManager || isAdmin){
+            reservations = FXCollections.observableArrayList(reservationFacade.getAllReservations(idRestaurant));
+        }else{
+            reservations = FXCollections.observableList(reservationFacade.getAllReservationsOfUser(idUser));
         }
+
         setTables(reservations);
         addDeleteButtonToTable();
         // add a listener to the tabReservation_in_progress to get the selected reservation
@@ -239,12 +257,10 @@ public class ReservationController implements Initializable {
             }
             Display.infoBox("Reservation canceled successfully!", null, "Success");
             NotificationFacade notificationFacade = NotificationFacade.getInstance();
-            try {
-                Notification notification = new Notification((Integer) LocalStorage.load("user_id"), "Reservation canceled", "Your reservation at " + reservation.getIdRestaurant() + " has been canceled");
-                notificationFacade.createNotification(notification);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+
+            Notification notification = new Notification(idUser, "Reservation canceled", "Your reservation at " + reservation.getIdRestaurant() + " has been canceled");
+            notificationFacade.createNotification(notification);
+
         } else {
             Display.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
                     "Please enter your name");
@@ -258,11 +274,7 @@ public class ReservationController implements Initializable {
         // Call the facade to get
         ReservationFacade reservationFacade = ReservationFacade.getInstance();
         ObservableList<Reservation> reservations = null;
-        try {
-            reservations = FXCollections.observableList(reservationFacade.getAllReservationsOfUser((Integer) LocalStorage.load("user_id")));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        reservations = FXCollections.observableList(reservationFacade.getAllReservationsOfUser(idUser));
         // Set the table
         setTables(reservations);
     }
@@ -279,7 +291,6 @@ public class ReservationController implements Initializable {
         listeReservationWindow.hide();
     }
 
-
     @FXML
     public void switchToInfoFrame(Reservation reservation) throws Exception {
         // Get the window of the create button
@@ -291,5 +302,16 @@ public class ReservationController implements Initializable {
 
         // close the actual frame
         listeReservationWindow.hide();
+    }
+
+    /**
+     * This method is used to manage the event of the back button
+     * @param event the event of the back button
+     */
+    public void backToMenu(ActionEvent event) throws Exception {
+        Window owner = back.getScene().getWindow();
+        project.presentation.frame.menu.Menu menu = new Menu();
+        menu.start(new Stage());
+        owner.hide();
     }
 }

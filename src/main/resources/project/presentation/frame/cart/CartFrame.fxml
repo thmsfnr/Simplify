@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.cart.CartController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.cart.CartController">
 <top>
     <AnchorPane prefHeight="48.0" prefWidth="810.0" style="-fx-background-color: #D9DDDC;" BorderPane.alignment="CENTER">
         <children>
@@ -22,7 +22,7 @@
                     <Image url="@../Simplify.png" />
                 </image>
             </ImageView>
-            <Button fx:id="cartBtn" onAction="#showCartContent" layoutX="651.0" layoutY="4.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="54.0" style="-fx-background-color: transparent;">
+            <Button fx:id="cartBtn" layoutX="651.0" layoutY="4.0" mnemonicParsing="false" onAction="#showCartContent" prefHeight="43.0" prefWidth="54.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="39.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -31,6 +31,7 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Button fx:id="back" onAction="#backToMenu" layoutX="91.0" layoutY="16.0" mnemonicParsing="false" text="Back" />
         </children>
     </AnchorPane>
 </top>

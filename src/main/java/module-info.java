@@ -11,11 +11,6 @@ module project.presentation {
     requires spring.security.crypto;
     requires java.sql;
 
-    exports project.presentation.controller;
-    opens project.presentation.controller to javafx.fxml;
-    exports project.presentation.frame;
-    opens project.presentation.frame to javafx.fxml;
-
     opens project.business.models to javafx.base;
     exports project.presentation.controller.table;
     opens project.presentation.controller.table to javafx.fxml;
@@ -65,4 +60,13 @@ module project.presentation {
     opens project.presentation.frame.restaurant to javafx.fxml;
     exports project.presentation.frame.table;
     opens project.presentation.frame.table to javafx.fxml;
+    exports project.presentation.frame.menu;
+    opens project.presentation.frame.menu to javafx.fxml;
+    exports project.presentation.controller.menu;
+    opens project.presentation.controller.menu to javafx.fxml;
+    exports project.utilities;
+    opens project.utilities to javafx.fxml;
+
+    exports project;
+    opens project to javafx.fxml;
 }

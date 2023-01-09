@@ -47,5 +47,10 @@
             </Button>
          </children>
       </AnchorPane>
+      <Button fx:id="back" layoutX="19.0" layoutY="38.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Back" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
