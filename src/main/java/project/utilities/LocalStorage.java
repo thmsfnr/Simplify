@@ -62,6 +62,16 @@ public class LocalStorage {
             bw.write(key+"="+isUpdate);
             // close the file
             bw.close();
+        } else if(key.equals("cartStorage")){
+            file = new File(key+"LS.txt");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            String cartStorage = (String) value;
+            bw.write(cartStorage);
+            bw.close();
         }
     }
     /**
@@ -95,6 +105,9 @@ public class LocalStorage {
             }
             else if (line.contains("isUpdate")){
                return Boolean.parseBoolean(line.substring(9));
+            }
+            else if(line.contains("cart_meal")){
+                return line;
             }
         }
         else {
