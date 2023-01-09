@@ -1,19 +1,41 @@
 package project.presentation.controller.cart;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBase;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Pair;
+import project.business.facade.EventFacade;
+import project.business.facade.MealFacade;
+import project.business.models.Event;
+import project.business.models.Meal;
+import project.presentation.controller.event.EventDescriptionController;
 import project.presentation.controller.user.PersonalAccountController;
 import project.presentation.frame.cart.CartFrame;
+import project.presentation.frame.event.EventUserFrame;
 import project.presentation.frame.menu.Menu;
+import project.utilities.LocalStorage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * Created by Simplify members on 02/01/22.
@@ -24,19 +46,34 @@ public class CartController implements Initializable {
 
 
     // Instance variables
-    private static int idUser;
 
-    @FXML
-    private Button cartBtn;
 
     @FXML
     private AnchorPane contentArea;
+
 
     @FXML
     private ScrollPane cartContentArea;
 
     @FXML
-    private Button reservationCartBtn;
+    private AnchorPane MealCartPane;
+
+    @FXML
+    private Label mealTitle;
+
+    @FXML
+    private Label qteMeal;
+
+    @FXML
+    private Button orderBtn;
+
+    @FXML
+    private Button clearCartBtn;
+
+    private static int idUser;
+
+    @FXML
+    private Button cartBtn;
 
     @FXML
     private Button deliveryCartBtn;
@@ -60,43 +97,111 @@ public class CartController implements Initializable {
      * it will load the reservation cart first and it can be changed to the delivery cart
      */
     @Override
-    public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources) {
         // switch to ReservationCartFrame
         this.isVisible = true;
+
         try {
-            AnchorPane pane = FXMLLoader.load(CartFrame.class.getResource("CartReservationComponent.fxml"));
-            cartContentArea.setContent(pane);
+            String cart = (String) LocalStorage.load("cartStorage");
+            //Create a Map data structure to store the cart_meal and qte values
+            Map<Meal, Integer> cartMap = new HashMap<>();
+
+            //Split the string on the spaces
+            String[] cartItems = cart.split("\\s+");
+
+            VBox node = new VBox();
+            for (String cartItem : cartItems) {
+                //Split the string on the comma
+                String[] cartItemDetails = cartItem.split(",");
+                //Get the meal id
+                int mealId = Integer.parseInt(cartItemDetails[0].split("=")[1]);
+                //Get the meal quantity
+                int mealQte = Integer.parseInt(cartItemDetails[1].split("=")[1]);
+                //Get the meal object
+                MealFacade  mealFacade = MealFacade.getInstance();
+                Meal meal = mealFacade.getById(mealId);
+                //Add the meal and quantity to the map
+                cartMap.put(meal, mealQte);
+                Label title = new Label();
+                title.setText(meal.getTitle());
+
+                Label qte = new Label();
+                qte.setText(String.valueOf(mealQte));
+                HBox cartMeal = new HBox();
+                cartMeal.setPadding(new Insets(10, 10, 10, 10));
+
+                Image image = new Image("file:src/main/resources/project/presentation/frame/plus1.png");
+                ImageView imageview = new ImageView(image);
+                imageview.setFitHeight(30);
+                imageview.setPreserveRatio(true);
+
+                Image image2 = new Image("file:src/main/resources/project/presentation/frame/minus.png");
+                ImageView imageview2 = new ImageView(image2);
+                imageview2.setFitHeight(30);
+                imageview2.setPreserveRatio(true);
+
+                Button plusBtn = new Button();
+                Button minusBtn = new Button();
+                plusBtn.setPrefSize(30, 30);
+                minusBtn.setPrefSize(30, 30);
+
+                //Setting a graphic to the button
+                plusBtn.setGraphic(imageview);
+                minusBtn.setGraphic(imageview2);
+
+                plusBtn.setStyle("-fx-background-color: transparent; -fx-cursor: hand; -fx-alignment: center; -fx-padding: 10px; ");
+                minusBtn.setStyle("-fx-background-color: transparent; -fx-cursor: hand; -fx-alignment: center;-fx-padding: 10px; ");
+                plusBtn.setId("plusBtn");
+                minusBtn.setId("minusBtn");
+                plusBtn.setOnAction((ActionEvent event) -> {
+                    int qteValue = Integer.parseInt(qte.getText());
+                    qteValue++;
+                    qte.setText(String.valueOf(qteValue));
+                    cartMap.put(meal, qteValue);
+                    String newCart = "";
+                    for(Map.Entry<Meal, Integer> entry : cartMap.entrySet()) {
+                        newCart += "cart_meal=" + entry.getKey().getIdMeal() + ",qte=" + entry.getValue() + " ";
+                    }
+                    try {
+                        LocalStorage.write("cartStorage", newCart);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+                minusBtn.setOnAction((ActionEvent event) -> {
+                    int qteValue = Integer.parseInt(qte.getText());
+                    if (qteValue > 1) {
+                        qteValue--;
+                        qte.setText(String.valueOf(qteValue));
+                        cartMap.put(meal, qteValue);
+                        String newCart = "";
+                        for(Map.Entry<Meal, Integer> entry : cartMap.entrySet()) {
+                            newCart += "cart_meal=" + entry.getKey().getIdMeal() + ",qte=" + entry.getValue() + " ";
+                        }
+                        try {
+                            LocalStorage.write("cartStorage", newCart);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
+
+                // set the title style
+                title.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #000000; -fx-alignment: center; -fx-padding: 10px;");
+                // set the qte style
+                qte.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #000000; -fx-alignment: center; -fx-padding: 10px;");
+
+                cartMeal.getChildren().setAll(title,qte,plusBtn,minusBtn);
+                node.getChildren().add(cartMeal);
+                node.setPadding(new Insets(10));
+            }
+            cartContentArea.setContent(node);
+            // Activate the scroll bar
+            cartContentArea.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
-
-    /**
-     * This method is used to switch to the DeliveryCartFrame
-     */
-    @FXML
-    public void switchToDeliveryCartFrame() {
-        try {
-            AnchorPane pane = FXMLLoader.load(CartFrame.class.getResource("CartDeliveryComponent.fxml"));
-            cartContentArea.setContent(pane);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * This method is used to switch to the ReservationCartFrame
-     */
-    @FXML
-    public void switchToReservationCartFrame() {
-        try {
-            AnchorPane pane = FXMLLoader.load(CartFrame.class.getResource("CartReservationComponent.fxml"));
-            cartContentArea.setContent(pane);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * This method is used to show the cart frame
      * On click on the Cart button
@@ -121,6 +226,21 @@ public class CartController implements Initializable {
         Menu menu = new Menu();
         menu.start(new Stage());
         owner.hide();
+    }
+
+    public void order(){
+
+    }
+
+    public void clearCart(ActionEvent event){
+        // clear the scroll pane cart content pane
+        cartContentArea.setContent(null);
+        // clear the local storage
+        try {
+            LocalStorage.write("cartStorage", "");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
