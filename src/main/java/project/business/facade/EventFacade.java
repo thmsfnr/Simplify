@@ -79,8 +79,4 @@ public class EventFacade {
         static final EventFacade INSTANCE = new EventFacade();
     }
 
-
-
-
-
 }
