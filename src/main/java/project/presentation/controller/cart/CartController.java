@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Pair;
+import project.business.facade.CartFacade;
 import project.business.facade.EventFacade;
 import project.business.facade.MealFacade;
 import project.business.models.Event;
@@ -102,31 +103,19 @@ public class CartController implements Initializable {
         this.isVisible = true;
 
         try {
-            String cart = (String) LocalStorage.load("cartStorage");
-            //Create a Map data structure to store the cart_meal and qte values
+            CartFacade cartFacade = CartFacade.getInstance();
             Map<Meal, Integer> cartMap = new HashMap<>();
-
-            //Split the string on the spaces
-            String[] cartItems = cart.split("\\s+");
+            cartMap = (Map<Meal, Integer>) cartFacade.load();
 
             VBox node = new VBox();
-            for (String cartItem : cartItems) {
-                //Split the string on the comma
-                String[] cartItemDetails = cartItem.split(",");
-                //Get the meal id
-                int mealId = Integer.parseInt(cartItemDetails[0].split("=")[1]);
-                //Get the meal quantity
-                int mealQte = Integer.parseInt(cartItemDetails[1].split("=")[1]);
-                //Get the meal object
-                MealFacade  mealFacade = MealFacade.getInstance();
-                Meal meal = mealFacade.getById(mealId);
-                //Add the meal and quantity to the map
-                cartMap.put(meal, mealQte);
+            for (Map.Entry<Meal, Integer> entry : cartMap.entrySet()) {
+
                 Label title = new Label();
-                title.setText(meal.getTitle());
+                title.setText(entry.getKey().getTitle());
 
                 Label qte = new Label();
-                qte.setText(String.valueOf(mealQte));
+                qte.setText(String.valueOf(entry.getValue()));
+
                 HBox cartMeal = new HBox();
                 cartMeal.setPadding(new Insets(10, 10, 10, 10));
 
@@ -153,33 +142,37 @@ public class CartController implements Initializable {
                 minusBtn.setStyle("-fx-background-color: transparent; -fx-cursor: hand; -fx-alignment: center;-fx-padding: 10px; ");
                 plusBtn.setId("plusBtn");
                 minusBtn.setId("minusBtn");
+
+                Map<Meal, Integer> finalCartMap = cartMap;
                 plusBtn.setOnAction((ActionEvent event) -> {
                     int qteValue = Integer.parseInt(qte.getText());
                     qteValue++;
                     qte.setText(String.valueOf(qteValue));
-                    cartMap.put(meal, qteValue);
+                    finalCartMap.put(entry.getKey(), qteValue);
                     String newCart = "";
-                    for(Map.Entry<Meal, Integer> entry : cartMap.entrySet()) {
-                        newCart += "cart_meal=" + entry.getKey().getIdMeal() + ",qte=" + entry.getValue() + " ";
+                    for(Map.Entry<Meal, Integer> entry2 : finalCartMap.entrySet()) {
+                        newCart += "cart_meal=" + entry2.getKey().getIdMeal() + ",qte=" + entry2.getValue() + " ";
                     }
                     try {
-                        LocalStorage.write("cartStorage", newCart);
+                        cartFacade.update(newCart);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 });
+
+                Map<Meal, Integer> finalCartMap1 = cartMap;
                 minusBtn.setOnAction((ActionEvent event) -> {
                     int qteValue = Integer.parseInt(qte.getText());
                     if (qteValue > 1) {
                         qteValue--;
                         qte.setText(String.valueOf(qteValue));
-                        cartMap.put(meal, qteValue);
+                        finalCartMap1.put(entry.getKey(), qteValue);
                         String newCart = "";
-                        for(Map.Entry<Meal, Integer> entry : cartMap.entrySet()) {
-                            newCart += "cart_meal=" + entry.getKey().getIdMeal() + ",qte=" + entry.getValue() + " ";
+                        for(Map.Entry<Meal, Integer> entry3 : finalCartMap1.entrySet()) {
+                            newCart += "cart_meal=" + entry3.getKey().getIdMeal() + ",qte=" + entry3.getValue() + " ";
                         }
                         try {
-                            LocalStorage.write("cartStorage", newCart);
+                            cartFacade.update(newCart);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
