@@ -8,8 +8,11 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -98,10 +101,8 @@ public class CartController implements Initializable {
         // switch to ReservationCartFrame
         this.isVisible = true;
 
-
         try {
             String cart = (String) LocalStorage.load("cartStorage");
-
             //Create a Map data structure to store the cart_meal and qte values
             Map<Meal, Integer> cartMap = new HashMap<>();
 
@@ -126,10 +127,72 @@ public class CartController implements Initializable {
 
                 Label qte = new Label();
                 qte.setText(String.valueOf(mealQte));
-                HBox a = new HBox();
-                a.setPadding(new Insets(10, 10, 10, 10));
-                a.getChildren().setAll(title,qte);
-                node.getChildren().add(a);
+                HBox cartMeal = new HBox();
+                cartMeal.setPadding(new Insets(10, 10, 10, 10));
+
+                Image image = new Image("file:src/main/resources/project/presentation/frame/plus1.png");
+                ImageView imageview = new ImageView(image);
+                imageview.setFitHeight(30);
+                imageview.setPreserveRatio(true);
+
+                Image image2 = new Image("file:src/main/resources/project/presentation/frame/minus.png");
+                ImageView imageview2 = new ImageView(image2);
+                imageview2.setFitHeight(30);
+                imageview2.setPreserveRatio(true);
+
+                Button plusBtn = new Button();
+                Button minusBtn = new Button();
+                plusBtn.setPrefSize(30, 30);
+                minusBtn.setPrefSize(30, 30);
+
+                //Setting a graphic to the button
+                plusBtn.setGraphic(imageview);
+                minusBtn.setGraphic(imageview2);
+
+                plusBtn.setStyle("-fx-background-color: transparent; -fx-cursor: hand; -fx-alignment: center; -fx-padding: 10px; ");
+                minusBtn.setStyle("-fx-background-color: transparent; -fx-cursor: hand; -fx-alignment: center;-fx-padding: 10px; ");
+                plusBtn.setId("plusBtn");
+                minusBtn.setId("minusBtn");
+                plusBtn.setOnAction((ActionEvent event) -> {
+                    int qteValue = Integer.parseInt(qte.getText());
+                    qteValue++;
+                    qte.setText(String.valueOf(qteValue));
+                    cartMap.put(meal, qteValue);
+                    String newCart = "";
+                    for(Map.Entry<Meal, Integer> entry : cartMap.entrySet()) {
+                        newCart += "cart_meal=" + entry.getKey().getIdMeal() + ",qte=" + entry.getValue() + " ";
+                    }
+                    try {
+                        LocalStorage.write("cartStorage", newCart);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+                minusBtn.setOnAction((ActionEvent event) -> {
+                    int qteValue = Integer.parseInt(qte.getText());
+                    if (qteValue > 1) {
+                        qteValue--;
+                        qte.setText(String.valueOf(qteValue));
+                        cartMap.put(meal, qteValue);
+                        String newCart = "";
+                        for(Map.Entry<Meal, Integer> entry : cartMap.entrySet()) {
+                            newCart += "cart_meal=" + entry.getKey().getIdMeal() + ",qte=" + entry.getValue() + " ";
+                        }
+                        try {
+                            LocalStorage.write("cartStorage", newCart);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
+
+                // set the title style
+                title.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #000000; -fx-alignment: center; -fx-padding: 10px;");
+                // set the qte style
+                qte.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #000000; -fx-alignment: center; -fx-padding: 10px;");
+
+                cartMeal.getChildren().setAll(title,qte,plusBtn,minusBtn);
+                node.getChildren().add(cartMeal);
                 node.setPadding(new Insets(10));
             }
             cartContentArea.setContent(node);
@@ -139,7 +202,6 @@ public class CartController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-
     /**
      * This method is used to show the cart frame
      * On click on the Cart button
