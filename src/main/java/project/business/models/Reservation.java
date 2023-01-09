@@ -1,6 +1,8 @@
 package project.business.models;
 
 
+import javafx.scene.control.Tab;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,8 +18,21 @@ public class Reservation {
     private Date date;
     private List<Integer> tables;
     private Map<Integer,Integer> meals;
+    private State state;
     private int idState;
 
+
+
+    public Reservation(int idOrder, int idRestaurant, int idUser, Date date, State state) {
+        this.idOrder = idOrder;
+        this.idRestaurant = idRestaurant;
+        this.idUser = idUser;
+        this.date = date;
+        this.tables = new ArrayList<>();
+        this.meals = new HashMap<>();
+        this.state = state;
+        this.idTypeOrder = 2;
+    }
 
     public Reservation(int idOrder, int idRestaurant, int idUser, Date date, int idState) {
         this.idOrder = idOrder;
@@ -29,6 +44,29 @@ public class Reservation {
         this.idState = idState;
         this.idTypeOrder = 2;
     }
+    public Reservation(int idOrder, int idRestaurant, int idUser, Date date, int idState, State state) {
+        this.idOrder = idOrder;
+        this.idRestaurant = idRestaurant;
+        this.idUser = idUser;
+        this.date = date;
+        this.tables = new ArrayList<>();
+        this.meals = new HashMap<>();
+        this.idState = idState;
+        this.idTypeOrder = 2;
+        this.state = state;
+    }
+
+    public Reservation(int idRestaurant, int idUser, Date date) {
+        this.idRestaurant = idRestaurant;
+        this.idUser = idUser;
+        this.date = date;
+        this.tables = new ArrayList<>();
+        this.meals = new HashMap<>();
+        this.idState = 1; // 1 = waiting for validation
+        this.idTypeOrder = 2;
+    }
+
+
 
     public int getIdOrder() {
         return idOrder;
@@ -79,8 +117,20 @@ public class Reservation {
         this.date = date;
     }
 
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
     public int getIdState() {
         return idState;
+    }
+
+    public void setIdRestaurant(int idRestaurant) {
+        this.idRestaurant = idRestaurant;
     }
 
     public void setIdState(int idState) {
@@ -97,6 +147,7 @@ public class Reservation {
                 ", date=" + date +
                 ", tables=" + tables +
                 ", meals=" + meals +
+                ", state=" + state +
                 ", idState=" + idState +
                 '}';
     }

@@ -21,7 +21,7 @@ import project.utilities.Display;
 import javafx.util.Callback;
 import project.exceptions.AccessDatabaseException;
 import project.exceptions.RestaurantNotFoundException;
-import project.presentation.frame.reservation.RestaurantForm;
+import project.presentation.frame.restaurant.RestaurantForm;
 import project.presentation.frame.restaurant.RestaurantInfos;
 
 import java.io.IOException;

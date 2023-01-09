@@ -11,10 +11,12 @@ import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.business.facade.PlacementFacade;
+import project.business.models.Meal;
 import project.business.models.Restaurant;
 import project.business.models.Table;
 import project.exceptions.AccessDatabaseException;
 import project.exceptions.RestaurantNotFoundException;
+import project.presentation.controller.reservation.ReservationFormController;
 import project.utilities.Display;
 import project.utilities.LocalStorage;
 import java.io.IOException;
@@ -23,6 +25,12 @@ import java.util.List;
 import java.util.Objects;
 
 public class PlacementController {
+
+    public static Boolean isReservation;
+
+    public static int idRestaurant;
+
+    private ReservationFormController reservationFormController;
 
     private HashMap<Position, Integer> positions = new HashMap<>();
 
@@ -56,14 +64,31 @@ public class PlacementController {
     @FXML
     private GridPane gridPane;
 
+    @FXML
+    private Label label_position;
+
+    @FXML
+    private Label label_xSpinner;
+
+    @FXML
+    private Label label_ySpinner;
+
+    @FXML
+    private AnchorPane anchorPlacement;
+
+    @FXML
+    private Button button_reserve_table;
 
 
     @FXML
     private void initialize(){
         try{
+            //if the frame is opened from the reservation frame
+            if(isReservation){
+                configurationForReservation();
+            }
             //Recuperation of the restaurant
             PlacementFacade placementFacade = PlacementFacade.getInstance();
-            int idRestaurant = (int) LocalStorage.load("restaurant_id");
             Restaurant restaurant = placementFacade.getRestaurantById(idRestaurant);
 
             //Creation of the grid
@@ -118,9 +143,10 @@ public class PlacementController {
         catch(RestaurantNotFoundException e){
             Display.showAlert(Alert.AlertType.ERROR, null, "Error", "Restaurant not found");
         }
-        catch(IOException e){
-            Display.showAlert(Alert.AlertType.ERROR, null, "Error", "Error during the loading, retry later please");
-        }
+        // add a listener to the buttuon reserve_table in placementController to get the table selected
+        getButton_reserve_table().setOnAction(actionEvent -> {
+           selection_table();
+        });
     }
 
 
@@ -231,7 +257,42 @@ public class PlacementController {
     }
 
 
+    public void configurationForReservation(){
+        leftPane.setMaxWidth(885);
+        leftPane.setMaxHeight(352);
+        rightPane.setMaxHeight(352);
+        rightPane.setMaxWidth(885);
+        anchorPlacement.setMinWidth(885);
+        anchorPlacement.setMinHeight(352);
+        label_position.setVisible(false);
+        label_xSpinner.setVisible(false);
+        label_ySpinner.setVisible(false);
+        xSpinner.setVisible(false);
+        xSpinner.setDisable(true);
+        ySpinner.setDisable(true);
+        ySpinner.setVisible(false);
+        updateButton.setDisable(true);
+        removeButton.setDisable(true);
+        removeButton.setVisible(false);
+        updateButton.setVisible(false);
+        switchButton.setDisable(true);
+        switchButton.setVisible(false);
+    }
 
+    public Button getButton_reserve_table() {
+        return button_reserve_table;
+    }
+    public ListView<Table> getListView() {
+        return listView;
+    }
+    private void selection_table() {
+        Table tableSelected = listView.getSelectionModel().getSelectedItem();
+        //send tableSelected to the ReservationFormController
+        reservationFormController.selection_table(tableSelected);
+    }
+    public void setReservationFormController(ReservationFormController reservationFormController) {
+        this.reservationFormController = reservationFormController;
+    }
 
 
     private class Position {

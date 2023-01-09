@@ -17,9 +17,21 @@ public class Table {
     private int x;
     private int y;
 
+    private int idRestaurant;
+
     // Constructor
     public Table(Integer idTable, String name, String description, Boolean booked, int x, int y) {
         this.idTable = idTable;
+        this.name = name;
+        this.description = description;
+        this.booked = booked;
+        this.x = x;
+        this.y = y;
+    }
+
+    public Table(int idTable,int idRestaurant, String name, String description, Boolean booked, int x, int y) {
+        this.idTable = idTable;
+        this.idRestaurant = idRestaurant;
         this.name = name;
         this.description = description;
         this.booked = booked;
@@ -85,4 +97,9 @@ public class Table {
                 ", booked=" + booked +
                 '}';
     }
+
+    public int getIdRestaurant() {
+        return idRestaurant;
+    }
+
 }
