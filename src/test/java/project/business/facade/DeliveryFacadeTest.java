@@ -17,7 +17,7 @@ public class DeliveryFacadeTest {
         DeliveryFacade deliveryFacade = DeliveryFacade.getInstance();
         try {
             Delivery delivery = new Delivery(0, 1, 1, new Date(2023,11,12), State.ON_DELIVERY);
-            deliveryFacade.createDelivery(delivery);
+            deliveryFacade.createDelivery(delivery, null);
             List<Delivery> deliveries = deliveryFacade.getAllDeliveriesOfUser(1);
             int last_index = deliveries.size() - 1;
             Delivery last_delivery = deliveries.get(last_index);
@@ -38,7 +38,7 @@ public class DeliveryFacadeTest {
 
         try{
             Delivery delivery = new Delivery(0, 1, 1, null, State.IN_PREPARATION);
-            deliveryFacade.createDelivery(delivery);
+            deliveryFacade.createDelivery(delivery, null);
             List<Delivery> deliveries = deliveryFacade.getAllDeliveries();
             int last_index = deliveries.size() - 1;
             Delivery last_delivery = deliveries.get(last_index);
@@ -81,7 +81,7 @@ public class DeliveryFacadeTest {
 
         try {
             Delivery delivery = new Delivery(0, 1, 3, null, State.WAITING_FOR_VALIDATION);
-            deliveryFacade.createDelivery(delivery);
+            deliveryFacade.createDelivery(delivery, null);
             List<Delivery> deliveries = deliveryFacade.getAllDeliveries();
             int last_index = deliveries.size() - 1;
             Delivery last_delivery = deliveries.get(last_index);

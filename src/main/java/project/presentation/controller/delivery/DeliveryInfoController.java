@@ -11,42 +11,36 @@ import project.business.models.Meal;
 import project.business.models.State;
 import project.exceptions.AccessDatabaseException;
 import project.presentation.frame.delivery.DeliveryList;
+import project.presentation.frame.menu.Menu;
 import project.utilities.Display;
 
 import java.util.List;
 
 public class DeliveryInfoController {
     private Delivery delivery;
-    private boolean isManager = false;
-
+    private int idRole;
     @FXML
     private Label idDeliveryLabel;
     @FXML
     private Label dateLabel;
-
     @FXML
     private Label idRestaurantLabel;
-
     @FXML
     private Label idUserLabel;
-
     @FXML
     private ChoiceBox<State> stateChoiceBox;
-
     @FXML
     private Button changeStateButton;
-
     @FXML
     private ListView<Meal> mealsList;
-
     @FXML
     private Button backButton;
 
 
     @FXML
-    public void initialize(Delivery delivery, boolean isManager) {
+    public void initialize(Delivery delivery, int idRole, List<Meal> meals) {
         this.delivery = delivery;
-        this.isManager = isManager;
+        this.idRole = idRole;
         idDeliveryLabel.setText(String.valueOf(delivery.getIdDelivery()));
         dateLabel.setText(String.valueOf(delivery.getDate()));
         idRestaurantLabel.setText(String.valueOf(delivery.getIdRestaurant()));
@@ -54,7 +48,7 @@ public class DeliveryInfoController {
         stateChoiceBox.setValue(delivery.getState());
         stateChoiceBox.getItems().addAll(State.values());
 
-        if(this.isManager){
+        if(this.idRole != 1) {
             stateChoiceBox.setDisable(false);
             changeStateButton.setDisable(false);
         }
@@ -66,8 +60,10 @@ public class DeliveryInfoController {
 
 
         try {
-            DeliveryFacade deliveryFacade = DeliveryFacade.getInstance();
-            List<Meal> meals = deliveryFacade.getAllMealOfDelivery(delivery.getIdDelivery());
+            if(meals == null){
+                DeliveryFacade deliveryFacade = DeliveryFacade.getInstance();
+                meals = deliveryFacade.getAllMealOfDelivery(delivery.getIdDelivery());
+            }
             mealsList.getItems().addAll(meals);
         }
         catch(AccessDatabaseException e){
@@ -102,5 +98,39 @@ public class DeliveryInfoController {
             e.printStackTrace();
         }
 
+    }
+
+
+    public void returnToMenu(ActionEvent event) {
+        Window window = backButton.getScene().getWindow();
+        try{
+            Menu menu = new Menu();
+            menu.start(new Stage());
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            Display.showAlert(Alert.AlertType.ERROR, null, "Error", "An error occured while loading the menu, please retry later");
+        }
+        finally {
+            window.hide();
+        }
+    }
+
+
+    /**
+     * allows to create the delivery and display his informations
+     * @param delivery
+     * @param meals
+     */
+    public void createDelivery(Delivery delivery, List<Meal> meals, int idRole){
+        DeliveryFacade deliveryFacade = DeliveryFacade.getInstance();
+        try {
+            deliveryFacade.createDelivery(delivery, meals);
+            initialize(delivery, idRole, meals);
+        }
+        catch(AccessDatabaseException e){
+            Display.showAlert(Alert.AlertType.ERROR, null, "Error", "An error occured while creating the delivery, please retry later");
+        }
+        backButton.setOnAction(this::returnToMenu);
     }
 }
