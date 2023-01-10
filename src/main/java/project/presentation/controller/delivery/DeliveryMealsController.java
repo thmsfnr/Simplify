@@ -17,6 +17,7 @@ import project.business.models.Meal;
 import project.business.models.Restaurant;
 import project.exceptions.AccessDatabaseException;
 import project.presentation.controller.cart.CartController;
+import project.presentation.frame.cart.CartFrame;
 import project.utilities.CartStorage;
 import project.utilities.Display;
 
@@ -63,7 +64,7 @@ public class DeliveryMealsController {
         try{
             CartStorage.write("cartStorage", meals);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("CartFrame.fxml"));
+            FXMLLoader loader = new FXMLLoader(CartFrame.class.getResource("CartFrame.fxml"));
             Parent root = loader.load();
             CartController cartController = loader.getController();
             cartController.setIdUser(this.idUser);

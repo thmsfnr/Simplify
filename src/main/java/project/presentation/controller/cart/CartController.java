@@ -32,6 +32,7 @@ import project.presentation.controller.delivery.DeliveryFormController;
 import project.presentation.controller.event.EventDescriptionController;
 import project.presentation.controller.user.PersonalAccountController;
 import project.presentation.frame.cart.CartFrame;
+import project.presentation.frame.delivery.DeliveryForm;
 import project.presentation.frame.event.EventUserFrame;
 import project.presentation.frame.menu.Menu;
 import project.utilities.LocalStorage;
@@ -227,6 +228,10 @@ public class CartController {
         owner.hide();
     }
 
+    /**
+     * This method is used to manage the event of the delivery button
+     * @param event the event of the delivery button
+     */
     public void order(ActionEvent event){
         Window owner = deliveryCartBtn.getScene().getWindow();
 
@@ -238,7 +243,7 @@ public class CartController {
             UserFacade userFacade = UserFacade.getInstance();
             User user = userFacade.getById(idUser);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("DeliveryFormFrame.fxml"));
+            FXMLLoader loader = new FXMLLoader(DeliveryForm.class.getResource("DeliveryFormFrame.fxml"));
             Parent root = loader.load();
             DeliveryFormController deliveryFormFrameController = loader.getController();
             deliveryFormFrameController.initialize(user, restaurant, meals);
