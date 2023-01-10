@@ -138,7 +138,7 @@ public class ReservationInfoController implements Initializable {
             } else if(reservationSelected.getState() == State.WAITING_FOR_VALIDATION) {
                 state.setText("Waiting for validation");
             } else if(reservationSelected.getState() == State.ON_DELIVERY) {
-                state.setText("On delivery");
+                state.setText("In progress");
             }
         }else if (reservationSelected.getState() == State.CANCELLED){
             //color of the text is red
@@ -148,7 +148,7 @@ public class ReservationInfoController implements Initializable {
         else{
             //color of the text is green
             state.setStyle("-fx-fill: #007500");
-            state.setText("Delivered");
+            state.setText("Validated");
         }
         //initialize the table of meals
         ObservableList<Meal> listeMeals = FXCollections.observableList(reservationFacade.getMealsOfReservation(reservationSelected.getIdOrder()));

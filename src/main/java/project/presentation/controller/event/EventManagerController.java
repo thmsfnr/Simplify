@@ -87,7 +87,6 @@ public class EventManagerController implements Initializable {
                     {
                         btn.setOnAction((ActionEvent event) -> {
                             Event data = getTableView().getItems().get(getIndex());
-                            System.out.println("selectedData: " + data);
                         });
                     }
 
@@ -176,7 +175,6 @@ public class EventManagerController implements Initializable {
                     {
                         btn.setOnAction((ActionEvent event) -> {
                             Event data = getTableView().getItems().get(getIndex());
-                            System.out.println("selectedData: " + data);
                         });
                     }
 
@@ -281,7 +279,6 @@ public class EventManagerController implements Initializable {
                     {
                         btn.setOnAction((ActionEvent event) -> {
                             Event data = getTableView().getItems().get(getIndex());
-                            System.out.println("selectedData: " + data);
                         });
                     }
 
@@ -375,11 +372,4 @@ public class EventManagerController implements Initializable {
         addDeleteButtonToTable();
         addDetailsButtonToTable();
     }
-
-
-
-
-
-
-
 }

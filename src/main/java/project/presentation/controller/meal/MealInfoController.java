@@ -14,6 +14,7 @@ import project.business.models.Meal;
 import project.business.models.Opinion;
 import project.presentation.frame.meal.MealFormFrame;
 import project.presentation.frame.meal.MealInfoFrame;
+import project.presentation.frame.menu.Menu;
 import project.utilities.Display;
 import project.utilities.LocalStorage;
 
@@ -42,6 +43,18 @@ public class MealInfoController implements Initializable {
     @FXML
     private Button button_update;
 
+    private static int idMeal;
+
+    private static int idRestaurant;
+    public static void setIdMeal(int idMeal) {
+        MealInfoController.idMeal = idMeal;
+    }
+
+    public static void setIdRestaurant(int idRestaurant) {
+        MealInfoController.idRestaurant = idRestaurant;
+    }
+
+
     /**
      * This method is used to initialize the frame with the information of the selected meal
      * @param url the url
@@ -50,12 +63,7 @@ public class MealInfoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         MealFacade mealFacade = MealFacade.getInstance();
-        Meal meal;
-        try {
-            meal = mealFacade.getById((Integer)LocalStorage.load("meal_id"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Meal meal = mealFacade.getById(idMeal);
         if (meal != null) {
             title_meal.setText(meal.getTitle());
             description.setText(meal.getDescription());
@@ -63,11 +71,8 @@ public class MealInfoController implements Initializable {
             description.setEditable(false);
             price.setEditable(false);
             ArrayList<Opinion> opinions = null;
-            try {
-                opinions = (ArrayList<Opinion>) mealFacade.getAllOpinionOfMeal((Integer)LocalStorage.load("meal_id"));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            opinions = (ArrayList<Opinion>) mealFacade.getAllOpinionOfMeal(idMeal);
+
             if(opinions != null) {
                 ListView<Opinion> listView = new ListView<>();
                 listView.getItems().addAll(opinions);
@@ -84,16 +89,14 @@ public class MealInfoController implements Initializable {
     public void delete(ActionEvent event) {
         MealFacade mealFacade = MealFacade.getInstance();
         Window w = button_update.getScene().getWindow();
-        try {
-            if(mealFacade.delete((Integer)LocalStorage.load("meal_id"))) {
-                Display.infoBox("Meal deleted successfully", null, "Success");
-            }
-            else {
-                Display.showAlert(Alert.AlertType.ERROR, w, "meal delete failed","Meal delete failed");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
+        if(mealFacade.delete(idMeal)) {
+            Display.infoBox("Meal deleted successfully", null, "Success");
         }
+        else {
+            Display.showAlert(Alert.AlertType.ERROR, w, "meal delete failed","Meal delete failed");
+        }
+
     }
 
     /**
@@ -107,7 +110,9 @@ public class MealInfoController implements Initializable {
         Window listeMealWindow = button_update.getScene().getWindow();
 
         MealFormFrame formUpdate = new MealFormFrame();
-        LocalStorage.write("isUpdate", true);
+        MealFormController.setIsUpdate(true);
+        MealFormController.setIdMeal(idMeal);
+        MealFormController.setIdRestaurant(idRestaurant);
         formUpdate.start(new Stage());
 
         // close the actual frame
@@ -119,15 +124,11 @@ public class MealInfoController implements Initializable {
      * @param event the event of the button
      * @throws Exception the exception
      */
-    @FXML
-    private void go_back(ActionEvent event) throws Exception {
-        // Get the window of the create button
-        Window mealWindow = button_update.getScene().getWindow();
-        MealInfoFrame mealInfoFrame = new MealInfoFrame();
-        mealInfoFrame.start(new Stage());
-
-        // close the actual frame
-        mealWindow.hide();
+    public void go_back(ActionEvent event) throws Exception {
+        Window owner = button_update.getScene().getWindow();
+        project.presentation.frame.menu.Menu menu = new Menu();
+        menu.start(new Stage());
+        owner.hide();
     }
 
     @FXML

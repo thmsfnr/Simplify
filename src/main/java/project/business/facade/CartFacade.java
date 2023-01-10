@@ -1,17 +1,26 @@
+
 package project.business.facade;
 
-
-import javafx.scene.layout.VBox;
-import project.business.models.Meal;
 import project.utilities.CartStorage;
-import project.utilities.LocalStorage;
-
 import java.io.IOException;
-import java.util.Map;
 
+/**
+ * Created by Simplify members on 10/01/23.
+ * This class is the facade of the cart
+ * @author Simplify members
+ */
 public class CartFacade {
+
+    /**
+     * This method is used to create a cart facade
+     */
     private CartFacade() {}
 
+    /**
+     * This method is used to save the cart in the local storage
+     * @param cart the cart to save
+     * @throws IOException if the file is not found
+     */
     public void update(String cart) throws IOException {
         CartStorage.write("cartStorage", cart);
     }
@@ -21,8 +30,14 @@ public class CartFacade {
      * @return a list of the meals and their quantities
      * @throws IOException if the file is not found
      */
-    public Object load() throws IOException { return CartStorage.load("cartStorage");}
+    public Object load() throws IOException {
+        return CartStorage.load("cartStorage");
+    }
 
+    /**
+     * This method is used to get the instance of the cart facade
+     * @return a cart facade
+     */
     public static CartFacade getInstance() {
         return CartFacade.FacadeHolder.INSTANCE;
     }
@@ -32,7 +47,7 @@ public class CartFacade {
      * it's a holder class for the singleton
      */
     private static class FacadeHolder {
-        // Instance of the class UserFacade
         static final CartFacade INSTANCE = new CartFacade();
     }
+
 }

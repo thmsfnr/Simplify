@@ -214,7 +214,9 @@ public class DeliveryListController {
                                 FXMLLoader loader = new FXMLLoader(DeliveryInfo.class.getResource("DeliveryInfoFrame.fxml"));
                                 Parent root = loader.load();
                                 DeliveryInfoController controller = loader.getController();
+
                                 controller.initialize(data, idRole, null);
+
                                 Stage stage = new Stage();
                                 stage.setTitle("Delivery Info");
                                 stage.setScene(new Scene(root));

@@ -14,7 +14,18 @@ import project.business.models.Restaurant;
 import project.business.models.User;
 import project.exceptions.AccessDatabaseException;
 import project.exceptions.UserNotFoundException;
+import project.presentation.controller.event.EventManagerController;
+import project.presentation.controller.meal.MealController;
+import project.presentation.controller.opinion.CreateOpinionController;
+import project.presentation.controller.placement.PlacementController;
 import project.presentation.controller.reservation.ReservationController;
+import project.presentation.frame.event.EventManagerFrame;
+import project.presentation.frame.event.EventUserFrame;
+import project.presentation.frame.meal.MealFrame;
+import project.presentation.frame.opinion.CreateOpinion;
+import project.presentation.frame.opinion.OpinionAdmin;
+import project.presentation.frame.opinion.OpinionUser;
+import project.presentation.frame.placement.Placement;
 import project.presentation.frame.reservation.ReservationFrame;
 import project.presentation.frame.restaurant.RestaurantList;
 import project.utilities.Display;
@@ -52,6 +63,18 @@ public class RestaurantInfosController {
     @FXML
     private Button backButton;
 
+    @FXML
+    private Button button_event_manager;
+
+    @FXML
+    private Button button_event_user;
+
+    @FXML
+    private Button button_opinion_manager;
+
+    @FXML
+    private Button button_opinion_user;
+
     /**
      * This method is used at the start of the frame
      * @param restaurant the restaurant to display
@@ -61,9 +84,31 @@ public class RestaurantInfosController {
     public void initialize(Restaurant restaurant, int idUser, int idRole) {
         this.idUser = idUser;
         this.idRole = idRole;
+
+        //configuration bouton event
+        if(idRole == 1){
+            button_event_manager.setVisible(false);
+            button_event_manager.setDisable(true);
+            button_event_user.setVisible(true);
+            button_event_user.setDisable(false);
+            button_opinion_manager.setVisible(false);
+            button_opinion_manager.setDisable(true);
+            button_opinion_user.setVisible(true);
+            button_opinion_user.setDisable(false);
+        }
+        else{
+            button_event_manager.setVisible(true);
+            button_event_manager.setDisable(false);
+            button_event_user.setVisible(false);
+            button_event_user.setDisable(true);
+            button_opinion_manager.setVisible(true);
+            button_opinion_manager.setDisable(false);
+            button_opinion_user.setVisible(false);
+            button_opinion_user.setDisable(true);
+        }
+
         RestaurantFacade restaurantFacade = RestaurantFacade.getInstance();
         this.restaurant = restaurant;
-        System.out.println(restaurant.getIdManager());
         try {
             this.manager = restaurantFacade.getUserById(restaurant.getIdManager());
             managerOutput.setText(manager.getName()+" "+manager.getFirstname());
@@ -129,6 +174,86 @@ public class RestaurantInfosController {
         ReservationController.setIdRole(this.manager.getRole());
         ReservationController.setIdRestaurant(this.restaurant.getIdRestaurant());
         reservationFrame.start(new Stage());
+
+        // close the actual frame
+        restaurantInfoWindow.hide();
+    }
+
+    @FXML
+    public void switchToCreateOpinionFrame(ActionEvent event) throws Exception {
+        // Get the window of the create button
+        Window restaurantInfoWindow = backButton.getScene().getWindow();
+        CreateOpinion createOpinionFrame = new CreateOpinion();
+        CreateOpinionController.setIdUser(this.idUser);
+        createOpinionFrame.start(new Stage());
+        // close the actual frame
+        restaurantInfoWindow.hide();
+    }
+
+    @FXML
+    public void switchToPlacementFrame(ActionEvent event) throws Exception {
+        // Get the window of the create button
+        Window restaurantInfoWindow = backButton.getScene().getWindow();
+        Placement placementFrame = new Placement();
+        PlacementController.setIsReservation(false);
+        PlacementController.setIdRestaurant(this.restaurant.getIdRestaurant());
+        placementFrame.start(new Stage());
+
+        // close the actual frame
+        restaurantInfoWindow.hide();
+    }
+
+    @FXML
+    public void switchToMealFrame(ActionEvent event) throws Exception {
+        // Get the window of the create button
+        Window restaurantInfoWindow = backButton.getScene().getWindow();
+        MealFrame mealFrame = new MealFrame();
+        MealController.setIdRestaurant(this.restaurant.getIdRestaurant());
+        mealFrame.start(new Stage());
+
+        // close the actual frame
+        restaurantInfoWindow.hide();
+    }
+
+    @FXML
+    public void switchToEventUserFrame(ActionEvent event) throws Exception {
+        // Get the window of the create button
+        Window restaurantInfoWindow = backButton.getScene().getWindow();
+        EventUserFrame eventUserFrame = new EventUserFrame();
+        eventUserFrame.start(new Stage());
+
+        // close the actual frame
+        restaurantInfoWindow.hide();
+    }
+
+    @FXML
+    public void switchToEventManagerFrame(ActionEvent event) throws Exception {
+        // Get the window of the create button
+        Window restaurantInfoWindow = backButton.getScene().getWindow();
+        EventManagerFrame eventManagerFrame = new EventManagerFrame();
+        eventManagerFrame.start(new Stage());
+
+        // close the actual frame
+        restaurantInfoWindow.hide();
+    }
+
+    @FXML
+    public void switchToOpinionManagerFrame(ActionEvent event) throws Exception {
+        // Get the window of the create button
+        Window restaurantInfoWindow = backButton.getScene().getWindow();
+        OpinionAdmin opinionAdmin = new OpinionAdmin();
+        opinionAdmin.start(new Stage());
+
+        // close the actual frame
+        restaurantInfoWindow.hide();
+    }
+
+    @FXML
+    public void switchToOpinionUserFrame(ActionEvent event) throws Exception {
+        // Get the window of the create button
+        Window restaurantInfoWindow = backButton.getScene().getWindow();
+        OpinionUser opinionUser = new OpinionUser();
+        opinionUser.start(new Stage());
 
         // close the actual frame
         restaurantInfoWindow.hide();

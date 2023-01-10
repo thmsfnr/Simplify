@@ -1,5 +1,5 @@
 
-package project.presentation.controller;
+package project.presentation.controller.payment;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

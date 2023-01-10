@@ -1,8 +1,8 @@
+
 package project.business.facade;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestClassOrder;
 import project.business.models.Delivery;
 import project.business.models.State;
 import project.exceptions.AccessDatabaseException;
@@ -97,7 +97,6 @@ public class DeliveryFacadeTest {
         }
     }
 
-
     @Test
     void getDeliveriesOfRestaurant(){
         DeliveryFacade deliveryFacade = DeliveryFacade.getInstance();
@@ -112,4 +111,5 @@ public class DeliveryFacadeTest {
             throw new RuntimeException("Erreur lors de l'accés à la base de données");
         }
     }
+
 }

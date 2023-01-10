@@ -1,12 +1,10 @@
+
 package project.business.facade;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import project.business.models.Meal;
 import project.business.models.Notification;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class NotificationFacadeTest {
@@ -57,4 +55,5 @@ class NotificationFacadeTest {
         List<Notification> notifications = notificationFacade.getAllNotifications(1);
         assertEquals(notifications.size(),0);
     }
+
 }
