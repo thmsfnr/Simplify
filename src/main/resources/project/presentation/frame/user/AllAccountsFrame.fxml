@@ -117,5 +117,6 @@
          </font>
       </Button>
       <Line endX="400.0" endY="-27.0" layoutX="227.0" layoutY="466.0" startX="-227.0" startY="-27.0" />
+      <Button fx:id="back" onAction="#backToMenu" layoutX="28.0" layoutY="28.0" mnemonicParsing="false" text="Back" />
    </children>
 </AnchorPane>
