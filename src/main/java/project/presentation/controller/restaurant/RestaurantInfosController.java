@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -81,6 +82,9 @@ public class RestaurantInfosController {
 
     @FXML
     private Button orderBtn;
+
+    @FXML
+    private Button meals_btn;
 
     /**
      * This method is used at the start of the frame
@@ -189,7 +193,7 @@ public class RestaurantInfosController {
     @FXML
     public void switchToCreateOpinionFrame(ActionEvent event) throws Exception {
         // Get the window of the create button
-        Window restaurantInfoWindow = backButton.getScene().getWindow();
+        Window restaurantInfoWindow = button_opinion_user.getScene().getWindow();
         CreateOpinion createOpinionFrame = new CreateOpinion();
         CreateOpinionController.setIdUser(this.idUser);
         createOpinionFrame.start(new Stage());
@@ -213,7 +217,7 @@ public class RestaurantInfosController {
     @FXML
     public void switchToMealFrame(ActionEvent event) throws Exception {
         // Get the window of the create button
-        Window restaurantInfoWindow = backButton.getScene().getWindow();
+        Window restaurantInfoWindow = meals_btn.getScene().getWindow();
         MealFrame mealFrame = new MealFrame();
         MealController.setIdRestaurant(this.restaurant.getIdRestaurant());
         mealFrame.start(new Stage());
@@ -276,6 +280,10 @@ public class RestaurantInfosController {
             Parent root = loader.load();
             DeliveryMealsController controller = loader.getController();
             controller.initialize(this.restaurant, this.idUser);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            window.hide();
         } catch (Exception e) {
             e.printStackTrace();
         }

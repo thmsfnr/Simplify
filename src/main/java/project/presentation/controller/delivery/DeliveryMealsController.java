@@ -58,7 +58,7 @@ public class DeliveryMealsController {
         List<Meal> selected_meals = list_meals.getSelectionModel().getSelectedItems();
         String meals = "";
         for(Meal meal : selected_meals){
-            meals += "cart_meal="+meal.getIdMeal()+",qte="+meal.getQuantity()+" ";
+            meals += "cart_meal="+meal.getIdMeal()+",qte=1 ";
         }
 
         try{
