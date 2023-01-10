@@ -10,18 +10,18 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.user.SigninController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.user.SigninController">
    <children>
-      <BorderPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0">
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0">
          <left>
-            <AnchorPane prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #c8ded0;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #BAD1C2;" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="190.0" fitWidth="249.0" layoutX="59.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                  <ImageView fitHeight="212.0" fitWidth="246.0" layoutX="45.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                      <image>
                         <Image url="@../Simplify.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="switchButton" layoutX="37.0" layoutY="423.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="40.0" prefWidth="275.0" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Already have an account ?" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+                  <Button fx:id="switchButton" layoutX="36.0" layoutY="393.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="40.0" prefWidth="275.0" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Already have an account ?" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -30,44 +30,44 @@
             </AnchorPane>
          </left>
          <right>
-            <AnchorPane prefHeight="500.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="lastNameField" layoutX="95.0" layoutY="151.0" promptText="Last name" style="-fx-background-color: transparent; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
+                  <TextField fx:id="lastNameField" layoutX="95.0" layoutY="134.0" promptText="Last name" style="-fx-background-color: transparent; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </TextField>
-                  <PasswordField fx:id="passwordField" layoutX="95.0" layoutY="362.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
+                  <PasswordField fx:id="passwordField" layoutX="95.0" layoutY="340.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </PasswordField>
-                  <Text fill="#7a897f" layoutX="107.0" layoutY="62.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Signin">
+                  <Text fill="#9cb9a6" layoutX="98.0" layoutY="60.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Signin">
                      <font>
-                        <Font name="Arial" size="28.0" />
+                        <Font name="Arial Bold" size="28.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="firstNameField" layoutX="95.0" layoutY="98.0" promptText="First name" style="-fx-background-color: transparent; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
+                  <TextField fx:id="firstNameField" layoutX="95.0" layoutY="81.0" promptText="First name" style="-fx-background-color: transparent; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="emailField" layoutX="94.0" layoutY="198.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
+                  <TextField fx:id="emailField" layoutX="95.0" layoutY="187.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="phoneNumberField" layoutX="94.0" layoutY="250.0" promptText="Phone number" style="-fx-background-color: transparent; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
+                  <TextField fx:id="phoneNumberField" layoutX="95.0" layoutY="238.0" promptText="Phone number" style="-fx-background-color: transparent; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="addressField" layoutX="94.0" layoutY="308.0" promptText="Address" style="-fx-background-color: transparent; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
+                  <TextField fx:id="addressField" layoutX="95.0" layoutY="289.0" promptText="Address" style="-fx-background-color: transparent; -fx-border-color: #c8ded0; -fx-border-width: 0px 0px 2px 0px;">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="submitButton" layoutX="113.0" layoutY="426.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#signin" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Signin" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+                  <Button fx:id="submitButton" layoutX="113.0" layoutY="393.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#signin" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: #BAD1C2; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Signin" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
