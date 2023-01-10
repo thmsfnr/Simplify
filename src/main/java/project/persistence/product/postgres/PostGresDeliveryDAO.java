@@ -1,14 +1,13 @@
 package project.persistence.product.postgres;
 
 import project.business.models.Delivery;
+import project.business.models.Meal;
 import project.business.models.State;
 import project.exceptions.AccessDatabaseException;
 import project.persistence.factory.PostGresDAOFactory;
 import project.persistence.product.abstr.DeliveryDAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class PostGresDeliveryDAO extends DeliveryDAO {
      * @return true if the delivery is created, false otherwise
      */
     @Override
-    public boolean createDelivery(Delivery delivery) throws AccessDatabaseException {
+    public boolean createDelivery(Delivery delivery, List<Meal> meals) throws AccessDatabaseException {
         Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
 
         if(connection == null){
@@ -31,17 +30,42 @@ public class PostGresDeliveryDAO extends DeliveryDAO {
         }
         else{
             try{
-                String query = "INSERT INTO \"public\".\"Order\" (\"idTypeOrder\", \"idRestaurant\", \"idUser\", \"accepted\", \"idState\") VALUES (1,?,?,false,1);";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setInt(1, delivery.getIdRestaurant());
-                preparedStatement.setInt(2, delivery.getIdUser());
-                preparedStatement.executeUpdate();
-                preparedStatement.close();
-                connection.close();
-                return true;
+                connection.setAutoCommit(false);
+                Savepoint savepoint = connection.setSavepoint("createDelivery");
+                try{
+                    String query = "INSERT INTO \"public\".\"Order\" (\"idTypeOrder\", \"idRestaurant\", \"idUser\", \"accepted\", \"idState\") VALUES (1,?,?,false,1);";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.setInt(1, delivery.getIdRestaurant());
+                    preparedStatement.setInt(2, delivery.getIdUser());
+                    preparedStatement.executeUpdate();
+                    preparedStatement.close();
+
+
+                    meals.forEach(meal -> {
+                        try {
+                            String query2 = "INSERT INTO \"public\".\"Meal_Ordered\" (\"idMeal\", \"idOrder\", \"quantity\") VALUES (?,?, ?);";
+                            PreparedStatement preparedStatement2 = connection.prepareStatement(query2);
+                            preparedStatement2.setInt(1, meal.getIdMeal());
+                            preparedStatement2.setInt(2, delivery.getIdDelivery());
+                            preparedStatement2.setInt(3, (int) meal.getQuantity());
+                            preparedStatement2.executeUpdate();
+                            preparedStatement2.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+                    connection.commit();
+                    connection.close();
+                    return true;
+                }
+                catch (Exception e){
+                    connection.rollback(savepoint);
+                    e.printStackTrace();
+                    throw new AccessDatabaseException();
+                }
             }
             catch (Exception e){
-                e.printStackTrace();
                 throw new AccessDatabaseException();
             }
         }

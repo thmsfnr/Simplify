@@ -23,8 +23,8 @@ public class DeliveryFacade {
 
     /**  Methods  **/
 
-    public boolean createDelivery(Delivery delivery) throws AccessDatabaseException {
-        return this.deliveryDAO.createDelivery(delivery);
+    public boolean createDelivery(Delivery delivery, List<Meal> meals) throws AccessDatabaseException {
+        return this.deliveryDAO.createDelivery(delivery, meals);
     }
 
     public boolean updateDelivery(Delivery delivery) throws AccessDatabaseException {

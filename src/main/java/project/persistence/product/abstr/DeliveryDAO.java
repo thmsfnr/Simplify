@@ -1,6 +1,7 @@
 package project.persistence.product.abstr;
 
 import project.business.models.Delivery;
+import project.business.models.Meal;
 import project.exceptions.AccessDatabaseException;
 
 import java.util.List;
@@ -16,10 +17,11 @@ public abstract class DeliveryDAO {
     /**
      * This method is used to create a delivery
      * @param delivery the delivery to create
+     * @param meals the meals of the delivery
      * @return true if the delivery is created, false otherwise
      * @throws AccessDatabaseException if there is a problem with the database
      */
-    public abstract boolean createDelivery(Delivery delivery) throws AccessDatabaseException;
+    public abstract boolean createDelivery(Delivery delivery, List<Meal> meals) throws AccessDatabaseException;
 
 
     /**
