@@ -298,6 +298,9 @@ public class RestaurantListController {
             addButtonDelete();
             addUpdateButton();
         }
+        else{
+            addButton.setVisible(false);
+        }
 
         addDetailsButton();
     }
