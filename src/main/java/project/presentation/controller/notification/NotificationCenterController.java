@@ -15,7 +15,6 @@ import javafx.stage.Window;
 import javafx.util.Callback;
 import project.business.facade.NotificationFacade;
 import project.business.models.Notification;
-import project.presentation.controller.user.PersonalAccountController;
 import project.presentation.frame.menu.Menu;
 import project.utilities.Display;
 import project.utilities.LocalStorage;
@@ -48,6 +47,11 @@ public class NotificationCenterController implements Initializable {
         NotificationCenterController.user = idUser;
     }
 
+    /**
+     * This method is used to initialize the controller of Notification
+     * @param url the url
+     * @param resourceBundle the resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -64,6 +68,9 @@ public class NotificationCenterController implements Initializable {
         addDeleteButtonToTable();
     }
 
+    /**
+     * This method is used to add the delete button to the table
+     */
     private void addDeleteButtonToTable() {
         // Create a new column
         TableColumn<Notification, Void> colBtn = new TableColumn("Delete");
@@ -105,7 +112,7 @@ public class NotificationCenterController implements Initializable {
 
                             btn.setOnAction((ActionEvent event) -> {
                                 Notification data = getTableView().getItems().get(getIndex());
-                                deleteTable(event, data);
+                                deleteNotification(event, data);
                             });
 
                             setGraphic(btn);
@@ -119,14 +126,20 @@ public class NotificationCenterController implements Initializable {
         colBtn.setCellFactory(cellFactory);
         TableNotification.getColumns().add(colBtn);
     }
-    public void deleteTable(ActionEvent event, Notification data) {
+
+    /**
+     * This method is use to delete a notification
+     * @param event the event of the button
+     * @param notification the notification to delete
+     */
+    public void deleteNotification(ActionEvent event, Notification notification) {
 
         // Create a new alert to confirm the deletion
         Window owner = TableNotification.getScene().getWindow();
 
         // Call the facade to delete the table from the database
         NotificationFacade notificationFacade = NotificationFacade.getInstance();
-        Boolean result = notificationFacade.deleteNotification(data.getIdNotification());
+        Boolean result = notificationFacade.deleteNotification(notification.getIdNotification());
         if (result) {
             Display.infoBox("Notification deleted successfully!", null, "Success");
         } else {
@@ -138,15 +151,14 @@ public class NotificationCenterController implements Initializable {
         refreshTable();
     }
 
+    /**
+     * This method is used to refresh the table
+     */
     private void refreshTable() {
         // Call the facade to get
         NotificationFacade notificationFacade = NotificationFacade.getInstance();
         ObservableList<Notification> notifications = null;
-        try {
-            notifications = FXCollections.observableList(notificationFacade.getAllNotifications((Integer) LocalStorage.load("user_id")));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        notifications = FXCollections.observableList(notificationFacade.getAllNotifications(user));
         // Set the table
         TableNotification.setItems(notifications);
     }
