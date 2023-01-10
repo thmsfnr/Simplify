@@ -22,6 +22,7 @@ import project.business.models.Restaurant;
 import project.business.models.State;
 import project.business.models.User;
 import project.exceptions.AccessDatabaseException;
+import project.presentation.controller.menu.MenuController;
 import project.presentation.frame.delivery.DeliveryInfo;
 import project.utilities.Display;
 
@@ -64,13 +65,16 @@ public class DeliveryListController {
     @FXML
     private TableColumn<Delivery, State> stateColumn;
 
+    @FXML
+    private Button backButton;
+
 
     /**
      * This method allows to set the id of the user which will see the frame
-     * @param idUser the id of the user
+     * @param idUser_new the id of the user
      */
-    public static void setUserId(Integer idUser) {
-        idUser = idUser;
+    public static void setUserId(Integer idUser_new) {
+        idUser = idUser_new;
     }
 
     public static Integer getUserId() {
@@ -249,6 +253,26 @@ public class DeliveryListController {
         colBtn.setCellFactory(cellFactory);
         deliveryPassedTable.getColumns().add(colBtn);
         deliveryNewsTable.getColumns().add(colBtn);
+    }
+
+
+    @FXML
+    public void backToMenu(ActionEvent actionEvent){
+        try{
+            Window owner = backButton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(Menu.class.getResource("MenuFrame.fxml"));
+            Parent root = loader.load();
+            MenuController controller = loader.getController();
+            controller.initialize();
+            Stage stage = new Stage();
+            stage.setTitle("Menu");
+            stage.setScene(new Scene(root));
+            stage.show();
+            owner.hide();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

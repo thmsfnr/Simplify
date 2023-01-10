@@ -1,10 +1,16 @@
 
 package project.presentation.controller.payment;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import project.business.facade.PaymentFacade;
 import project.business.models.Payment;
+import project.presentation.frame.menu.Menu;
+
 import java.util.List;
 
 /**
@@ -18,6 +24,8 @@ public class PaymentAdminController {
     private List<Payment> payments;
     @FXML
     private ListView list;
+    @FXML
+    private Button back;
 
     /**
      * This method is used to initialize the list of payments
@@ -50,6 +58,17 @@ public class PaymentAdminController {
                 }
             }
         }
+    }
+
+    /**
+     * This method is used to manage the event of the back button
+     * @param event the event of the back button
+     */
+    public void backToMenu(ActionEvent event) throws Exception {
+        Window owner = back.getScene().getWindow();
+        project.presentation.frame.menu.Menu menu = new Menu();
+        menu.start(new Stage());
+        owner.hide();
     }
 
 }
