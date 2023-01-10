@@ -1,3 +1,4 @@
+
 package project.business.facade;
 
 import javafx.collections.ObservableList;
@@ -6,6 +7,11 @@ import project.persistence.factory.AbstractDAOFactory;
 import project.persistence.factory.PostGresDAOFactory;
 import project.persistence.product.abstr.EventDAO;
 
+/**
+ * Created by Simplify members on 10/01/23.
+ * This class is the facade of the event
+ * @author Simplify members
+ */
 public class EventFacade {
 
     // Instance variables
@@ -21,8 +27,11 @@ public class EventFacade {
         this.eventDAO = factory.getEventDAO();
     }
 
-
-
+    /**
+     * This method is used to create an event
+     * @param event the event to create
+     * @return True if the event is created, false otherwise
+     */
     public Boolean createEvent(Event event) {
         return this.eventDAO.createEvent(event);
     }
@@ -35,7 +44,6 @@ public class EventFacade {
     public Boolean updateEvent(Event event) {
         return this.eventDAO.updateEvent(event);
     }
-
 
     /**
      * This method is used to get an event by its id
@@ -68,7 +76,6 @@ public class EventFacade {
     public static EventFacade getInstance() {
         return EventFacade.FacadeHolder.INSTANCE;
     }
-
 
     /**
      * This class is used to get the instance of the class
