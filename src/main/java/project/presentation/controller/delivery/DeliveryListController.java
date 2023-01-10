@@ -38,7 +38,7 @@ import java.util.List;
 public class DeliveryListController {
     private static Integer idUser;
 
-    private boolean isManager = false;
+    private static Integer idRole;
 
     @FXML
     private TableView<Delivery> deliveryPassedTable;
@@ -85,7 +85,7 @@ public class DeliveryListController {
     public void initialize() {
         UserFacade userFacade = UserFacade.getInstance();
         User user = userFacade.getById(idUser);
-        isManager = (user.getRole() == 2);
+        idRole = user.getRole();
 
         idColumn.setCellValueFactory(new PropertyValueFactory<Delivery, Integer>("idDelivery"));
         idRestaurantColumn.setCellValueFactory(new PropertyValueFactory<Delivery, Integer>("idRestaurant"));
@@ -109,7 +109,7 @@ public class DeliveryListController {
 
         try{
             List<Delivery> list_deliveries = new ArrayList<>();
-            if(isManager){
+            if(idRole == 2){
                 RestaurantFacade restaurantFacade = RestaurantFacade.getInstance();
                 List<Restaurant> restaurants = restaurantFacade.getRestaurantsOfUser(idUser);
                 list_deliveries = deliveryFacade.getAllDeliveriesOfRestaurant(restaurants.get(0).getIdRestaurant());
@@ -214,7 +214,7 @@ public class DeliveryListController {
                                 FXMLLoader loader = new FXMLLoader(DeliveryInfo.class.getResource("DeliveryInfoFrame.fxml"));
                                 Parent root = loader.load();
                                 DeliveryInfoController controller = loader.getController();
-                                controller.initialize(data, isManager);
+                                controller.initialize(data, idRole, null);
                                 Stage stage = new Stage();
                                 stage.setTitle("Delivery Info");
                                 stage.setScene(new Scene(root));

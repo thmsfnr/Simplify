@@ -60,6 +60,11 @@ public class DeliveryFacade {
     }
 
 
+    public List<Meal> getAllMealsOfRestaurant(int idRestaurant) throws AccessDatabaseException {
+        return this.mealDAO.getAllMealOfRestaurant(idRestaurant);
+    }
+
+
 
 
 
