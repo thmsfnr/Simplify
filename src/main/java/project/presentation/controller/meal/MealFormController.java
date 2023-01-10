@@ -9,6 +9,7 @@ import javafx.stage.Window;
 import project.business.facade.MealFacade;
 import project.business.models.Meal;
 import project.presentation.frame.meal.MealFrame;
+import project.presentation.frame.menu.Menu;
 import project.utilities.Display;
 import project.utilities.LocalStorage;
 
@@ -30,7 +31,23 @@ public class MealFormController implements Initializable {
     @FXML
     private Button button_submit;
 
-    private Boolean isUpdate;
+    private static Boolean isUpdate;
+
+    private static int idMeal;
+
+    private static int idRestaurant;
+
+    public static void setIsUpdate(Boolean isUpdate) {
+        MealFormController.isUpdate = isUpdate;
+    }
+
+    public static void setIdMeal(int idMeal) {
+        MealFormController.idMeal = idMeal;
+    }
+
+    public static void setIdRestaurant(int idRestaurant) {
+        MealFormController.idRestaurant = idRestaurant;
+    }
 
     /**
      * This method is used to initialize the frame with the information of the meal if it is an update
@@ -39,23 +56,15 @@ public class MealFormController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            //load variable to configure the form
-
-            isUpdate = (Boolean) LocalStorage.load("isUpdate");
-            if (isUpdate) {
-                if(LocalStorage.load("meal_id") != null) {
-                    MealFacade mealFacade = MealFacade.getInstance();
-                    Meal meal = mealFacade.getById((Integer)LocalStorage.load("meal_id"));
-                    if (meal != null) {
-                        title.setText(meal.getTitle());
-                        description.setText(meal.getDescription());
-                        price.setText(String.valueOf(meal.getPrice()));
-                    }
-                }
+        //load variable to configure the form
+        if (isUpdate) {
+            MealFacade mealFacade = MealFacade.getInstance();
+            Meal meal = mealFacade.getById(idMeal);
+            if (meal != null) {
+                title.setText(meal.getTitle());
+                description.setText(meal.getDescription());
+                price.setText(String.valueOf(meal.getPrice()));
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -92,7 +101,7 @@ public class MealFormController implements Initializable {
         MealFacade mealFacade = MealFacade.getInstance();
         Window w = button_submit.getScene().getWindow();
         //generate an id
-        Meal meal = new Meal((Integer) LocalStorage.load("restaurant_id") ,description.getText(),title.getText(), Double.parseDouble(price.getText()));
+        Meal meal = new Meal(idRestaurant,description.getText(),title.getText(), Double.parseDouble(price.getText()));
         if(mealFacade.create(meal)){
             infoBox("Meal created successfully", null, "Success");
             try {
@@ -113,7 +122,7 @@ public class MealFormController implements Initializable {
     public void update() throws IOException {
         MealFacade mealFacade = MealFacade.getInstance();
         Window w = button_submit.getScene().getWindow();
-        Meal meal = new Meal((Integer)LocalStorage.load("meal_id"),(Integer)LocalStorage.load("restaurant_id"), description.getText(),title.getText(), Double.parseDouble(price.getText()));
+        Meal meal = new Meal(idMeal,idRestaurant, description.getText(),title.getText(), Double.parseDouble(price.getText()));
         if(mealFacade.update(meal)){
             infoBox("Meal updated successfully", null, "Success");
         }else{
@@ -136,10 +145,22 @@ public class MealFormController implements Initializable {
         Window mealFormWindow = button_submit.getScene().getWindow();
 
         MealFrame mealFrame = new MealFrame();
+        MealController.setIdRestaurant(idRestaurant);
         mealFrame.start(new Stage());
 
         // close the actual frame
         mealFormWindow.hide();
+    }
+
+    /**
+     * This method is used to manage the event of the back button
+     * @param event the event of the back button
+     */
+    public void backToMenu(ActionEvent event) throws Exception {
+        Window owner = button_submit.getScene().getWindow();
+        project.presentation.frame.menu.Menu menu = new Menu();
+        menu.start(new Stage());
+        owner.hide();
     }
 
 }

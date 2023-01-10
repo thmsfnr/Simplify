@@ -18,7 +18,7 @@
                </font>
             </Text>
             <Line endX="453.0" endY="89.0" startX="236.0" startY="89.0" />
-            <Button fx:id="button_back" layoutX="29.0" layoutY="19.0" lineSpacing="3.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Back" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+            <Button fx:id="button_back" layoutX="29.0" layoutY="19.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Back" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
