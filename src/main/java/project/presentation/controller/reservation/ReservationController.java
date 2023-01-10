@@ -35,6 +35,10 @@ import java.util.ResourceBundle;
 public class ReservationController implements Initializable {
 
     private static int idUser;
+
+    private static int idRestaurant;
+
+    private static int idRole;
     @FXML
     private TableView<Reservation> tabReservation_in_progress;
     @FXML
@@ -73,11 +77,7 @@ public class ReservationController implements Initializable {
     @FXML
     private Button back;
 
-    public static Boolean isManager = true;
 
-    public static Boolean isAdmin = true;
-
-    public static int idRestaurant = 1;
 
     /**
      * This method is used to pass the user id to the controller
@@ -87,12 +87,16 @@ public class ReservationController implements Initializable {
         ReservationController.idUser = idUser;
     }
 
+    public static void setIdRole(int idRole) {
+        ReservationController.idRole = idRole;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ReservationFacade reservationFacade = ReservationFacade.getInstance();
         ObservableList<Reservation> reservations;
 
-        if(isManager || isAdmin){
+        if(idRole == 2 || idRole == 3){
             reservations = FXCollections.observableArrayList(reservationFacade.getAllReservations(idRestaurant));
         }else{
             reservations = FXCollections.observableList(reservationFacade.getAllReservationsOfUser(idUser));
@@ -284,7 +288,7 @@ public class ReservationController implements Initializable {
         Window listeReservationWindow = button_create.getScene().getWindow();
 
         ReservationFormFrame formCreate = new ReservationFormFrame();
-        ReservationFormController.isUpdate = false;
+        ReservationFormController.setIsUpdate(false);
         formCreate.start(new Stage());
 
         // close the actual frame

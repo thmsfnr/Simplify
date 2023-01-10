@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import project.business.models.Reservation;
 import project.presentation.controller.cart.CartController;
 import project.presentation.controller.delivery.DeliveryListController;
 import project.presentation.controller.notification.NotificationCenterController;
@@ -148,6 +149,7 @@ public class MenuController {
     @FXML
     private void switchToReservationFrame(ActionEvent event) throws Exception {
         ReservationController.setIdUser(this.idUser);
+        ReservationController.setIdRole(this.idRole);
         Window owner = reservationFrame.getScene().getWindow();
         ReservationFrame reservationFrame = new ReservationFrame();
         reservationFrame.start(new Stage());
@@ -174,6 +176,7 @@ public class MenuController {
     @FXML
     private void switchToReservationFormFrame(ActionEvent event) throws Exception {
         ReservationFormController.setIdUser(this.idUser);
+        ReservationFormController.setIsUpdate(false);
         Window owner = reservationFormFrame.getScene().getWindow();
         ReservationFormFrame reservationFormFrame = new ReservationFormFrame();
         reservationFormFrame.start(new Stage());

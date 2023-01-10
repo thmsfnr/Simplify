@@ -40,7 +40,7 @@ public class ReservationFormController implements Initializable {
 
     public static Reservation reservationSelected;
 
-    public static Boolean isUpdate;
+    private static Boolean isUpdate;
     private static int idUser;
 
     @FXML
@@ -90,6 +90,9 @@ public class ReservationFormController implements Initializable {
      */
     public static void setIdUser(int idUser) {
         ReservationFormController.idUser = idUser;
+    }
+    public static void setIsUpdate(Boolean isUpdate) {
+        ReservationFormController.isUpdate = isUpdate;
     }
 
     @Override
