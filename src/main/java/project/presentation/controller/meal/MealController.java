@@ -25,6 +25,12 @@ public class MealController implements Initializable {
     private Button button_create;
     private String[] elementsSelected;
 
+    private static int idRestaurant;
+
+    public static void setIdRestaurant(int idRestaurant) {
+        MealController.idRestaurant = idRestaurant;
+    }
+
     /**
      * This method is used to initialize the frame with the list of the meals of the restaurant
      * @param url the url
@@ -34,11 +40,7 @@ public class MealController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         MealFacade mealFacade = MealFacade.getInstance();
         ArrayList<Meal> meals = null;
-        try {
-            meals = (ArrayList<Meal>) mealFacade.getAllMeal((Integer)LocalStorage.load("restaurant_id"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        meals = (ArrayList<Meal>) mealFacade.getAllMeal(idRestaurant);
         if(meals != null) {
             for (Meal meal : meals) {
                 liste_meal.getItems().add(meal.toString());
@@ -80,7 +82,7 @@ public class MealController implements Initializable {
         Window listeMealWindow = button_create.getScene().getWindow();
 
         MealFormFrame formCreate = new MealFormFrame();
-        LocalStorage.write("isUpdate", false);
+        MealFormController.setIsUpdate(false);
         formCreate.start(new Stage());
 
         // close the actual frame
@@ -100,7 +102,7 @@ public class MealController implements Initializable {
         Window listeMealWindow = button_create.getScene().getWindow();
 
         MealInfoFrame infoFrame = new MealInfoFrame();
-        LocalStorage.write("meal_id", idMeal);
+        MealInfoController.setIdMeal(idMeal);
         infoFrame.start(new Stage());
 
         // close the actual frame

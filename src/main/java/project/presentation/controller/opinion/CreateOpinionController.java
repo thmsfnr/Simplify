@@ -6,9 +6,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.business.facade.OpinionFacade;
 import project.business.models.Opinion;
+import project.business.models.Restaurant;
+import project.business.models.User;
+import project.presentation.controller.restaurant.RestaurantInfosController;
+import project.presentation.frame.menu.Menu;
+import project.presentation.frame.restaurant.RestaurantInfos;
+
 import static project.utilities.Display.showAlert;
 
 /**
@@ -21,6 +28,11 @@ public class CreateOpinionController {
     @FXML
     private Button createButton;
 
+    private static int idUser;
+
+    public static void setIdUser(int idUser) {
+        CreateOpinionController.idUser = idUser;
+    }
     /**
      * Create a new opinion
      * @param event the event
@@ -39,8 +51,6 @@ public class CreateOpinionController {
 
         OpinionFacade opinionFacade = OpinionFacade.getInstance();
 
-        int idUser = 7; // To replace later by the id of the connected user
-
         // Create the opinion
         Opinion opinion = new Opinion(idUser, content.getText());
 
@@ -55,6 +65,17 @@ public class CreateOpinionController {
                     "Opinion failed");
         }
 
+    }
+
+    /**
+     * This method is used to manage the event of the back button
+     * @param event the event of the back button
+     */
+    public void backToMenu(ActionEvent event) throws Exception {
+        Window owner = createButton.getScene().getWindow();
+        project.presentation.frame.menu.Menu menu = new Menu();
+        menu.start(new Stage());
+        owner.hide();
     }
 
 }

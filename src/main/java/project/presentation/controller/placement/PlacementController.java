@@ -26,9 +26,9 @@ import java.util.Objects;
 
 public class PlacementController {
 
-    public static Boolean isReservation;
+    private static Boolean isReservation;
 
-    public static int idRestaurant;
+    private static int idRestaurant;
 
     private ReservationFormController reservationFormController;
 
@@ -79,6 +79,12 @@ public class PlacementController {
     @FXML
     private Button button_reserve_table;
 
+    public static void setIsReservation(Boolean isReservation) {
+        PlacementController.isReservation = isReservation;
+    }
+    public static void setIdRestaurant(int idRestaurant) {
+        PlacementController.idRestaurant = idRestaurant;
+    }
 
     @FXML
     private void initialize(){
