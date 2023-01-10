@@ -13,7 +13,6 @@ import java.util.List;
  * @author Simplify members
  */
 public class OpinionFacadeTest {
-
     @Test
     public void create_success(){
         OpinionFacade opinionFacade = OpinionFacade.getInstance();

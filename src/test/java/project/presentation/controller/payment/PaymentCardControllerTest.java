@@ -1,5 +1,5 @@
 
-package project.presentation.controller;
+package project.presentation.controller.payment;
 
 import javafx.event.ActionEvent;
 import org.junit.jupiter.api.Assertions;

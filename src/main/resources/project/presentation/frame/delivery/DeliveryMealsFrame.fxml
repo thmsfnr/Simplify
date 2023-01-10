@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.delivery.DeliveryMealsController">
+
+    <children>
+        <Label layoutX="274.0" layoutY="14.0" text="Meals">
+         <font>
+            <Font name="Cambria Bold" size="19.0" />
+         </font></Label>
+            <ListView fx:id="list_meals" layoutX="118.0" layoutY="81.0" prefHeight="222.0" prefWidth="362.0">
+
+            </ListView>
+        <Button fx:id="submitButton" layoutX="480.0" layoutY="333.0" mnemonicParsing="false" onAction="#addToCart" text="Add to Cart" />
+      <Label layoutX="118.0" layoutY="54.0" text="Choose the meals that you want to add to the cart for the delivery" />
+    </children>
+
+</AnchorPane>

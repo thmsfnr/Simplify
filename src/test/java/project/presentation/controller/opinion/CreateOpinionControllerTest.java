@@ -1,5 +1,5 @@
 
-package project.presentation.controller;
+package project.presentation.controller.opinion;
 
 import javafx.event.ActionEvent;
 import org.junit.jupiter.api.Assertions;
