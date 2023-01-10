@@ -19,6 +19,7 @@ import java.util.List;
  * @author Simplify members
  */
 public class MealFacade {
+
     private MealDAO mealDAO;
     private OpinionDAO opinionDAO;
 
@@ -79,8 +80,17 @@ public class MealFacade {
         }
     }
 
+    /**
+     * This method is used to get all the opinions of a meal
+     * @param idMeal the id of the meal
+     * @return a list of opinions
+     */
     public List<Opinion> getAllOpinionOfMeal(int idMeal) {return this.opinionDAO.getAllOpinionOfMeal(idMeal);}
 
+    /**
+     * This method is used to get the instance of the class MealFacade
+     * @return the instance of the class MealFacade
+     */
     public static MealFacade getInstance() {
         return MealFacade.FacadeHolder.INSTANCE;
     }
@@ -93,4 +103,5 @@ public class MealFacade {
         // Instance of the class UserFacade
         static final MealFacade INSTANCE = new MealFacade();
     }
+
 }

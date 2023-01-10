@@ -31,5 +31,6 @@ public class CartFacadeTest {
         CartFacade facade2 = CartFacade.getInstance();
         assertEquals(facade1, facade2);
     }
+
 }
 

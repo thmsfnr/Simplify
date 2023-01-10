@@ -1,14 +1,11 @@
+
 package project.business.facade;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import project.business.models.Meal;
 import project.business.models.Opinion;
-import project.exceptions.MealNotFoundException;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class MealFacadeTest {
@@ -34,8 +31,6 @@ class MealFacadeTest {
         assertEquals(meal2.getDescription(),"cc");
         assertEquals(meal2.getTitle(),"un truc");
     }
-
-
 
     @Disabled
     @Test
@@ -132,4 +127,5 @@ class MealFacadeTest {
             assertNotNull(o.getComment());
         }
     }
+
 }
