@@ -168,8 +168,8 @@ public class ReservationFormController implements Initializable {
     private void initializeAnchorTable() {
         Parent root = null;
         try {
-            PlacementController.isReservation = true;
-            PlacementController.idRestaurant = idRestaurantAttribut;
+            PlacementController.setIsReservation(true);
+            PlacementController.setIdRestaurant(idRestaurantAttribut);
             FXMLLoader fxmlLoader = new FXMLLoader(Placement.class.getResource("PlacementFrame.fxml"));
             root = fxmlLoader.load();
             PlacementController placementController = fxmlLoader.getController();

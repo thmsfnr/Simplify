@@ -80,9 +80,12 @@
             <Button layoutX="17.0" layoutY="409.0" mnemonicParsing="false" onAction="#switchToReservationFrame" text="Consult reservations" />
             <Button layoutX="197.0" layoutY="409.0" mnemonicParsing="false" onAction="#switchToCreateOpinionFrame" text="Add opinion" />
             <Button layoutX="332.0" layoutY="409.0" mnemonicParsing="false" onAction="#switchToPlacementFrame" text="Consult placement" />
-            <Button layoutX="509.0" layoutY="409.0" mnemonicParsing="false" onAction="#switchToMealFrame" text="Consult meals" />
-            <Button layoutX="563.0" layoutY="215.0" mnemonicParsing="false" text="Consult events Manager" />
-            <Button layoutX="554.0" layoutY="284.0" mnemonicParsing="false" text="Consult events" />
+            <Button fx:id="meals_btn" layoutX="509.0" layoutY="409.0" mnemonicParsing="false" onAction="#switchToMealFrame" text="Consult meals" />
+            <Button fx:id="button_event_manager" layoutX="563.0" layoutY="215.0" mnemonicParsing="false" onAction="#switchToEventManagerFrame" text="Consult events Manager" />
+            <Button fx:id="button_event_user" layoutX="554.0" layoutY="284.0" mnemonicParsing="false" onAction="#switchToEventUserFrame" text="Consult events" />
+            <Button fx:id="orderBtn" layoutX="557.0" layoutY="250.0" mnemonicParsing="false" onAction="#switchToDeliveryMeals" text="Order some meals" />
+            <Button fx:id="button_opinion_manager" layoutX="557.0" layoutY="321.0" mnemonicParsing="false" onAction="#switchToOpinionManagerFrame" text="Open opinion Manager" />
+            <Button fx:id="button_opinion_user" layoutX="557.0" layoutY="359.0" mnemonicParsing="false" onAction="#switchToOpinionUserFrame" text="Open opinion User" />
          </children>
       </AnchorPane>
    </children>

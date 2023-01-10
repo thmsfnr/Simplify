@@ -57,4 +57,13 @@ public abstract class MealDAO {
      */
     public abstract List<Meal> getMealsOfReservation(int idReservation);
 
+
+    /**
+     * This method is used to get all the meals of a restaurant
+     * @param idRestaurant
+     * @return a list of meals
+     * @throws AccessDatabaseException
+     */
+    public abstract List<Meal> getAllMealOfRestaurant(int idRestaurant) throws AccessDatabaseException;
+
 }

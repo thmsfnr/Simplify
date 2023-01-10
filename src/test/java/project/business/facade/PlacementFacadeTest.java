@@ -1,10 +1,10 @@
+
 package project.business.facade;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import project.business.models.Table;
 import project.exceptions.AccessDatabaseException;
-
 import java.util.List;
 
 public class PlacementFacadeTest {
@@ -47,9 +47,7 @@ public class PlacementFacadeTest {
         catch(AccessDatabaseException e){
             throw new RuntimeException(e);
         }
-
     }
-
 
     @Test
     void deletePlacementTest(){
@@ -60,4 +58,5 @@ public class PlacementFacadeTest {
             placementFacade.deletePlacement(idTable);
         });
     }
+
 }
