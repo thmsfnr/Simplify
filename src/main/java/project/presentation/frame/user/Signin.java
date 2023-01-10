@@ -29,6 +29,13 @@ public class Signin extends Application {
         stage.setTitle("User Signin");
         stage.setScene(new Scene(root, 700, 500));
 
+        // Show the stage in the centre of the screen
+        stage.centerOnScreen();
+
+        // set on not resizable window
+        stage.setResizable(false);
+
+
         // Show the GUI
         stage.show();
     }
