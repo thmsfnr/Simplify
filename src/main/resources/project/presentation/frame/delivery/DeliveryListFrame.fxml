@@ -45,7 +45,7 @@
                         <Font name="System Bold Italic" size="15.0" />
                      </font>
                   </Label>
-                  <Button layoutX="7.0" layoutY="10.0" mnemonicParsing="false" prefHeight="14.0" prefWidth="16.0">
+                  <Button layoutX="7.0" layoutY="10.0" mnemonicParsing="false" prefHeight="14.0" prefWidth="16.0" fx:id="backButton" onAction="#backToMenu">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                             <image>
