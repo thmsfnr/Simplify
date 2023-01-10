@@ -2,6 +2,8 @@ package project.presentation.controller.restaurant;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,11 +16,13 @@ import project.business.models.Restaurant;
 import project.business.models.User;
 import project.exceptions.AccessDatabaseException;
 import project.exceptions.UserNotFoundException;
+import project.presentation.controller.delivery.DeliveryMealsController;
 import project.presentation.controller.event.EventManagerController;
 import project.presentation.controller.meal.MealController;
 import project.presentation.controller.opinion.CreateOpinionController;
 import project.presentation.controller.placement.PlacementController;
 import project.presentation.controller.reservation.ReservationController;
+import project.presentation.frame.delivery.DeliveryMeals;
 import project.presentation.frame.event.EventManagerFrame;
 import project.presentation.frame.event.EventUserFrame;
 import project.presentation.frame.meal.MealFrame;
@@ -74,6 +78,9 @@ public class RestaurantInfosController {
 
     @FXML
     private Button button_opinion_user;
+
+    @FXML
+    private Button orderBtn;
 
     /**
      * This method is used at the start of the frame
@@ -258,4 +265,20 @@ public class RestaurantInfosController {
         // close the actual frame
         restaurantInfoWindow.hide();
     }
+
+
+    @FXML
+    public void switchToDeliveryMeals(ActionEvent event){
+        Window window = orderBtn.getScene().getWindow();
+
+        try{
+            FXMLLoader loader = new FXMLLoader(DeliveryMeals.class.getResource("DeliveryMealsFrame.fxml"));
+            Parent root = loader.load();
+            DeliveryMealsController controller = loader.getController();
+            controller.initialize(this.restaurant, this.idUser);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
