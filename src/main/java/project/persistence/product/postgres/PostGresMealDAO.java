@@ -263,4 +263,41 @@ public class PostGresMealDAO extends MealDAO {
         return meals;
 
     }
+
+    @Override
+    public List<Meal> getAllMealOfRestaurant(int idRestaurant) throws AccessDatabaseException {
+        Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
+
+        if(connection == null){
+            throw new AccessDatabaseException();
+        }
+        else{
+            try{
+                String query = "SELECT * FROM \"public\".\"Meal\" WHERE \"idRestaurant\" = ?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, idRestaurant);
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                ArrayList<Meal> meals = new ArrayList<>();
+
+                while(resultSet.next()){
+                    Meal meal = new Meal(
+                            resultSet.getInt("idMeal"),
+                            resultSet.getInt("idRestaurant"),
+                            resultSet.getString("description"),
+                            resultSet.getString("title"),
+                            resultSet.getDouble("price")
+                    );
+                    meals.add(meal);
+                }
+
+                resultSet.close();
+                preparedStatement.close();
+                return meals;
+
+            } catch(SQLException e){
+                throw new AccessDatabaseException();
+            }
+        }
+    }
 }

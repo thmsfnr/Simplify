@@ -116,6 +116,23 @@ public class DeliveryFacade {
         return this.deliveryDAO.getAllDeliveriesOfRestaurant(idRestaurant);
     }
 
+
+    /**
+     * This method is used to get all the meals for a restaurant
+     * @param idRestaurant the id of the restaurant
+     * @return a list of the meals
+     * @throws AccessDatabaseException if the database is not accessible
+     */
+    public List<Meal> getAllMealsOfRestaurant(int idRestaurant) throws AccessDatabaseException {
+        return this.mealDAO.getAllMealOfRestaurant(idRestaurant);
+    }
+
+
+
+
+
+    /**  Singleton  **/
+    
     /**
      * This method is used to get an instance of the delivery facade
      * @return

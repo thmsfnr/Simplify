@@ -18,23 +18,17 @@ import project.utilities.Display;
 import java.util.List;
 
 public class DeliveryFormController {
-
     private User user;
     private Restaurant restaurant;
     private List<Meal> meals;
-
     @FXML
     private Button submitButton;
-
     @FXML
     private TextArea addressField;
-
     @FXML
     private TextField phoneField;
-
     @FXML
     private TextField nameField;
-
     @FXML
     private TextField firstnameField;
 
