@@ -91,7 +91,12 @@ public class PlacementController {
         try{
             //if the frame is opened from the reservation frame
             if(isReservation){
+                button_reserve_table.setVisible(true);
+                button_reserve_table.setDisable(false);
                 configurationForReservation();
+            }else{
+                button_reserve_table.setVisible(false);
+                button_reserve_table.setDisable(true);
             }
             //Recuperation of the restaurant
             PlacementFacade placementFacade = PlacementFacade.getInstance();
