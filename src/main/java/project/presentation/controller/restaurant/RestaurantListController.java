@@ -204,7 +204,6 @@ public class RestaurantListController {
                                 stage.setScene(new javafx.scene.Scene(root));
                                 stage.show();
                                 owner.hide();
-
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 Display.showAlert(Alert.AlertType.ERROR, btn.getScene().getWindow(), "Error", "Error getting restaurant");

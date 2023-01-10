@@ -51,7 +51,7 @@
                   <Font name="Cambria Bold" size="13.0" />
                </font>
             </Label>
-            <Button fx:id="submitButton" mnemonicParsing="false" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Button" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+            <Button fx:id="submitButton" onAction="#pay" mnemonicParsing="false" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Pay" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
