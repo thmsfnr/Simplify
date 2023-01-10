@@ -176,7 +176,7 @@ public class ReservationInfoController implements Initializable {
         Window reservationInfoWindow = button_edit_reservation.getScene().getWindow();
 
         ReservationFormFrame reservationFormFrame = new ReservationFormFrame();
-        ReservationFormController.isUpdate = true;
+        ReservationFormController.setIsUpdate(true);
         ReservationFormController.reservationSelected = reservationSelected;
         reservationFormFrame.start(new Stage());
 
