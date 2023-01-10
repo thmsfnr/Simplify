@@ -14,6 +14,8 @@ import project.business.models.Restaurant;
 import project.business.models.User;
 import project.exceptions.AccessDatabaseException;
 import project.exceptions.UserNotFoundException;
+import project.presentation.controller.reservation.ReservationController;
+import project.presentation.frame.reservation.ReservationFrame;
 import project.presentation.frame.restaurant.RestaurantList;
 import project.utilities.Display;
 
@@ -24,42 +26,41 @@ public class RestaurantInfosController {
 
     private Restaurant restaurant;
     private User manager;
+    private int idUser;
+    private int idRole;
 
     @FXML
     private Label nameOutput;
-
     @FXML
     private Label addressOutput;
-
     @FXML
     private Label phoneOutput;
-
     @FXML
     private Label emailOutput;
-
     @FXML
     private Label managerOutput;
-
     @FXML
     private Label nbOfStarsOutput;
-
     @FXML
     private Label widthOutput;
-
     @FXML
     private Label lengthOutput;
-
     @FXML
     private Label nbOfTablesOutput;
-
     @FXML
     private ListView<String> opinionList;
-
     @FXML
     private Button backButton;
 
-
-    public void initialize(Restaurant restaurant){
+    /**
+     * This method is used at the start of the frame
+     * @param restaurant the restaurant to display
+     * @param idUser the id of the user
+     * @param idRole the id of the role
+     */
+    public void initialize(Restaurant restaurant, int idUser, int idRole) {
+        this.idUser = idUser;
+        this.idRole = idRole;
         RestaurantFacade restaurantFacade = RestaurantFacade.getInstance();
         this.restaurant = restaurant;
         System.out.println(restaurant.getIdManager());
@@ -103,7 +104,10 @@ public class RestaurantInfosController {
         lengthOutput.setText(String.valueOf(restaurant.getLength()));
     }
 
-
+    /**
+     * This method is used to go back to the restaurant list
+     * @param event the event of the button
+     */
     @FXML
     public void switchToList(ActionEvent event){
         try{
@@ -116,6 +120,17 @@ public class RestaurantInfosController {
             e.printStackTrace();
         }
     }
+    @FXML
+    public void switchToReservationFrame(ActionEvent event) throws Exception {
+        // Get the window of the create button
+        Window restaurantInfoWindow = backButton.getScene().getWindow();
+        ReservationFrame reservationFrame = new ReservationFrame();
+        ReservationController.setIdUser(this.manager.getId());
+        ReservationController.setIdRole(this.manager.getRole());
+        ReservationController.setIdRestaurant(this.restaurant.getIdRestaurant());
+        reservationFrame.start(new Stage());
 
-
+        // close the actual frame
+        restaurantInfoWindow.hide();
+    }
 }

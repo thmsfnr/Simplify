@@ -1,3 +1,4 @@
+
 package project.presentation.controller.restaurant;
 
 import javafx.collections.FXCollections;
@@ -14,18 +15,21 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.business.facade.RestaurantFacade;
 import project.business.models.Restaurant;
-import project.presentation.controller.user.PersonalAccountController;
 import project.presentation.frame.menu.Menu;
 import project.utilities.Display;
-
 import javafx.util.Callback;
 import project.exceptions.AccessDatabaseException;
 import project.exceptions.RestaurantNotFoundException;
 import project.presentation.frame.restaurant.RestaurantForm;
 import project.presentation.frame.restaurant.RestaurantInfos;
-
 import java.io.IOException;
 
+/**
+ * Created by Simplify members on 10/01/23.
+ * This class is the controller of the restaurant list frame
+ * It is used to call the facade and to manage the events of the frame
+ * @author Simplify members
+ */
 public class RestaurantListController {
 
     private boolean manage = false;
@@ -35,19 +39,14 @@ public class RestaurantListController {
 
     @FXML
     private TableView<Restaurant> restaurantTable;
-
     @FXML
     private TableColumn<Restaurant, Integer> idColumn;
-
     @FXML
     private TableColumn<Restaurant, String> nameColumn;
-
     @FXML
     private TableColumn<Restaurant, Integer> responsableColumn;
-
     @FXML
     private Button addButton;
-
     @FXML
     private Button back;
 
@@ -60,6 +59,9 @@ public class RestaurantListController {
         RestaurantListController.idRole = idRole;
     }
 
+    /**
+     * This method is used to add update buttons to the table and manage the events
+     */
     private void addUpdateButton(){
         TableColumn<Restaurant, Void> colBtn = new TableColumn("Update");
 
@@ -119,7 +121,9 @@ public class RestaurantListController {
         restaurantTable.getColumns().add(colBtn);
     }
 
-
+    /**
+     * This method is used to add delete buttons to the table and manage the events
+     */
     public void addButtonDelete(){
         TableColumn<Restaurant, Void> colBtn = new TableColumn("Delete");
 
@@ -171,8 +175,9 @@ public class RestaurantListController {
         restaurantTable.getColumns().add(colBtn);
     }
 
-
-
+    /**
+     * This method is used to add details buttons to the table and manage the events
+     */
     public void addDetailsButton(){
         TableColumn<Restaurant, Void> colBtn = new TableColumn("Details");
 
@@ -193,7 +198,7 @@ public class RestaurantListController {
                                 FXMLLoader loader = new FXMLLoader(RestaurantInfos.class.getResource("RestaurantInfosFrame.fxml"));
                                 Parent root = loader.load();
                                 RestaurantInfosController controller = loader.getController();
-                                controller.initialize(restaurant);
+                                controller.initialize(restaurant,idUser,idRole);
                                 Stage stage = new Stage();
                                 stage.setTitle("Restaurant details");
                                 stage.setScene(new javafx.scene.Scene(root));
@@ -233,8 +238,9 @@ public class RestaurantListController {
         restaurantTable.getColumns().add(colBtn);
     }
 
-
-
+    /**
+     * This method is used to refresh the table
+     */
     public void refreshTable(){
         RestaurantFacade restaurantFacade = RestaurantFacade.getInstance();
         try {
@@ -251,7 +257,10 @@ public class RestaurantListController {
         }
     }
 
-
+    /**
+     * This method is used to add a restaurant
+     * @param event the event
+     */
     @FXML
     public void addRestaurant(ActionEvent event){
         try{
@@ -263,12 +272,11 @@ public class RestaurantListController {
         catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
-
-
-
+    /**
+     * This method is used at the start of the frame
+     */
     public void initialize(){
         RestaurantFacade restaurantFacade = RestaurantFacade.getInstance();
 

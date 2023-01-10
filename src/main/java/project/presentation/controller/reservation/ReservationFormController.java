@@ -91,10 +91,20 @@ public class ReservationFormController implements Initializable {
     public static void setIdUser(int idUser) {
         ReservationFormController.idUser = idUser;
     }
+
+    /**
+     * This method is used to pass the state of the form to configure the form page
+     * @param isUpdate the boolean to configure the form, if true the form is in update mode else it's in create mode
+     */
     public static void setIsUpdate(Boolean isUpdate) {
         ReservationFormController.isUpdate = isUpdate;
     }
 
+    /**
+     * This method is used to initialize the page
+     * @param url the url
+     * @param resourceBundle the ressource bundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(isUpdate){
@@ -152,7 +162,9 @@ public class ReservationFormController implements Initializable {
         });
     }
 
-    //fonction to return the actual instance of the controller if it exists
+    /**
+     * This method is used to initialize the table of the restaurant placement
+     */
     private void initializeAnchorTable() {
         Parent root = null;
         try {
@@ -168,6 +180,9 @@ public class ReservationFormController implements Initializable {
         anchorTable.getChildren().setAll(root);
     }
 
+    /**
+     * This method is used to add  the selected meal to the reservation list
+     */
     @FXML
     private void selection_meal() {
         Meal mealSelected = tabMeals.getSelectionModel().getSelectedItem();
@@ -199,6 +214,9 @@ public class ReservationFormController implements Initializable {
         }
     }
 
+    /**
+     * This method is used to add the selected table to the reservation list
+     */
     @FXML
     public void selection_table(Table tableSelected) {
         //add table to listView_reservation
@@ -229,6 +247,9 @@ public class ReservationFormController implements Initializable {
         }
     }
 
+    /**
+     * This method is used to remove the selected item from the reservation list
+     */
     @FXML
     public void delete_selected_object(){
         Object objectSelected = listView_reservations.getSelectionModel().getSelectedItem();
@@ -237,6 +258,9 @@ public class ReservationFormController implements Initializable {
         }
     }
 
+    /**
+     * This method is used to save the reservation
+     */
     @FXML
     public void confirm_reservation() {
         //get value of date picker
