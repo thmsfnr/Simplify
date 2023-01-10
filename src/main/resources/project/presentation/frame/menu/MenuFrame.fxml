@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,111 +11,126 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.menu.MenuController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1150.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.menu.MenuController">
     <top>
-        <AnchorPane prefHeight="105.0" prefWidth="1080.0" style="-fx-background-color: #D9DDDC;" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="105.0" prefWidth="1080.0" style="-fx-background-color: #D6E4E5;" BorderPane.alignment="CENTER">
             <children>
                 <ImageView fitHeight="175.0" fitWidth="121.0" layoutX="8.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../Simplify.png" />
                     </image>
                 </ImageView>
-            <AnchorPane layoutX="784.0" layoutY="11.0" prefHeight="91.0" prefWidth="285.0">
+            <AnchorPane layoutX="840.0" layoutY="11.0" prefHeight="91.0" prefWidth="285.0">
                <children>
-                  <Button fx:id="personalAccount" layoutX="202.0" mnemonicParsing="false" onAction="#switchToPersonalAccount" prefHeight="43.0" prefWidth="53.0" style="-fx-background-color: transparent;">
+                  <Button fx:id="personalAccount" layoutX="125.0" layoutY="-2.0" mnemonicParsing="false" onAction="#switchToPersonalAccount" prefHeight="43.0" prefWidth="53.0" style="-fx-background-color: transparent; -fx-cursor: hand;">
                      <graphic>
-                        <ImageView fitHeight="61.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="61.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                            <image>
                               <Image url="@../user.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Text fill="WHITE" layoutX="224.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USER">
+                  <Text fill="#eb8b04" layoutX="148.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User">
                      <font>
-                        <Font name="System Bold" size="15.0" />
+                        <Font name="System Bold" size="17.0" />
                      </font>
                   </Text>
-                  <Button fx:id="cartFrame" layoutX="115.0" mnemonicParsing="false" onAction="#switchToCartFrame" prefHeight="43.0" prefWidth="53.0" style="-fx-background-color: transparent;">
+                  <Button fx:id="cartFrame" layoutX="36.0" mnemonicParsing="false" onAction="#switchToCartFrame" prefHeight="43.0" prefWidth="53.0" style="-fx-background-color: transparent; -fx-cursor: hand;">
                      <graphic>
-                        <ImageView fitHeight="61.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="61.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                            <image>
                               <Image url="@../shopping-cart.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
+                  <Button fx:id="logout" layoutX="206.0" layoutY="-2.0" mnemonicParsing="false" onAction="#logout" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: transparent; -fx-cursor: hand;" textFill="#86c8bc">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="61.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../logout.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Text fill="#e81e1e" layoutX="222.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log Out">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
-            <Button fx:id="logout" layoutX="154.0" layoutY="22.0" mnemonicParsing="false" onAction="#logout" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: white;" text="Logout">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Button>
             </children>
         </AnchorPane>
     </top>
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane layoutX="156.0" layoutY="91.0" prefHeight="564.0" prefWidth="769.0" style="-fx-background-color: #c8ded0; -fx-background-radius: 3em;">
+            <AnchorPane layoutX="191.0" layoutY="46.0" prefHeight="564.0" prefWidth="769.0" style="-fx-background-color: #BAD1C2; -fx-background-radius: 3em;">
                <children>
-                  <Line endX="266.0" layoutX="372.0" layoutY="78.0" startX="-241.0" stroke="WHITE" strokeWidth="3.0" />
-                  <Text fill="#fbfffe" layoutX="318.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MENU">
-                     <font>
-                        <Font name="Arial Bold" size="45.0" />
-                     </font>
-                  </Text>
-                  <Line endX="2.0" endY="-141.0" layoutX="382.0" layoutY="270.0" startX="2.0" startY="258.0" stroke="WHITE" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="6.0" />
-                  <Button fx:id="restaurantList" layoutX="130.0" layoutY="126.0" mnemonicParsing="false" onAction="#switchToRestaurantList" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: white;" text="Consult Restaurants" textFill="#c8ded0">
+                  <Line endX="284.0" layoutX="372.0" layoutY="87.0" startX="-241.0" stroke="WHITE" strokeWidth="5.0" />
+                  <Line endX="2.0" endY="-141.0" layoutX="392.0" layoutY="270.0" startX="2.0" startY="258.0" stroke="WHITE" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="6.0" />
+                  <Button fx:id="restaurantList" layoutX="130.0" layoutY="126.0" mnemonicParsing="false" onAction="#switchToRestaurantList" prefHeight="52.0" prefWidth="206.0" style="-fx-background-color: white; -fx-cursor: hand;" text="Consult Restaurants" textFill="#86c8bc">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="reservationFrame" layoutX="130.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToReservationFrame" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: 5em; -fx-background-color: white;" text="Consult Reservations" textFill="#c8ded0">
+                  <Button fx:id="reservationFrame" layoutX="130.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToReservationFrame" prefHeight="52.0" prefWidth="206.0" style="-fx-background-color: 5em; -fx-background-color: white; -fx-cursor: hand;" text="Consult Reservations" textFill="#86c8bc">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="notificationCenterFrame" layoutX="130.0" layoutY="269.0" mnemonicParsing="false" onAction="#switchToNotificationCenterFrame" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: white;" text="Notification Center" textFill="#c8ded0">
+                  <Button fx:id="notificationCenterFrame" layoutX="130.0" layoutY="268.0" mnemonicParsing="false" onAction="#switchToNotificationCenterFrame" prefHeight="52.0" prefWidth="206.0" style="-fx-background-color: white; -fx-cursor: hand;" text="Notification Center" textFill="#86c8bc">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="opinionUser" layoutX="130.0" layoutY="343.0" mnemonicParsing="false" onAction="#switchToOpinionUser" prefHeight="52.0" prefWidth="168.0" style="-fx-border-radius: 2em; -fx-background-color: white;" text="Consult Personal Opinions" textFill="#c8ded0">
+                  <Button fx:id="opinionUser" layoutX="130.0" layoutY="339.0" mnemonicParsing="false" onAction="#switchToOpinionUser" prefHeight="52.0" prefWidth="206.0" style="-fx-border-radius: 2em; -fx-background-color: white; -fx-cursor: hand;" text="Consult Personal Opinions" textFill="#86c8bc">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="reservationFormFrame" layoutX="450.0" layoutY="126.0" mnemonicParsing="false" onAction="#switchToReservationFormFrame" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: white;" text="Create Reservation" textFill="#c8ded0">
+                  <Button fx:id="reservationFormFrame" layoutX="447.0" layoutY="126.0" mnemonicParsing="false" onAction="#switchToReservationFormFrame" prefHeight="52.0" prefWidth="212.0" style="-fx-background-color: white; -fx-cursor: hand;" text="Create Reservation" textFill="#86c8bc">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="paymentUser" layoutX="450.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToPaymentUser" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: white;" text="Consult Personal Payments" textFill="#c8ded0">
+                  <Button fx:id="paymentUser" layoutX="447.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchToPaymentUser" prefHeight="52.0" prefWidth="212.0" style="-fx-background-color: white; -fx-cursor: hand;" text="Consult Personal Payments" textFill="#86c8bc">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="paymentAdmin" layoutX="450.0" layoutY="269.0" mnemonicParsing="false" onAction="#switchToPaymentAdmin" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: white;" text="Consult All Payments" textFill="#c8ded0">
+                  <Button fx:id="paymentAdmin" layoutX="447.0" layoutY="268.0" mnemonicParsing="false" onAction="#switchToPaymentAdmin" prefHeight="52.0" prefWidth="212.0" style="-fx-background-color: white; -fx-cursor: hand;" text="Consult All Payments" textFill="#86c8bc">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="allAccounts" layoutX="450.0" layoutY="343.0" mnemonicParsing="false" onAction="#switchToAllAccounts" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: white;" text="Consult All Accounts" textFill="#c8ded0">
+                  <Button fx:id="allAccounts" layoutX="447.0" layoutY="339.0" mnemonicParsing="false" onAction="#switchToAllAccounts" prefHeight="52.0" prefWidth="212.0" style="-fx-background-color: white; -fx-cursor: hand;" text="Consult All Accounts" textFill="#86c8bc">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="opinionAdmin" layoutX="450.0" layoutY="411.0" mnemonicParsing="false" onAction="#switchToOpinionAdmin" prefHeight="52.0" prefWidth="168.0" style="-fx-background-color: white;" text="Consult All Opinions" textFill="#c8ded0">
+                  <Button fx:id="opinionAdmin" layoutX="447.0" layoutY="410.0" mnemonicParsing="false" onAction="#switchToOpinionAdmin" prefHeight="52.0" prefWidth="212.0" style="-fx-background-color: white; -fx-cursor: hand;" text="Consult All Opinions" textFill="#86c8bc">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="deliveriesUser" layoutX="130.0" layoutY="411.0" mnemonicParsing="false" onAction="#switchToDeliveriesUser" prefHeight="52.0" prefWidth="168.0" style="-fx-border-radius: 2em; -fx-background-color: white;" text="Consult Deliveries" textFill="#c8ded0">
+                  <Button fx:id="deliveriesUser" layoutX="130.0" layoutY="410.0" mnemonicParsing="false" onAction="#switchToDeliveriesUser" prefHeight="52.0" prefWidth="206.0" style="-fx-border-radius: 2em; -fx-background-color: white; -fx-cursor: hand;" text="Consult Deliveries" textFill="#86c8bc">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
+                  <Label alignment="CENTER" layoutX="314.0" layoutY="14.0" prefHeight="54.0" prefWidth="160.0" style="-fx-background-color: white; -fx-background-radius: 3em; -fx-border-color: 86C8BC;" text="MENU" textFill="#86c8bc">
+                     <font>
+                        <Font name="System Bold" size="37.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </opaqueInsets>
+                  </Label>
                </children>
             </AnchorPane>
          </children>
