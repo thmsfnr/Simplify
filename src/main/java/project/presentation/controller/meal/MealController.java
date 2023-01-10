@@ -11,6 +11,7 @@ import project.business.facade.MealFacade;
 import project.business.models.Meal;
 import project.presentation.frame.meal.MealFormFrame;
 import project.presentation.frame.meal.MealInfoFrame;
+import project.presentation.frame.menu.Menu;
 import project.utilities.LocalStorage;
 
 import java.io.IOException;
@@ -107,5 +108,16 @@ public class MealController implements Initializable {
 
         // close the actual frame
         listeMealWindow.hide();
+    }
+
+    /**
+     * This method is used to manage the event of the back button
+     * @param event the event of the back button
+     */
+    public void backToMenu(ActionEvent event) throws Exception {
+        Window owner = button_create.getScene().getWindow();
+        project.presentation.frame.menu.Menu menu = new Menu();
+        menu.start(new Stage());
+        owner.hide();
     }
 }
