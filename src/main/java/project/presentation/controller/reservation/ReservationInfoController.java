@@ -10,17 +10,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import project.business.facade.MealFacade;
 import project.business.facade.NotificationFacade;
 import project.business.facade.ReservationFacade;
 import project.business.facade.RestaurantFacade;
 import project.business.models.*;
 import project.exceptions.AccessDatabaseException;
-import project.exceptions.ReservationNotFoundException;
 import project.exceptions.RestaurantNotFoundException;
 import project.presentation.frame.reservation.ReservationFormFrame;
 import project.presentation.frame.reservation.ReservationFrame;
-import project.presentation.frame.reservation.ReservationInfoFrame;
 import project.utilities.Display;
 import project.utilities.LocalStorage;
 
@@ -91,6 +88,11 @@ public class ReservationInfoController implements Initializable {
     public static Boolean isAdmin = true;
 
 
+    /**
+     * This method is used to initialize the controller
+     * @param url the url
+     * @param resourceBundle the resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(isAdmin || isManager){

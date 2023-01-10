@@ -14,13 +14,13 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.restaurant.RestaurantInfosController">
    <children>
-      <AnchorPane layoutX="-2.0" prefHeight="400.0" prefWidth="600.0">
+      <AnchorPane layoutX="-2.0" prefHeight="454.0" prefWidth="905.0">
          <children>
             <Label fx:id="nameOutput" layoutX="197.0" layoutY="14.0" text="Nom du restaurant">
                <font>
                   <Font name="System Bold Italic" size="23.0" />
                </font></Label>
-            <ListView fx:id="opinionList" layoutX="95.0" layoutY="200.0" prefHeight="200.0" prefWidth="410.0" style="-fx-background-color: lightgrey; -fx-background-radius: 10;" />
+            <ListView fx:id="opinionList" layoutX="115.0" layoutY="196.0" prefHeight="200.0" prefWidth="410.0" style="-fx-background-color: lightgrey; -fx-background-radius: 10;" />
             <GridPane hgap="6.0" layoutX="17.0" layoutY="61.0" prefHeight="124.0" prefWidth="565.0" style="-fx-background-color: #d1d1e0;" vgap="6.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.80001220703124" minWidth="10.0" prefWidth="132.600048828125" />
@@ -77,6 +77,12 @@
                     </ImageView>
                </graphic>
             </Button>
+            <Button layoutX="17.0" layoutY="409.0" mnemonicParsing="false" onAction="#switchToReservationFrame" text="Consult reservations" />
+            <Button layoutX="197.0" layoutY="409.0" mnemonicParsing="false" text="Add opinion" />
+            <Button layoutX="332.0" layoutY="409.0" mnemonicParsing="false" text="Consult placement" />
+            <Button layoutX="509.0" layoutY="409.0" mnemonicParsing="false" text="Consult meals" />
+            <Button layoutX="563.0" layoutY="215.0" mnemonicParsing="false" text="Consult events Manager" />
+            <Button layoutX="554.0" layoutY="284.0" mnemonicParsing="false" text="Consult events" />
          </children>
       </AnchorPane>
    </children>

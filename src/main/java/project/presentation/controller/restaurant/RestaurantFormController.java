@@ -151,8 +151,6 @@ public class RestaurantFormController {
 
     }
 
-
-
     private void switchToList(Window owner){
         try{
             RestaurantList list = new RestaurantList();
@@ -162,7 +160,6 @@ public class RestaurantFormController {
             throw new RuntimeException(e);
         }
     }
-
 
     public void setFields(Restaurant restaurant){
         this.isUpdate = true;

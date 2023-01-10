@@ -66,6 +66,7 @@ public class ReservationController implements Initializable {
     @FXML
     private TableColumn<Reservation, Date> date_cancelled;
 
+    @FXML
     private TableColumn<Reservation, Integer> idRestaurantT;
     @FXML
     private TableColumn<Reservation, Date> date;
@@ -87,10 +88,27 @@ public class ReservationController implements Initializable {
         ReservationController.idUser = idUser;
     }
 
+    /**
+     * this method is used to pass the user role id to the controller
+     * @param idRole the id of the role
+     */
     public static void setIdRole(int idRole) {
         ReservationController.idRole = idRole;
     }
 
+    /**
+     * this method is used to pass the restaurant id to the controller
+     * @param idRestaurant the id of the restaurant
+     */
+    public static void setIdRestaurant(int idRestaurant) {
+        ReservationController.idRestaurant = idRestaurant;
+    }
+
+    /**
+     * This method is used to initialize the controller
+     * @param url the url
+     * @param resourceBundle the resource bundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ReservationFacade reservationFacade = ReservationFacade.getInstance();
@@ -146,6 +164,10 @@ public class ReservationController implements Initializable {
 
     }
 
+    /**
+     * This method is used to initialize the tables of reservations in progress, carried out and cancelled according to the reservation state
+     * @param reservations the list of reservations
+     */
     private void setTables(ObservableList<Reservation> reservations) {
         // list tab
         List<Reservation> reservations_in_progress = new ArrayList<>();
@@ -188,6 +210,9 @@ public class ReservationController implements Initializable {
 
     }
 
+    /**
+     * This method is used to add a delete button to the table
+     */
     private void addDeleteButtonToTable() {
         // Create a new column
         TableColumn<Reservation, Void> colBtn = new TableColumn("Cancel reservation");
@@ -242,6 +267,12 @@ public class ReservationController implements Initializable {
         colBtn.setCellFactory(cellFactory);
         tabReservation_in_progress.getColumns().add(colBtn);
     }
+
+    /**
+     * This method is used to cancel a reservation
+     * @param event the event of the button
+     * @param reservation the reservation to cancel
+     */
     public void cancelReservation(ActionEvent event, Reservation reservation) {
         // Create a new alert to confirm the deletion
         Window owner = tabReservation_in_progress.getScene().getWindow();
@@ -274,6 +305,9 @@ public class ReservationController implements Initializable {
         refreshTable();
     }
 
+    /**
+     * This method is used to refresh the table after a modification or a deletion
+     */
     private void refreshTable() {
         // Call the facade to get
         ReservationFacade reservationFacade = ReservationFacade.getInstance();
@@ -282,6 +316,12 @@ public class ReservationController implements Initializable {
         // Set the table
         setTables(reservations);
     }
+
+    /**
+     * This method is used to switch to the reservation form page
+     * @param event the event of the button
+     * @throws Exception the exception
+     */
     @FXML
     public void switchToFormFrame(ActionEvent event) throws Exception {
         // Get the window of the create button
@@ -295,6 +335,11 @@ public class ReservationController implements Initializable {
         listeReservationWindow.hide();
     }
 
+    /**
+     * This method is used to switch to the reservation info page when the user click on a reservation
+     * @param reservation the reservation selected to pass to the controller of info page
+     * @throws Exception
+     */
     @FXML
     public void switchToInfoFrame(Reservation reservation) throws Exception {
         // Get the window of the create button
