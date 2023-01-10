@@ -17,6 +17,13 @@ import java.util.List;
 import java.util.Map;
 
 public class PostGresReservationDAO extends ReservationDAO {
+
+    /**
+     * This method is used to insert a reservation in the database
+     * @param reservation the reservation to be inserted
+     * @return True if the reservation is inserted, false otherwise
+     * @throws AccessDatabaseException
+     */
     @Override
     public Boolean create(Reservation reservation) throws AccessDatabaseException {
         Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
@@ -108,6 +115,12 @@ public class PostGresReservationDAO extends ReservationDAO {
         }
     }
 
+    /**
+     * This method is used to update a reservation
+     * @param reservation the reservation to be updated
+     * @return True if the reservation is inserted , false otherwise
+     * @throws AccessDatabaseException
+     */
     @Override
     public Boolean update(Reservation reservation) throws AccessDatabaseException {
         Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
@@ -229,6 +242,11 @@ public class PostGresReservationDAO extends ReservationDAO {
         }
     }
 
+    /**
+     * This method is used to delete a reservation
+     * @param idReservation the id of the reservation
+     * @return True if the reservation is deleted , false otherwise
+     */
     @Override
     public Boolean delete(int idReservation) {
         // Get the connection to the database
@@ -256,6 +274,12 @@ public class PostGresReservationDAO extends ReservationDAO {
         return false;
     }
 
+    /**
+     * THis method is used to get the reservation with its id
+     * @param idReservation the id of the reservation
+     * @return the Reservation Object
+     * @throws ReservationNotFoundException
+     */
     @Override
     public Reservation getById(int idReservation) throws ReservationNotFoundException {
         // Get the connection to the database
@@ -299,6 +323,11 @@ public class PostGresReservationDAO extends ReservationDAO {
         throw new ReservationNotFoundException();
     }
 
+    /**
+     * THis method is used to get all the reservations of a restaurant
+     * @param idRestaurant the id of the restaurant
+     * @return a list of reservations
+     */
     @Override
     public List<Reservation> getAllReservations(int idRestaurant) {
         ArrayList<Reservation> reservations = new ArrayList<>();
@@ -343,6 +372,11 @@ public class PostGresReservationDAO extends ReservationDAO {
         return reservations;
     }
 
+    /**
+     * This method is used to get all the reservations of a user
+     * @param idUser the id of the user
+     * @return a list of reservations
+     */
     @Override
     public List<Reservation> getAllReservationsOfUser(int idUser) {
         ArrayList<Reservation> reservations = new ArrayList<>();
@@ -387,6 +421,11 @@ public class PostGresReservationDAO extends ReservationDAO {
         return reservations;
     }
 
+    /**
+     * This method is used to cancel a reservation (only for user)
+     * @param reservation the reservation to cancel
+     * @return true if the reservation is cancelled, false otherwise
+     */
     @Override
     public Boolean cancelReservation(Reservation reservation) {
         // Get the connection to the database
@@ -421,6 +460,11 @@ public class PostGresReservationDAO extends ReservationDAO {
         return false;
     }
 
+    /**
+     * This method is used to accept a reservation (only for admin or manager)
+     * @param reservation the reservation to accept
+     * @return True if the reservation is accepted, false otherwise
+     */
     @Override
     public Boolean acceptReservation(Reservation reservation) {
         // Get the connection to the database
@@ -455,6 +499,11 @@ public class PostGresReservationDAO extends ReservationDAO {
         return false;
     }
 
+    /**
+     * This method is used to get the state label
+     * @param idState the id of the state
+     * @return the state label
+     */
     @Override
     public String getStateLabel(int idState) {
         // Get the connection to the database

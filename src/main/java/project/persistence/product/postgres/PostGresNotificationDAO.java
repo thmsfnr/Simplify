@@ -15,6 +15,11 @@ import java.util.List;
 
 public class PostGresNotificationDAO extends NotificationDAO {
 
+    /**
+     * This method is used to insert a notification in the database
+     * @param notification the notification the notification to be inserted
+     * @return True if the notification is inserted, false otherwise
+     */
     @Override
     public Boolean insertNotification(Notification notification) {
         // Get the connection to the database
@@ -44,6 +49,11 @@ public class PostGresNotificationDAO extends NotificationDAO {
         return false;
     }
 
+    /**
+     * This method is used to delete a notification
+     * @param idNotification the id of the notification
+     * @return True if the notification is deleted, false otherwise
+     */
     @Override
     public Boolean deleteNotification(int idNotification) {
         // Get the connection to the database
@@ -71,6 +81,11 @@ public class PostGresNotificationDAO extends NotificationDAO {
         return false;
     }
 
+    /**
+     * This method is used to get all the notifications of a user by it's id
+     * @param idUser the user id
+     * @return a list of notifications
+     */
     @Override
     public List<Notification> getAllNotifications(int idUser) {
         ArrayList<Notification> notifications = new ArrayList<>();
