@@ -1,6 +1,7 @@
 
 package project.presentation.controller.notification;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,7 +53,8 @@ public class NotificationCenterController implements Initializable {
 
         NotificationFacade notificationFacade = NotificationFacade.getInstance();
         ObservableList<Notification> notifications;
-        notifications = notificationFacade.getAllNotifications(user);
+
+        notifications = FXCollections.observableList(notificationFacade.getAllNotifications(user));
 
         idNotification.setCellValueFactory(new PropertyValueFactory<>("idNotification"));
         title.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -141,7 +143,7 @@ public class NotificationCenterController implements Initializable {
         NotificationFacade notificationFacade = NotificationFacade.getInstance();
         ObservableList<Notification> notifications = null;
         try {
-            notifications = notificationFacade.getAllNotifications((Integer) LocalStorage.load("user_id"));
+            notifications = FXCollections.observableList(notificationFacade.getAllNotifications((Integer) LocalStorage.load("user_id")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

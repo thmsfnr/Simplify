@@ -22,7 +22,7 @@ public class Menu extends Application {
 
         // Create the scene with the root and set the title of the stage
         stage.setTitle("User Menu");
-        stage.setScene(new Scene(root, 1000, 1000));
+        stage.setScene(new Scene(root, 1100, 1000));
 
         // Show the GUI
         stage.show();

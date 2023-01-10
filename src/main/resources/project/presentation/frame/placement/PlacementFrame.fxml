@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.placement.PlacementController">
+<AnchorPane fx:id="anchorPlacement" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.placement.PlacementController">
    <children>
       <SplitPane fx:id="page" dividerPositions="0.6676737160120847" layoutX="-1.0" layoutY="-1.0" prefHeight="700.0" prefWidth="1080.0">
         <items>
@@ -26,10 +26,10 @@
                      </font>
                   </Label>
                   <Spinner layoutX="126.0" layoutY="473.0" prefHeight="18.0" prefWidth="54.0" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" fx:id="xSpinner" />
-                  <Label layoutX="81.0" layoutY="441.0" text="New position:" />
-                  <Label layoutX="100.0" layoutY="477.0" text="- x:" />
+                  <Label fx:id="label_position" layoutX="81.0" layoutY="441.0" text="New position:" />
+                  <Label fx:id="label_xSpinner" layoutX="100.0" layoutY="477.0" text="- x:" />
                   <Button fx:id="updateButton" layoutX="226.0" layoutY="521.0" mnemonicParsing="false" onAction="#updatePlacement" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Update position" />
-                  <Label layoutX="218.0" layoutY="477.0" text="- y:" />
+                  <Label fx:id="label_ySpinner" layoutX="218.0" layoutY="477.0" text="- y:" />
                   <Spinner fx:id="ySpinner" layoutX="244.0" layoutY="473.0" prefHeight="1.0" prefWidth="54.0" style="-fx-cursor: hand;" />
                   <Button fx:id="removeButton" layoutX="128.0" layoutY="521.0" mnemonicParsing="false" onAction="#deletePlacement" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="remove table" />
                   <Button fx:id="switchButton" layoutX="223.0" layoutY="40.0" mnemonicParsing="false" onAction="#SwitchToManagementTablePage" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Manage Tables" />
@@ -38,6 +38,7 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Button>
+                  <Button fx:id="button_reserve_table" layoutX="186.0" layoutY="437.0" mnemonicParsing="false" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Reserve Table" />
                </children></AnchorPane>
         </items>
          <padding>

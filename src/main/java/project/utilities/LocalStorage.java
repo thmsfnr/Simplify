@@ -63,6 +63,18 @@ public class LocalStorage {
             // close the file
             bw.close();
         }
+        else if(key.equals("isReservation")){
+            file = new File(key+"LS.txt");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            Boolean isReservation = (Boolean) value;
+            bw.write(key+"="+isReservation);
+            // close the file
+            bw.close();
+        }
     }
     /**
      * This method is used to get the variable stored in the file with the key
@@ -95,6 +107,12 @@ public class LocalStorage {
             }
             else if (line.contains("isUpdate")){
                return Boolean.parseBoolean(line.substring(9));
+            }
+            else if (line.contains("isReservation")) {
+                return Boolean.parseBoolean(line.substring(14));
+            }
+            else if(line.contains("cart_meal")){
+                return line;
             }
         }
         else {

@@ -1,10 +1,11 @@
 package project.business.facade;
 
-import javafx.collections.ObservableList;
 import project.business.models.Notification;
 import project.persistence.factory.AbstractDAOFactory;
 import project.persistence.factory.PostGresDAOFactory;
 import project.persistence.product.abstr.NotificationDAO;
+
+import java.util.List;
 
 public class NotificationFacade {
     private NotificationDAO notificationDAO;
@@ -13,7 +14,7 @@ public class NotificationFacade {
 
     public Boolean deleteNotification(int idNotification) {return this.notificationDAO.deleteNotification(idNotification);}
 
-    public ObservableList<Notification> getAllNotifications(int idUser) {return this.notificationDAO.getAllNotifications(idUser);}
+    public List<Notification> getAllNotifications(int idUser) {return this.notificationDAO.getAllNotifications(idUser);}
 
     private NotificationFacade() {
         AbstractDAOFactory factory = PostGresDAOFactory.getInstance();

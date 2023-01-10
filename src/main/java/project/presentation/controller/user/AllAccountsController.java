@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.business.facade.UserFacade;
 import project.business.models.User;
+import project.presentation.frame.menu.Menu;
 import project.utilities.Display;
 
 import java.util.List;
@@ -62,6 +63,8 @@ public class AllAccountsController {
     private Button updateButton;
     @FXML
     private Button createButton;
+    @FXML
+    private Button back;
 
     /**
      * This method is used to load datas of users at the beginning of the frame
@@ -225,6 +228,17 @@ public class AllAccountsController {
         for (User user : askedUsers) {
             askedList.getItems().add(user.toString());
         }
+    }
+
+    /**
+     * This method is used to manage the event of the back button
+     * @param event the event of the back button
+     */
+    public void backToMenu(ActionEvent event) throws Exception {
+        Window owner = back.getScene().getWindow();
+        project.presentation.frame.menu.Menu menu = new Menu();
+        menu.start(new Stage());
+        owner.hide();
     }
 
 }

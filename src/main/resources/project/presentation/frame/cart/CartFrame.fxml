@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.effect.Light.Distant?>
@@ -13,59 +14,87 @@
 <?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.cart.CartController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.cart.CartController">
 <top>
-    <AnchorPane prefHeight="48.0" prefWidth="810.0" style="-fx-background-color: #D9DDDC;" BorderPane.alignment="CENTER">
+    <AnchorPane prefHeight="63.0" prefWidth="1366.0" style="-fx-background-color: #D9DDDC;" BorderPane.alignment="CENTER">
         <children>
-            <ImageView fitHeight="59.0" fitWidth="67.0" layoutX="8.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="97.0" fitWidth="126.0" layoutX="25.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../Simplify.png" />
                 </image>
             </ImageView>
-            <Button fx:id="cartBtn" layoutX="651.0" layoutY="4.0" mnemonicParsing="false" onAction="#showCartContent" prefHeight="43.0" prefWidth="54.0" style="-fx-background-color: transparent;">
+            <Button fx:id="cartBtn" layoutX="1213.0" layoutY="15.0" mnemonicParsing="false" onAction="#showCartContent" prefHeight="64.0" prefWidth="70.0" style="-fx-background-color: transparent;">
                <graphic>
-                  <ImageView fitHeight="39.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="63.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../shopping-cart.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="back" onAction="#backToMenu" layoutX="91.0" layoutY="16.0" mnemonicParsing="false" text="Back" />
+            <Button fx:id="back" layoutX="323.0" layoutY="51.0" mnemonicParsing="false" onAction="#backToMenu" text="Back" />
         </children>
     </AnchorPane>
 </top>
-<center>
-    <AnchorPane fx:id="contentArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="654.0" style="-fx-background-color: #1AA19B; -fx-background-radius: 2em;" BorderPane.alignment="CENTER">
-        <children>
-          <ScrollPane fx:id="cartContentArea" layoutX="14.0" layoutY="64.0" pannable="true" prefHeight="325.0" prefWidth="627.0" style="-fx-background-color: #c8ded0;">
-               <effect>
-                  <Lighting bumpInput="$null" diffuseConstant="2.0" specularConstant="2.0" specularExponent="14.63" surfaceScale="0.0">
-                     <light>
-                        <Light.Distant color="#c8ded0" />
-                     </light>
-                  </Lighting>
-               </effect>
-            </ScrollPane>
-            <Ellipse fill="#1aa19b" layoutX="605.0" layoutY="19.0" radiusX="17.0" radiusY="35.0" stroke="#1aa19b" strokeType="INSIDE" />
-            <ToolBar layoutX="14.0" layoutY="9.0" prefHeight="45.0" prefWidth="284.0" style="-fx-background-color: white; -fx-background-radius: 3em;">
-              <items>
-                <Button fx:id="reservationCartBtn" mnemonicParsing="false" onAction="#switchToReservationCartFrame" prefHeight="31.0" prefWidth="144.0" style="-fx-background-color: #1AA19B;" text="Reservations Cart" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="deliveryCartBtn" mnemonicParsing="false" onAction="#switchToDeliveryCartFrame" style="-fx-background-color: #1AA19B;" text="Delivery Cart" textFill="#fffefe">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Button>
-              </items>
-               <padding>
-                  <Insets left="11.0" />
-               </padding>
-            </ToolBar>
-        </children>
+<right>
+    <AnchorPane prefHeight="665.0" prefWidth="792.0">
+        <AnchorPane fx:id="contentArea" layoutX="109.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="394.0" prefWidth="643.0" style="-fx-background-color: #1AA19B; -fx-background-radius: 2em;" BorderPane.alignment="CENTER">
+            <children>
+              <ScrollPane fx:id="cartContentArea" layoutX="25.0" layoutY="70.0" minHeight="-Infinity" minWidth="-Infinity" pannable="true" prefHeight="266.0" prefWidth="596.0" style="-fx-background-color: #c8ded0;">
+                   <effect>
+                      <Lighting bumpInput="$null" diffuseConstant="2.0" specularConstant="2.0" specularExponent="14.63" surfaceScale="0.0">
+                         <light>
+                            <Light.Distant color="#c8ded0" />
+                         </light>
+                      </Lighting>
+                   </effect>
+                  <padding>
+                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  </padding>
+                  <content>
+                     <AnchorPane fx:id="MealCartPane" prefHeight="55.0" prefWidth="576.0">
+                        <children>
+                           <Label fx:id="mealTitle" layoutX="28.0" layoutY="12.0" prefHeight="32.0" prefWidth="120.0" text="Title of the meal">
+                              <font>
+                                 <Font name="System Bold" size="16.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="199.0" layoutY="12.0" prefHeight="32.0" prefWidth="41.0" text="Qte : ">
+                              <font>
+                                 <Font name="System Bold" size="16.0" />
+                              </font>
+                           </Label>
+                           <Label fx:id="qteMeal" layoutX="247.0" layoutY="12.0" prefHeight="32.0" prefWidth="36.0" text="number">
+                              <font>
+                                 <Font name="System Bold" size="16.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </AnchorPane>
+                  </content>
+                </ScrollPane>
+                <ToolBar layoutX="14.0" layoutY="9.0" prefHeight="46.0" prefWidth="129.0" style="-fx-background-color: white; -fx-background-radius: 3em;">
+                  <items>
+                      <Label alignment="CENTER" prefHeight="32.0" prefWidth="113.0" style="-fx-background-color: #1AA19B; -fx-background-radius: 3em;" text="Delivery Cart" textFill="WHITE">
+                         <font>
+                            <Font name="System Bold" size="15.0" />
+                         </font>
+                      </Label>
+                  </items>
+                </ToolBar>
+                <Ellipse fill="#1aa19b" layoutX="577.0" layoutY="9.0" radiusX="17.0" radiusY="35.0" stroke="#1aa19b" strokeType="INSIDE" />
+               <Button fx:id="orderBtn" layoutX="412.0" layoutY="344.0" mnemonicParsing="false" onAction="#order" prefHeight="42.0" prefWidth="67.0" style="-fx-background-color: c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Order" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="15.0" />
+                  </font>
+               </Button>
+               <Button fx:id="clearCartBtn" layoutX="491.0" layoutY="344.0" mnemonicParsing="false" onAction="#clearCart" prefHeight="41.0" prefWidth="129.0" style="-fx-background-color: #FFD700; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Clear The Cart" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="15.0" />
+                  </font>
+               </Button>
+            </children>
+        </AnchorPane>
     </AnchorPane>
-</center>
+</right>
 </BorderPane>

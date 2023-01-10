@@ -3,6 +3,8 @@ package project.persistence.product.postgres;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import project.business.models.Reservation;
+import project.business.models.State;
+import project.business.models.Table;
 import project.exceptions.AccessDatabaseException;
 import project.exceptions.ReservationNotFoundException;
 import project.persistence.factory.PostGresDAOFactory;
@@ -10,7 +12,9 @@ import project.persistence.product.abstr.ReservationDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PostGresReservationDAO extends ReservationDAO {
     @Override
@@ -60,10 +64,10 @@ public class PostGresReservationDAO extends ReservationDAO {
                             preparedStatement.executeUpdate();
                         }
                     }
-
                     //creation order_table
                     if(reservation.getTables() != null){
                         for(Integer idTable : reservation.getTables()){
+                            System.out.println(idTable);
                             query = "INSERT INTO \"public\".\"Reserve_Table\" (\"idOrder\", \"idTable\") VALUES (?,?);";
                             preparedStatement = connection.prepareStatement(query);
                             preparedStatement.setInt(1,reservation.getIdOrder());
@@ -122,7 +126,7 @@ public class PostGresReservationDAO extends ReservationDAO {
                     preparedStatement.setInt(4, reservation.getIdUser());
                     preparedStatement.setInt(5, reservation.getIdState());
                     preparedStatement.setDate(6, reservation.getDate());
-                    preparedStatement.setInt(6, reservation.getIdOrder());
+                    preparedStatement.setInt(7, reservation.getIdOrder());
                     preparedStatement.executeUpdate();
 
                     //select order_meal of the order
@@ -130,9 +134,9 @@ public class PostGresReservationDAO extends ReservationDAO {
                     preparedStatement = connection.prepareStatement(query);
                     preparedStatement.setInt(1, reservation.getIdOrder());
                     ResultSet resultSet = preparedStatement.executeQuery();
-                    ArrayList<Integer> meals = new ArrayList<>();
+                    Map<Integer, Integer> meals = new HashMap<>();
                     while (resultSet.next()) {
-                        meals.add(resultSet.getInt("idMeal"));
+                        meals.put(resultSet.getInt("idMeal"), resultSet.getInt("quantity"));
                     }
 
                     //select order_table of the order
@@ -146,9 +150,9 @@ public class PostGresReservationDAO extends ReservationDAO {
                     }
 
                     //delete order_meal if there is any meal removed
-                    if(reservation.getMeals() != null){
-                        for(Integer idMeal : meals){
-                            if(!reservation.getMeals().containsKey(idMeal)){
+                    if (reservation.getMeals() != null) {
+                        for (Integer idMeal : meals.keySet()) {
+                            if (!reservation.getMeals().containsKey(idMeal)) {
                                 query = "DELETE FROM \"public\".\"Meal_ordered\" WHERE \"idMeal\" = ? AND \"idOrder\" = ?;";
                                 preparedStatement = connection.prepareStatement(query);
                                 preparedStatement.setInt(1, idMeal);
@@ -169,21 +173,19 @@ public class PostGresReservationDAO extends ReservationDAO {
                             }
                         }
                     }
-
                     //creation order_meal if there is any meal added
                     if(reservation.getMeals() != null){
-                        for(Integer idMeal : reservation.getMeals().keySet()){
-                            if(!meals.contains(idMeal)){
+                        for(Map.Entry<Integer, Integer> entry : reservation.getMeals().entrySet()){
+                            if(!meals.containsKey(entry.getKey())){
                                 query = "INSERT INTO \"public\".\"Meal_ordered\" (\"idMeal\", \"idOrder\", \"quantity\") VALUES (?,?,?);";
                                 preparedStatement = connection.prepareStatement(query);
-                                preparedStatement.setInt(1,idMeal);
+                                preparedStatement.setInt(1,entry.getKey());
                                 preparedStatement.setInt(2,reservation.getIdOrder());
-                                preparedStatement.setInt(3,reservation.getMeals().get(idMeal));
+                                preparedStatement.setInt(3,entry.getValue());
                                 preparedStatement.executeUpdate();
                             }
                         }
                     }
-
                     //creation order_table if there is any table added
                     if(reservation.getTables() != null){
                         for(Integer idTable : reservation.getTables()){
@@ -262,11 +264,13 @@ public class PostGresReservationDAO extends ReservationDAO {
         if(connection != null) {
             // Create the query
             try {
-                String query = "SELECT * FROM \"public\".\"Order\" WHERE \"idOrder\" = ?;";
+                String query = "SELECT * FROM \"public\".\"Order\" AS O LEFT JOIN \"public\".\"State_order\" AS S ON O.\"idState\" = S.\"idState\" WHERE \"idOrder\" = ?;";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setInt(1, idReservation);
                 ResultSet resultSet = preparedStatement.executeQuery();
 
+                String state_string = resultSet.getString("description").toUpperCase().replace(" ", "_");
+                State state = State.valueOf(state_string);
                 // If the reservation is found in the database
                 if(resultSet.next()) {
                     Reservation reservation = new Reservation(
@@ -274,7 +278,8 @@ public class PostGresReservationDAO extends ReservationDAO {
                             resultSet.getInt("idRestaurant"),
                             resultSet.getInt("idUser"),
                             resultSet.getDate("date"),
-                            resultSet.getInt("idState")
+                            resultSet.getInt("idState"),
+                            state
                     );
                     resultSet.close();
                     preparedStatement.close();
@@ -303,18 +308,22 @@ public class PostGresReservationDAO extends ReservationDAO {
         if(connection != null) {
             // Create the query
             try {
-                String query = "SELECT * FROM \"public\".\"Order\";";
+                String query = "SELECT * FROM \"public\".\"Order\" AS O LEFT JOIN \"public\".\"State_order\" AS S ON O.\"idState\" = S.\"idState\" WHERE \"idTypeOrder\" = 2 AND \"idRestaurant\" = ?;";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, idRestaurant);
                 ResultSet resultSet = preparedStatement.executeQuery();
 
-                // If the meal is found in the database
+                // If the reservation is found in the database
                 while(resultSet.next()) {
+                    String state_string = resultSet.getString("description").toUpperCase().replace(" ", "_");
+                    State state = State.valueOf(state_string);
                     Reservation reservation = new Reservation(
                             resultSet.getInt("idOrder"),
                             resultSet.getInt("idRestaurant"),
                             resultSet.getInt("idUser"),
                             resultSet.getDate("date"),
-                            resultSet.getInt("idState")
+                            resultSet.getInt("idState"),
+                            state
                     );
                     reservations.add(reservation);
                 }
@@ -335,27 +344,30 @@ public class PostGresReservationDAO extends ReservationDAO {
     }
 
     @Override
-    public ObservableList<Reservation> getAllReservationsOfUser(int idUser) {
-        ObservableList<Reservation> reservations = FXCollections.observableArrayList();
+    public List<Reservation> getAllReservationsOfUser(int idUser) {
+        ArrayList<Reservation> reservations = new ArrayList<>();
         // Get the connection to the database
         Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
         // If the connection works
         if(connection != null) {
             // Create the query
             try {
-                String query = "SELECT * FROM \"public\".\"Order\" WHERE \"idUser\" = ?;";
+                String query = "SELECT * FROM \"public\".\"Order\" AS O LEFT JOIN \"public\".\"State_order\" AS S ON O.\"idState\" = S.\"idState\" WHERE \"idTypeOrder\" = 2 AND \"idUser\" = ?;";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setInt(1, idUser);
                 ResultSet resultSet = preparedStatement.executeQuery();
 
                 // If the meal is found in the database
                 while(resultSet.next()) {
+                    String state_string = resultSet.getString("description").toUpperCase().replace(" ", "_");
+                    State state = State.valueOf(state_string);
                     Reservation reservation = new Reservation(
                             resultSet.getInt("idOrder"),
                             resultSet.getInt("idRestaurant"),
                             resultSet.getInt("idUser"),
                             resultSet.getDate("date"),
-                            resultSet.getInt("idState")
+                            resultSet.getInt("idState"),
+                            state
                     );
                     reservations.add(reservation);
                 }

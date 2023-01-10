@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PostGresNotificationDAO extends NotificationDAO {
 
@@ -70,8 +72,8 @@ public class PostGresNotificationDAO extends NotificationDAO {
     }
 
     @Override
-    public ObservableList<Notification> getAllNotifications(int idUser) {
-        ObservableList<Notification> notifications = FXCollections.observableArrayList();
+    public List<Notification> getAllNotifications(int idUser) {
+        ArrayList<Notification> notifications = new ArrayList<>();
         // Get the connection to the database
         Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
         // If the connection works
