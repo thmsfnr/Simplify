@@ -13,77 +13,79 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.restaurant.RestaurantInfosController">
-   <children>
-      <AnchorPane layoutX="-2.0" prefHeight="454.0" prefWidth="905.0">
-         <children>
-            <Label fx:id="nameOutput" layoutX="197.0" layoutY="14.0" text="Nom du restaurant">
-               <font>
-                  <Font name="System Bold Italic" size="23.0" />
-               </font></Label>
-            <ListView fx:id="opinionList" layoutX="115.0" layoutY="196.0" prefHeight="200.0" prefWidth="410.0" style="-fx-background-color: lightgrey; -fx-background-radius: 10;" />
-            <GridPane hgap="6.0" layoutX="17.0" layoutY="61.0" prefHeight="124.0" prefWidth="565.0" style="-fx-background-color: #d1d1e0;" vgap="6.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.80001220703124" minWidth="10.0" prefWidth="132.600048828125" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.5999633789062" minWidth="10.0" prefWidth="170.60001220703123" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="137.79998779296875" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.79995727539062" minWidth="10.0" prefWidth="90.79995727539062" />
+    <children>
+        <AnchorPane layoutX="-2.0" prefHeight="454.0" prefWidth="905.0">
+            <children>
+                <Label fx:id="nameOutput" layoutX="197.0" layoutY="14.0" text="Nom du restaurant">
+                    <font>
+                        <Font name="System Bold Italic" size="23.0" />
+                    </font></Label>
+                <ListView fx:id="opinionList" layoutX="115.0" layoutY="196.0" prefHeight="200.0" prefWidth="410.0" style="-fx-background-color: lightgrey; -fx-background-radius: 10;" />
+                <GridPane hgap="6.0" layoutX="17.0" layoutY="61.0" prefHeight="124.0" prefWidth="565.0" style="-fx-background-color: #d1d1e0;" vgap="6.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.80001220703124" minWidth="10.0" prefWidth="132.600048828125" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.5999633789062" minWidth="10.0" prefWidth="170.60001220703123" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="137.79998779296875" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.79995727539062" minWidth="10.0" prefWidth="90.79995727539062" />
 
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="20.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <ImageView fitHeight="46.0" fitWidth="231.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label text="Adress of the restaurant:" />
-                  <Label fx:id="addressOutput" text="adress" GridPane.columnIndex="1" />
-                  <Label text="Number of stars:" GridPane.rowIndex="1" />
-                  <Label text="Number of tables:" GridPane.rowIndex="2" />
-                  <Label text="Manager:" GridPane.rowIndex="3" />
-                  <Label fx:id="nbOfStarsOutput" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label fx:id="nbOfTablesOutput" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label fx:id="managerOutput" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label text="Email:" GridPane.columnIndex="2" />
-                  <Label fx:id="phoneOutput" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <Label text="Length" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Label text="Phone number:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Label fx:id="emailOutput" text="Label" GridPane.columnIndex="3" />
-                  <Label text="Width" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <Label fx:id="lengthOutput" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <Label fx:id="widthOutput" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <Label text="m" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets left="50.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label text="m" GridPane.columnIndex="3" GridPane.rowIndex="3">
-                     <GridPane.margin>
-                        <Insets left="50.0" />
-                     </GridPane.margin>
-                  </Label>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </GridPane>
-            <Button fx:id="backButton" layoutX="17.0" layoutY="19.0" mnemonicParsing="false" onAction="#switchToList">
-               <graphic>
-                  <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../back-arrow.png" />
-                        </image>
-                    </ImageView>
-               </graphic>
-            </Button>
-            <Button layoutX="17.0" layoutY="409.0" mnemonicParsing="false" onAction="#switchToReservationFrame" text="Consult reservations" />
-            <Button layoutX="197.0" layoutY="409.0" mnemonicParsing="false" onAction="#switchToCreateOpinionFrame" text="Add opinion" />
-            <Button layoutX="332.0" layoutY="409.0" mnemonicParsing="false" onAction="#switchToPlacementFrame" text="Consult placement" />
-            <Button layoutX="509.0" layoutY="409.0" mnemonicParsing="false" onAction="#switchToMealFrame" text="Consult meals" />
-            <Button layoutX="563.0" layoutY="215.0" mnemonicParsing="false" text="Consult events Manager" />
-            <Button layoutX="554.0" layoutY="284.0" mnemonicParsing="false" text="Consult events" />
-         </children>
-      </AnchorPane>
-   </children>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <ImageView fitHeight="46.0" fitWidth="231.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Adress of the restaurant:" />
+                        <Label fx:id="addressOutput" text="adress" GridPane.columnIndex="1" />
+                        <Label text="Number of stars:" GridPane.rowIndex="1" />
+                        <Label text="Number of tables:" GridPane.rowIndex="2" />
+                        <Label text="Manager:" GridPane.rowIndex="3" />
+                        <Label fx:id="nbOfStarsOutput" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="nbOfTablesOutput" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="managerOutput" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Email:" GridPane.columnIndex="2" />
+                        <Label fx:id="phoneOutput" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Label text="Length" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Label text="Phone number:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label fx:id="emailOutput" text="Label" GridPane.columnIndex="3" />
+                        <Label text="Width" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Label fx:id="lengthOutput" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <Label fx:id="widthOutput" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <Label text="m" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets left="50.0" />
+                            </GridPane.margin>
+                        </Label>
+                        <Label text="m" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                            <GridPane.margin>
+                                <Insets left="50.0" />
+                            </GridPane.margin>
+                        </Label>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </GridPane>
+                <Button fx:id="backButton" layoutX="17.0" layoutY="19.0" mnemonicParsing="false" onAction="#switchToList">
+                    <graphic>
+                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../back-arrow.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button layoutX="17.0" layoutY="409.0" mnemonicParsing="false" onAction="#switchToReservationFrame" text="Consult reservations" />
+                <Button layoutX="197.0" layoutY="409.0" mnemonicParsing="false" onAction="#switchToCreateOpinionFrame" text="Add opinion" />
+                <Button layoutX="332.0" layoutY="409.0" mnemonicParsing="false" onAction="#switchToPlacementFrame" text="Consult placement" />
+                <Button layoutX="509.0" layoutY="409.0" mnemonicParsing="false" onAction="#switchToMealFrame" text="Consult meals" />
+                <Button fx:id="button_event_manager" layoutX="563.0" layoutY="215.0" mnemonicParsing="false" onAction="#switchToEventManagerFrame" text="Consult events Manager" />
+                <Button fx:id="button_event_user" layoutX="554.0" layoutY="284.0" mnemonicParsing="false" onAction="#switchToEventUserFrame" text="Consult events" />
+            <Button fx:id="button_opinion_manager" layoutX="550.0" layoutY="341.0" mnemonicParsing="false" onAction="#switchToOpinionManagerFrame" text="Consult opinions Manager" />
+            <Button fx:id="button_opinion_user" layoutX="635.0" layoutY="384.0" mnemonicParsing="false" onAction="#switchToOpinionUserFrame" text="Consult opinions" />
+            </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>
