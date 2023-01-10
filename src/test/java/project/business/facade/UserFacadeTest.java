@@ -15,23 +15,21 @@ public class UserFacadeTest {
 
     @Test
     public void loginSuccess() {
-        String email = "momo@gmail.com";
-        String password = "momo";
+        String email = "admin";
+        String password = "admin";
         UserFacade userFacade = UserFacade.getInstance();
         User user = userFacade.login(email, password);
-
 
         Assertions.assertTrue(user != null);
         Assertions.assertTrue(user.getEmail().equals(email));
         Assertions.assertFalse(user.getPassword().equals(password));
-        Assertions.assertFalse(user.getEmail().equals("momo"));
-
+        Assertions.assertFalse(user.getEmail().equals("admin"));
     }
 
     @Test
     public void loginFail() {
-        String email = "momo@gmail.com";
-        String password = "mo";
+        String email = "admin";
+        String password = "ad";
         UserFacade userFacade = UserFacade.getInstance();
         User user = userFacade.login(email, password);
 
@@ -50,7 +48,7 @@ public class UserFacadeTest {
     }
 
     @Test
-    public void getInstace() {
+    public void getInstance() {
         UserFacade userFacade = UserFacade.getInstance();
         UserFacade userFacade2 = UserFacade.getInstance();
         Assertions.assertTrue(userFacade == userFacade2);
@@ -59,7 +57,7 @@ public class UserFacadeTest {
 
     @Test
     public void getInformationsByEmail(){
-        String email = "momo@gmail.com";
+        String email = "admin";
         UserFacade userFacade = UserFacade.getInstance();
         User user = userFacade.getInformationsByEmail(email);
 
@@ -87,7 +85,7 @@ public class UserFacadeTest {
 
     @Test
     public void getById2(){
-        int id = 3;
+        int id = 40;
         UserFacade userFacade = UserFacade.getInstance();
         User user = userFacade.getById(id);
 
@@ -97,9 +95,7 @@ public class UserFacadeTest {
 
     @Test
     public void create() {
-        // create random string
-        String email = "test" + Math.random() + "@gmail.com";
-        User user = new User("test", email, "test", "test", "test", "test", false, false, 1);
+        User user = new User("test", "test", "test", "test", "test", "test", false, false, 1);
         UserFacade userFacade = UserFacade.getInstance();
         Boolean creation = userFacade.create(user);
 
@@ -109,8 +105,9 @@ public class UserFacadeTest {
     @Test
     public void update() {
         UserFacade userFacade = UserFacade.getInstance();
-        User user = userFacade.getById(3);
-        user.setName("test");
+        int id = userFacade.getInformationsByEmail("admin").getId();
+        User user = userFacade.getById(id);
+        user.setName("test2");
         Boolean update = userFacade.update(user);
 
         Assertions.assertTrue(update);
@@ -119,7 +116,8 @@ public class UserFacadeTest {
     @Test
     public void delete() {
         UserFacade userFacade = UserFacade.getInstance();
-        User user = userFacade.getById(6);
+        int id = userFacade.getInformationsByEmail("admin").getId();
+        User user = userFacade.getById(id);
         Boolean delete = userFacade.delete(user.getId());
 
         Assertions.assertTrue(delete);

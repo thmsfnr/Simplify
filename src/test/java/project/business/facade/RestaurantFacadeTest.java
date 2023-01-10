@@ -1,11 +1,16 @@
+
 package project.business.facade;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class RestaurantFacadeTest {
 
     @Test
-    void create(){
-        RestaurantFacade restaurantFacade = RestaurantFacade.getInstance();
+    void testGetInstance(){
+        RestaurantFacade restaurantFacade1 = RestaurantFacade.getInstance();
+        RestaurantFacade restaurantFacade2 = RestaurantFacade.getInstance();
+        Assertions.assertEquals(restaurantFacade1, restaurantFacade2);
     }
+
 }

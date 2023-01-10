@@ -1,3 +1,4 @@
+
 package project.business.facade;
 
 import javafx.collections.ObservableList;
@@ -11,11 +12,8 @@ import project.persistence.product.abstr.TableDAO;
  * This class is the facade of the table
  * It is used to call the DAO
  * It's a singleton
- *
  * @author Simplify members
  */
-
-
 public class TableFacade {
 
 
@@ -93,7 +91,5 @@ public class TableFacade {
         // Instance of the class UserFacade
         static final TableFacade INSTANCE = new TableFacade();
     }
-
-
 
 }
