@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -174,10 +175,15 @@ public class ReservationFormController implements Initializable {
             root = fxmlLoader.load();
             PlacementController placementController = fxmlLoader.getController();
             placementController.setReservationFormController(this);
+            // create a new stage
+            Stage stage = new Stage();
+            stage.setTitle("placement of table");
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        anchorTable.getChildren().setAll(root);
+
     }
 
     /**

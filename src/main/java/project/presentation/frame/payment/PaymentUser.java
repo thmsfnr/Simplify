@@ -27,7 +27,13 @@ public class PaymentUser extends Application {
 
         // Create the scene with the root and set the title of the stage
         stage.setTitle("Payment User");
-        stage.setScene(new Scene(root, 1920, 1080));
+        stage.setScene(new Scene(root, 1150, 760));
+
+        // Show the stage in the centre of the screen
+        stage.centerOnScreen();
+
+        // show resizable window
+        stage.setResizable(true);
 
         // Show the GUI
         stage.show();
