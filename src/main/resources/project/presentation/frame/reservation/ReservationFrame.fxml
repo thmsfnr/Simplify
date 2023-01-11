@@ -1,79 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1039.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.reservation.ReservationController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1150.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.reservation.ReservationController">
    <top>
-      <AnchorPane prefHeight="122.0" prefWidth="1039.0" style="-fx-background-color: #c8ded0;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="103.0" prefWidth="1150.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#7a897f" layoutX="409.0" layoutY="51.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My reservations">
-               <font>
-                  <Font name="Arial" size="28.0" />
-               </font>
-            </Text>
-            <Button fx:id="back" onAction="#backToMenu" layoutX="38.0" layoutY="21.0" lineSpacing="3.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: grey; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Back" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Button>
+            <AnchorPane prefHeight="105.0" prefWidth="1150.0" style="-fx-background-color: #D6E4E5;">
+               <children>
+                  <ImageView fitHeight="175.0" fitWidth="121.0" layoutX="8.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Simplify.png" />
+                     </image>
+                  </ImageView>
+                  <AnchorPane layoutX="840.0" layoutY="11.0" prefHeight="91.0" prefWidth="285.0">
+                     <children>
+                        <Text fill="WHITE" layoutX="215.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Back">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Text>
+                        <Button fx:id="back" layoutX="172.0" layoutY="-5.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: transparent; -fx-background-radius: 0.6em; -fx-cursor: hand;" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="61.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../back.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </top>
    <center>
-      <ScrollPane prefHeight="674.0" prefWidth="925.0" BorderPane.alignment="CENTER">
+      <ScrollPane prefHeight="674.0" prefWidth="925.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="931.0" prefWidth="965.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1067.0" prefWidth="1128.0" style="-fx-background-color: white;">
                <children>
-                  <TableView fx:id="tabReservation_in_progress" layoutX="91.0" layoutY="97.0" prefHeight="180.0" prefWidth="868.0">
+                  <TableView fx:id="tabReservation_in_progress" layoutX="328.0" layoutY="92.0" prefHeight="180.0" prefWidth="788.0">
                      <columns>
                         <TableColumn fx:id="idOrder_in_progress" prefWidth="94.0" text="Id_Order" />
                         <TableColumn fx:id="idRestaurant_in_progress" prefWidth="138.0" text="Id_Restaurant" />
-                        <TableColumn fx:id="date_in_progress" prefWidth="227.0" text="Date" />
-                        <TableColumn fx:id="state_in_progress" prefWidth="227.0" text="state" />
+                        <TableColumn fx:id="date_in_progress" prefWidth="148.0" text="Date" />
+                        <TableColumn fx:id="state_in_progress" prefWidth="199.0" text="state" />
                      </columns>
                   </TableView>
-                  <Button fx:id="button_create" layoutX="462.0" layoutY="854.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#switchToFormFrame" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: grey; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="+" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+                  <Button fx:id="button_create" layoutX="479.0" layoutY="863.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#switchToFormFrame" prefHeight="100.0" prefWidth="171.0" style="-fx-background-color: transparent; -fx-background-radius: 0.6em; -fx-cursor: hand;" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
+                     <graphic>
+                        <ImageView fitHeight="101.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../plus.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Text fill="#7a897f" layoutX="352.0" layoutY="347.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservations carried out">
+                  <Text fill="#a5eb78" layoutX="22.0" layoutY="543.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservations carried out">
                      <font>
-                        <Font name="Arial" size="28.0" />
+                        <Font name="Arial Bold" size="19.0" />
                      </font>
                   </Text>
-                  <Text fill="#7a897f" layoutX="359.0" layoutY="60.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservations in progess">
+                  <Text fill="#f5d41a" layoutX="23.0" layoutY="268.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservations in progess">
                      <font>
-                        <Font name="Arial" size="28.0" />
+                        <Font name="Arial Bold" size="19.0" />
                      </font>
                   </Text>
-                  <TableView fx:id="tabReservation_carried_out" layoutX="291.0" layoutY="368.0" prefHeight="180.0" prefWidth="472.0">
+                  <TableView fx:id="tabReservation_carried_out" layoutX="328.0" layoutY="376.0" prefHeight="180.0" prefWidth="472.0">
                      <columns>
                         <TableColumn fx:id="idOrder_carried_out" prefWidth="94.0" text="Id_Order" />
                         <TableColumn fx:id="idRestaurant_carried_out" prefWidth="138.0" text="Id_Restaurant" />
                         <TableColumn fx:id="date_carried_out" prefWidth="239.0" text="Date" />
                      </columns>
                   </TableView>
-                  <Text fill="#7a897f" layoutX="369.0" layoutY="614.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservations cancelled">
-                     <font>
-                        <Font name="Arial" size="28.0" />
-                     </font>
-                  </Text>
-                  <TableView fx:id="tabReservation_cancelled" layoutX="285.0" layoutY="642.0" prefHeight="180.0" prefWidth="480.0">
+                  <TableView fx:id="tabReservation_cancelled" layoutX="328.0" layoutY="647.0" prefHeight="180.0" prefWidth="480.0">
                      <columns>
                         <TableColumn fx:id="idOrder_cancelled" prefWidth="94.0" text="Id_Order" />
                         <TableColumn fx:id="idRestaurant_cancelled" prefWidth="138.0" text="Id_Restaurant" />
                         <TableColumn fx:id="date_cancelled" prefWidth="247.0" text="Date" />
                      </columns>
                   </TableView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="58.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../inProgress.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="70.0" layoutY="376.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../accepted.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#ff6465" layoutX="22.0" layoutY="823.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservations canceled">
+                     <font>
+                        <Font name="Arial Bold" size="19.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="58.0" layoutY="638.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../canceled.png" />
+                     </image>
+                  </ImageView>
                </children>
+               <cursor>
+                  <Cursor fx:constant="S_RESIZE" />
+               </cursor>
             </AnchorPane>
         </content>
       </ScrollPane>

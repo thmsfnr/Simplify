@@ -17,7 +17,14 @@ public class NotificationCenterFrame extends Application {
 
         // Create the scene with the root and set the title of the stage
         stage.setTitle("All notifications");
-        stage.setScene(new Scene(root, 809, 409));
+        stage.setScene(new Scene(root, 1150, 760));
+
+
+        // Show the stage in the centre of the screen
+        stage.centerOnScreen();
+
+        // set on not resizable window
+        stage.setResizable(false);
 
         // Show the GUI
         stage.show();
