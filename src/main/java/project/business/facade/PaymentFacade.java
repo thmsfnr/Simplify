@@ -55,7 +55,7 @@ public class PaymentFacade {
         if (VerifyPayment.verifyPayment(numberCard, expirationDate, puk, nameOnCard, amount)) {
 
             // Create the payment (to complete later with the use of the local storage)
-            Payment payment = new Payment(7,numberCard,amount,new Date(System.currentTimeMillis()));
+            Payment payment = new Payment(40,numberCard,amount,new Date(System.currentTimeMillis()));
             if (createPayment(payment)) {
                 return true;
             }
