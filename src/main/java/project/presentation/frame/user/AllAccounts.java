@@ -27,7 +27,11 @@ public class AllAccounts extends Application {
 
         // Create the scene with the root and set the title of the stage
         stage.setTitle("All Accounts");
-        stage.setScene(new Scene(root, 1000, 1000));
+        stage.setScene(new Scene(root, 1150, 760));
+
+        stage.setResizable(false);
+
+        stage.centerOnScreen();
 
         // Show the GUI
         stage.show();

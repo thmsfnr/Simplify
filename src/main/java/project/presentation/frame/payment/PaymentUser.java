@@ -32,8 +32,8 @@ public class PaymentUser extends Application {
         // Show the stage in the centre of the screen
         stage.centerOnScreen();
 
-        // show resizable window
-        stage.setResizable(true);
+        // show unresizable window
+        stage.setResizable(false);
 
         // Show the GUI
         stage.show();

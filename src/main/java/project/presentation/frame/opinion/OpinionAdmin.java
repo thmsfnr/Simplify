@@ -28,8 +28,11 @@ public class OpinionAdmin extends Application {
 
         // Create the scene with the root and set the title of the stage
         stage.setTitle("Opinion Admin");
-        stage.setScene(new Scene(root, 1920, 1080));
+        stage.setScene(new Scene(root, 1150, 760));
 
+        stage.centerOnScreen();
+
+        stage.setResizable(false);
         // Show the GUI
         stage.show();
     }
