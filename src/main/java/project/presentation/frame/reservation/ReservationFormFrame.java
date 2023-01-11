@@ -18,7 +18,13 @@ public class ReservationFormFrame extends Application {
         Parent root = fxmlLoader.load();
         // Create the scene with the root and set the title of the stage
         stage.setTitle("New reservation");
-        stage.setScene(new Scene(root, 1920, 1080));
+        stage.setScene(new Scene(root, 1150, 760));
+
+        // Show the stage in the centre of the screen
+        stage.centerOnScreen();
+
+        // set on not resizable window
+        stage.setResizable(false);
 
         // Show the GUI
         stage.show();

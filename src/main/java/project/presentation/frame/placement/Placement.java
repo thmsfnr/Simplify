@@ -15,6 +15,14 @@ public class Placement extends Application {
         stage.setMaximized(true);
         stage.setTitle("Placement");
         stage.setScene(new Scene(root));
+
+
+        // Show the stage in the centre of the screen
+        stage.centerOnScreen();
+
+        // set on not resizable window
+        stage.setResizable(false);
+
         stage.show();
     }
 

@@ -8,30 +8,65 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.restaurant.RestaurantListController">
+<AnchorPane prefHeight="760.0" prefWidth="1150.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.restaurant.RestaurantListController">
    <children>
-      <Label layoutX="189.0" layoutY="24.0" text="Restaurants existants">
+      <Label layoutX="89.0" layoutY="482.0" text="Restaurants existants" textFill="#7a897f">
          <font>
-            <Font name="System Bold" size="22.0" />
+            <Font name="Arial Bold" size="30.0" />
          </font>
       </Label>
-      <TableView fx:id="restaurantTable" layoutX="82.0" layoutY="71.0" prefHeight="292.0" prefWidth="448.0">
+      <TableView fx:id="restaurantTable" layoutX="493.0" layoutY="252.0" prefHeight="399.0" prefWidth="578.0">
         <columns>
-          <TableColumn fx:id="idColumn" prefWidth="44.00006103515625" text="idRest" />
-          <TableColumn fx:id="nameColumn" prefWidth="107.99993896484375" text="Name" />
-          <TableColumn fx:id="responsableColumn" prefWidth="75.0" text="idManager" />
+          <TableColumn fx:id="idColumn" prefWidth="93.0" text="idRest" />
+          <TableColumn fx:id="nameColumn" prefWidth="120.0" text="Name" />
+          <TableColumn fx:id="responsableColumn" prefWidth="111.0" text="idManager" />
         </columns>
       </TableView>
-      <Button fx:id="addButton" layoutX="522.0" layoutY="43.0" mnemonicParsing="false" onAction="#addRestaurant" prefHeight="26.0" prefWidth="32.0" style="-fx-background-color: transparent; -fx-cursor: hand;">
+      <Button fx:id="addButton" layoutX="482.0" layoutY="134.0" mnemonicParsing="false" onAction="#addRestaurant" prefHeight="26.0" prefWidth="32.0" style="-fx-background-color: transparent; -fx-cursor: hand;">
          <graphic>
-             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+             <ImageView fitHeight="77.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                  <image>
-                     <Image url="@../add-circle.png" />
+                     <Image url="@../plus.png" />
                  </image>
              </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="back" layoutX="27.0" layoutY="26.0" mnemonicParsing="false" onAction="#backToMenu" text="Back" />
+      <AnchorPane prefHeight="105.0" prefWidth="1150.0" style="-fx-background-color: #D6E4E5;">
+         <children>
+            <ImageView fitHeight="175.0" fitWidth="121.0" layoutX="8.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Simplify.png" />
+               </image>
+            </ImageView>
+            <AnchorPane layoutX="840.0" layoutY="11.0" prefHeight="91.0" prefWidth="285.0">
+               <children>
+                  <Text fill="WHITE" layoutX="212.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Back">
+                     <font>
+                        <Font name="Arial Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="back" layoutX="171.0" layoutY="-5.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: transparent; -fx-background-radius: 0.6em; -fx-cursor: hand;" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="61.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../back.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="234.0" fitWidth="277.0" layoutX="128.0" layoutY="219.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../rest.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

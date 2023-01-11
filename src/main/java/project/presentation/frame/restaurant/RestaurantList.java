@@ -19,8 +19,16 @@ public class RestaurantList extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("RestaurantListFrame.fxml"));
         stage.setTitle("Restaurant List");
-        stage.setScene(new Scene(root, 600, 600));
+        stage.setScene(new Scene(root, 1150, 760));
+
+        // Show the stage in the centre of the screen
+        stage.centerOnScreen();
+
+        // set on not resizable window
+        stage.setResizable(false);
+
         stage.show();
+
     }
 
     /**

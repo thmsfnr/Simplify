@@ -265,16 +265,9 @@ public class DeliveryListController {
     public void backToMenu(ActionEvent actionEvent){
         try{
             Window owner = backButton.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(Menu.class.getResource("MenuFrame.fxml"));
-            Parent root = loader.load();
-            MenuController controller = loader.getController();
-            controller.initialize();
-            Stage stage = new Stage();
-            stage.setTitle("Menu");
-            stage.setScene(new Scene(root));
-            stage.show();
+            project.presentation.frame.menu.Menu menu = new project.presentation.frame.menu.Menu();
+            menu.start(new Stage());
             owner.hide();
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

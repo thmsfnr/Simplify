@@ -10,9 +10,12 @@ public class DeliveryList extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("DeliveryListFrame.fxml"));
-
         stage.setTitle("Delivery List");
-        stage.setScene(new Scene(root, 750, 500));
+        stage.setScene(new Scene(root, 1150, 760));
+        // Show the stage in the centre of the screen
+        stage.centerOnScreen();
+        // set on not resizable window
+        stage.setResizable(false);
         stage.show();
     }
 }
