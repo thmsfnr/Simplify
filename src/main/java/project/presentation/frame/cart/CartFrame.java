@@ -21,9 +21,11 @@ public class CartFrame extends Application{
 
         // Create the scene with the root and set the title of the stage
         stage.setTitle("Cart");
-        stage.setScene(new Scene(root, 1366, 768));
+        stage.setScene(new Scene(root, 1150, 760));
 
         stage.setResizable(false);
+
+        stage.centerOnScreen();
         // Show the GUI
         stage.show();
     }

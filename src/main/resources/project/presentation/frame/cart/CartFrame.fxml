@@ -13,17 +13,18 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.cart.CartController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1149.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.cart.CartController">
 <top>
-    <AnchorPane prefHeight="63.0" prefWidth="1366.0" style="-fx-background-color: #D9DDDC;" BorderPane.alignment="CENTER">
+    <AnchorPane prefHeight="63.0" prefWidth="1366.0" style="-fx-background-color: #D6E4E5;" BorderPane.alignment="CENTER">
         <children>
             <ImageView fitHeight="97.0" fitWidth="126.0" layoutX="25.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../Simplify.png" />
                 </image>
             </ImageView>
-            <Button fx:id="cartBtn" layoutX="1213.0" layoutY="15.0" mnemonicParsing="false" onAction="#showCartContent" prefHeight="64.0" prefWidth="70.0" style="-fx-background-color: transparent;">
+            <Button fx:id="cartBtn" layoutX="999.0" layoutY="18.0" mnemonicParsing="false" onAction="#showCartContent" prefHeight="64.0" prefWidth="70.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="63.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -32,7 +33,23 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="back" layoutX="323.0" layoutY="51.0" mnemonicParsing="false" onAction="#backToMenu" text="Back" />
+            <Button fx:id="back" layoutX="205.0" layoutY="6.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: transparent; -fx-background-radius: 0.6em; -fx-cursor: hand;" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="61.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../back.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Text fill="WHITE" layoutX="245.0" layoutY="93.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Back">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+            </Text>
         </children>
     </AnchorPane>
 </top>
