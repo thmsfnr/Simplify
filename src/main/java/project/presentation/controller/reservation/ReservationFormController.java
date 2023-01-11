@@ -284,11 +284,7 @@ public class ReservationFormController implements Initializable {
             if(isUpdate){
                 reservation = reservationSelected;
             }else{
-                try {
-                    reservation = new Reservation(idRestaurantAttribut, (Integer) LocalStorage.load("user_id"), date);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                reservation = new Reservation(idRestaurantAttribut, idUser, date);
             }
             if (reservationsObject.size() > 0) {
                 for (Object object : reservationsObject) {
