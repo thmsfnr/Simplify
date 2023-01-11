@@ -16,6 +16,11 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * This class is the controller of the event manager component
+ * It is used to manage an event
+ * @author Simplify members
+ */
 public class EventUpdateController {
 
     private Event event;
@@ -37,6 +42,10 @@ public class EventUpdateController {
     @FXML
     private Button cancelButton;
 
+    /**
+     * This method is used to set the fields of an event
+     * @param event the event
+     */
     @FXML
     public void setTextFields(Event event) {
         this.event = event;
@@ -125,4 +134,5 @@ public class EventUpdateController {
     public void closeUpdateEvent(ActionEvent event) {
         setTextFields(this.event);
     }
+
 }

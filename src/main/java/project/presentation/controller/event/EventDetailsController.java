@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import project.business.models.Event;
 
-
 /**
  * This class is the controller of the event details component
  * It is used to display the details of an event
@@ -28,7 +27,10 @@ public class EventDetailsController {
     @FXML
     private Label EventTime;
 
-
+    /**
+     * This method is used to set all the fields of the event
+     * @param event the event
+     */
     public void setTextFields(Event event) {
         EventId.setText(String.valueOf(event.getIdEvent()));
         EventTitle.setText(event.getTitle());

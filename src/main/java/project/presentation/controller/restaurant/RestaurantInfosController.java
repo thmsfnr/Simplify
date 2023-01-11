@@ -21,8 +21,11 @@ import project.utilities.Display;
 
 import java.util.List;
 
+/**
+ * This class is the controller of the restaurant infos component
+ * @author Simplify members
+ */
 public class RestaurantInfosController {
-
 
     private Restaurant restaurant;
     private User manager;
@@ -120,6 +123,12 @@ public class RestaurantInfosController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * This method is used to go to the reservation frame
+     * @param event the event
+     * @throws Exception if an error occurs
+     */
     @FXML
     public void switchToReservationFrame(ActionEvent event) throws Exception {
         // Get the window of the create button
@@ -133,4 +142,5 @@ public class RestaurantInfosController {
         // close the actual frame
         restaurantInfoWindow.hide();
     }
+
 }

@@ -15,6 +15,11 @@ import project.utilities.Display;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/**
+ * This class is the controller of the event creation component
+ * It is used to create an event
+ * @author Simplify members
+ */
 public class EventCreateController {
 
     @FXML
@@ -35,6 +40,11 @@ public class EventCreateController {
     @FXML
     private Button cancelButton;
 
+
+    /**
+     * This method is called when the user clicks on the "Create" button
+     * @param event the event
+     */
     @FXML
     void CreateEvent(ActionEvent event) {
 
@@ -106,6 +116,11 @@ public class EventCreateController {
             Display.infoBox("Creation Failed!", null, "Failed");
         }
     }
+
+    /**
+     * This method is called when the user clicks on the "Cancel" button
+     * @param event the event
+     */
     @FXML
     void closeCreateEvent(ActionEvent event) {
         System.out.println("Cancel button pressed!");
@@ -122,4 +137,5 @@ public class EventCreateController {
             EventTime.setText("");
         }
     }
+
 }

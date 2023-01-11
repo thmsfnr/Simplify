@@ -24,6 +24,11 @@ import project.utilities.Display;
 import static project.utilities.Display.infoBox;
 import static project.utilities.Display.showAlert;
 
+/**
+ * This class is the controller of the event details component
+ * It is used to display the details of an event
+ * @author Simplify members
+ */
 public class EventManagerController implements Initializable {
 
     @FXML
@@ -44,8 +49,10 @@ public class EventManagerController implements Initializable {
     @FXML
     private TableColumn<Event, String> time;
 
-
-
+    /**
+     * This method is used to create an event
+     * @param event the event
+     */
     @FXML
     private void createEvent(ActionEvent event){
         try{
@@ -65,9 +72,6 @@ public class EventManagerController implements Initializable {
             e.printStackTrace();
         }
     }
-
-
-
 
     /**
      * This method is used to add a colomn to the table that will contain the button to update a table
@@ -160,7 +164,7 @@ public class EventManagerController implements Initializable {
     }
 
     /**
-     * This method is used to add a colomn to the table that will contain the button to delete a table
+     * This method is used to add a column to the table that will contain the button to delete a table
      */
     private void addDeleteButtonToTable() {
         // Create a new column
@@ -375,11 +379,5 @@ public class EventManagerController implements Initializable {
         addDeleteButtonToTable();
         addDetailsButtonToTable();
     }
-
-
-
-
-
-
 
 }

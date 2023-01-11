@@ -17,6 +17,11 @@ import project.utilities.Display;
 
 import java.util.List;
 
+/**
+ * This class is the controller of the delivery form component
+ * It is used to create a delivery
+ * @author Simplify members
+ */
 public class DeliveryFormController {
 
     private User user;
@@ -38,7 +43,12 @@ public class DeliveryFormController {
     @FXML
     private TextField firstnameField;
 
-
+    /**
+     * This method is called at the start of the frame
+     * @param user the user
+     * @param restaurant the restaurant
+     * @param meals a list of meals
+     */
     @FXML
     public void initialize(User user, Restaurant restaurant, List<Meal> meals) {
         this.user = user;
@@ -50,6 +60,10 @@ public class DeliveryFormController {
         firstnameField.setText(user.getFirstname());
     }
 
+    /**
+     * This method is used to launch payment frame
+     * @param event the event
+     */
     @FXML
     public void pay(ActionEvent event) {
         Window owner = submitButton.getScene().getWindow();
@@ -73,7 +87,5 @@ public class DeliveryFormController {
             Display.showAlert(Alert.AlertType.ERROR, null, "Error", "An error occurred, you can't pay");
         }
     }
-
-
 
 }
