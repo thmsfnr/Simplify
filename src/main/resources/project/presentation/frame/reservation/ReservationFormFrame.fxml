@@ -74,7 +74,7 @@
             <Line endX="956.0" endY="10.0" layoutX="151.0" layoutY="320.0" startX="484.0" startY="10.0" stroke="#7a897f" strokeLineCap="ROUND" strokeWidth="3.0" />
             <AnchorPane fx:id="anchorTable" layoutX="610.0" layoutY="343.0" prefHeight="285.0" prefWidth="525.0">
                <children>
-                  <Button fx:id="button_reserve_table" layoutX="141.0" layoutY="168.0" lineSpacing="3.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="244.0" style="-fx-background-color: #BAD1C2; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Reserve table" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+                  <Button fx:id="button_confirm_reservation" layoutX="132.0" layoutY="96.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#confirm_reservation" prefHeight="59.0" prefWidth="261.0" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Confirm reservation" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -128,11 +128,6 @@
                   <Font name="Arial Bold" size="25.0" />
                </font>
             </Text>
-            <Button fx:id="button_confirm_reservation" layoutX="452.0" layoutY="572.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#confirm_reservation" prefHeight="59.0" prefWidth="261.0" style="-fx-background-color: #c8ded0; -fx-background-radius: 0.6em; -fx-cursor: hand;" text="Confirm reservation" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Button>
          </children>
       </AnchorPane>
    </left>
