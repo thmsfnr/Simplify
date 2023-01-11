@@ -62,7 +62,6 @@ public abstract class DeliveryDAO {
     /**
      * This method is used to delete a delivery
      * @param id the id of the delivery to delete
-     * @return true if the delivery is deleted, false otherwise
      * @throws AccessDatabaseException
      */
     public abstract void deleteDelivery(int id) throws AccessDatabaseException;

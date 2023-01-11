@@ -16,7 +16,6 @@ public class CartStorage {
      *
      * @param key   the string which indicates the variable
      * @param value the value of the variable
-     * @return
      * @throws IOException the exception
      */
     public static void write(String key, Object value) throws IOException {

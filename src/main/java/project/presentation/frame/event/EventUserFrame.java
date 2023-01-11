@@ -6,6 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * This class is the frame of the EventUserFrame
+ * @author Simplify members
+ */
 public class EventUserFrame extends Application{
 
     /**

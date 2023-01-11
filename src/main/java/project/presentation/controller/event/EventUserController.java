@@ -17,7 +17,7 @@ import java.io.IOException;
 
 /**
  * This class is the controller of the event user component
- * It is used to display the events of the user
+ * It is used to display the events of the restaurent to the user
  * @author Simplify members
  */
 public class EventUserController implements Initializable {
