@@ -9,54 +9,86 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.delivery.DeliveryListController">
+<AnchorPane prefHeight="760.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.presentation.controller.delivery.DeliveryListController">
    <children>
-      <ScrollPane layoutX="8.0" layoutY="7.0" prefHeight="388.0" prefWidth="589.0">
+      <ScrollPane layoutY="102.0" prefHeight="658.0" prefWidth="1156.0">
          <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="530.0" prefWidth="574.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="657.0" prefWidth="1155.0">
                <children>
-                  <TableView fx:id="deliveryPassedTable" layoutX="60.0" layoutY="338.0" prefHeight="144.0" prefWidth="466.0">
+                  <TableView fx:id="deliveryPassedTable" layoutX="366.0" layoutY="327.0" prefHeight="193.0" prefWidth="675.0">
                     <columns>
-                      <TableColumn fx:id="idColumn" prefWidth="75.0" text="idDelivery" />
-                      <TableColumn fx:id="stateColumn" prefWidth="75.0" text="state" />
-                        <TableColumn fx:id="idRestaurantColumn" prefWidth="86.39996337890625" text="idRestaurant" />
+                      <TableColumn fx:id="idColumn" prefWidth="130.0" text="idDelivery" />
+                      <TableColumn fx:id="stateColumn" prefWidth="99.0" text="state" />
+                        <TableColumn fx:id="idRestaurantColumn" prefWidth="158.0" text="idRestaurant" />
                     </columns>
                   </TableView>
-                  <Label layoutX="211.0" layoutY="30.0" text="List of deliveries">
-                     <font>
-                        <Font name="Cambria Bold" size="20.0" />
-                     </font>
-                  </Label>
-                  <TableView fx:id="deliveryNewsTable" layoutX="60.0" layoutY="88.0" prefHeight="144.0" prefWidth="466.0">
+                  <TableView fx:id="deliveryNewsTable" layoutX="366.0" layoutY="87.0" prefHeight="180.0" prefWidth="677.0">
                      <columns>
-                        <TableColumn fx:id="idColumn2" prefWidth="75.0" text="idDelivery" />
-                        <TableColumn fx:id="stateColumn2" prefWidth="75.0" text="state" />
-                        <TableColumn fx:id="idRestaurantColumn2" prefWidth="86.39996337890625" text="idRestaurant" />
+                        <TableColumn fx:id="idColumn2" prefWidth="127.0" text="idDelivery" />
+                        <TableColumn fx:id="stateColumn2" prefWidth="109.0" text="state" />
+                        <TableColumn fx:id="idRestaurantColumn2" prefWidth="155.0" text="idRestaurant" />
                      </columns>
                   </TableView>
-                  <Label layoutX="60.0" layoutY="306.0" text="Deliveries carried out">
+                  <Label layoutX="62.0" layoutY="34.0" text="List of deliveries" textFill="#7a897f">
                      <font>
-                        <Font name="System Bold Italic" size="15.0" />
+                        <Font name="Arial Bold" size="28.0" />
                      </font>
                   </Label>
-                  <Label layoutX="59.0" layoutY="66.0" text="Deliveries in Progress">
+                  <Text fill="#a5eb78" layoutX="37.0" layoutY="497.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deleveries carried out">
                      <font>
-                        <Font name="System Bold Italic" size="15.0" />
+                        <Font name="Arial Bold" size="19.0" />
                      </font>
-                  </Label>
-                  <Button layoutX="7.0" layoutY="10.0" mnemonicParsing="false" prefHeight="14.0" prefWidth="16.0" fx:id="backButton" onAction="#backToMenu">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../back-arrow.png" />
-                            </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
+                  </Text>
+                  <Text fill="#f5d41a" layoutX="41.0" layoutY="267.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deliveries in progess">
+                     <font>
+                        <Font name="Arial Bold" size="19.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="62.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../inProgress.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="62.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../accepted.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
          </content>
       </ScrollPane>
+      <AnchorPane prefHeight="105.0" prefWidth="1080.0" style="-fx-background-color: #D6E4E5;">
+         <children>
+            <ImageView fitHeight="175.0" fitWidth="121.0" layoutX="8.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Simplify.png" />
+               </image>
+            </ImageView>
+            <AnchorPane layoutX="840.0" layoutY="6.0" prefHeight="91.0" prefWidth="316.0">
+               <children>
+                  <Button fx:id="backButton" layoutX="172.0" layoutY="-5.0" lineSpacing="3.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="40.0" prefWidth="123.0" style="-fx-background-color: transparent; -fx-background-radius: 0.6em; -fx-cursor: hand;" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="61.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../back.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Text fill="WHITE" layoutX="212.0" layoutY="85.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Back">
+                     <font>
+                        <Font name="Arial Bold" size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
