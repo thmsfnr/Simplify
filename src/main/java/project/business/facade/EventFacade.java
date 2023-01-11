@@ -32,8 +32,8 @@ public class EventFacade {
      * @param event the event to create
      * @return True if the event is created, false otherwise
      */
-    public Boolean createEvent(Event event) {
-        return this.eventDAO.createEvent(event);
+    public Boolean createEvent(Event event, int idRestaurant) {
+        return this.eventDAO.createEvent(event,idRestaurant);
     }
 
     /**
@@ -65,8 +65,8 @@ public class EventFacade {
      * This method is used to get all the events
      * @return a list of events
      */
-    public ObservableList<Event> getAllEvents() {
-        return this.eventDAO.getAllEvents();
+    public ObservableList<Event> getAllEvents(int idRestaurant) {
+        return this.eventDAO.getAllEvents(idRestaurant);
     }
     /**
      * Get the instance of the class

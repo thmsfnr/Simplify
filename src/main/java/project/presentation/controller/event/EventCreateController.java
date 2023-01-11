@@ -40,7 +40,16 @@ public class EventCreateController {
     @FXML
     private Button cancelButton;
 
+    private static int idRestaurant;
 
+
+    /**
+     * This method is used to set the idRestaurant
+     * @param idRestaurant the idRestaurant to set
+     */
+    public static void setIdRestaurant(int idRestaurant) {
+        EventCreateController.idRestaurant = idRestaurant;
+    }
     /**
      * This method is called when the user clicks on the "Create" button
      * @param event the event
@@ -104,7 +113,7 @@ public class EventCreateController {
         Timestamp timestamp = Timestamp.valueOf(date);
 
         Event toCreateEvent = new Event(0, EventTitle.getText(), EventDescription.getText(), timestamp);
-        Boolean created = eventFacade.createEvent(toCreateEvent);
+        Boolean created = eventFacade.createEvent(toCreateEvent,idRestaurant);
         if (created) {
             // Vider les champs
             EventTitle.setText("");

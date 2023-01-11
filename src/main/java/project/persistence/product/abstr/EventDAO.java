@@ -6,7 +6,7 @@ import project.business.models.Event;
 public abstract class EventDAO {
 
 
-    public  abstract Boolean createEvent(Event event);
+    public  abstract Boolean createEvent(Event event, int idRestaurant);
     /**
      * This method is used to update an event
      * @param event the event to update
@@ -30,7 +30,7 @@ public abstract class EventDAO {
      * This method is used to get all the events
      * @return a list of events
      */
-    public abstract ObservableList<Event> getAllEvents();
+    public abstract ObservableList<Event> getAllEvents(int idRestaurant);
 }
 
 
