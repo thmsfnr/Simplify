@@ -71,7 +71,7 @@ public class DeliveryMealsController {
             cartController.initialize(null, null, this.restaurant);
             Stage stage = new Stage();
             stage.setTitle("Cart");
-            stage.setScene(new Scene(root, 600, 400));
+            stage.setScene(new Scene(root, 1450, 760));
             stage.show();
             owner.hide();
 

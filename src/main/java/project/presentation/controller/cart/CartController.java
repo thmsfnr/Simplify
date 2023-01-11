@@ -220,12 +220,16 @@ public class CartController {
      * @param event the event of the delivery button
      */
     public void order(ActionEvent event){
-        Window owner = deliveryCartBtn.getScene().getWindow();
+        Window owner = this.orderBtn.getScene().getWindow();
 
         CartFacade cartFacade = CartFacade.getInstance();
         try{
             Map<Meal, Integer> cartMap = (Map) cartFacade.load();
-            List<Meal> meals = (List) cartMap.keySet();
+
+            List<Meal> meals = new ArrayList<>();
+            for(Map.Entry<Meal, Integer> entry : cartMap.entrySet()) {
+                meals.add(entry.getKey());
+            }
 
             UserFacade userFacade = UserFacade.getInstance();
             User user = userFacade.getById(idUser);

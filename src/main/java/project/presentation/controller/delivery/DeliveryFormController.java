@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.business.models.*;
 import project.presentation.controller.payment.PaymentCardController;
+import project.presentation.frame.payment.PaymentCard;
 import project.utilities.Display;
 
 import java.util.List;
@@ -67,13 +68,14 @@ public class DeliveryFormController {
         delivery.setState(State.WAITING_FOR_VALIDATION);
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PaymentCard.fxml"));
+            FXMLLoader loader = new FXMLLoader(PaymentCard.class.getResource("PaymentCardFrame.fxml"));
             Parent root = loader.load();
             PaymentCardController paymentCardController = loader.getController();
             paymentCardController.initialize(delivery, meals, user.getRole());
             Stage stage = new Stage();
             stage.setTitle("Payment");
             stage.setScene(new Scene(root));
+            stage.show();
             owner.hide();
         }
         catch (Exception e){
