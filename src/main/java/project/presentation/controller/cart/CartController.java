@@ -1,15 +1,13 @@
+
 package project.presentation.controller.cart;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -19,8 +17,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import javafx.util.Pair;
 import project.business.facade.CartFacade;
+import project.business.models.Meal;
 import project.business.facade.EventFacade;
 import project.business.facade.MealFacade;
 import project.business.facade.UserFacade;
@@ -36,9 +34,11 @@ import project.presentation.frame.delivery.DeliveryForm;
 import project.presentation.frame.event.EventUserFrame;
 import project.presentation.frame.menu.Menu;
 import project.utilities.LocalStorage;
-
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.*;
 
 /**
@@ -50,41 +50,27 @@ public class CartController {
 
 
     // Instance variables
-
-
     @FXML
     private AnchorPane contentArea;
-
-
     @FXML
     private ScrollPane cartContentArea;
-
     @FXML
     private AnchorPane MealCartPane;
-
     @FXML
     private Label mealTitle;
-
     @FXML
     private Label qteMeal;
-
     @FXML
     private Button orderBtn;
-
     @FXML
     private Button clearCartBtn;
-
     private static int idUser;
-
     @FXML
     private Button cartBtn;
-
     @FXML
     private Button deliveryCartBtn;
-
     @FXML
     private Button back;
-
     private Boolean isVisible = false;
 
     private Restaurant restaurant;
@@ -97,7 +83,6 @@ public class CartController {
     public static void setIdUser(int idUser) {
         CartController.idUser = idUser;
     }
-
 
     /**
      * This method is used to initialize the cart frame
@@ -202,6 +187,7 @@ public class CartController {
             throw new RuntimeException(e);
         }
     }
+
     /**
      * This method is used to show the cart frame
      * On click on the Cart button
@@ -257,6 +243,10 @@ public class CartController {
         }
     }
 
+    /**
+     * This method is used to clear the cart
+     * @param event the event of the delivery button
+     */
     public void clearCart(ActionEvent event){
         // clear the scroll pane cart content pane
         cartContentArea.setContent(null);

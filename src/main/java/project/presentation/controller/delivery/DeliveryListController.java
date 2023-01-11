@@ -257,7 +257,10 @@ public class DeliveryListController {
         deliveryNewsTable.getColumns().add(colBtn);
     }
 
-
+    /**
+     * This method is used to ga back to the menu
+     * @param actionEvent the event
+     */
     @FXML
     public void backToMenu(ActionEvent actionEvent){
         try{
@@ -276,7 +279,5 @@ public class DeliveryListController {
             throw new RuntimeException(e);
         }
     }
-
-
 
 }

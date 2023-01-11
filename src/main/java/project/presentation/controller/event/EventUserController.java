@@ -15,6 +15,11 @@ import project.presentation.frame.event.EventUserFrame;
 
 import java.io.IOException;
 
+/**
+ * This class is the controller of the event user component
+ * It is used to display the events of the user
+ * @author Simplify members
+ */
 public class EventUserController implements Initializable {
 
     // the area where to display the components
@@ -57,4 +62,5 @@ public class EventUserController implements Initializable {
 
         }
     }
+
 }

@@ -15,8 +15,11 @@ import project.utilities.Display;
 
 import java.util.List;
 
+/**
+ * This class is the controller of the restaurant form component
+ * @author Simplify members
+ */
 public class RestaurantFormController {
-
 
     private boolean isUpdate = false;
     private int idRestaurant;
@@ -50,7 +53,9 @@ public class RestaurantFormController {
     @FXML
     private Button backButton;
 
-
+    /**
+     * This method is called at the start of the frame
+     */
     @FXML
     private void initialize() {
         RestaurantFacade restaurantFacade = RestaurantFacade.getInstance();
@@ -75,7 +80,10 @@ public class RestaurantFormController {
         widthSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1));
     }
 
-
+    /**
+     * This method is used to create a restaurant
+     * @param event the event
+     */
     @FXML
     public void create(ActionEvent event){
 
@@ -151,6 +159,10 @@ public class RestaurantFormController {
 
     }
 
+    /**
+     * This method is used to switch to the restaurant list frame
+     * @param owner the owner of the frame
+     */
     private void switchToList(Window owner){
         try{
             RestaurantList list = new RestaurantList();
@@ -161,6 +173,10 @@ public class RestaurantFormController {
         }
     }
 
+    /**
+     * This method is used to set up fields of a restaurant
+     * @param restaurant a restaurant
+     */
     public void setFields(Restaurant restaurant){
         this.isUpdate = true;
         this.idRestaurant = restaurant.getIdRestaurant();
@@ -185,12 +201,14 @@ public class RestaurantFormController {
         }
     }
 
-
+    /**
+     * This method is used to go back to the restaurant list frame
+     * @param actionEvent an action event
+     */
     @FXML
     public void switchToList(ActionEvent actionEvent) {
         Window owner = backButton.getScene().getWindow();
         switchToList(owner);
     }
-
 
 }

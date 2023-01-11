@@ -16,7 +16,13 @@ import project.utilities.Display;
 
 import java.util.List;
 
+/**
+ * This class is the controller of the delivery info component
+ * It is used to display the delivery info
+ * @author Simplify members
+ */
 public class DeliveryInfoController {
+
     private Delivery delivery;
     private int idRole;
     @FXML
@@ -36,7 +42,12 @@ public class DeliveryInfoController {
     @FXML
     private Button backButton;
 
-
+    /**
+     * This method is called at the start of the frame
+     * @param delivery the delivery
+     * @param idRole the role
+     * @param meals a list of meals
+     */
     @FXML
     public void initialize(Delivery delivery, int idRole, List<Meal> meals) {
         this.delivery = delivery;
@@ -58,7 +69,6 @@ public class DeliveryInfoController {
             changeStateButton.setVisible(false);
         }
 
-
         try {
             if(meals == null){
                 DeliveryFacade deliveryFacade = DeliveryFacade.getInstance();
@@ -71,7 +81,10 @@ public class DeliveryInfoController {
         }
     }
 
-
+    /**
+     * This method is used to change tha stat of a delivery
+     * @param actionEvent the event
+     */
     @FXML
     public void changeState(ActionEvent actionEvent) {
         DeliveryFacade deliveryFacade = DeliveryFacade.getInstance();
@@ -87,6 +100,10 @@ public class DeliveryInfoController {
         }
     }
 
+    /**
+     * This method is used to go back to the delivery list
+     * @param actionEvent the event
+     */
     @FXML
     public void returnToList(ActionEvent actionEvent) {
         try{
@@ -100,7 +117,10 @@ public class DeliveryInfoController {
 
     }
 
-
+    /**
+     * This method is used to go back to the menu
+     * @param event the event
+     */
     public void returnToMenu(ActionEvent event) {
         Window window = backButton.getScene().getWindow();
         try{
@@ -115,7 +135,6 @@ public class DeliveryInfoController {
             window.hide();
         }
     }
-
 
     /**
      * allows to create the delivery and display his informations
@@ -133,4 +152,5 @@ public class DeliveryInfoController {
         }
         backButton.setOnAction(this::returnToMenu);
     }
+
 }
