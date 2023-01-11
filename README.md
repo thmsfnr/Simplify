@@ -26,7 +26,7 @@ The user interface uses JavaFX and the database is managed by PostgreSQL
 
 ### Launch
 
-To launch the application, you need to have a PostgreSQL database running with necessary tables. 
+To launch the application, you need to have a PostgreSQL database running with necessary tables (one is already available online). 
 You can then launch the application by running the <strong>Main</strong> class in the directory <strong>src/main/java/project</strong>.
 
 ***
