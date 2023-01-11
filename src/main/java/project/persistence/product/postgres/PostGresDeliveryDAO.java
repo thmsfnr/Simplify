@@ -43,7 +43,7 @@ public class PostGresDeliveryDAO extends DeliveryDAO {
 
                     meals.forEach(meal -> {
                         try {
-                            String query2 = "INSERT INTO \"public\".\"Meal_Ordered\" (\"idMeal\", \"idOrder\", \"quantity\") VALUES (?,?, ?);";
+                            String query2 = "INSERT INTO \"public\".\"Meal_ordered\" (\"idMeal\", \"idOrder\", \"quantity\") VALUES (?,?, ?);";
                             PreparedStatement preparedStatement2 = connection.prepareStatement(query2);
                             preparedStatement2.setInt(1, meal.getIdMeal());
                             preparedStatement2.setInt(2, delivery.getIdDelivery());
@@ -341,7 +341,7 @@ public class PostGresDeliveryDAO extends DeliveryDAO {
         }
         else{
             try{
-                String query = "SELECT * FROM \"public\".\"Order\" LEFT JOIN \"public\".\"State_order\" WHERE \"idTypeOrder\" = 1 AND \"idRestaurant\" = ?;";
+                String query = "SELECT * FROM \"public\".\"Order\" AS O LEFT JOIN \"public\".\"State_order\" AS S ON O.\"idState\" = S.\"idState\"  WHERE \"idTypeOrder\" = 1 AND \"idRestaurant\" = ?;";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setInt(1, idRestaurant);
                 ResultSet resultSet = preparedStatement.executeQuery();
