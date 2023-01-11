@@ -33,7 +33,7 @@ public class PostGresDeliveryDAO extends DeliveryDAO {
                 connection.setAutoCommit(false);
                 Savepoint savepoint = connection.setSavepoint("createDelivery");
                 try{
-                    String query = "INSERT INTO \"public\".\"Order\" (\"idTypeOrder\", \"idRestaurant\", \"idUser\", \"accepted\", \"idState\") VALUES (1,?,?,false,1);";
+                    String query = "INSERT INTO \"public\".\"Order\" (\"idTypeOrder\", \"idRestaurant\", \"idUser\", \"idState\") VALUES (1,?,?,1);";
                     PreparedStatement preparedStatement = connection.prepareStatement(query);
                     preparedStatement.setInt(1, delivery.getIdRestaurant());
                     preparedStatement.setInt(2, delivery.getIdUser());

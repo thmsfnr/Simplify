@@ -15,6 +15,7 @@ import project.business.facade.PaymentFacade;
 import project.business.models.Delivery;
 import project.business.models.Meal;
 import project.presentation.controller.delivery.DeliveryInfoController;
+import project.presentation.frame.delivery.DeliveryInfo;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -69,7 +70,7 @@ public class PaymentCardController {
                     "Payment success");
 
             try {
-                FXMLLoader loader = new FXMLLoader(DeliveryInfoController.class.getResource("DeliveryInfoFrame.fxml"));
+                FXMLLoader loader = new FXMLLoader(DeliveryInfo.class.getResource("DeliveryInfoFrame.fxml"));
                 Parent root = loader.load();
                 DeliveryInfoController controller = loader.getController();
                 controller.createDelivery(delivery, meals, idRole);
