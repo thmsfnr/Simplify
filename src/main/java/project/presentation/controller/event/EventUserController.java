@@ -26,6 +26,16 @@ public class EventUserController implements Initializable {
     @FXML
     private ScrollPane contentArea;
 
+    private static int idRestaurant;
+
+    /**
+     * This method is used to set the idRestaurant
+     * @param idRestaurant
+     */
+    public static void setIdRestaurant(int idRestaurant) {
+        EventUserController.idRestaurant = idRestaurant;
+    }
+
     /**
      * This method is used to initialize the frame
      * It displays the component of CreateTableController by default
@@ -35,7 +45,7 @@ public class EventUserController implements Initializable {
         Parent root = null;
 
         EventFacade eventFacade = EventFacade.getInstance();
-        ObservableList<Event> events = eventFacade.getAllEvents();
+        ObservableList<Event> events = eventFacade.getAllEvents(idRestaurant);
 
         VBox node = new VBox();
         for (Event event : events)

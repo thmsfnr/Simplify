@@ -19,6 +19,7 @@ import project.exceptions.AccessDatabaseException;
 import project.exceptions.UserNotFoundException;
 import project.presentation.controller.delivery.DeliveryMealsController;
 import project.presentation.controller.event.EventManagerController;
+import project.presentation.controller.event.EventUserController;
 import project.presentation.controller.meal.MealController;
 import project.presentation.controller.opinion.CreateOpinionController;
 import project.presentation.controller.placement.PlacementController;
@@ -240,6 +241,7 @@ public class RestaurantInfosController {
         // Get the window of the create button
         Window restaurantInfoWindow = backButton.getScene().getWindow();
         EventUserFrame eventUserFrame = new EventUserFrame();
+        EventUserController.setIdRestaurant(this.restaurant.getIdRestaurant());
         eventUserFrame.start(new Stage());
 
         // close the actual frame
@@ -251,6 +253,7 @@ public class RestaurantInfosController {
         // Get the window of the create button
         Window restaurantInfoWindow = backButton.getScene().getWindow();
         EventManagerFrame eventManagerFrame = new EventManagerFrame();
+        EventManagerController.setIdRestaurant(this.restaurant.getIdRestaurant());
         eventManagerFrame.start(new Stage());
 
         // close the actual frame

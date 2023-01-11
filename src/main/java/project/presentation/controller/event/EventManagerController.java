@@ -49,6 +49,16 @@ public class EventManagerController implements Initializable {
     @FXML
     private TableColumn<Event, String> time;
 
+    private static int idRestaurant;
+
+    /**
+     * This method is used to set the idRestaurant
+     * @param idRestaurant
+     */
+    public static void setIdRestaurant(int idRestaurant) {
+        EventManagerController.idRestaurant = idRestaurant;
+    }
+
     /**
      * This method is used to create an event
      * @param event the event
@@ -58,6 +68,7 @@ public class EventManagerController implements Initializable {
         try{
             // Load the fxml file and create a new stage for the popup
             FXMLLoader loader = new FXMLLoader(EventManagerFrame.class.getResource("EventCreateFrame.fxml"));
+            EventCreateController.setIdRestaurant(idRestaurant);
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Create Event");
@@ -262,7 +273,7 @@ public class EventManagerController implements Initializable {
     public void refreshTable() {
         // Call the facade to get
         EventFacade eventFacade = EventFacade.getInstance();
-        ObservableList<Event> tables = eventFacade.getAllEvents();
+        ObservableList<Event> tables = eventFacade.getAllEvents(idRestaurant);
         // Set the table
         EventTab.setItems(tables);
     }
@@ -362,7 +373,7 @@ public class EventManagerController implements Initializable {
         EventFacade eventFacade = EventFacade.getInstance();
 
         // Create an array list of all the tables
-        ObservableList<Event> Events = eventFacade.getAllEvents();
+        ObservableList<Event> Events = eventFacade.getAllEvents(idRestaurant);
 
         // Set the table
         idEvent.setCellValueFactory(new PropertyValueFactory<Event, Integer>("idEvent"));

@@ -14,7 +14,7 @@ public class PostGresEventDAO extends EventDAO {
 
 
     @Override
-    public Boolean createEvent(Event event)
+    public Boolean createEvent(Event event, int idRestaurant)
     {
         Boolean result = false;
 
@@ -27,8 +27,7 @@ public class PostGresEventDAO extends EventDAO {
             try {
                 String query = "INSERT INTO \"public\".\"Event\" (\"idRestaurant\", \"date\", \"description\", \"title\") VALUES (?, ?, ?, ?);";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
-                // get the restaurant id from the file restaurant_idLs.txt
-                int id = (int) LocalStorage.load("restaurant_id");
+                int id = idRestaurant;
                 preparedStatement.setInt(1, id);
                 preparedStatement.setTimestamp(2,event.getDate());
                 preparedStatement.setString(3, event.getDescription());
@@ -37,8 +36,6 @@ public class PostGresEventDAO extends EventDAO {
                 preparedStatement.close();
                 result = true;
             } catch (SQLException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
                 throw new RuntimeException(e);
             } finally {
                 try {
@@ -170,7 +167,7 @@ public class PostGresEventDAO extends EventDAO {
      * @return a list of events
      */
     @Override
-    public ObservableList<Event> getAllEvents() {
+    public ObservableList<Event> getAllEvents(int idRestaurant) {
         ObservableList<Event> result = FXCollections.observableArrayList();
 
         // Get the connection to the database
@@ -183,7 +180,7 @@ public class PostGresEventDAO extends EventDAO {
                 String query = "SELECT * FROM \"public\".\"Event\" WHERE \"idRestaurant\" = ?;";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 // get the restaurant id from the file restaurant_idLs.txt
-                int id = (int) LocalStorage.load("restaurant_id");
+                int id = idRestaurant;
                 preparedStatement.setInt(1, id);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
@@ -196,9 +193,7 @@ public class PostGresEventDAO extends EventDAO {
                 preparedStatement.close();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } finally {
+            }finally {
                 try {
                     connection.close();
                 } catch (SQLException e) {
