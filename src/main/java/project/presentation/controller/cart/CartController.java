@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -17,6 +19,19 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import project.business.facade.CartFacade;
 import project.business.models.Meal;
+import project.business.facade.EventFacade;
+import project.business.facade.MealFacade;
+import project.business.facade.UserFacade;
+import project.business.models.Event;
+import project.business.models.Meal;
+import project.business.models.Restaurant;
+import project.business.models.User;
+import project.presentation.controller.delivery.DeliveryFormController;
+import project.presentation.controller.event.EventDescriptionController;
+import project.presentation.controller.user.PersonalAccountController;
+import project.presentation.frame.cart.CartFrame;
+import project.presentation.frame.delivery.DeliveryForm;
+import project.presentation.frame.event.EventUserFrame;
 import project.presentation.frame.menu.Menu;
 import project.utilities.LocalStorage;
 import java.io.IOException;
@@ -24,13 +39,14 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * Created by Simplify members on 02/01/22.
  * This class is the controller of the CartFrame
  * @author Simplify members
  */
-public class CartController implements Initializable {
+public class CartController {
 
 
     // Instance variables
@@ -57,6 +73,9 @@ public class CartController implements Initializable {
     private Button back;
     private Boolean isVisible = false;
 
+    private Restaurant restaurant;
+
+
     /**
      * This method is used to pass the user id to the controller
      * @param idUser the id of the user
@@ -69,10 +88,11 @@ public class CartController implements Initializable {
      * This method is used to initialize the cart frame
      * it will load the reservation cart first and it can be changed to the delivery cart
      */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize(URL location, ResourceBundle resources, Restaurant restaurant) {
         // switch to ReservationCartFrame
         this.isVisible = true;
+        this.restaurant = restaurant;
 
         try {
             CartFacade cartFacade = CartFacade.getInstance();
@@ -195,10 +215,32 @@ public class CartController implements Initializable {
     }
 
     /**
-     * This method is used to manage an oder
+     * This method is used to manage the event of the delivery button
+     * @param event the event of the delivery button
      */
-    public void order(){
+    public void order(ActionEvent event){
+        Window owner = deliveryCartBtn.getScene().getWindow();
 
+        CartFacade cartFacade = CartFacade.getInstance();
+        try{
+            Map<Meal, Integer> cartMap = (Map) cartFacade.load();
+            List<Meal> meals = (List) cartMap.keySet();
+
+            UserFacade userFacade = UserFacade.getInstance();
+            User user = userFacade.getById(idUser);
+
+            FXMLLoader loader = new FXMLLoader(DeliveryForm.class.getResource("DeliveryFormFrame.fxml"));
+            Parent root = loader.load();
+            DeliveryFormController deliveryFormFrameController = loader.getController();
+            deliveryFormFrameController.initialize(user, restaurant, meals);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            owner.hide();
+
+        } catch(IOException e){
+            throw new RuntimeException(e);
+        }
     }
 
     /**

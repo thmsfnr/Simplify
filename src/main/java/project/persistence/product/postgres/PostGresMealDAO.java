@@ -15,6 +15,12 @@ import java.util.List;
 
 public class PostGresMealDAO extends MealDAO {
 
+    /**
+     * This method is used to return the Meal with it's id
+     * @param idMeal the id of the meal
+     * @return a Meal object
+     * @throws MealNotFoundException if the meal is not found
+     */
     @Override
     public Meal getById(int idMeal) throws MealNotFoundException {
         // Get the connection to the database
@@ -55,6 +61,11 @@ public class PostGresMealDAO extends MealDAO {
         throw new MealNotFoundException();
     }
 
+    /**
+     * This method is used to create a Meal
+     * @param meal the meal model with the information of the new meal
+     * @return True if the meal is created, false if not
+     */
     @Override
     public boolean create(Meal meal) {
         // Get the connection to the database
@@ -85,6 +96,11 @@ public class PostGresMealDAO extends MealDAO {
         return false;
     }
 
+    /**
+     * This method is delete to update a Meal
+     * @param idMeal the id of the meal to delete
+     * @return true if the meal is deleted, false if not
+     */
     @Override
     public boolean delete(int idMeal) {
         // Get the connection to the database
@@ -112,6 +128,11 @@ public class PostGresMealDAO extends MealDAO {
         return false;
     }
 
+    /**
+     * This method is used to update a meal
+     * @param meal the meal model with the information of the meal to update
+     * @return True if the meal is updated, false otherwise
+     */
     @Override
     public boolean update(Meal meal) {
         // Get the connection to the database
@@ -143,6 +164,11 @@ public class PostGresMealDAO extends MealDAO {
         return false;
     }
 
+    /**
+     * THis method is used to get all the meals of a restaurant
+     * @param idRestaurant the id of the restaurant
+     * @return a list of meals
+     */
     @Override
     public List<Meal> getAllMeal(int idRestaurant) {
         ArrayList<Meal> meals = new ArrayList<>();
@@ -185,6 +211,12 @@ public class PostGresMealDAO extends MealDAO {
     }
 
 
+    /**
+     * This method is used to get all the meals of a delivery
+     * @param idDelivery the id of the delivery
+     * @return a List of Meal
+     * @throws AccessDatabaseException
+     */
     @Override
     public List<Meal> getAllMealOfDelivery(int idDelivery) throws AccessDatabaseException {
         Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
@@ -220,6 +252,11 @@ public class PostGresMealDAO extends MealDAO {
     }
 
 
+    /**
+     * This method is used to gets all the meal of a reservation
+     * @param idReservation the id of the reservation
+     * @return a list of Meal
+     */
     @Override
     public List<Meal> getMealsOfReservation(int idReservation) {
         ArrayList<Meal> meals = new ArrayList<>();
@@ -262,5 +299,42 @@ public class PostGresMealDAO extends MealDAO {
         }
         return meals;
 
+    }
+
+    @Override
+    public List<Meal> getAllMealOfRestaurant(int idRestaurant) throws AccessDatabaseException {
+        Connection connection = PostGresDAOFactory.connectionPostgres.getConnection();
+
+        if(connection == null){
+            throw new AccessDatabaseException();
+        }
+        else{
+            try{
+                String query = "SELECT * FROM \"public\".\"Meal\" WHERE \"idRestaurant\" = ?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, idRestaurant);
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                ArrayList<Meal> meals = new ArrayList<>();
+
+                while(resultSet.next()){
+                    Meal meal = new Meal(
+                            resultSet.getInt("idMeal"),
+                            resultSet.getInt("idRestaurant"),
+                            resultSet.getString("description"),
+                            resultSet.getString("title"),
+                            resultSet.getDouble("price")
+                    );
+                    meals.add(meal);
+                }
+
+                resultSet.close();
+                preparedStatement.close();
+                return meals;
+
+            } catch(SQLException e){
+                throw new AccessDatabaseException();
+            }
+        }
     }
 }

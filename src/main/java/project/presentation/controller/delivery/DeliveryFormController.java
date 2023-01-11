@@ -23,23 +23,17 @@ import java.util.List;
  * @author Simplify members
  */
 public class DeliveryFormController {
-
     private User user;
     private Restaurant restaurant;
     private List<Meal> meals;
-
     @FXML
     private Button submitButton;
-
     @FXML
     private TextArea addressField;
-
     @FXML
     private TextField phoneField;
-
     @FXML
     private TextField nameField;
-
     @FXML
     private TextField firstnameField;
 

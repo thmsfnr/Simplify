@@ -138,7 +138,7 @@ public class ReservationInfoController implements Initializable {
             } else if(reservationSelected.getState() == State.WAITING_FOR_VALIDATION) {
                 state.setText("Waiting for validation");
             } else if(reservationSelected.getState() == State.ON_DELIVERY) {
-                state.setText("On delivery");
+                state.setText("In progress");
             }
         }else if (reservationSelected.getState() == State.CANCELLED){
             //color of the text is red
@@ -148,7 +148,7 @@ public class ReservationInfoController implements Initializable {
         else{
             //color of the text is green
             state.setStyle("-fx-fill: #007500");
-            state.setText("Delivered");
+            state.setText("Validated");
         }
         //initialize the table of meals
         ObservableList<Meal> listeMeals = FXCollections.observableList(reservationFacade.getMealsOfReservation(reservationSelected.getIdOrder()));
@@ -172,6 +172,12 @@ public class ReservationInfoController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * This method is used to switch to the form reservation page
+     * @param event the event button
+     * @throws Exception
+     */
     @FXML
     public void switchToFormFrame(ActionEvent event) throws Exception {
         // Get the window of the create button
@@ -186,6 +192,10 @@ public class ReservationInfoController implements Initializable {
         reservationInfoWindow.hide();
     }
 
+    /**
+     * This method is used to switch to the reservation list page
+     * @throws Exception
+     */
     private void switchToReservationFrame() throws Exception {
         // Get the window of the create button
         Window reservationInfoWindow = button_edit_reservation.getScene().getWindow();
@@ -197,6 +207,10 @@ public class ReservationInfoController implements Initializable {
         reservationInfoWindow.hide();
     }
 
+    /**
+     * This method is used to accept the selected reservation
+     * @param event the event of the button
+     */
     @FXML
     public void accept_reservation(ActionEvent event){
         if(isAdmin || isManager){
@@ -213,6 +227,10 @@ public class ReservationInfoController implements Initializable {
         }
     }
 
+    /**
+     * This method is used to delete the selected reservation
+     * @param event the event of the button
+     */
     @FXML
     public void delete_reservation(ActionEvent event){
         if(isAdmin || isManager){
@@ -229,6 +247,9 @@ public class ReservationInfoController implements Initializable {
         }
     }
 
+    /**
+     * This method is used to cancel the selected reservation
+     */
     @FXML
     public void cancel(){
         Window owner = button_edit_reservation.getScene().getWindow();

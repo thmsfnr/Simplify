@@ -32,8 +32,6 @@ public class PasswordCrypt {
      * @return true if the password is correct, false otherwise
      */
     public boolean compare(String password, String hash) {
-        System.out.println("password : " + password);
-        System.out.println("hash : " + hash);
         // Check that the password can be hashed with the hash to confirm it is the same password
         return BCrypt.checkpw(password, hash);
     }

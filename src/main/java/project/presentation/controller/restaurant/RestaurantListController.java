@@ -293,8 +293,15 @@ public class RestaurantListController {
             Display.showAlert(Alert.AlertType.ERROR, null, "Error", "An error occurred in the back, please retry later.");
         }
 
-        addUpdateButton();
-        addButtonDelete();
+
+        if(idRole == 2){
+            addButtonDelete();
+            addUpdateButton();
+        }
+        else{
+            addButton.setVisible(false);
+        }
+
         addDetailsButton();
     }
 
