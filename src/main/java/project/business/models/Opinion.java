@@ -34,7 +34,6 @@ public class Opinion {
      * This method is used to create an opinion
      * @param idUser the id of the user
      * @param comment the comment of the opinion
-     * @return the opinion created
      */
     public Opinion(int idUser, String comment) {
         this.idUser = idUser;

@@ -255,7 +255,6 @@ public class PostGresDeliveryDAO extends DeliveryDAO {
     /**
      * This method is used to delete a delivery
      * @param id the id of the delivery to delete
-     * @return true if the delivery is deleted, false otherwise
      */
     @Override
     public void deleteDelivery(int id) throws AccessDatabaseException {
@@ -285,7 +284,6 @@ public class PostGresDeliveryDAO extends DeliveryDAO {
      * This method is used to get all the orders of a user
      * @param idDelivery the id of the delivery
      * @param state the new state of the delivery
-     * @return void
      */
     @Override
     public void changeStateOfDelivery(int idDelivery, String state) throws AccessDatabaseException {
